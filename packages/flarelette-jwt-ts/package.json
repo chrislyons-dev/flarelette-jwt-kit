@@ -1,0 +1,23 @@
+{
+  "name": "@flarelette/jwt-ts",
+  "version": "1.4.0",
+  "description": "JWT sign/verify + auth helpers + secret generator for Hono/Workers \u2014 HS512 default",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "bin": {
+    "flarelette-jwt-secret": "dist/cli.js"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json"
+  },
+  "dependencies": {
+    "jose": "^5.3.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.6.3"
+  },
+  "license": "MIT"
+}
