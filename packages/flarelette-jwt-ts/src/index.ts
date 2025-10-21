@@ -1,3 +1,4 @@
+export * from './config';
 export * from './sign';
 export * from './verify';
 export * from './util';

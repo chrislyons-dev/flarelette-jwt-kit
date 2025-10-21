@@ -4,11 +4,11 @@ requires = ["setuptools", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "flarelette-jwt-kit"
-version = "1.4.0"
-description = "Unified JWT sign/verify, auth helpers, and secret generator for Flarelette ecosystem (Python + Node) — HS512 default"
+name = "flarelette-jwt-kit-env"
+version = "1.6.0"
+description = "Env-driven JWT kit: HS512 default, optional EdDSA via env (Node & Python)"
 readme = "README.md"
 license = { text = "MIT" }
-authors = [{ name = "Chris Lyons", email = "dev@chrislyons.dev" }]
+authors = [{ name = "Chris Lyons" }]
 requires-python = ">=3.11"
 dependencies = []

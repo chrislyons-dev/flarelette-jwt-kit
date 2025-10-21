@@ -1,14 +1,15 @@
 {
   "name": "@flarelette/jwt-ts",
-  "version": "1.4.0",
-  "description": "JWT sign/verify + auth helpers + secret generator for Hono/Workers \u2014 HS512 default",
+  "version": "1.6.0",
+  "description": "Env-driven JWT kit for Workers/Hono: HS512 default, EdDSA optional",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "files": [
     "dist"
   ],
   "bin": {
-    "flarelette-jwt-secret": "dist/cli.js"
+    "flarelette-jwt-secret": "dist/cli.js",
+    "flarelette-jwt-keygen": "dist/keygen.js"
   },
   "scripts": {
     "build": "tsc -p tsconfig.json"

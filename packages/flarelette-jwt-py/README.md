@@ -1,1 +1,1 @@
-HS512 default, 64-byte base64url secrets.
+Env-driven HS512 (sign/verify) + EdDSA verify for Workers Python.

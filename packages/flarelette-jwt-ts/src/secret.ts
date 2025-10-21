@@ -12,7 +12,5 @@ export function isValidBase64UrlSecret(s: string, minBytes = 64): boolean {
   try {
     const bytes = Buffer.from(b64, 'base64');
     return bytes.length >= minBytes;
-  } catch {
-    return false;
-  }
+  } catch { return false }
 }
