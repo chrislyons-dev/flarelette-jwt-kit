@@ -1,11 +1,12 @@
 
 import { sign } from './sign'
 import { verify } from './verify'
+import type { Fetcher } from './types'
 
 export async function createToken(claims: Record<string, any>, opts?: Partial<{ iss:string; aud:string; ttlSeconds:number }>) {
   return sign(claims, opts)
 }
-export type AuthzOpts = Partial<{ iss:string; aud:string; leeway:number }> & {
+export type AuthzOpts = Partial<{ iss:string; aud:string; leeway:number; jwksService:Fetcher }> & {
   require_all_permissions?: string[]; require_any_permission?: string[]
   require_roles_all?: string[]; require_roles_any?: string[]
   predicates?: Array<(payload: Record<string, any>) => boolean>

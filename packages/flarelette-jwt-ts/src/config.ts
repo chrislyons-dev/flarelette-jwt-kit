@@ -11,7 +11,7 @@ function envRead(name: string): string | undefined {
 export function envMode(role: 'producer'|'consumer'): Mode {
   const env = new Proxy({}, { get: (_,k:any)=>envRead(String(k)) })
   if (env.JWT_PRIVATE_JWK || env.JWT_PRIVATE_JWK_PATH || env.JWT_PRIVATE_JWK_NAME) return 'EdDSA'
-  if (env.JWT_PUBLIC_JWK || env.JWT_PUBLIC_JWK_NAME || env.JWT_JWKS_URL || env.JWT_JWKS_URL_NAME) return 'EdDSA'
+  if (env.JWT_PUBLIC_JWK || env.JWT_PUBLIC_JWK_NAME || env.JWT_JWKS_SERVICE || env.JWT_JWKS_SERVICE_NAME) return 'EdDSA'
   return 'HS512'
 }
 
@@ -58,8 +58,8 @@ export function getPublicJwkString(): string | null {
   return envRead('JWT_PUBLIC_JWK') || null
 }
 
-export function getJwksUrl(): string | null {
-  const name = envRead('JWT_JWKS_URL_NAME') as string | undefined
+export function getJwksServiceName(): string | null {
+  const name = envRead('JWT_JWKS_SERVICE_NAME') as string | undefined
   if (name && envRead(name)) return envRead(name)!
-  return envRead('JWT_JWKS_URL') || null
+  return envRead('JWT_JWKS_SERVICE') || null
 }

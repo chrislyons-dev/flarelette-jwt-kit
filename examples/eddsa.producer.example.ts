@@ -1,79 +1,142 @@
-// examples/eddsa.producer.example.ts
 /**
  * Example: EdDSA JWT Producer (Gateway)
  *
- * - Signs JWTs using Ed25519 private JWK (from secret binding)
- * - Exposes internal JWKS endpoint for verifiers
- * - Demonstrates env-driven config (JWT_PRIVATE_JWK_NAME, JWT_KID)
+ * This worker performs two roles:
+ * 1. Signs JWTs using Ed25519 private key
+ * 2. Exposes JWKS endpoint for consumer workers (via service binding)
  *
- * Required vars in wrangler.toml:
+ * Required setup:
+ *   1. Generate keypair: npx flarelette-jwt-keygen --kid=ed25519-2025-01 > keys.json
+ *   2. Store private key: wrangler secret put GW_ED25519_PRIVATE
+ *      (paste privateJwk from keys.json)
+ *   3. Copy publicJwk to GW_ED25519_PUBLIC in wrangler.toml
+ *   4. Deploy: wrangler deploy --config examples/eddsa.producer.example.toml
  *
- * [vars]
- * JWT_PRIVATE_JWK_NAME = "GW_ED25519_PRIVATE"
- * JWT_KID = "ed25519-2025-01"
- * JWT_ISS = "https://gateway.internal"
- * JWT_AUD = "bond-math.api"
- *
- * # Store private JWK secret (output from npx flarelette-jwt-keygen)
- * # wrangler secret put GW_ED25519_PRIVATE
- *
- * # Store public JWK for JWKS endpoint
- * # wrangler kv:put GW_ED25519_PUBLIC '{"kty":"OKP","crv":"Ed25519","kid":"ed25519-2025-01","x":"...","use":"sig","alg":"EdDSA"}'
+ * Consumer workers can:
+ *   - Bind to this worker via [[services]] for JWKS
+ *   - Receive JWTs from authentication flow
+ *   - Verify tokens using the service binding
  */
 
 import { Hono } from "hono";
 import { adapters } from "@flarelette/jwt-ts";
 
-const app = new Hono();
+interface Env {
+  // Secret bindings (indirection pattern)
+  GW_ED25519_PRIVATE?: string
+
+  // Environment variables
+  JWT_PRIVATE_JWK_NAME?: string
+  JWT_KID?: string
+  JWT_ISS?: string
+  JWT_AUD?: string
+  JWT_TTL_SECONDS?: string
+
+  // Public key for JWKS endpoint
+  GW_ED25519_PUBLIC?: string
+  JWT_PUBLIC_JWK_NAME?: string
+}
+
+const app = new Hono<{ Bindings: Env }>();
 
 /**
- * JWKS endpoint — exposes the public key(s) used by this gateway.
- * Should be reachable only by internal services.
+ * JWKS Endpoint (for service binding consumers)
+ *
+ * Consumer workers fetch this via service binding:
+ *   env.GATEWAY_BINDING.fetch('/.well-known/jwks.json')
+ *
+ * Not exposed as public HTTP endpoint - internal only.
  */
-app.get("/.well-known/jwks.json", (_c) => {
-  const jwks = {
-    keys: [
-      JSON.parse(_c.env.GW_ED25519_PUBLIC), // pulled from a plain var or KV binding
-    ],
-  };
-  return _c.json(jwks, 200, {
-    "Cache-Control": "public, max-age=300", // 5 min cache
-  });
+app.get("/.well-known/jwks.json", (c) => {
+  // Support indirection for public key
+  const publicKeyName = c.env.JWT_PUBLIC_JWK_NAME || 'GW_ED25519_PUBLIC'
+  const publicJwkString = c.env[publicKeyName as keyof Env]
+
+  if (!publicJwkString || typeof publicJwkString !== 'string') {
+    return c.json({ error: 'Public key not configured' }, 500)
+  }
+
+  try {
+    const publicJwk = JSON.parse(publicJwkString)
+
+    return c.json(
+      { keys: [publicJwk] },
+      200,
+      { 'Cache-Control': 'public, max-age=300' } // 5 minute cache
+    )
+  } catch (error) {
+    return c.json({ error: 'Invalid public key format' }, 500)
+  }
 });
 
 /**
- * Token issuance endpoint (for internal service-to-service auth)
+ * Token Issuance Endpoint
+ *
+ * Example: POST /token
+ * Body: { "sub": "user123", "roles": ["admin"], "permissions": ["read:data"] }
  */
-app.post("/token", async (_c) => {
-  const jwt = adapters.makeKit(_c.env); // inject Cloudflare bindings
-  const payload = await _c.req.json().catch(() => ({}));
+app.post("/token", async (c) => {
+  const jwt = adapters.makeKit(c.env);
+  const payload = await c.req.json<{
+    sub?: string
+    roles?: string[]
+    permissions?: string[]
+    [key: string]: any
+  }>().catch(() => ({}));
 
-  // Add basic subject info and claims
+  // Sign token with EdDSA
   const token = await jwt.createToken({
     sub: payload.sub || "system",
     roles: payload.roles || ["service"],
-    permissions: payload.permissions || ["read:data"],
+    permissions: payload.permissions || [],
+    ...payload // Allow additional claims
   });
 
-  return _c.json({ token });
+  return c.json({ token });
 });
 
 /**
- * Example protected endpoint (optional sanity check)
- * You can verify immediately using the same kit.
+ * Token Verification Endpoint (optional sanity check)
+ *
+ * Verifies tokens signed by this gateway.
+ * Example: GET /verify with Authorization: Bearer <token>
  */
-app.get("/verify", async (_c) => {
-  const jwt = adapters.makeKit(_c.env);
-  const authHeader = _c.req.header("authorization") || "";
+app.get("/verify", async (c) => {
+  const jwt = adapters.makeKit(c.env);
+  const authHeader = c.req.header("authorization") || "";
   const token = authHeader.replace(/^Bearer\s+/i, "");
 
-  const verified = await jwt.verify(token);
-  if (!verified) return _c.text("Invalid or expired token", 401);
+  if (!token) {
+    return c.json({ error: "Missing token" }, 401);
+  }
 
-  return _c.json({
+  const verified = await jwt.verify(token);
+  if (!verified) {
+    return c.json({ error: "Invalid or expired token" }, 401);
+  }
+
+  return c.json({
     message: "Token valid",
     sub: verified.sub,
     exp: verified.exp,
+    iat: verified.iat,
+    roles: verified.roles,
+    permissions: verified.permissions
+  });
+});
+
+/**
+ * Health check endpoint
+ */
+app.get("/health", (c) => {
+  return c.json({
+    status: "healthy",
+    service: "jwt-gateway",
+    endpoints: {
+      jwks: "/.well-known/jwks.json",
+      token: "POST /token",
+      verify: "GET /verify"
+    }
   });
 });
 
