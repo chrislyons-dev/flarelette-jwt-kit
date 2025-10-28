@@ -1,10 +1,11 @@
 
 import { createRemoteJWKSet } from 'jose'
+import { getJwksUrl } from './config'
 
 export function jwksFromEnv() {
-  const url = process.env.JWT_JWKS_URL
-  if (!url) throw new Error('JWT_JWKS_URL missing for EdDSA verification')
-  return createRemoteJWKSet(new URL(url), { cooldownDuration: 300000 }) // 5 minutes
+  const url = getJwksUrl()
+  if (!url) throw new Error('JWT_JWKS_URL or JWT_JWKS_URL_NAME missing for EdDSA verification')
+  return createRemoteJWKSet(new URL(url), { cooldownDuration: 300000 })
 }
 
 export function allowedThumbprints(): Set<string> | null {

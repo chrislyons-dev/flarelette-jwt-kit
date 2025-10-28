@@ -4,8 +4,8 @@ requires = ["setuptools", "wheel"]
 
 [project]
 name = "flarelette-jwt-py"
-version = "1.6.0"
-description = "Env-driven JWT kit for Workers Python: HS512 sign/verify + EdDSA verify"
+version = "1.7.0"
+description = "Env-driven JWT kit for Workers Python (HS512 sign/verify + EdDSA verify) with secret-name indirection"
 authors = [{ name = "Chris Lyons" }]
 requires-python = ">=3.11"
 dependencies = []

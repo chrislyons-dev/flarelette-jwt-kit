@@ -5,8 +5,8 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "flarelette-jwt-kit-env"
-version = "1.6.0"
-description = "Env-driven JWT kit: HS512 default, optional EdDSA via env (Node & Python)"
+version = "1.7.0"
+description = "Env-driven JWT kit with secret-name indirection (Cloudflare-friendly)"
 readme = "README.md"
 license = { text = "MIT" }
 authors = [{ name = "Chris Lyons" }]

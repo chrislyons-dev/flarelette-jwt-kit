@@ -1,7 +1,7 @@
 {
   "name": "@flarelette/jwt-ts",
-  "version": "1.6.0",
-  "description": "Env-driven JWT kit for Workers/Hono: HS512 default, EdDSA optional",
+  "version": "1.7.0",
+  "description": "Env-driven JWT kit (HS512 + EdDSA) with secret-name indirection",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "files": [

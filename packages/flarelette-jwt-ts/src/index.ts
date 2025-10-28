@@ -4,3 +4,5 @@ export * from './verify';
 export * from './util';
 export * from './high';
 export * from './secret';
+
+export * as adapters from './adapters/hono';

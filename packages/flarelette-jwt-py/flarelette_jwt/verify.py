@@ -1,9 +1,9 @@
 
 from __future__ import annotations
-import json, base64, time, os
+import json, base64, time
 from typing import Any
-from js import crypto  # WebCrypto
-from .env import mode, common, get_hs_secret_bytes
+from js import crypto
+from .env import mode, common, get_hs_secret_bytes, get_public_jwk_string
 
 def _b64url_decode(s: str) -> bytes:
     return base64.urlsafe_b64decode(s + "=" * (-len(s) % 4))
@@ -28,9 +28,8 @@ async def verify(token: str, *, iss: str | None = None, aud: str | None = None, 
         if not ok: return None
     else:
         if header.get("alg") != "EdDSA": return None
-        jwk_str = os.getenv("JWT_PUBLIC_JWK")
-        if not jwk_str:
-            return None  # prefer injecting JWKS snapshot via env/KV in Workers Python
+        jwk_str = get_public_jwk_string()
+        if not jwk_str: return None
         jwk = json.loads(jwk_str)
         x_b64 = jwk.get("x")
         if not x_b64: return None

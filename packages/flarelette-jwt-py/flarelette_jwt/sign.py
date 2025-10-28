@@ -1,7 +1,7 @@
 
 from __future__ import annotations
-import json, base64, time, os
-from js import crypto  # WebCrypto
+import json, base64, time
+from js import crypto
 from .env import mode, common, get_hs_secret_bytes
 
 def _b64url(b: bytes) -> str:

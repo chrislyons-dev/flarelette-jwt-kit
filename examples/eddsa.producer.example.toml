@@ -1,0 +1,13 @@
+name = "my-gateway"
+main = "examples/eddsa.producer.example.ts"
+compatibility_date = "2025-10-01"
+
+[vars]
+JWT_PRIVATE_JWK_NAME = "GW_ED25519_PRIVATE"
+JWT_KID = "ed25519-2025-01"
+JWT_ISS = "https://gateway.internal"
+JWT_AUD = "my-app.api"
+GW_ED25519_PUBLIC = '{"kty":"OKP","crv":"Ed25519","kid":"ed25519-2025-01","x":"<base64url>","alg":"EdDSA","use":"sig"}'
+
+# Secrets (private keys are stored securely)
+# wrangler secret put GW_ED25519_PRIVATE

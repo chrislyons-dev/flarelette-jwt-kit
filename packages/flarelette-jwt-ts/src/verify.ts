@@ -1,6 +1,6 @@
 
 import { jwtVerify, importJWK, calculateJwkThumbprint } from 'jose'
-import { envMode, getCommon, getHSSecret } from './config'
+import { envMode, getCommon, getHSSecret, getPublicJwkString } from './config'
 import { jwksFromEnv, allowedThumbprints } from './jwks'
 
 export async function verify(token: string, opts?: Partial<{ iss:string; aud:string; leeway:number }>): Promise<Record<string, any> | null> {
@@ -16,8 +16,9 @@ export async function verify(token: string, opts?: Partial<{ iss:string; aud:str
   } else {
     try {
       let keyLike: any
-      if (process.env.JWT_PUBLIC_JWK) {
-        const jwk = JSON.parse(process.env.JWT_PUBLIC_JWK)
+      const inline = getPublicJwkString();
+      if (inline) {
+        const jwk = JSON.parse(inline)
         keyLike = await importJWK(jwk, 'EdDSA')
         const pins = allowedThumbprints()
         if (pins) {

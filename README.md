@@ -1,26 +1,31 @@
 
-# Flarelette JWT Kit (Env-Driven) — HS512 default, EdDSA optional
+# Flarelette JWT Kit (Env-Driven + Secret-Name Indirection)
 
-Same API across TS & Python (`sign`, `verify`, `createToken`, `checkAuth`), but the crypto mode is chosen by **environment variables**.
+Same API for TS & Python (`sign`, `verify`, `createToken`, `checkAuth`), but the kit chooses crypto **from environment** and loads secrets **by name** (great for Cloudflare bindings).
 
 ## Modes
-- **HS512 (default)**: If `JWT_SECRET` is present.
-- **EdDSA (Ed25519)**: If any of `JWT_PRIVATE_JWK`, `JWT_PRIVATE_JWK_PATH`, `JWT_PUBLIC_JWK`, or `JWT_JWKS_URL` is present.
+- **HS512 (default):** used if `JWT_SECRET_NAME` → `<binding>` (preferred) or `JWT_SECRET` (legacy) is set.
+- **EdDSA (Ed25519):** used if any of `JWT_PRIVATE_JWK_NAME` / `JWT_PRIVATE_JWK` (producer) or `JWT_PUBLIC_JWK_NAME` / `JWT_PUBLIC_JWK` / `JWT_JWKS_URL_NAME` / `JWT_JWKS_URL` (consumer) is set.
 
-## Env Variables
-Common:
+## Common env
 - `JWT_ISS`, `JWT_AUD`
-- `JWT_LEEWAY` (default 90), `JWT_TTL_SECONDS` (default 900)
+- `JWT_TTL_SECONDS` (default 900)
+- `JWT_LEEWAY` (default 90)
 
-HS512:
-- `JWT_SECRET` (base64url or raw string; recommended base64url 64 bytes)
+## Secret-name indirection
+Instead of placing secret values in env vars directly, point to a binding name:
+- `JWT_SECRET_NAME=FLARELETTE_JWT_SECRET` → read from `process.env['FLARELETTE_JWT_SECRET']` (Node) or `os.environ['FLARELETTE_JWT_SECRET']` (Python).
+- Similarly for JWKs/URLs: `JWT_PRIVATE_JWK_NAME`, `JWT_PUBLIC_JWK_NAME`, `JWT_JWKS_URL_NAME`.
 
-EdDSA:
-- Producer: `JWT_PRIVATE_JWK` (JWK JSON) or `JWT_PRIVATE_JWK_PATH` (file path), optional `JWT_KID`
-- Consumer: `JWT_PUBLIC_JWK` (inline JWK) **or** `JWT_JWKS_URL` (TS only)
-- Optional pinning: `JWT_ALLOWED_THUMBPRINTS` (comma-separated RFC7638 thumbprints)
+### Cloudflare Workers (Wrangler)
+```toml
+# wrangler.toml
+name = "gateway"
+main = "src/index.ts"
 
-## Packages
-- `packages/flarelette-jwt-ts`: TypeScript (Node/Workers), supports HS512 + EdDSA sign/verify, JWKS cache, secret and keygen CLIs
-- `packages/flarelette-jwt-py`: Workers Python, supports HS512 sign/verify, EdDSA verify (via `JWT_PUBLIC_JWK`), secret CLI
-
+# Store the actual secret: wrangler secret put FLARELETTE_JWT_SECRET
+[vars]
+JWT_SECRET_NAME = "FLARELETTE_JWT_SECRET"
+JWT_ISS = "https://gw.example"
+JWT_AUD = "bond-math.api"
+```
