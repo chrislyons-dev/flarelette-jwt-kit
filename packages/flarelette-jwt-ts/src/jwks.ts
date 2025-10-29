@@ -1,11 +1,19 @@
 import { importJWK } from 'jose'
-import type { Fetcher, JWKSResponse } from './types'
+import type { Fetcher, JWKSResponse } from './types.js'
+
+/**
+ * Extended JsonWebKey with kid property
+ * (kid exists at runtime but isn't in TypeScript's JsonWebKey type)
+ */
+interface JWKWithKid extends JsonWebKey {
+  kid?: string
+}
 
 /**
  * JWKS cache with cooldown period
  */
 interface JWKSCache {
-  keys: JsonWebKey[]
+  keys: JWKWithKid[]
   fetchedAt: number
 }
 
@@ -24,7 +32,7 @@ export function clearJwksCache(): void {
  * Fetch JWKS from a service binding
  * Implements 5-minute caching to reduce load on JWKS service
  */
-export async function fetchJwksFromService(service: Fetcher): Promise<JsonWebKey[]> {
+export async function fetchJwksFromService(service: Fetcher): Promise<JWKWithKid[]> {
   const now = Date.now()
 
   // Return cached keys if within cooldown period
@@ -56,7 +64,7 @@ export async function fetchJwksFromService(service: Fetcher): Promise<JsonWebKey
  */
 export async function getKeyFromJwks(
   kid: string | undefined,
-  jwks: JsonWebKey[]
+  jwks: JWKWithKid[]
 ): Promise<CryptoKey | Uint8Array> {
   if (!kid) {
     throw new Error(
@@ -67,9 +75,8 @@ export async function getKeyFromJwks(
   const jwk = jwks.find(k => k.kid === kid)
 
   if (!jwk) {
-    // Type assertion for kid property which exists at runtime but not in TypeScript's JsonWebKey type
     const availableKids = jwks
-      .map(k => (k as { kid?: string }).kid)
+      .map(k => k.kid)
       .filter(Boolean)
       .join(', ')
     throw new Error(

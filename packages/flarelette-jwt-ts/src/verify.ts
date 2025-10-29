@@ -4,9 +4,10 @@ import {
   calculateJwkThumbprint,
   decodeProtectedHeader,
 } from 'jose'
-import { envMode, getCommon, getHSSecret, getPublicJwkString } from './config'
-import { fetchJwksFromService, getKeyFromJwks, allowedThumbprints } from './jwks'
+import { envMode, getCommon, getHSSecret, getPublicJwkString } from './config.js'
+import { fetchJwksFromService, getKeyFromJwks, allowedThumbprints } from './jwks.js'
 import type { JWTPayload } from 'jose'
+import type { Fetcher } from './types.js'
 
 export async function verify(
   token: string,

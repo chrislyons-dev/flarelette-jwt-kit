@@ -117,8 +117,9 @@ docs(security): clarify HS512 vs EdDSA trade-offs
 - **Platform awareness:** Respect Cloudflare Workers limitations (especially for Python)
 - **Fail-silent verification:** Return `null`/`None` on errors, don't throw
 - **Environment-driven:** No configuration files or hardcoded defaults
+- **Code must speak to us:** Use descriptive, intention-revealing names that eliminate the need for comments
 
-For detailed standards, see **[notes/coding.md](notes/coding.md)**.
+For comprehensive coding standards including naming conventions and best practices, see **[docs/CODING_STANDARDS.md](docs/CODING_STANDARDS.md)**.
 
 ### TypeScript Guidelines
 

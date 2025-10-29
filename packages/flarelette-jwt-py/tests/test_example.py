@@ -3,15 +3,17 @@
 Run with: npm run test:py or pytest packages/flarelette-jwt-py
 """
 
+from __future__ import annotations
+
 import pytest
 
 
-def test_example():
+def test_example() -> None:
     """Example test - should always pass."""
     assert True
 
 
-def test_python_version():
+def test_python_version() -> None:
     """Test that we're running Python 3.11+."""
     import sys
 
@@ -21,7 +23,7 @@ def test_python_version():
 class TestEnvironmentSetup:
     """Test environment setup."""
 
-    def test_pytest_configured(self):
+    def test_pytest_configured(self) -> None:
         """Test that pytest is configured correctly."""
         assert pytest is not None
 

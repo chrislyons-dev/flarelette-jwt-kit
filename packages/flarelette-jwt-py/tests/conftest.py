@@ -1,13 +1,22 @@
 """Pytest configuration and fixtures."""
 
+from __future__ import annotations
+
+from typing import TYPE_CHECKING
+
 import pytest
+
+if TYPE_CHECKING:
+    from collections.abc import Callable
+
+    from pytest import MonkeyPatch
 
 
 @pytest.fixture
-def mock_env(monkeypatch):
+def mock_env(monkeypatch: MonkeyPatch) -> Callable[[dict[str, str]], None]:
     """Fixture to mock environment variables."""
 
-    def _set_env(env_vars: dict):
+    def _set_env(env_vars: dict[str, str]) -> None:
         for key, value in env_vars.items():
             monkeypatch.setenv(key, value)
 
@@ -15,7 +24,7 @@ def mock_env(monkeypatch):
 
 
 @pytest.fixture
-def hs512_env(mock_env):
+def hs512_env(mock_env: Callable[[dict[str, str]], None]) -> None:
     """Fixture for HS512 test environment."""
     mock_env(
         {
@@ -29,7 +38,7 @@ def hs512_env(mock_env):
 
 
 @pytest.fixture
-def eddsa_env(mock_env):
+def eddsa_env(mock_env: Callable[[dict[str, str]], None]) -> None:
     """Fixture for EdDSA test environment."""
     # Mock public key for verification tests
     public_jwk = '{"kty":"OKP","crv":"Ed25519","x":"test-public-key"}'

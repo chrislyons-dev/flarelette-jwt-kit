@@ -1,12 +1,24 @@
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Any
+from typing import TYPE_CHECKING, Any, Protocol
+
+from .sign import sign
+from .verify import verify
 
 if TYPE_CHECKING:
     from collections.abc import Callable
 
-from .sign import sign
-from .verify import verify
+
+class PolicyBuilder(Protocol):
+    """Builder interface for creating JWT authorization policies."""
+
+    def base(self, **b: Any) -> PolicyBuilder: ...
+    def need_all(self, *p: str) -> PolicyBuilder: ...
+    def need_any(self, *p: str) -> PolicyBuilder: ...
+    def roles_all(self, *r: str) -> PolicyBuilder: ...
+    def roles_any(self, *r: str) -> PolicyBuilder: ...
+    def where(self, fn: Callable[[dict], bool]) -> PolicyBuilder: ...
+    def build(self) -> dict[str, Any]: ...
 
 
 async def create_token(
@@ -56,40 +68,40 @@ async def check_auth(
     }
 
 
-def policy():
+def policy() -> PolicyBuilder:
     opts: dict[str, Any] = {}
 
-    class B:
-        def base(self, **b):
+    class Builder:
+        def base(self, **b: Any) -> PolicyBuilder:
             opts.update(b)
             return self
 
-        def need_all(self, *p):
+        def need_all(self, *p: str) -> PolicyBuilder:
             opts.setdefault("require_all_permissions", [])
             opts["require_all_permissions"].extend(p)
             return self
 
-        def need_any(self, *p):
+        def need_any(self, *p: str) -> PolicyBuilder:
             opts.setdefault("require_any_permission", [])
             opts["require_any_permission"].extend(p)
             return self
 
-        def roles_all(self, *r):
+        def roles_all(self, *r: str) -> PolicyBuilder:
             opts.setdefault("require_roles_all", [])
             opts["require_roles_all"].extend(r)
             return self
 
-        def roles_any(self, *r):
+        def roles_any(self, *r: str) -> PolicyBuilder:
             opts.setdefault("require_roles_any", [])
             opts["require_roles_any"].extend(r)
             return self
 
-        def where(self, fn):
+        def where(self, fn: Callable[[dict], bool]) -> PolicyBuilder:
             opts.setdefault("predicates", [])
             opts["predicates"].append(fn)
             return self
 
-        def build(self):
+        def build(self) -> dict[str, Any]:
             return opts
 
-    return B()
+    return Builder()

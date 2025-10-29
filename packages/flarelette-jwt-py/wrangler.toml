@@ -1,6 +1,7 @@
 name = "flarelette-jwt-py-test"
 main = "example_worker.py"
-compatibility_date = "2024-10-01"
+compatibility_date = "2025-08-01"
+compatibility_flags = ["python_workers", "python_workflows"]
 
 # Enable Python Workers with Pyodide
 [python]

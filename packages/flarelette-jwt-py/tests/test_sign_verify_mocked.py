@@ -4,9 +4,15 @@ These tests use a mock implementation of the Cloudflare Workers js module
 to test the actual sign/verify logic without requiring Pyodide.
 """
 
+from __future__ import annotations
+
 import os
+from typing import TYPE_CHECKING
 
 import pytest
+
+if TYPE_CHECKING:
+    from collections.abc import Generator
 
 # Install js mock BEFORE importing anything from flarelette_jwt
 from .mock_js import install_js_mock, uninstall_js_mock
@@ -21,7 +27,7 @@ class TestSignVerifyWithMock:
     """Tests for sign/verify using mocked WebCrypto."""
 
     @pytest.fixture(autouse=True)
-    def setup_env(self):
+    def setup_env(self) -> Generator[None, None, None]:
         """Setup environment for each test."""
         # Set up HS512 mode with mock secret
         os.environ["JWT_SECRET"] = (
@@ -49,7 +55,7 @@ class TestSignVerifyWithMock:
                 del os.environ[key]
 
     @pytest.mark.asyncio
-    async def test_sign_creates_token(self):
+    async def test_sign_creates_token(self) -> None:
         """Should sign a token with HS512."""
         payload = {"user_id": "123", "email": "test@example.com"}
 
@@ -60,7 +66,7 @@ class TestSignVerifyWithMock:
         assert token.count(".") == 2  # JWT format: header.payload.signature
 
     @pytest.mark.asyncio
-    async def test_sign_includes_claims(self):
+    async def test_sign_includes_claims(self) -> None:
         """Should include standard JWT claims."""
         payload = {"user_id": "123"}
 
@@ -75,7 +81,7 @@ class TestSignVerifyWithMock:
         assert "exp" in verified
 
     @pytest.mark.asyncio
-    async def test_verify_accepts_valid_token(self):
+    async def test_verify_accepts_valid_token(self) -> None:
         """Should verify a valid token."""
         payload = {"user_id": "456", "role": "admin"}
 
@@ -87,7 +93,7 @@ class TestSignVerifyWithMock:
         assert verified["role"] == "admin"
 
     @pytest.mark.asyncio
-    async def test_verify_rejects_invalid_token(self):
+    async def test_verify_rejects_invalid_token(self) -> None:
         """Should return None for invalid token."""
         invalid_token = "invalid.token.string"
 
@@ -96,7 +102,7 @@ class TestSignVerifyWithMock:
         assert verified is None
 
     @pytest.mark.asyncio
-    async def test_verify_with_custom_options(self):
+    async def test_verify_with_custom_options(self) -> None:
         """Should accept custom issuer and audience."""
         payload = {"data": "test"}
         token = await sign(payload)
@@ -108,7 +114,7 @@ class TestSignVerifyWithMock:
         assert verified["data"] == "test"
 
     @pytest.mark.asyncio
-    async def test_sign_with_custom_ttl(self):
+    async def test_sign_with_custom_ttl(self) -> None:
         """Should sign with custom TTL."""
         payload = {"user_id": "789"}
 
@@ -120,7 +126,7 @@ class TestSignVerifyWithMock:
         assert verified["exp"] - verified["iat"] == 7200
 
     @pytest.mark.asyncio
-    async def test_create_token_basic(self):
+    async def test_create_token_basic(self) -> None:
         """Should create token with basic payload."""
         token = await create_token({"user_id": "123"})
 
@@ -130,7 +136,7 @@ class TestSignVerifyWithMock:
         assert verified["user_id"] == "123"
 
     @pytest.mark.asyncio
-    async def test_create_token_with_options(self):
+    async def test_create_token_with_options(self) -> None:
         """Should create token with custom options."""
         token = await create_token(
             {"user_id": "123"}, iss="custom-issuer", ttl_seconds=7200
@@ -143,7 +149,7 @@ class TestSignVerifyWithMock:
         assert verified["iss"] == "custom-issuer"
 
     @pytest.mark.asyncio
-    async def test_multiple_sign_verify_cycles(self):
+    async def test_multiple_sign_verify_cycles(self) -> None:
         """Should handle multiple sign/verify operations."""
         payloads = [
             {"user_id": "1", "name": "Alice"},
@@ -161,7 +167,7 @@ class TestSignVerifyWithMock:
 
 
 @pytest.fixture(scope="module", autouse=True)
-def cleanup_js_mock():
+def cleanup_js_mock() -> Generator[None, None, None]:
     """Cleanup js mock after all tests in this module."""
     yield
     uninstall_js_mock()

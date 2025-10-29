@@ -1,6 +1,6 @@
-import { sign } from './sign'
-import { verify } from './verify'
-import type { Fetcher } from './types'
+import { sign } from './sign.js'
+import { verify } from './verify.js'
+import type { Fetcher } from './types.js'
 import type { JWTPayload } from 'jose'
 
 export async function createToken(

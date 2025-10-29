@@ -1,5 +1,15 @@
 import base64
 import os
+from typing import TypedDict
+
+
+class JwtCommonConfig(TypedDict):
+    """Common JWT configuration from environment variables."""
+
+    iss: str
+    aud: str
+    leeway: int
+    ttl_seconds: int
 
 
 def mode(role: str) -> str:
@@ -25,7 +35,7 @@ def mode(role: str) -> str:
     return "HS512"
 
 
-def common():
+def common() -> JwtCommonConfig:
     return {
         "iss": os.getenv("JWT_ISS", ""),
         "aud": os.getenv("JWT_AUD", ""),

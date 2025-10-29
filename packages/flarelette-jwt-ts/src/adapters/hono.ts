@@ -3,9 +3,9 @@
  * Injects the Worker `env` bag so the kit can read secrets and service bindings
  * without relying on process.env (which doesn't exist on Workers).
  */
-import * as kit from '../index'
-import { getJwksServiceName } from '../config'
-import type { WorkerEnv, Fetcher } from '../types'
+import * as kit from '../index.js'
+import { getJwksServiceName } from '../config.js'
+import type { WorkerEnv, Fetcher } from '../types.js'
 
 /**
  * Store both environment variables and service bindings globally

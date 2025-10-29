@@ -1,6 +1,6 @@
 {
   "name": "@flarelette/jwt-kit-env",
-  "version": "1.7.0",
+  "version": "0.1.0",
   "type": "module",
   "private": true,
   "scripts": {
@@ -32,7 +32,11 @@
     "typecheck": "npm run typecheck:js && npm run typecheck:py",
     "typecheck:js": "tsc --noEmit",
     "typecheck:py": "mypy packages/flarelette-jwt-py",
+    "licenses:generate": "node scripts/generate-licenses.mjs",
     "check": "npm run lint && npm run format:check && npm run typecheck && npm test",
+    "pack:test": "npm run pack:test:ts && npm run pack:test:py",
+    "pack:test:ts": "npm run build && cd packages/flarelette-jwt-ts && npm pack --pack-destination ./dist && cd ../.. && node scripts/inspect-pack-ts.js",
+    "pack:test:py": "cd packages/flarelette-jwt-py && python -m build && cd ../.. && node scripts/inspect-pack-py.js",
     "prepare": "husky"
   },
   "workspaces": [

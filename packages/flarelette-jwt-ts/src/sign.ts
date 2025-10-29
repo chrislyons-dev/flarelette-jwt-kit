@@ -1,5 +1,5 @@
 import { SignJWT, importJWK } from 'jose'
-import { envMode, getCommon, getHSSecret, getPrivateJwkString } from './config'
+import { envMode, getCommon, getHSSecret, getPrivateJwkString } from './config.js'
 
 export async function sign(
   payload: Record<string, unknown>,

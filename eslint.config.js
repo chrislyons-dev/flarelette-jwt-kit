@@ -9,6 +9,7 @@ export default [
   {
     ignores: [
       'dist/**',
+      '**/dist/**',
       'node_modules/**',
       'docs/architecture/**',
       'tools/**',
