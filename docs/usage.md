@@ -7,12 +7,11 @@ Supports **HS512** and **EdDSA (Ed25519)** automatically based on environment, w
 
 ### 📁 Repository Layout
 
-* Root:
-
-  * `package.json` + `pyproject.toml`
-  * `README.md` describing env-driven + edge-safe modes
-  * `.gitignore`, `LICENSE`
-  * `examples/` with `.env.*.example` for HS512 and EdDSA producers/consumers
+- Root:
+  - `package.json` + `pyproject.toml`
+  - `README.md` describing env-driven + edge-safe modes
+  - `.gitignore`, `LICENSE`
+  - `examples/` with `.env.*.example` for HS512 and EdDSA producers/consumers
 
 ---
 
@@ -55,11 +54,11 @@ import { adapters } from '@flarelette/jwt-ts'
 
 export default {
   async fetch(req, env) {
-    const jwt = adapters.makeKit(env)  // binds secrets + vars
+    const jwt = adapters.makeKit(env) // binds secrets + vars
     const token = await jwt.createToken({ sub: 'u123' })
     const verified = await jwt.verify(token)
     return new Response(JSON.stringify(verified))
-  }
+  },
 }
 ```
 
@@ -144,9 +143,9 @@ JWT_AUD = "bond-math.api"
 
 This works equally for:
 
-* `JWT_PRIVATE_JWK_NAME`
-* `JWT_PUBLIC_JWK_NAME`
-* `JWT_JWKS_URL_NAME`
+- `JWT_PRIVATE_JWK_NAME`
+- `JWT_PUBLIC_JWK_NAME`
+- `JWT_JWKS_URL_NAME`
 
 ---
 
@@ -205,11 +204,9 @@ app.use('*', async (c, next) => {
 
 app.get('/secure', async c => {
   const { jwt } = c.get('jwt')
-  const auth = await jwt.checkAuth(c.req.header('authorization')?.replace('Bearer ', ''), 
-    jwt.policy()
-      .rolesAny('admin', 'editor')
-      .needAll('read:data')
-      .build()
+  const auth = await jwt.checkAuth(
+    c.req.header('authorization')?.replace('Bearer ', ''),
+    jwt.policy().rolesAny('admin', 'editor').needAll('read:data').build()
   )
   if (!auth) return c.text('Unauthorized', 401)
   return c.json({ message: 'Welcome!', user: auth.sub })
@@ -220,8 +217,8 @@ export default app
 
 **Notes:**
 
-* Works both in Workers (`fetch(req, env)`) and Hono-on-Node.
-* You can build `policy()` objects declaratively (roles, permissions, custom predicates).
+- Works both in Workers (`fetch(req, env)`) and Hono-on-Node.
+- You can build `policy()` objects declaratively (roles, permissions, custom predicates).
 
 ---
 
@@ -252,16 +249,16 @@ async def secure(req, env, auth):
 
 **Features:**
 
-* Decorator-based, async-friendly.
-* Injects the verified `auth` payload into the handler.
-* Compatible with Cloudflare Worker fetch signatures.
+- Decorator-based, async-friendly.
+- Injects the verified `auth` payload into the handler.
+- Compatible with Cloudflare Worker fetch signatures.
 
 ---
 
 ### ✅ Summary
 
-| Feature                 | Node/Edge (TS)                                     | Workers Python            |
-| ----------------------- | -------------------------------------------------- | ------------------------- |
+| Feature                 | Node/Edge (TS)                                      | Workers Python             |
+| ----------------------- | --------------------------------------------------- | -------------------------- |
 | HS512 / EdDSA           | ✅                                                  | ✅ (verify only for EdDSA) |
 | Secret-name indirection | ✅                                                  | ✅                         |
 | Env-safe in Workers     | ✅ (`adapters/hono`)                                | ✅ (`apply_env_bindings`)  |

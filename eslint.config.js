@@ -1,8 +1,8 @@
 // eslint.config.js (ESLint v9+ flat config)
-import js from '@eslint/js';
-import globals from 'globals';
-import tseslint from 'typescript-eslint';
-import prettier from 'eslint-config-prettier';
+import js from '@eslint/js'
+import globals from 'globals'
+import tseslint from 'typescript-eslint'
+import prettier from 'eslint-config-prettier'
 
 export default [
   // Ignore patterns (replaces .eslintignore)
@@ -13,6 +13,9 @@ export default [
       'docs/architecture/**',
       'tools/**',
       'site/**',
+      'coverage/**',
+      '**/htmlcov/**',
+      '**/.pytest_cache/**',
     ],
   },
 
@@ -45,9 +48,22 @@ export default [
 
   // Stricter rules for src directory
   {
-    files: ['src/**/*.ts', 'src/**/*.js', 'src/**/*.mjs'],
+    files: [
+      'src/**/*.ts',
+      'src/**/*.js',
+      'src/**/*.mjs',
+      'packages/*/src/**/*.ts',
+      'packages/*/src/**/*.js',
+      'packages/*/src/**/*.mjs',
+    ],
     rules: {
-      '@typescript-eslint/no-explicit-any': 'error',
+      '@typescript-eslint/no-explicit-any': [
+        'error',
+        {
+          ignoreRestArgs: true,
+          fixToUnknown: true,
+        },
+      ],
     },
   },
 
@@ -65,4 +81,4 @@ export default [
       '@typescript-eslint/no-explicit-any': 'off',
     },
   },
-];
+]

@@ -1,17 +1,31 @@
-
 from __future__ import annotations
-import json, base64, time
+
+import base64
+import json
+import time
 from typing import Any
+
 from js import crypto
-from .env import mode, common, get_hs_secret_bytes, get_public_jwk_string
+
+from .env import common, get_hs_secret_bytes, get_public_jwk_string, mode
+
 
 def _b64url_decode(s: str) -> bytes:
     return base64.urlsafe_b64decode(s + "=" * (-len(s) % 4))
 
-async def verify(token: str, *, iss: str | None = None, aud: str | None = None, leeway: int | None = None) -> dict[str, Any] | None:
-    m = mode('consumer')
+
+async def verify(
+    token: str,
+    *,
+    iss: str | None = None,
+    aud: str | None = None,
+    leeway: int | None = None,
+) -> dict[str, Any] | None:
+    m = mode("consumer")
     cfg = common()
-    iss = iss or cfg['iss']; aud = aud or cfg['aud']; leeway = int(leeway or cfg['leeway'])
+    iss = iss or cfg["iss"]
+    aud = aud or cfg["aud"]
+    leeway = int(leeway or cfg["leeway"])
 
     try:
         h_b64, p_b64, s_b64 = token.split(".")
@@ -21,27 +35,49 @@ async def verify(token: str, *, iss: str | None = None, aud: str | None = None, 
     except Exception:
         return None
 
-    if m == 'HS512':
-        if header.get("alg") != "HS512": return None
-        key = await crypto.subtle.importKey("raw", get_hs_secret_bytes(), {"name": "HMAC", "hash": "SHA-512"}, False, ["verify"])
-        ok = await crypto.subtle.verify({"name": "HMAC"}, key, sig, (h_b64 + "." + p_b64).encode())
-        if not ok: return None
+    if m == "HS512":
+        if header.get("alg") != "HS512":
+            return None
+        key = await crypto.subtle.importKey(
+            "raw",
+            get_hs_secret_bytes(),
+            {"name": "HMAC", "hash": "SHA-512"},
+            False,
+            ["verify"],
+        )
+        ok = await crypto.subtle.verify(
+            {"name": "HMAC"}, key, sig, (h_b64 + "." + p_b64).encode()
+        )
+        if not ok:
+            return None
     else:
-        if header.get("alg") != "EdDSA": return None
+        if header.get("alg") != "EdDSA":
+            return None
         jwk_str = get_public_jwk_string()
-        if not jwk_str: return None
+        if not jwk_str:
+            return None
         jwk = json.loads(jwk_str)
         x_b64 = jwk.get("x")
-        if not x_b64: return None
+        if not x_b64:
+            return None
         x = _b64url_decode(x_b64)
-        key = await crypto.subtle.importKey("raw", x, {"name":"Ed25519"}, False, ["verify"])
-        ok = await crypto.subtle.verify({"name":"Ed25519"}, key, sig, (h_b64 + "." + p_b64).encode())
-        if not ok: return None
+        key = await crypto.subtle.importKey(
+            "raw", x, {"name": "Ed25519"}, False, ["verify"]
+        )
+        ok = await crypto.subtle.verify(
+            {"name": "Ed25519"}, key, sig, (h_b64 + "." + p_b64).encode()
+        )
+        if not ok:
+            return None
 
     now = int(time.time())
-    if payload.get("iss") != iss: return None
-    if payload.get("aud") != aud: return None
-    if now > int(payload.get("exp", 0)) + int(leeway): return None
+    if payload.get("iss") != iss:
+        return None
+    if payload.get("aud") != aud:
+        return None
+    if now > int(payload.get("exp", 0)) + int(leeway):
+        return None
     nbf = int(payload.get("nbf", payload.get("iat", 0)))
-    if now + int(leeway) < nbf: return None
+    if now + int(leeway) < nbf:
+        return None
     return payload

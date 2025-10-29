@@ -1,11 +1,24 @@
-
-export function parse(token: string): { header: any; payload: any } {
+export function parse(token: string): {
+  header: Record<string, unknown>
+  payload: Record<string, unknown>
+} {
   const [hb, pb] = token.split('.')
-  const dec = (s: string) => JSON.parse(Buffer.from(s.replace(/-/g, '+').replace(/_/g, '/'), 'base64').toString('utf8'))
+  const dec = (s: string) =>
+    JSON.parse(
+      Buffer.from(s.replace(/-/g, '+').replace(/_/g, '/'), 'base64').toString('utf8')
+    ) as Record<string, unknown>
   return { header: dec(hb), payload: dec(pb) }
 }
-export function isExpiringSoon(payload: Record<string, any>, seconds: number): boolean {
+
+export function isExpiringSoon(
+  payload: Record<string, unknown>,
+  seconds: number
+): boolean {
   const now = Math.floor(Date.now() / 1000)
-  return (payload.exp ?? 0) - now <= seconds
+  const exp = typeof payload.exp === 'number' ? payload.exp : 0
+  return exp - now <= seconds
 }
-export function mapScopesToPermissions(scopes: string[]): string[] { return scopes }
+
+export function mapScopesToPermissions(scopes: string[]): string[] {
+  return scopes
+}

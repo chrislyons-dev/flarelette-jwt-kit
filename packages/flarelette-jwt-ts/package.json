@@ -1,18 +1,44 @@
 {
-  "name": "@flarelette/jwt-ts",
+  "name": "@chrislyons-dev/flarelette-jwt",
   "version": "1.7.0",
-  "description": "Env-driven JWT kit (HS512 + EdDSA) with secret-name indirection",
+  "description": "Environment-driven JWT authentication for Cloudflare Workers with secret-name indirection",
+  "keywords": [
+    "jwt",
+    "authentication",
+    "cloudflare",
+    "workers",
+    "edge",
+    "hs512",
+    "eddsa",
+    "ed25519",
+    "jwks",
+    "flarelette"
+  ],
+  "homepage": "https://github.com/chrislyons-dev/flarelette-jwt-kit#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/chrislyons-dev/flarelette-jwt-kit.git",
+    "directory": "packages/flarelette-jwt-ts"
+  },
+  "bugs": {
+    "url": "https://github.com/chrislyons-dev/flarelette-jwt-kit/issues"
+  },
+  "author": "Chris Lyons",
+  "license": "MIT",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "files": [
-    "dist"
+    "dist",
+    "README.md",
+    "LICENSE"
   ],
   "bin": {
     "flarelette-jwt-secret": "dist/cli.js",
     "flarelette-jwt-keygen": "dist/keygen.js"
   },
   "scripts": {
-    "build": "tsc -p tsconfig.json"
+    "build": "tsc -p tsconfig.json",
+    "prepublishOnly": "npm run build"
   },
   "dependencies": {
     "jose": "^5.3.0"
@@ -20,5 +46,7 @@
   "devDependencies": {
     "typescript": "^5.6.3"
   },
-  "license": "MIT"
+  "engines": {
+    "node": ">=18.0.0"
+  }
 }

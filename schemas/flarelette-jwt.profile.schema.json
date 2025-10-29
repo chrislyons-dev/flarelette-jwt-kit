@@ -2,11 +2,7 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "title": "Flarelette JWT Profile",
   "type": "object",
-  "required": [
-    "alg",
-    "aud",
-    "iss"
-  ],
+  "required": ["alg", "aud", "iss"],
   "properties": {
     "version": {
       "type": "integer",
@@ -14,9 +10,7 @@
     },
     "alg": {
       "type": "string",
-      "enum": [
-        "HS512","EDDSA"
-      ]
+      "enum": ["HS512", "EDDSA"]
     },
     "aud": {
       "oneOf": [

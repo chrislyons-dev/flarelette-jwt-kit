@@ -1,6 +1,6 @@
-
 import os
-from typing import Mapping
+from collections.abc import Mapping
+
 
 def apply_env_bindings(env: Mapping[str, str]) -> None:
     """Copy a Cloudflare Worker `env` mapping into os.environ so the kit can read it.

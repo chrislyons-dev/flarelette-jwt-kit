@@ -1,4 +1,3 @@
-
 import { importJWK } from 'jose'
 import type { Fetcher, JWKSResponse } from './types'
 
@@ -14,6 +13,14 @@ let cache: JWKSCache | null = null
 const COOLDOWN = 300000 // 5 minutes in milliseconds
 
 /**
+ * Clear the JWKS cache (for testing purposes)
+ * @internal
+ */
+export function clearJwksCache(): void {
+  cache = null
+}
+
+/**
  * Fetch JWKS from a service binding
  * Implements 5-minute caching to reduce load on JWKS service
  */
@@ -21,7 +28,7 @@ export async function fetchJwksFromService(service: Fetcher): Promise<JsonWebKey
   const now = Date.now()
 
   // Return cached keys if within cooldown period
-  if (cache && (now - cache.fetchedAt) < COOLDOWN) {
+  if (cache && now - cache.fetchedAt < COOLDOWN) {
     return cache.keys
   }
 
@@ -32,7 +39,7 @@ export async function fetchJwksFromService(service: Fetcher): Promise<JsonWebKey
     throw new Error(`JWKS service returned ${response.status}: ${response.statusText}`)
   }
 
-  const data = await response.json() as JWKSResponse
+  const data = (await response.json()) as JWKSResponse
 
   if (!data.keys || !Array.isArray(data.keys)) {
     throw new Error('Invalid JWKS response: missing keys array')
@@ -47,29 +54,50 @@ export async function fetchJwksFromService(service: Fetcher): Promise<JsonWebKey
 /**
  * Find and import a specific key from JWKS by kid
  */
-export async function getKeyFromJwks(kid: string | undefined, jwks: JsonWebKey[]): Promise<any> {
+export async function getKeyFromJwks(
+  kid: string | undefined,
+  jwks: JsonWebKey[]
+): Promise<CryptoKey | Uint8Array> {
   if (!kid) {
-    throw new Error('Token header missing kid (key ID) - required for JWKS verification')
+    throw new Error(
+      'Token header missing kid (key ID) - required for JWKS verification'
+    )
   }
 
   const jwk = jwks.find(k => k.kid === kid)
 
   if (!jwk) {
-    throw new Error(`Key with kid="${kid}" not found in JWKS (available: ${jwks.map(k => k.kid).join(', ')})`)
+    // Type assertion for kid property which exists at runtime but not in TypeScript's JsonWebKey type
+    const availableKids = jwks
+      .map(k => (k as { kid?: string }).kid)
+      .filter(Boolean)
+      .join(', ')
+    throw new Error(
+      `Key with kid="${kid}" not found in JWKS (available: ${availableKids})`
+    )
   }
 
-  return importJWK(jwk, 'EdDSA')
+  // Cast to JWK type that jose expects
+  return importJWK(jwk as Parameters<typeof importJWK>[0], 'EdDSA')
 }
 
 /**
- * Get set of allowed thumbprints for key pinning
+ * Get allowed thumbprints for key pinning (optional security measure)
  */
 export function allowedThumbprints(): Set<string> | null {
   // Check global env first, then process.env
-  const bag = (globalThis as any).__FLARELETTE_ENV as Record<string, string> | undefined
-  const s = bag?.JWT_ALLOWED_THUMBPRINTS ?? (typeof process !== 'undefined' ? process.env.JWT_ALLOWED_THUMBPRINTS : undefined)
+  const bag = (globalThis as { __FLARELETTE_ENV?: Record<string, string> })
+    .__FLARELETTE_ENV
+  const raw =
+    bag?.JWT_ALLOWED_THUMBPRINTS ??
+    (typeof process !== 'undefined' ? process.env.JWT_ALLOWED_THUMBPRINTS : undefined)
 
-  if (!s) return null
+  if (!raw) return null
 
-  return new Set(s.split(',').map(x => x.trim()).filter(Boolean))
+  return new Set(
+    raw
+      .split(',')
+      .map(x => x.trim())
+      .filter(Boolean)
+  )
 }

@@ -1,4 +1,3 @@
-
 /**
  * Cloudflare Workers / Hono adapter:
  * Injects the Worker `env` bag so the kit can read secrets and service bindings
@@ -24,15 +23,18 @@ export function bindEnv(env: WorkerEnv) {
   }
 
   // Store in global for config.ts to read
-  ;(globalThis as any).__FLARELETTE_ENV = vars
-  ;(globalThis as any).__FLARELETTE_SERVICES = services
+  ;(globalThis as { __FLARELETTE_ENV?: Record<string, string> }).__FLARELETTE_ENV = vars
+  ;(
+    globalThis as { __FLARELETTE_SERVICES?: Record<string, Fetcher> }
+  ).__FLARELETTE_SERVICES = services
 }
 
 /**
  * Get service binding by name from global storage
  */
 function getServiceBinding(name: string): Fetcher | undefined {
-  const services = (globalThis as any).__FLARELETTE_SERVICES as Record<string, Fetcher> | undefined
+  const services = (globalThis as { __FLARELETTE_SERVICES?: Record<string, Fetcher> })
+    .__FLARELETTE_SERVICES
   return services?.[name]
 }
 
@@ -49,10 +51,12 @@ export function makeKit(env: WorkerEnv) {
 
   return {
     sign: kit.sign,
-    verify: (token: string, opts?: any) =>
-      kit.verify(token, { ...opts, jwksService }),
+    verify: (
+      token: string,
+      opts?: Partial<{ iss: string; aud: string; leeway: number }>
+    ) => kit.verify(token, { ...opts, jwksService }),
     createToken: kit.createToken,
-    checkAuth: (token: string, opts?: any) =>
+    checkAuth: (token: string, opts?: Parameters<typeof kit.checkAuth>[1]) =>
       kit.checkAuth(token, { ...opts, jwksService }),
     policy: kit.policy,
     // Re-export for convenience

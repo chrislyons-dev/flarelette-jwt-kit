@@ -1,0 +1,11 @@
+name = "flarelette-jwt-py-test"
+main = "example_worker.py"
+compatibility_date = "2024-10-01"
+
+# Enable Python Workers with Pyodide
+[python]
+# Python dependencies can be specified here if needed
+requirements = []
+
+[env.test]
+# Test environment configuration
