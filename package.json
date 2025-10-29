@@ -36,7 +36,7 @@
     "check": "npm run lint && npm run format:check && npm run typecheck && npm test",
     "pack:test": "npm run pack:test:ts && npm run pack:test:py",
     "pack:test:ts": "npm run build && cd packages/flarelette-jwt-ts && npm pack --pack-destination ./dist && cd ../.. && node scripts/inspect-pack-ts.js",
-    "pack:test:py": "cd packages/flarelette-jwt-py && python -m build && cd ../.. && node scripts/inspect-pack-py.js",
+    "pack:test:py": "cd packages/flarelette-jwt-py && py prepare.py && python -m build && cd ../.. && node scripts/inspect-pack-py.js",
     "prepare": "husky"
   },
   "workspaces": [

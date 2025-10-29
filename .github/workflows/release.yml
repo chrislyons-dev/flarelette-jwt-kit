@@ -75,7 +75,9 @@ jobs:
 
       - name: Build Python package
         working-directory: packages/flarelette-jwt-py
-        run: python -m build
+        run: |
+          python prepare.py
+          python -m build
 
       - name: Publish to PyPI
         working-directory: packages/flarelette-jwt-py

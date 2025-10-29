@@ -37,14 +37,15 @@
     "flarelette-jwt-keygen": "dist/keygen.js"
   },
   "scripts": {
-    "build": "tsc -p tsconfig.json",
+    "build": "rimraf dist && tsc -p tsconfig.json && cp ../../README.md dist/ && cp ../../CONTRIBUTING.md dist/ && cp ../../THIRD_PARTY_LICENSES.md dist/",
     "prepublishOnly": "npm run build"
   },
   "dependencies": {
     "jose": "^5.3.0"
   },
   "devDependencies": {
-    "typescript": "^5.6.3"
+    "typescript": "^5.6.3",
+    "rimraf": "^6.0.1"
   },
   "engines": {
     "node": ">=18.0.0"
