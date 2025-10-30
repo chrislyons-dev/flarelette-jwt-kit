@@ -7,18 +7,25 @@ import {
 import { envMode, getCommon, getHSSecret, getPublicJwkString } from './config.js'
 import { fetchJwksFromService, getKeyFromJwks, allowedThumbprints } from './jwks.js'
 import type { JWTPayload } from 'jose'
-import type { Fetcher } from './types.js'
+import type { AlgType, Fetcher } from './types.js'
 
+/**
+ * Verify a JWT token with HS512 or EdDSA algorithm
+ *
+ * @param token - JWT token string to verify
+ * @param opts - Optional overrides for iss, aud, leeway, and jwksService
+ * @returns Decoded payload if valid, null otherwise
+ */
 export async function verify(
   token: string,
   opts?: Partial<{
     iss: string
-    aud: string
+    aud: string | string[]
     leeway: number
     jwksService: Fetcher
   }>
 ): Promise<JWTPayload | null> {
-  const mode = envMode('consumer')
+  const mode: AlgType = envMode('consumer')
   const { iss, aud, leeway } = { ...getCommon(), ...(opts || {}) }
 
   if (mode === 'HS512') {

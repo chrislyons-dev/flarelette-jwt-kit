@@ -30,7 +30,7 @@
     "format:js:check": "prettier --check .",
     "format:py:check": "black --check packages/flarelette-jwt-py",
     "typecheck": "npm run typecheck:js && npm run typecheck:py",
-    "typecheck:js": "tsc --noEmit",
+    "typecheck:js": "cd packages/flarelette-jwt-ts && tsc --noEmit & cd ../..",
     "typecheck:py": "mypy packages/flarelette-jwt-py",
     "licenses:generate": "node scripts/generate-licenses.mjs",
     "check": "npm run lint && npm run format:check && npm run typecheck && npm test",

@@ -3,11 +3,18 @@ from __future__ import annotations
 import base64
 import json
 import time
-from typing import Any
 
-from js import crypto
+from js import crypto  # pyright: ignore[reportMissingImports]
 
-from .env import common, get_hs_secret_bytes, get_public_jwk_string, mode
+from .env import (
+    AlgType,
+    JwtHeader,
+    JwtPayload,
+    common,
+    get_hs_secret_bytes,
+    get_public_jwk_string,
+    mode,
+)
 
 
 def _b64url_decode(s: str) -> bytes:
@@ -18,10 +25,21 @@ async def verify(
     token: str,
     *,
     iss: str | None = None,
-    aud: str | None = None,
+    aud: str | list[str] | None = None,
     leeway: int | None = None,
-) -> dict[str, Any] | None:
-    m = mode("consumer")
+) -> JwtPayload | None:
+    """Verify a JWT token with HS512 or EdDSA algorithm.
+
+    Args:
+        token: JWT token string to verify
+        iss: Optional issuer override
+        aud: Optional audience override (string or list)
+        leeway: Optional clock skew tolerance override in seconds
+
+    Returns:
+        Decoded payload if valid, None otherwise
+    """
+    m: AlgType = mode("consumer")
     cfg = common()
     iss = iss or cfg["iss"]
     aud = aud or cfg["aud"]
@@ -29,8 +47,8 @@ async def verify(
 
     try:
         h_b64, p_b64, s_b64 = token.split(".")
-        header = json.loads(_b64url_decode(h_b64))
-        payload = json.loads(_b64url_decode(p_b64))
+        header: JwtHeader = json.loads(_b64url_decode(h_b64))
+        payload: JwtPayload = json.loads(_b64url_decode(p_b64))
         sig = _b64url_decode(s_b64)
     except Exception:
         return None

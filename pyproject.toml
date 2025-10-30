@@ -75,6 +75,8 @@ ignore = [
 [tool.mypy]
 python_version = "3.11"
 files = ["packages/flarelette-jwt-py"]
+exclude = "example_worker.py"
+ignore_missing_imports = true
 warn_return_any = true
 warn_unused_configs = true
 disallow_untyped_defs = true

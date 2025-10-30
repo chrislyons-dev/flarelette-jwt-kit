@@ -6,7 +6,7 @@ import time
 
 from js import crypto
 
-from .env import common, get_hs_secret_bytes, mode
+from .env import AlgType, common, get_hs_secret_bytes, mode
 
 
 def _b64url(b: bytes) -> str:
@@ -17,10 +17,24 @@ async def sign(
     payload: dict,
     *,
     iss: str | None = None,
-    aud: str | None = None,
+    aud: str | list[str] | None = None,
     ttl_seconds: int | None = None,
 ) -> str:
-    m = mode("producer")
+    """Sign a JWT token with HS512 or EdDSA algorithm.
+
+    Args:
+        payload: Claims to include in the token
+        iss: Optional issuer override
+        aud: Optional audience override (string or list)
+        ttl_seconds: Optional TTL override in seconds
+
+    Returns:
+        Signed JWT token string
+
+    Raises:
+        RuntimeError: If EdDSA signing is attempted (not supported in Python)
+    """
+    m: AlgType = mode("producer")
     cfg = common()
     iss = iss or cfg["iss"]
     aud = aud or cfg["aud"]

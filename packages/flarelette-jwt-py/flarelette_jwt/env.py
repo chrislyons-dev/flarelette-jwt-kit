@@ -1,6 +1,96 @@
 import base64
 import os
-from typing import TypedDict
+from typing import Any, Literal, TypedDict
+
+# JWT algorithm types
+AlgType = Literal["HS512", "EdDSA"]
+
+# JWT value types (JSON-compatible values used in claims and predicates)
+JwtValue = str | int | float | bool | list[str] | dict[str, Any] | None
+
+# Type alias for JWT claims dictionary
+ClaimsDict = dict[str, JwtValue]
+
+
+class JwtHeader(TypedDict, total=False):
+    """JWT token header structure."""
+
+    alg: AlgType  # Algorithm: HS512 or EdDSA
+    typ: str  # Token type, typically "JWT"
+    kid: str  # Key ID for key rotation (optional)
+
+
+class ActorClaim(TypedDict, total=False):
+    """Actor claim for service delegation (RFC 8693).
+
+    Identifies a service acting on behalf of another principal.
+    Can be nested for delegation chains.
+
+    Structure:
+        sub: Service identifier acting on behalf of original subject
+        act: Nested ActorClaim with same structure (recursive delegation chain)
+    """
+
+    sub: str
+    act: dict[
+        str, JwtValue
+    ]  # Nested ActorClaim (recursive, breaks TypedDict limitation)
+
+
+class JwtPayload(TypedDict, total=False):
+    """JWT token payload/claims structure.
+
+    Includes standard JWT claims, OIDC claims, and common custom claims.
+    Note: At runtime, can contain any string key with JwtValue-compatible values,
+    but only defined fields get type checking.
+    """
+
+    # Standard JWT claims (RFC 7519)
+    iss: str  # Issuer
+    aud: str | list[str]  # Audience (single or multiple)
+    sub: str  # Subject
+    exp: int  # Expiration time (Unix timestamp)
+    iat: int  # Issued at (Unix timestamp)
+    nbf: int  # Not before (Unix timestamp)
+    jti: str  # JWT ID
+
+    # OIDC standard claims
+    name: str  # Full name
+    email: str  # Email address
+    email_verified: bool  # Email verification status
+    client_id: str  # OAuth2 client identifier
+    cid: str  # Client ID (alternative)
+    azp: str  # Authorized party
+    scope: str  # Space-separated scope string (OAuth2)
+    scopes: list[str]  # Scopes as array
+
+    # Multi-tenant claims
+    tid: str  # Tenant ID
+    org_id: str  # Organization ID
+
+    # Authorization claims
+    permissions: list[str]  # Permission strings
+    roles: list[str]  # Role strings
+    groups: list[str]  # Group memberships
+    user_role: str  # Primary user role
+    department: str  # Department/division
+
+    # Delegation claims (RFC 8693)
+    act: ActorClaim  # Service acting on behalf of subject
+
+
+class JwtProfile(TypedDict, total=False):
+    """
+    JWT Profile structure matching flarelette-jwt.profile.schema.json
+
+    Represents the complete configuration profile for JWT operations.
+    """
+
+    version: int  # Optional, >= 1
+    alg: AlgType  # Required: HS512 (symmetric) or EdDSA (asymmetric)
+    aud: str | list[str]  # Required: single string or array of audience values
+    iss: str  # Required: token issuer
+    leeway_seconds: int  # Optional: clock skew tolerance in seconds (default: 90)
 
 
 class JwtCommonConfig(TypedDict):
@@ -12,8 +102,15 @@ class JwtCommonConfig(TypedDict):
     ttl_seconds: int
 
 
-def mode(role: str) -> str:
-    """Detect JWT mode from environment variables based on role."""
+def mode(role: str) -> AlgType:
+    """Detect JWT algorithm mode from environment variables based on role.
+
+    Args:
+        role: Either "producer" (signing) or "consumer" (verification)
+
+    Returns:
+        AlgType: Either "HS512" or "EdDSA"
+    """
 
     # Producers use private keys to sign
     if role == "producer" and (
@@ -36,11 +133,39 @@ def mode(role: str) -> str:
 
 
 def common() -> JwtCommonConfig:
+    """Get common JWT configuration from environment.
+
+    Returns:
+        JwtCommonConfig: Configuration with iss, aud, leeway, ttl_seconds
+    """
     return {
         "iss": os.getenv("JWT_ISS", ""),
         "aud": os.getenv("JWT_AUD", ""),
         "leeway": int(os.getenv("JWT_LEEWAY", "90")),
         "ttl_seconds": int(os.getenv("JWT_TTL_SECONDS", "900")),
+    }
+
+
+def profile(role: str) -> dict[str, Any]:
+    """Get JWT profile from environment.
+
+    Returns complete JwtProfile-compatible configuration with detected algorithm.
+
+    Args:
+        role: Either "producer" (signing) or "consumer" (verification)
+
+    Returns:
+        dict containing alg, iss, aud, leeway_seconds, and ttl_seconds
+    """
+    alg = mode(role)
+    cfg = common()
+
+    return {
+        "alg": alg,
+        "iss": cfg["iss"],
+        "aud": cfg["aud"],
+        "leeway_seconds": cfg["leeway"],
+        "ttl_seconds": cfg["ttl_seconds"],
     }
 
 

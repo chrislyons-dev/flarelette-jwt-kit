@@ -1,12 +1,24 @@
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Any, Protocol
+from typing import TYPE_CHECKING, Any, Protocol, TypedDict
 
 from .sign import sign
 from .verify import verify
 
 if TYPE_CHECKING:
     from collections.abc import Callable
+
+    from .env import JwtPayload, JwtValue
+
+
+class AuthUser(TypedDict, total=False):
+    """Authenticated user information returned by check_auth."""
+
+    sub: str | None
+    permissions: list[str]
+    roles: list[str]
+    jti: str | None
+    payload: JwtPayload
 
 
 class PolicyBuilder(Protocol):
@@ -17,7 +29,7 @@ class PolicyBuilder(Protocol):
     def need_any(self, *p: str) -> PolicyBuilder: ...
     def roles_all(self, *r: str) -> PolicyBuilder: ...
     def roles_any(self, *r: str) -> PolicyBuilder: ...
-    def where(self, fn: Callable[[dict], bool]) -> PolicyBuilder: ...
+    def where(self, fn: Callable[[dict[str, JwtValue]], bool]) -> PolicyBuilder: ...
     def build(self) -> dict[str, Any]: ...
 
 
@@ -25,24 +37,128 @@ async def create_token(
     claims: dict,
     *,
     iss: str | None = None,
-    aud: str | None = None,
+    aud: str | list[str] | None = None,
     ttl_seconds: int | None = None,
 ) -> str:
+    """Create a signed JWT token with optional claims.
+
+    Args:
+        claims: Custom claims to include in the token
+        iss: Optional issuer override
+        aud: Optional audience override (string or list)
+        ttl_seconds: Optional TTL override in seconds
+
+    Returns:
+        Signed JWT token string
+    """
     return await sign(claims, iss=iss, aud=aud, ttl_seconds=ttl_seconds)
+
+
+async def create_delegated_token(
+    original_payload: dict[str, JwtValue],
+    actor_service: str,
+    *,
+    iss: str | None = None,
+    aud: str | list[str] | None = None,
+    ttl_seconds: int | None = None,
+) -> str:
+    """Create a delegated JWT token following RFC 8693 actor claim pattern.
+
+    Mints a new short-lived token for use within service boundaries where a service
+    acts on behalf of the original end user. This implements zero-trust delegation:
+    - Preserves original user identity (sub) and permissions
+    - Identifies the acting service via 'act' claim
+    - Prevents permission escalation by copying original permissions
+
+    Pattern: "I'm <actor_service> doing work on behalf of <original user>"
+
+    Example:
+        Gateway receives Auth0 token for user@example.com with ["read:data"].
+        Gateway creates delegated token for internal API service:
+
+        ```python
+        auth0_payload = await verify_auth0_token(external_token)
+        internal_token = await create_delegated_token(
+            original_payload=auth0_payload,
+            actor_service="gateway-service",
+            aud="internal-api"
+        )
+        # Result: {
+        #   "sub": "user@example.com",
+        #   "permissions": ["read:data"],  # Preserved from original
+        #   "act": {"sub": "gateway-service"}
+        # }
+        ```
+
+    Args:
+        original_payload: The verified JWT payload from external auth (e.g., Auth0)
+        actor_service: Identifier of the service creating this delegated token
+        iss: Optional issuer override (defaults to env JWT_ISS)
+        aud: Optional audience override (defaults to env JWT_AUD)
+        ttl_seconds: Optional TTL override (defaults to env JWT_TTL_SECONDS)
+
+    Returns:
+        Signed JWT token string with delegation claim
+
+    See Also:
+        - RFC 8693: OAuth 2.0 Token Exchange
+        - CLAUDE.md: Service Delegation Pattern section
+    """
+    # Preserve original user context and permissions
+    delegated_claims: dict[str, JwtValue] = {
+        "sub": original_payload.get("sub"),  # Original end user
+        "permissions": original_payload.get("permissions", []),  # NO escalation
+        "roles": original_payload.get("roles", []),
+    }
+
+    # Add actor claim - who is acting on behalf of the original user
+    existing_act = original_payload.get("act")
+    if existing_act:
+        # Delegation chain: new actor wraps previous actor
+        delegated_claims["act"] = {
+            "sub": actor_service,
+            "act": existing_act,
+        }
+    else:
+        # First delegation
+        delegated_claims["act"] = {"sub": actor_service}
+
+    # Preserve additional context fields if present
+    for field in ["email", "name", "groups", "tid", "org_id", "department"]:
+        if field in original_payload:
+            delegated_claims[field] = original_payload[field]
+
+    return await sign(delegated_claims, iss=iss, aud=aud, ttl_seconds=ttl_seconds)
 
 
 async def check_auth(
     token: str,
     *,
     iss: str | None = None,
-    aud: str | None = None,
+    aud: str | list[str] | None = None,
     leeway: int | None = None,
     require_all_permissions: list[str] | None = None,
     require_any_permission: list[str] | None = None,
     require_roles_all: list[str] | None = None,
     require_roles_any: list[str] | None = None,
-    predicates: list[Callable[[dict], bool]] | None = None,
-) -> dict | None:
+    predicates: list[Callable[[dict[str, JwtValue]], bool]] | None = None,
+) -> AuthUser | None:
+    """Verify and authorize a JWT token with policy enforcement.
+
+    Args:
+        token: JWT token string to verify
+        iss: Optional issuer override
+        aud: Optional audience override (string or list)
+        leeway: Optional clock skew tolerance override in seconds
+        require_all_permissions: All permissions that must be present
+        require_any_permission: At least one of these permissions must be present
+        require_roles_all: All roles that must be present
+        require_roles_any: At least one of these roles must be present
+        predicates: Custom validation functions
+
+    Returns:
+        AuthUser if valid and authorized, None otherwise
+    """
     payload = await verify(token, iss=iss, aud=aud, leeway=leeway)
     if not payload:
         return None
@@ -58,7 +174,7 @@ async def check_auth(
         return None
     if predicates:
         for fn in predicates:
-            if not fn(payload):
+            if not fn(payload):  # type: ignore[arg-type]
                 return None
     return {
         "sub": payload.get("sub"),
@@ -69,6 +185,11 @@ async def check_auth(
 
 
 def policy() -> PolicyBuilder:
+    """Fluent builder for creating authorization policies.
+
+    Returns:
+        PolicyBuilder with chainable methods
+    """
     opts: dict[str, Any] = {}
 
     class Builder:
@@ -96,7 +217,7 @@ def policy() -> PolicyBuilder:
             opts["require_roles_any"].extend(r)
             return self
 
-        def where(self, fn: Callable[[dict], bool]) -> PolicyBuilder:
+        def where(self, fn: Callable[[dict[str, JwtValue]], bool]) -> PolicyBuilder:
             opts.setdefault("predicates", [])
             opts["predicates"].append(fn)
             return self

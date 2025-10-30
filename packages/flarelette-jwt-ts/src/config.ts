@@ -1,4 +1,9 @@
-export type Mode = 'HS512' | 'EdDSA'
+import type { AlgType } from './types.js'
+
+/**
+ * @deprecated Use AlgType from types.ts instead
+ */
+export type Mode = AlgType
 
 function envRead(name: string): string | undefined {
   // Prefer an injected edge env bag over process.env (which doesn't exist on Workers)
@@ -10,7 +15,7 @@ function envRead(name: string): string | undefined {
   )
 }
 
-export function envMode(role: 'producer' | 'consumer'): Mode {
+export function envMode(role: 'producer' | 'consumer'): AlgType {
   const env = new Proxy({} as Record<string, string | undefined>, {
     get: (_, k: string | symbol) => envRead(String(k)),
   })
@@ -37,12 +42,35 @@ export function envMode(role: 'producer' | 'consumer'): Mode {
   return 'HS512'
 }
 
+/**
+ * Get common JWT configuration from environment
+ * Returns partial JwtProfile-compatible configuration
+ */
 export function getCommon() {
   return {
     iss: envRead('JWT_ISS') || '',
     aud: envRead('JWT_AUD') || '',
     leeway: Number(envRead('JWT_LEEWAY') ?? 90),
     ttlSeconds: Number(envRead('JWT_TTL_SECONDS') ?? 900),
+  }
+}
+
+/**
+ * Get JWT profile from environment
+ * Returns complete JwtProfile with detected algorithm
+ */
+export function getProfile(
+  role: 'producer' | 'consumer'
+): Partial<import('./types.js').JwtProfile> & { ttlSeconds: number } {
+  const alg = envMode(role)
+  const { iss, aud, leeway, ttlSeconds } = getCommon()
+
+  return {
+    alg,
+    iss,
+    aud,
+    leeway_seconds: leeway,
+    ttlSeconds, // Additional property for convenience
   }
 }
 
