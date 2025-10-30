@@ -19,7 +19,7 @@
  */
 
 import { Hono } from 'hono'
-import { adapters } from '@flarelette/jwt-ts'
+import { adapters } from '@chrislyons-dev/flarelette-jwt'
 
 interface Env {
   // Secret bindings (indirection pattern)

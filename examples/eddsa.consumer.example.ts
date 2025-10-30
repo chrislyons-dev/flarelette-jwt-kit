@@ -2,24 +2,28 @@
 /**
  * Example: EdDSA JWT Consumer (Service)
  *
- * - Verifies JWTs signed by the gateway using JWKS
- * - Uses binding-name indirection: JWT_JWKS_URL_NAME -> GW_JWKS_URL
+ * - Verifies JWTs signed by the gateway using JWKS via service binding
+ * - Uses service binding indirection: JWT_JWKS_SERVICE_NAME -> GATEWAY_BINDING
  * - Demonstrates both raw verify() and policy-driven checkAuth()
  *
- * Required vars in wrangler.toml:
+ * Required configuration in wrangler.toml:
  *
  * [vars]
- * JWT_JWKS_URL_NAME = "GW_JWKS_URL"
- * GW_JWKS_URL = "https://gateway.internal/.well-known/jwks.json"
+ * JWT_JWKS_SERVICE_NAME = "GATEWAY_BINDING"
  * JWT_ISS = "https://gateway.internal"
- * JWT_AUD = "bond-math.api"
+ * JWT_AUD = "api.internal"
  *
- * # Optional key pinning (recommended if you want extra defense):
+ * [[services]]
+ * binding = "GATEWAY_BINDING"
+ * service = "jwt-gateway"
+ * environment = "production"
+ *
+ * # Optional key pinning (recommended for additional security):
  * # JWT_ALLOWED_THUMBPRINTS = "thumb1,thumb2"
  */
 
 import { Hono } from 'hono'
-import { adapters } from '@flarelette/jwt-ts'
+import { adapters } from '@chrislyons-dev/flarelette-jwt'
 
 const app = new Hono()
 
@@ -33,20 +37,20 @@ function getBearerToken(req: Request): string | null {
 /**
  * Health
  */
-app.get('/health', _c => c.json({ ok: true }))
+app.get('/health', c => c.json({ ok: true }))
 
 /**
  * Simple verification example: just validate the token and return the payload
  */
-app.get('/whoami', async _c => {
-  const jwt = adapters.makeKit(_c.env) // inject Cloudflare bindings (env-safe)
-  const token = getBearerToken(_c.req.raw)
-  if (!token) return _c.text('Missing Authorization: Bearer <token>', 401)
+app.get('/whoami', async c => {
+  const jwt = adapters.makeKit(c.env) // inject Cloudflare bindings (env-safe)
+  const token = getBearerToken(c.req.raw)
+  if (!token) return c.text('Missing Authorization: Bearer <token>', 401)
 
   const payload = await jwt.verify(token) // Enforces iss/aud/alg via env
-  if (!payload) return _c.text('Unauthorized', 401)
+  if (!payload) return c.text('Unauthorized', 401)
 
-  return _c.json({
+  return c.json({
     sub: payload.sub,
     roles: payload.roles,
     permissions: payload.permissions,
