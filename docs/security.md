@@ -1,5 +1,31 @@
 # SECURITY.md — Flarelette JWT Kit (HS512 + EdDSA, Cloudflare-Ready)
 
+- [SECURITY.md — Flarelette JWT Kit (HS512 + EdDSA, Cloudflare-Ready)](#securitymd--flarelette-jwt-kit-hs512--eddsa-cloudflare-ready)
+  - [1. Cryptography Profiles](#1-cryptography-profiles)
+  - [2. Key Management](#2-key-management)
+    - [Generation](#generation)
+    - [Secret Storage (Cloudflare style)](#secret-storage-cloudflare-style)
+    - [Ed25519 Key Distribution](#ed25519-key-distribution)
+  - [3. Rotation](#3-rotation)
+  - [4. Token Issuance \& Validation](#4-token-issuance--validation)
+    - [Issuance (Gateway)](#issuance-gateway)
+    - [Validation (Consumers)](#validation-consumers)
+    - [Replay Resistance (Optional)](#replay-resistance-optional)
+  - [5. Transport \& Logging Practices](#5-transport--logging-practices)
+  - [6. Environment Injection (Edge Runtimes)](#6-environment-injection-edge-runtimes)
+  - [7. Time \& Skew](#7-time--skew)
+  - [8. Dependency \& Supply Chain Security](#8-dependency--supply-chain-security)
+  - [9. CI/CD \& Testing](#9-cicd--testing)
+  - [10. Algorithm Agility \& Migration](#10-algorithm-agility--migration)
+  - [11. Hardening Checklist](#11-hardening-checklist)
+  - [12. Incident Response](#12-incident-response)
+  - [13. Service Delegation Pattern (RFC 8693)](#13-service-delegation-pattern-rfc-8693)
+    - [The Actor Claim (`act`)](#the-actor-claim-act)
+    - [Delegation Chains](#delegation-chains)
+    - [Using `createDelegatedToken`](#using-createdelegatedtoken)
+    - [Security Guarantees](#security-guarantees)
+    - [Architecture Pattern](#architecture-pattern)
+
 This document defines the security baseline for projects using **Flarelette JWT Kit** (TypeScript + Python) across both **HS512** and **Ed25519 (EdDSA)** profiles in Cloudflare and standard runtimes.
 
 ---
@@ -182,3 +208,130 @@ Cloudflare Workers and other edge runtimes lack `process.env`.
 ---
 
 **Questions or updates?** Open a security issue or PR with proposed changes and threat model notes.
+
+## 13. Service Delegation Pattern (RFC 8693)
+
+**Zero-Trust Architecture:** Flarelette implements a zero-trust model where external authentication tokens (e.g., Auth0) are exchanged at the gateway for short-lived internal delegation tokens. This ensures:
+
+1. External tokens never penetrate service boundaries
+2. Services communicate only via service bindings (no internet access)
+3. All services trust only internally-minted tokens
+4. Original user permissions are preserved (prevents permission creep)
+
+### The Actor Claim (`act`)
+
+Following **RFC 8693 (OAuth 2.0 Token Exchange)**, delegated tokens use the `act` claim to identify which service is acting on behalf of the original end user:
+
+```json
+{
+  "sub": "user@example.com", // Original end user
+  "iss": "https://gateway.internal", // Who minted this token
+  "aud": "api.internal", // Target service
+  "permissions": ["read:data"], // ORIGINAL user permissions (preserved)
+  "roles": ["user"],
+  "act": {
+    // The service acting on behalf of user
+    "sub": "gateway-service" // Service identifier
+  }
+}
+```
+
+**Pattern Statement:** "I'm `gateway-service` doing work on behalf of `user@example.com`"
+
+### Delegation Chains
+
+For multi-hop service calls (service calling another service), the `act` claim nests:
+
+```json
+{
+  "sub": "user@example.com",
+  "permissions": ["read:data"],
+  "act": {
+    "sub": "api-service", // Direct actor
+    "act": {
+      // Nested: who api-service is acting for
+      "sub": "gateway-service"
+    }
+  }
+}
+```
+
+### Using `createDelegatedToken`
+
+**TypeScript:**
+
+```typescript
+import { createDelegatedToken } from '@flarelette/jwt-ts'
+
+// Gateway receives external Auth0 token
+const auth0Payload = await verifyAuth0Token(externalToken)
+
+// Create internal delegated token for API service
+const internalToken = await createDelegatedToken(
+  auth0Payload, // Original payload with user context
+  'gateway-service', // This service's identifier
+  { aud: 'internal-api' } // Target service
+)
+
+// Token now contains:
+// - Original user identity (sub)
+// - Original permissions (no escalation possible)
+// - Actor claim identifying the gateway as the acting service
+```
+
+**Python:**
+
+```python
+from flarelette_jwt import create_delegated_token
+
+# Gateway receives external Auth0 token
+auth0_payload = await verify_auth0_token(external_token)
+
+# Create internal delegated token for API service
+internal_token = await create_delegated_token(
+    original_payload=auth0_payload,
+    actor_service="gateway-service",
+    aud="internal-api"
+)
+```
+
+### Security Guarantees
+
+1. **No Permission Escalation:** `createDelegatedToken` copies permissions from the original token - services cannot grant themselves additional permissions
+2. **Audit Trail:** The `act` claim chain provides full traceability of which services handled the request
+3. **Short-Lived Tokens:** Internal tokens use `JWT_TTL_SECONDS` (default 15 minutes) to minimize exposure
+4. **Service Isolation:** Service bindings ensure tokens never traverse public networks
+
+### Architecture Pattern
+
+```
+┌──────────────────┐
+│  External IdP    │
+│  (e.g., Auth0)   │
+└────────┬─────────┘
+         │ External JWT
+         │ (user permissions)
+         ▼
+┌──────────────────────────────┐
+│   Gateway (JWT Producer)     │
+│   Role: Token Exchange        │
+│   - Verifies external JWT    │
+│   - Mints delegated token    │
+│   - Adds 'act' claim         │
+└──────┬────────────────┬──────┘
+       │                │
+       │ Delegated JWT  │ Service Binding
+       │ (preserved     │ (internal only)
+       │  permissions)  │
+       ▼                ▼
+┌──────────────┐      ┌──────────────┐
+│  Service A   │─────→│  Service B   │
+│  (Consumer)  │      │  (Consumer)  │
+│              │      │              │
+│  - Verifies  │      │  - Verifies  │
+│  - Checks    │      │  - Checks    │
+│    act claim │      │    act chain │
+└──────────────┘      └──────────────┘
+```
+
+**Reference:** [RFC 8693 - OAuth 2.0 Token Exchange](https://www.rfc-editor.org/rfc/rfc8693.html)

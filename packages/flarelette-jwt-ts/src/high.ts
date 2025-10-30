@@ -51,7 +51,7 @@ export async function createToken(
  * @returns Signed JWT token string with delegation claim
  *
  * @see {@link https://www.rfc-editor.org/rfc/rfc8693.html|RFC 8693: OAuth 2.0 Token Exchange}
- * @see CLAUDE.md - Service Delegation Pattern section
+ * @see security.md - Service Delegation Pattern section
  */
 export async function createDelegatedToken(
   originalPayload: ClaimsDict,
@@ -98,7 +98,11 @@ export async function createDelegatedToken(
 
 /**
  * Authorization options for checkAuth
- * Combines JWT verification options with authorization policy
+ *
+ * Combines JWT verification options (iss, aud, leeway, jwksService) with
+ * authorization policy requirements (permissions, roles, custom predicates).
+ * Use policy() builder for cleaner syntax or construct this object directly
+ * for dynamic policy composition.
  */
 export type AuthzOpts = Partial<{
   iss: string
@@ -115,6 +119,11 @@ export type AuthzOpts = Partial<{
 
 /**
  * Authenticated user information returned by checkAuth
+ *
+ * Returned when a token passes both verification (signature valid, not expired)
+ * and authorization (all policy requirements met). Contains extracted identity
+ * and permission information for use in downstream authorization decisions.
+ * Never returned on verification/authorization failure - checkAuth returns null instead.
  */
 export type AuthUser = {
   sub: string | undefined

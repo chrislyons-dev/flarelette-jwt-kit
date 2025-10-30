@@ -3,17 +3,33 @@ import os
 from typing import Any, Literal, TypedDict
 
 # JWT algorithm types
+# Only two algorithms supported by design:
+# - HS512: Symmetric signing for trusted producer-consumer pairs (shared secret)
+# - EdDSA: Asymmetric signing for public verification with key rotation support
+# No RSA/ECDSA to reduce attack surface and simplify key management.
 AlgType = Literal["HS512", "EdDSA"]
 
 # JWT value types (JSON-compatible values used in claims and predicates)
+# Constrains claim values to JSON-serializable types instead of Any.
+# Enables type-safe claim handling while maintaining flexibility for custom claims.
+# Used throughout signing, verification, and policy evaluation.
 JwtValue = str | int | float | bool | list[str] | dict[str, Any] | None
 
 # Type alias for JWT claims dictionary
+# Standard pattern for passing claims with type safety.
+# Maps string keys to JwtValue-constrained values, preventing unsafe Any types
+# while allowing custom claims beyond the standard JwtPayload fields.
 ClaimsDict = dict[str, JwtValue]
 
 
 class JwtHeader(TypedDict, total=False):
-    """JWT token header structure."""
+    """JWT token header structure.
+
+    Standard JWT header (RFC 7519) with algorithm and optional key ID.
+    The `kid` field enables key rotation in EdDSA mode by identifying which
+    public key in a JWKS should be used for verification. Required for production
+    EdDSA deployments with multiple active keys.
+    """
 
     alg: AlgType  # Algorithm: HS512 or EdDSA
     typ: str  # Token type, typically "JWT"
@@ -80,10 +96,11 @@ class JwtPayload(TypedDict, total=False):
 
 
 class JwtProfile(TypedDict, total=False):
-    """
-    JWT Profile structure matching flarelette-jwt.profile.schema.json
+    """JWT Profile structure matching flarelette-jwt.profile.schema.json.
 
     Represents the complete configuration profile for JWT operations.
+    Environment-driven: populated from JWT_* environment variables via profile() function.
+    Validates against the JSON Schema at project root for consistency across languages.
     """
 
     version: int  # Optional, >= 1
@@ -94,7 +111,12 @@ class JwtProfile(TypedDict, total=False):
 
 
 class JwtCommonConfig(TypedDict):
-    """Common JWT configuration from environment variables."""
+    """Common JWT configuration from environment variables.
+
+    Subset of JwtProfile containing the fields shared across all operations
+    (signing, verification, policy checks). Extracted by common() function
+    and merged with algorithm-specific configuration in profile().
+    """
 
     iss: str
     aud: str

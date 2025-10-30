@@ -159,7 +159,7 @@ When adding a feature:
 - [ ] Test on Node.js and Cloudflare Workers (both languages)
 - [ ] Respect Python limitations (no EdDSA signing, no remote JWKS)
 - [ ] Support secret-name indirection pattern if adding new secrets
-- [ ] Update **CLAUDE.md** with implementation details
+- [ ] Update **project documentation** with implementation details
 - [ ] Update **COPILOT_INSTRUCTIONS.md** with key patterns
 - [ ] Update **docs/usage.md** with user-facing examples
 - [ ] Add type definitions and JSDoc/docstrings
@@ -268,7 +268,6 @@ See **[RELEASING.md](RELEASING.md)** for detailed release process and **[RELEASE
 
 ## Questions?
 
-- Check **CLAUDE.md** for detailed architecture guidance
 - Review **notes/coding.md** for code quality standards
 - See **docs/security.md** for security baseline
 - See **RELEASING.md** for release process

@@ -211,7 +211,6 @@ flarelette-jwt-kit/
 
 ## Additional Resources
 
-- **CLAUDE.md** — Detailed guidance for Claude Code (more comprehensive)
 - **notes/coding.md** — Code quality and style standards
 - **notes/tone-of-voice.md** — Documentation voice and anti-patterns
 - **docs/security.md** — Security baseline and threat model

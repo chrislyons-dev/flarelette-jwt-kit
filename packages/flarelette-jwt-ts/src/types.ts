@@ -4,11 +4,21 @@
 
 /**
  * JWT algorithm type
+ *
+ * Only two algorithms supported by design:
+ * - HS512: Symmetric signing for trusted producer-consumer pairs (shared secret)
+ * - EdDSA: Asymmetric signing for public verification with key rotation support
+ *
+ * No RSA/ECDSA to reduce attack surface and simplify key management.
  */
 export type AlgType = 'HS512' | 'EdDSA'
 
 /**
  * JWT value types (JSON-compatible values used in claims and predicates)
+ *
+ * Constrains claim values to JSON-serializable types instead of `any`.
+ * Enables type-safe claim handling while maintaining flexibility for custom claims.
+ * Used throughout signing, verification, and policy evaluation.
  */
 export type JwtValue =
   | string
@@ -20,11 +30,20 @@ export type JwtValue =
 
 /**
  * JWT claims dictionary type
+ *
+ * Standard pattern for passing claims with type safety.
+ * Maps string keys to JwtValue-constrained values, preventing unsafe `any` types
+ * while allowing custom claims beyond the standard JwtPayload fields.
  */
 export type ClaimsDict = Record<string, JwtValue>
 
 /**
  * JWT token header structure
+ *
+ * Standard JWT header (RFC 7519) with algorithm and optional key ID.
+ * The `kid` field enables key rotation in EdDSA mode by identifying which
+ * public key in a JWKS should be used for verification. Required for production
+ * EdDSA deployments with multiple active keys.
  */
 export interface JwtHeader {
   /** Algorithm: HS512 or EdDSA */
@@ -117,6 +136,10 @@ export interface JwtPayload {
 
 /**
  * Parsed JWT token structure
+ *
+ * Result of parsing a JWT without verification. Useful for inspecting claims
+ * before verification (e.g., routing decisions) or debugging token issues.
+ * Never trust the payload from parse() alone - always verify() for security-sensitive operations.
  */
 export interface ParsedJwt {
   header: JwtHeader
@@ -163,6 +186,11 @@ export interface JwtProfile {
 
 /**
  * Cloudflare service binding interface (Worker-to-Worker RPC)
+ *
+ * Enables direct Worker-to-Worker communication for JWKS fetching without
+ * public HTTP endpoints. Provides better security (no public exposure),
+ * performance (lower latency), and reliability (no DNS/network failures).
+ * Preferred over HTTP URLs for production EdDSA verification.
  */
 export interface Fetcher {
   fetch(input: string | Request, init?: RequestInit): Promise<Response>
@@ -170,6 +198,11 @@ export interface Fetcher {
 
 /**
  * Cloudflare Worker environment with typed bindings
+ *
+ * Defines all JWT-related environment variables and service bindings.
+ * Supports secret-name indirection pattern: JWT_SECRET_NAME points to the
+ * actual secret binding name, enabling proper secret management without
+ * exposing values in environment variables. All *_NAME fields follow this pattern.
  */
 export interface WorkerEnv extends Record<string, unknown> {
   // Standard environment variables (strings)
@@ -200,6 +233,11 @@ export interface WorkerEnv extends Record<string, unknown> {
 
 /**
  * JWKS (JSON Web Key Set) response format
+ *
+ * Standard RFC 7517 structure for distributing public keys.
+ * Used in EdDSA mode to support key rotation - consumers fetch this from
+ * producers to get current public keys. Each key includes a `kid` that
+ * matches the JWT header for identification during verification.
  */
 export interface JWKSResponse {
   keys: JsonWebKey[]
@@ -207,6 +245,11 @@ export interface JWKSResponse {
 
 /**
  * Internal environment bag for service bindings
+ *
+ * Separates string environment variables from Fetcher service bindings
+ * during injection. Required because Cloudflare Workers pass both types
+ * in the same `env` object, but they need different handling - vars go
+ * to globalThis.__FLARELETTE_ENV, services go to globalThis.__FLARELETTE_SERVICES.
  */
 export interface EnvBag {
   vars: Record<string, string>

@@ -7,7 +7,12 @@ from .env import JwtHeader, JwtPayload
 
 
 class ParsedJwt(TypedDict, total=True):
-    """Parsed JWT token structure."""
+    """Parsed JWT token structure.
+
+    Result of parsing a JWT without verification. Useful for inspecting claims
+    before verification (e.g., routing decisions) or debugging token issues.
+    Never trust the payload from parse() alone - always verify() for security-sensitive operations.
+    """
 
     header: JwtHeader
     payload: JwtPayload

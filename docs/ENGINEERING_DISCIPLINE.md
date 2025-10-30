@@ -204,7 +204,6 @@ See `.github/workflows/ci.yml.example` for a complete CI workflow.
 - **[QUICKREF.md](QUICKREF.md)** — Quick command reference
 - **[CONTRIBUTING.md](CONTRIBUTING.md)** — Contribution guidelines
 - **[notes/coding.md](notes/coding.md)** — Coding standards
-- **[CLAUDE.md](CLAUDE.md)** — Architecture details
 
 ## 🔍 Verification
 

@@ -12,7 +12,13 @@ if TYPE_CHECKING:
 
 
 class AuthUser(TypedDict, total=False):
-    """Authenticated user information returned by check_auth."""
+    """Authenticated user information returned by check_auth.
+
+    Returned when a token passes both verification (signature valid, not expired)
+    and authorization (all policy requirements met). Contains extracted identity
+    and permission information for use in downstream authorization decisions.
+    Never returned on verification/authorization failure - check_auth returns None instead.
+    """
 
     sub: str | None
     permissions: list[str]
@@ -22,7 +28,13 @@ class AuthUser(TypedDict, total=False):
 
 
 class PolicyBuilder(Protocol):
-    """Builder interface for creating JWT authorization policies."""
+    """Builder interface for creating JWT authorization policies.
+
+    Fluent API for composing authorization requirements used by check_auth().
+    Chain methods to combine multiple requirements (all must pass for authorization).
+    Enables readable, declarative policy definitions that separate authorization
+    logic from business logic.
+    """
 
     def base(self, **b: Any) -> PolicyBuilder: ...
     def need_all(self, *p: str) -> PolicyBuilder: ...
@@ -102,7 +114,7 @@ async def create_delegated_token(
 
     See Also:
         - RFC 8693: OAuth 2.0 Token Exchange
-        - CLAUDE.md: Service Delegation Pattern section
+        - security.md: Service Delegation Pattern section
     """
     # Preserve original user context and permissions
     delegated_claims: dict[str, JwtValue] = {

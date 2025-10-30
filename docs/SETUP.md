@@ -271,5 +271,3 @@ Make sure to run `npm run check` before pushing to avoid CI failures.
 ## Next Steps
 
 - Read [CONTRIBUTING.md](CONTRIBUTING.md) for contribution guidelines
-- Review [notes/coding.md](notes/coding.md) for coding standards
-- Check [CLAUDE.md](CLAUDE.md) for architecture details
