@@ -37,6 +37,9 @@
     "pack:test": "npm run pack:test:ts && npm run pack:test:py",
     "pack:test:ts": "npm run build && cd packages/flarelette-jwt-ts && npm pack --pack-destination ./dist && cd ../.. && node scripts/inspect-pack-ts.js",
     "pack:test:py": "cd packages/flarelette-jwt-py && py prepare.py && python -m build && cd ../.. && node scripts/inspect-pack-py.js",
+    "docs:serve": "mkdocs serve",
+    "docs:build": "mkdocs build --strict",
+    "docs:deploy": "mkdocs gh-deploy --force",
     "prepare": "husky"
   },
   "workspaces": [

@@ -6,6 +6,10 @@ dist/
 build/
 *.egg-info/
 
+# Documentation build
+site/
+.mkdocs_cache/
+
 # Python
 __pycache__/
 *.pyc

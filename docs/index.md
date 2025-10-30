@@ -1,11 +1,3 @@
-<p align="center">
-  <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="docs/images/flarelette-logo-dark-mode.png">
-    <source media="(prefers-color-scheme: light)" srcset="docs/images/flarelette-logo-light-mode.png">
-    <img alt="Flarelette JWT Kit" src="docs/images/flarelette-logo-light-mode.png" width="400">
-  </picture>
-</p>
-
 # Flarelette JWT Kit
 
 **Environment-driven JWT authentication for Cloudflare Workers. Like Starlette, but for the edge.**
@@ -27,48 +19,48 @@ Flarelette JWT Kit provides the core cryptographic operations for the **Flarelet
 
 ### Installation
 
-**TypeScript/JavaScript:**
+=== "TypeScript"
 
-```bash
-npm install @chrislyons-dev/flarelette-jwt
-```
+    ```bash
+    npm install @chrislyons-dev/flarelette-jwt
+    ```
 
-**Python:**
+=== "Python"
 
-```bash
-pip install flarelette-jwt
-```
+    ```bash
+    pip install flarelette-jwt
+    ```
 
 ### Basic Example
 
-**TypeScript:**
+=== "TypeScript"
 
-```typescript
-import { sign, verify } from '@chrislyons-dev/flarelette-jwt'
+    ```typescript
+    import { sign, verify } from '@chrislyons-dev/flarelette-jwt'
 
-// Sign a token (algorithm chosen from environment)
-const token = await sign({ sub: 'user123', permissions: ['read:data'] })
+    // Sign a token (algorithm chosen from environment)
+    const token = await sign({ sub: 'user123', permissions: ['read:data'] })
 
-// Verify a token
-const payload = await verify(token)
-if (payload) {
-  console.log('Valid token:', payload.sub)
-}
-```
+    // Verify a token
+    const payload = await verify(token)
+    if (payload) {
+      console.log('Valid token:', payload.sub)
+    }
+    ```
 
-**Python:**
+=== "Python"
 
-```python
-from flarelette_jwt import sign, verify
+    ```python
+    from flarelette_jwt import sign, verify
 
-# Sign a token (algorithm chosen from environment)
-token = await sign({"sub": "user123", "permissions": ["read:data"]})
+    # Sign a token (algorithm chosen from environment)
+    token = await sign({"sub": "user123", "permissions": ["read:data"]})
 
-# Verify a token
-payload = await verify(token)
-if payload:
-    print(f"Valid token: {payload.get('sub')}")
-```
+    # Verify a token
+    payload = await verify(token)
+    if payload:
+        print(f"Valid token: {payload.get('sub')}")
+    ```
 
 ## Key Features
 
@@ -111,15 +103,6 @@ JWT_PUBLIC_JWK_NAME=GATEWAY_PUBLIC_KEY
 JWT_JWKS_SERVICE_NAME=GATEWAY_BINDING
 ```
 
-## Documentation
-
-- **[Getting Started](./docs/getting-started.md)** — Installation, first token, and basic setup
-- **[Core Concepts](./docs/core-concepts.md)** — Algorithms, modes, and architecture
-- **[Usage Guide](./docs/usage-guide.md)** — Complete API reference for TypeScript and Python
-- **[Service Delegation](./docs/service-delegation.md)** — RFC 8693 actor claims for zero-trust
-- **[Security Guide](./docs/security-guide.md)** — Cryptographic profiles, key management, and best practices
-- **[Cloudflare Workers](./docs/cloudflare-workers.md)** — Workers-specific configuration and deployment
-
 ## CLI Tools
 
 **Generate HS512 secrets:**
@@ -134,14 +117,48 @@ npx flarelette-jwt-secret --len=64 --dotenv
 npx flarelette-jwt-keygen --kid=ed25519-2025-01
 ```
 
-## Contributing
+## Next Steps
 
-See [CONTRIBUTING.md](./CONTRIBUTING.md) for development setup, coding standards, and release procedures.
+<div class="grid cards" markdown>
+
+- :material-rocket-launch:{ .lg .middle } **Getting Started**
+
+  ***
+
+  Install the packages and create your first JWT token
+
+  [:octicons-arrow-right-24: Installation guide](getting-started.md)
+
+- :material-library:{ .lg .middle } **Core Concepts**
+
+  ***
+
+  Learn about algorithms, modes, and architecture patterns
+
+  [:octicons-arrow-right-24: Core concepts](core-concepts.md)
+
+- :material-api:{ .lg .middle } **Usage Guide**
+
+  ***
+
+  Complete API reference for TypeScript and Python
+
+  [:octicons-arrow-right-24: API reference](usage-guide.md)
+
+- :material-shield-lock:{ .lg .middle } **Security Guide**
+
+  ***
+
+  Cryptographic profiles, key management, and best practices
+
+  [:octicons-arrow-right-24: Security guide](security-guide.md)
+
+</div>
 
 ## License
 
-MIT — see [LICENSE](./LICENSE) for details.
+MIT — see [LICENSE](https://github.com/chrislyons-dev/flarelette-jwt-kit/blob/main/LICENSE) for details.
 
 ## Security
 
-For security concerns or vulnerability reports, see [docs/security-guide.md](./docs/security-guide.md) or open a security issue.
+For security concerns or vulnerability reports, see the [Security Guide](security-guide.md) or open a security issue on [GitHub](https://github.com/chrislyons-dev/flarelette-jwt-kit/security).
