@@ -31,7 +31,7 @@ JWT_SECRET_NAME=MY_SECRET    # Points to secret binding
 JWT_SECRET=<base64url-secret>  # Direct secret (not recommended for production)
 ```
 
-###EdDSA (Asymmetric)
+### EdDSA (Asymmetric)
 
 **Ed25519** digital signatures with JSON Web Keys.
 

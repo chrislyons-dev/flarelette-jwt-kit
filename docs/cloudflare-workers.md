@@ -91,7 +91,7 @@ wrangler deploy
 **Install:**
 
 ```bash
-pip install chrislyons-flarelette-jwt
+pip install flarelette-jwt
 ```
 
 **`src/index.py`:**

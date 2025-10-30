@@ -28,7 +28,7 @@ npm install @chrislyons-dev/flarelette-jwt
 **Python:**
 
 ```bash
-pip install chrislyons-flarelette-jwt
+pip install flarelette-jwt
 ```
 
 ### Basic Example
@@ -107,7 +107,7 @@ JWT_JWKS_SERVICE_NAME=GATEWAY_BINDING
 
 - **[Getting Started](./docs/getting-started.md)** — Installation, first token, and basic setup
 - **[Core Concepts](./docs/core-concepts.md)** — Algorithms, modes, and architecture
-- **[Usage Guide](./docs/usage-guide.md)** — Detailed API reference for TypeScript and Python
+- **[Usage Guide](./docs/usage-guide.md)** — Complete API reference for TypeScript and Python
 - **[Service Delegation](./docs/service-delegation.md)** — RFC 8693 actor claims for zero-trust
 - **[Security Guide](./docs/security-guide.md)** — Cryptographic profiles, key management, and best practices
 - **[Cloudflare Workers](./docs/cloudflare-workers.md)** — Workers-specific configuration and deployment

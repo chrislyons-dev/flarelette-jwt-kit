@@ -18,7 +18,7 @@
     },
     "packages/flarelette-jwt-py": {
       "release-type": "python",
-      "package-name": "chrislyons-flarelette-jwt",
+      "package-name": "flarelette-jwt",
       "bump-minor-pre-major": true,
       "bump-patch-for-minor-pre-major": true,
       "changelog-sections": [

@@ -18,7 +18,7 @@ npm install @chrislyons-dev/flarelette-jwt
 ### Python
 
 ```bash
-pip install chrislyons-flarelette-jwt
+pip install flarelette-jwt
 ```
 
 **Requirements:**

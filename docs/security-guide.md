@@ -562,9 +562,9 @@ Enable secret scanning to prevent committed secrets:
 ```toml
 # .gitleaks.toml
 [[rules]]
-id = "jwt-secret"
-description = "JWT secret"
-regex = '''JWT_SECRET\s*=\s*["']?[A-Za-z0-9_-]{64,}["']?'''
+id = "jwt-secrets"
+description = "JWT secrets and keys"
+regex = '''JWT_(SECRET|PRIVATE_JWK|PUBLIC_JWK|JWKS_URL)\s*=\s*["']?[A-Za-z0-9_\-+/={}:,"\.]{32,}["']?'''
 ```
 
 ## Hardening Checklist
