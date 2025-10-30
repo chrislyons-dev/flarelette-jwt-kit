@@ -268,7 +268,7 @@ See **[RELEASING.md](RELEASING.md)** for detailed release process and **[RELEASE
 
 ## Questions?
 
-- Review **notes/coding.md** for code quality standards
+- Review **docs/CODING_STANDARDS.md** for code quality standards
 - See **docs/security.md** for security baseline
 - See **RELEASING.md** for release process
 - Open a GitHub issue for questions or discussions

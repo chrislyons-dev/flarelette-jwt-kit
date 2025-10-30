@@ -211,7 +211,5 @@ flarelette-jwt-kit/
 
 ## Additional Resources
 
-- **notes/coding.md** — Code quality and style standards
-- **notes/tone-of-voice.md** — Documentation voice and anti-patterns
 - **docs/security.md** — Security baseline and threat model
 - **docs/usage.md** — User-facing usage documentation

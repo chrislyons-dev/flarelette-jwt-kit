@@ -232,4 +232,4 @@ git commit --no-verify -m "your message"
 
 - See [SETUP.md](SETUP.md) for detailed setup
 - See [CONTRIBUTING.md](CONTRIBUTING.md) for contribution guidelines
-- See [notes/coding.md](notes/coding.md) for coding standards
+- See [docs/CODING_STANDARDS.md](./CODING_STANDARDS.md) for coding standards

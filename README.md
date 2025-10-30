@@ -35,3 +35,7 @@ JWT_SECRET_NAME = "FLARELETTE_JWT_SECRET"
 JWT_ISS = "https://gw.example"
 JWT_AUD = "bond-math.api"
 ```
+
+## Documentation
+
+For detailed guides and references, please visit the [documentation index](./docs/index.md).

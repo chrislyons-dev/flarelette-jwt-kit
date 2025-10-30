@@ -5,6 +5,12 @@ Supports **HS512** and **EdDSA (Ed25519)** automatically based on environment, w
 
 ---
 
+## Simplified Overview
+
+Flarelette JWT Kit simplifies JWT management by auto-detecting cryptographic modes (HS512 or EdDSA) based on environment variables. This ensures secure, environment-driven configurations without manual intervention.
+
+---
+
 ### 📁 Repository Layout
 
 - Root:

@@ -268,6 +268,10 @@ These same checks run in CI/CD pipelines:
 
 Make sure to run `npm run check` before pushing to avoid CI failures.
 
+## Why This Matters
+
+Setting up the development environment correctly ensures that all quality gates (linting, formatting, type checking) are enforced consistently. This minimizes errors and maintains the project's high standards.
+
 ## Next Steps
 
 - Read [CONTRIBUTING.md](CONTRIBUTING.md) for contribution guidelines

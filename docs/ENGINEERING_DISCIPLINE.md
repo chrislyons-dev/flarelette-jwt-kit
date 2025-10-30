@@ -203,7 +203,7 @@ See `.github/workflows/ci.yml.example` for a complete CI workflow.
 - **[SETUP.md](SETUP.md)** — Detailed setup instructions
 - **[QUICKREF.md](QUICKREF.md)** — Quick command reference
 - **[CONTRIBUTING.md](CONTRIBUTING.md)** — Contribution guidelines
-- **[notes/coding.md](notes/coding.md)** — Coding standards
+- **[docs/CODING_STANDARDS.md](./CODING_STANDARDS.md)** — Coding standards
 
 ## 🔍 Verification
 
