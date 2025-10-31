@@ -1,0 +1,17 @@
+graph TB
+  linkStyle default fill:#ffffff
+
+  subgraph diagram ["flarelette-jwt-kit - flarelette-jwt - Components"]
+    style diagram fill:#ffffff,stroke:#ffffff
+
+    subgraph 33 ["flarelette-jwt"]
+      style 33 fill:#ffffff,stroke:#2e6295,color:#2e6295
+
+      34("<div style='font-weight: bold'>flarelette-jwt-py</div><div style='font-size: 70%; margin-top: 0px'>[Component: module]</div><div style='font-size: 80%; margin-top:10px'>Component derived from<br />directory: flarelette-jwt-py</div>")
+      style 34 fill:#85bbf0,stroke:#5d82a8,color:#000000
+      35("<div style='font-weight: bold'>flarelette_jwt</div><div style='font-size: 70%; margin-top: 0px'>[Component: module]</div><div style='font-size: 80%; margin-top:10px'>Component derived from<br />directory: flarelette_jwt</div>")
+      style 35 fill:#85bbf0,stroke:#5d82a8,color:#000000
+    end
+
+    34-- "<div>create_token | sign | verify</div><div style='font-size: 70%'></div>" -->35
+  end

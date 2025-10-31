@@ -1,0 +1,29 @@
+@startuml
+set separator none
+title flarelette-jwt-kit - System Context
+
+top to bottom direction
+skinparam ranksep 60
+skinparam nodesep 30
+
+skinparam {
+  arrowFontSize 10
+  defaultTextAlignment center
+  wrapWidth 200
+  maxMessageSize 100
+  defaultFontName "Arial"
+}
+
+hide stereotype
+
+skinparam rectangle<<flarelettejwtkit>> {
+  BackgroundColor #1168bd
+  FontColor #ffffff
+  BorderColor #0b4884
+  roundCorner 20
+  shadowing false
+}
+
+rectangle "==flarelette-jwt-kit\n<size:10>[Software System]</size>\n\nJWT authentication and authorization library" <<flarelettejwtkit>> as flarelettejwtkit
+
+@enduml

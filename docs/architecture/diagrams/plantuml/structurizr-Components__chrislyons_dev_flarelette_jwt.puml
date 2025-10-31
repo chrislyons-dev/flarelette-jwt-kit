@@ -1,0 +1,45 @@
+@startuml
+set separator none
+title flarelette-jwt-kit - @chrislyons-dev/flarelette-jwt - Components
+
+top to bottom direction
+skinparam ranksep 60
+skinparam nodesep 30
+
+skinparam {
+  arrowFontSize 10
+  defaultTextAlignment center
+  wrapWidth 200
+  maxMessageSize 100
+  defaultFontName "Arial"
+}
+
+hide stereotype
+
+skinparam rectangle<<flarelettejwtkit.chrislyonsdevflarelettejwt.adapters>> {
+  BackgroundColor #85bbf0
+  FontColor #000000
+  BorderColor #5d82a8
+  roundCorner 20
+  shadowing false
+}
+skinparam rectangle<<flarelettejwtkit.chrislyonsdevflarelettejwt.src>> {
+  BackgroundColor #85bbf0
+  FontColor #000000
+  BorderColor #5d82a8
+  roundCorner 20
+  shadowing false
+}
+skinparam rectangle<<flarelettejwtkit.chrislyonsdevflarelettejwt>> {
+  BorderColor #2e6295
+  FontColor #2e6295
+  shadowing false
+}
+
+rectangle "@chrislyons-dev/flarelette-jwt\n<size:10>[Container: Service]</size>" <<flarelettejwtkit.chrislyonsdevflarelettejwt>> {
+  rectangle "==src\n<size:10>[Component: module]</size>\n\nComponent inferred from directory: src" <<flarelettejwtkit.chrislyonsdevflarelettejwt.src>> as flarelettejwtkit.chrislyonsdevflarelettejwt.src
+  rectangle "==adapters\n<size:10>[Component: module]</size>\n\nComponent inferred from directory: adapters" <<flarelettejwtkit.chrislyonsdevflarelettejwt.adapters>> as flarelettejwtkit.chrislyonsdevflarelettejwt.adapters
+}
+
+flarelettejwtkit.chrislyonsdevflarelettejwt.adapters -[#707070,thickness=2]-> flarelettejwtkit.chrislyonsdevflarelettejwt.src : "<color:#707070>* as kit | getJwksServiceName | WorkerEnv | Fetcher"
+@enduml

@@ -1,0 +1,45 @@
+@startuml
+set separator none
+title flarelette-jwt-kit - flarelette-jwt - Components
+
+top to bottom direction
+skinparam ranksep 60
+skinparam nodesep 30
+
+skinparam {
+  arrowFontSize 10
+  defaultTextAlignment center
+  wrapWidth 200
+  maxMessageSize 100
+  defaultFontName "Arial"
+}
+
+hide stereotype
+
+skinparam rectangle<<flarelettejwtkit.flarelettejwt.flarelettejwtpy>> {
+  BackgroundColor #85bbf0
+  FontColor #000000
+  BorderColor #5d82a8
+  roundCorner 20
+  shadowing false
+}
+skinparam rectangle<<flarelettejwtkit.flarelettejwt.flarelette_jwt>> {
+  BackgroundColor #85bbf0
+  FontColor #000000
+  BorderColor #5d82a8
+  roundCorner 20
+  shadowing false
+}
+skinparam rectangle<<flarelettejwtkit.flarelettejwt>> {
+  BorderColor #2e6295
+  FontColor #2e6295
+  shadowing false
+}
+
+rectangle "flarelette-jwt\n<size:10>[Container: Service]</size>" <<flarelettejwtkit.flarelettejwt>> {
+  rectangle "==flarelette-jwt-py\n<size:10>[Component: module]</size>\n\nComponent derived from directory: flarelette-jwt-py" <<flarelettejwtkit.flarelettejwt.flarelettejwtpy>> as flarelettejwtkit.flarelettejwt.flarelettejwtpy
+  rectangle "==flarelette_jwt\n<size:10>[Component: module]</size>\n\nComponent derived from directory: flarelette_jwt" <<flarelettejwtkit.flarelettejwt.flarelette_jwt>> as flarelettejwtkit.flarelettejwt.flarelette_jwt
+}
+
+flarelettejwtkit.flarelettejwt.flarelettejwtpy -[#707070,thickness=2]-> flarelettejwtkit.flarelettejwt.flarelette_jwt : "<color:#707070>create_token | sign | verify"
+@enduml

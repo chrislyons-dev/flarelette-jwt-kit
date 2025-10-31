@@ -1,0 +1,220 @@
+@startuml
+set separator none
+title flarelette-jwt-kit - @chrislyons-dev/flarelette-jwt - Components
+
+top to bottom direction
+skinparam ranksep 60
+skinparam nodesep 30
+
+skinparam {
+  arrowFontSize 10
+  defaultTextAlignment center
+  wrapWidth 200
+  maxMessageSize 100
+  defaultFontName "Arial"
+}
+
+hide stereotype
+
+skinparam rectangle<<flarelettejwtkit.chrislyonsdevflarelettejwt.srcallowedThumbprints>> {
+  BackgroundColor #85bbf0
+  FontColor #000000
+  BorderColor #5d82a8
+  roundCorner 20
+  shadowing false
+}
+skinparam rectangle<<flarelettejwtkit.chrislyonsdevflarelettejwt.srccheckAuth>> {
+  BackgroundColor #85bbf0
+  FontColor #000000
+  BorderColor #5d82a8
+  roundCorner 20
+  shadowing false
+}
+skinparam rectangle<<flarelettejwtkit.chrislyonsdevflarelettejwt.srcclearJwksCache>> {
+  BackgroundColor #85bbf0
+  FontColor #000000
+  BorderColor #5d82a8
+  roundCorner 20
+  shadowing false
+}
+skinparam rectangle<<flarelettejwtkit.chrislyonsdevflarelettejwt.srccreateDelegatedToken>> {
+  BackgroundColor #85bbf0
+  FontColor #000000
+  BorderColor #5d82a8
+  roundCorner 20
+  shadowing false
+}
+skinparam rectangle<<flarelettejwtkit.chrislyonsdevflarelettejwt.srccreateToken>> {
+  BackgroundColor #85bbf0
+  FontColor #000000
+  BorderColor #5d82a8
+  roundCorner 20
+  shadowing false
+}
+skinparam rectangle<<flarelettejwtkit.chrislyonsdevflarelettejwt.srcenvMode>> {
+  BackgroundColor #85bbf0
+  FontColor #000000
+  BorderColor #5d82a8
+  roundCorner 20
+  shadowing false
+}
+skinparam rectangle<<flarelettejwtkit.chrislyonsdevflarelettejwt.srcenvRead>> {
+  BackgroundColor #85bbf0
+  FontColor #000000
+  BorderColor #5d82a8
+  roundCorner 20
+  shadowing false
+}
+skinparam rectangle<<flarelettejwtkit.chrislyonsdevflarelettejwt.srcfetchJwksFromService>> {
+  BackgroundColor #85bbf0
+  FontColor #000000
+  BorderColor #5d82a8
+  roundCorner 20
+  shadowing false
+}
+skinparam rectangle<<flarelettejwtkit.chrislyonsdevflarelettejwt.srcgenerateSecret>> {
+  BackgroundColor #85bbf0
+  FontColor #000000
+  BorderColor #5d82a8
+  roundCorner 20
+  shadowing false
+}
+skinparam rectangle<<flarelettejwtkit.chrislyonsdevflarelettejwt.srcgetCommon>> {
+  BackgroundColor #85bbf0
+  FontColor #000000
+  BorderColor #5d82a8
+  roundCorner 20
+  shadowing false
+}
+skinparam rectangle<<flarelettejwtkit.chrislyonsdevflarelettejwt.srcgetHSSecret>> {
+  BackgroundColor #85bbf0
+  FontColor #000000
+  BorderColor #5d82a8
+  roundCorner 20
+  shadowing false
+}
+skinparam rectangle<<flarelettejwtkit.chrislyonsdevflarelettejwt.srcgetJwksServiceName>> {
+  BackgroundColor #85bbf0
+  FontColor #000000
+  BorderColor #5d82a8
+  roundCorner 20
+  shadowing false
+}
+skinparam rectangle<<flarelettejwtkit.chrislyonsdevflarelettejwt.srcgetKeyFromJwks>> {
+  BackgroundColor #85bbf0
+  FontColor #000000
+  BorderColor #5d82a8
+  roundCorner 20
+  shadowing false
+}
+skinparam rectangle<<flarelettejwtkit.chrislyonsdevflarelettejwt.srcgetPrivateJwkString>> {
+  BackgroundColor #85bbf0
+  FontColor #000000
+  BorderColor #5d82a8
+  roundCorner 20
+  shadowing false
+}
+skinparam rectangle<<flarelettejwtkit.chrislyonsdevflarelettejwt.srcgetProfile>> {
+  BackgroundColor #85bbf0
+  FontColor #000000
+  BorderColor #5d82a8
+  roundCorner 20
+  shadowing false
+}
+skinparam rectangle<<flarelettejwtkit.chrislyonsdevflarelettejwt.srcgetPublicJwkString>> {
+  BackgroundColor #85bbf0
+  FontColor #000000
+  BorderColor #5d82a8
+  roundCorner 20
+  shadowing false
+}
+skinparam rectangle<<flarelettejwtkit.chrislyonsdevflarelettejwt.srcisExpiringSoon>> {
+  BackgroundColor #85bbf0
+  FontColor #000000
+  BorderColor #5d82a8
+  roundCorner 20
+  shadowing false
+}
+skinparam rectangle<<flarelettejwtkit.chrislyonsdevflarelettejwt.srcisValidBase64UrlSecret>> {
+  BackgroundColor #85bbf0
+  FontColor #000000
+  BorderColor #5d82a8
+  roundCorner 20
+  shadowing false
+}
+skinparam rectangle<<flarelettejwtkit.chrislyonsdevflarelettejwt.srcmain>> {
+  BackgroundColor #85bbf0
+  FontColor #000000
+  BorderColor #5d82a8
+  roundCorner 20
+  shadowing false
+}
+skinparam rectangle<<flarelettejwtkit.chrislyonsdevflarelettejwt.srcmapScopesToPermissions>> {
+  BackgroundColor #85bbf0
+  FontColor #000000
+  BorderColor #5d82a8
+  roundCorner 20
+  shadowing false
+}
+skinparam rectangle<<flarelettejwtkit.chrislyonsdevflarelettejwt.srcparse>> {
+  BackgroundColor #85bbf0
+  FontColor #000000
+  BorderColor #5d82a8
+  roundCorner 20
+  shadowing false
+}
+skinparam rectangle<<flarelettejwtkit.chrislyonsdevflarelettejwt.srcpolicy>> {
+  BackgroundColor #85bbf0
+  FontColor #000000
+  BorderColor #5d82a8
+  roundCorner 20
+  shadowing false
+}
+skinparam rectangle<<flarelettejwtkit.chrislyonsdevflarelettejwt.srcsign>> {
+  BackgroundColor #85bbf0
+  FontColor #000000
+  BorderColor #5d82a8
+  roundCorner 20
+  shadowing false
+}
+skinparam rectangle<<flarelettejwtkit.chrislyonsdevflarelettejwt.srcverify>> {
+  BackgroundColor #85bbf0
+  FontColor #000000
+  BorderColor #5d82a8
+  roundCorner 20
+  shadowing false
+}
+skinparam rectangle<<flarelettejwtkit.chrislyonsdevflarelettejwt>> {
+  BorderColor #2e6295
+  FontColor #2e6295
+  shadowing false
+}
+
+rectangle "@chrislyons-dev/flarelette-jwt\n<size:10>[Container: Service]</size>" <<flarelettejwtkit.chrislyonsdevflarelettejwt>> {
+  rectangle "==src.getPrivateJwkString\n<size:10>[Component: function]</size>" <<flarelettejwtkit.chrislyonsdevflarelettejwt.srcgetPrivateJwkString>> as flarelettejwtkit.chrislyonsdevflarelettejwt.srcgetPrivateJwkString
+  rectangle "==src.getPublicJwkString\n<size:10>[Component: function]</size>" <<flarelettejwtkit.chrislyonsdevflarelettejwt.srcgetPublicJwkString>> as flarelettejwtkit.chrislyonsdevflarelettejwt.srcgetPublicJwkString
+  rectangle "==src.getJwksServiceName\n<size:10>[Component: function]</size>" <<flarelettejwtkit.chrislyonsdevflarelettejwt.srcgetJwksServiceName>> as flarelettejwtkit.chrislyonsdevflarelettejwt.srcgetJwksServiceName
+  rectangle "==src.createToken\n<size:10>[Component: function]</size>\n\nCreate a signed JWT token with optional claims" <<flarelettejwtkit.chrislyonsdevflarelettejwt.srccreateToken>> as flarelettejwtkit.chrislyonsdevflarelettejwt.srccreateToken
+  rectangle "==src.createDelegatedToken\n<size:10>[Component: function]</size>\n\nCreate a delegated JWT token following RFC 8693 actor claim pattern Mints a new short-lived token for use within service boundaries where a service acts on behalf of the original end user. This implements zero-trust delegation: - Preserves original user identity (sub) and permissions - Identifies the acting service via 'act' claim - Prevents permission escalation by copying original permissions Pattern: "I'm <actorService> doing work on behalf of <original user>"" <<flarelettejwtkit.chrislyonsdevflarelettejwt.srccreateDelegatedToken>> as flarelettejwtkit.chrislyonsdevflarelettejwt.srccreateDelegatedToken
+  rectangle "==src.checkAuth\n<size:10>[Component: function]</size>\n\nVerify and authorize a JWT token with policy enforcement" <<flarelettejwtkit.chrislyonsdevflarelettejwt.srccheckAuth>> as flarelettejwtkit.chrislyonsdevflarelettejwt.srccheckAuth
+  rectangle "==src.policy\n<size:10>[Component: function]</size>\n\nFluent builder for creating authorization policies" <<flarelettejwtkit.chrislyonsdevflarelettejwt.srcpolicy>> as flarelettejwtkit.chrislyonsdevflarelettejwt.srcpolicy
+  rectangle "==src.clearJwksCache\n<size:10>[Component: function]</size>\n\nClear the JWKS cache (for testing purposes)" <<flarelettejwtkit.chrislyonsdevflarelettejwt.srcclearJwksCache>> as flarelettejwtkit.chrislyonsdevflarelettejwt.srcclearJwksCache
+  rectangle "==src.fetchJwksFromService\n<size:10>[Component: function]</size>\n\nFetch JWKS from a service binding Implements 5-minute caching to reduce load on JWKS service" <<flarelettejwtkit.chrislyonsdevflarelettejwt.srcfetchJwksFromService>> as flarelettejwtkit.chrislyonsdevflarelettejwt.srcfetchJwksFromService
+  rectangle "==src.getKeyFromJwks\n<size:10>[Component: function]</size>\n\nFind and import a specific key from JWKS by kid" <<flarelettejwtkit.chrislyonsdevflarelettejwt.srcgetKeyFromJwks>> as flarelettejwtkit.chrislyonsdevflarelettejwt.srcgetKeyFromJwks
+  rectangle "==src.allowedThumbprints\n<size:10>[Component: function]</size>\n\nGet allowed thumbprints for key pinning (optional security measure)" <<flarelettejwtkit.chrislyonsdevflarelettejwt.srcallowedThumbprints>> as flarelettejwtkit.chrislyonsdevflarelettejwt.srcallowedThumbprints
+  rectangle "==src.main\n<size:10>[Component: function]</size>" <<flarelettejwtkit.chrislyonsdevflarelettejwt.srcmain>> as flarelettejwtkit.chrislyonsdevflarelettejwt.srcmain
+  rectangle "==src.generateSecret\n<size:10>[Component: function]</size>" <<flarelettejwtkit.chrislyonsdevflarelettejwt.srcgenerateSecret>> as flarelettejwtkit.chrislyonsdevflarelettejwt.srcgenerateSecret
+  rectangle "==src.isValidBase64UrlSecret\n<size:10>[Component: function]</size>" <<flarelettejwtkit.chrislyonsdevflarelettejwt.srcisValidBase64UrlSecret>> as flarelettejwtkit.chrislyonsdevflarelettejwt.srcisValidBase64UrlSecret
+  rectangle "==src.sign\n<size:10>[Component: function]</size>\n\nSign a JWT token with HS512 or EdDSA algorithm" <<flarelettejwtkit.chrislyonsdevflarelettejwt.srcsign>> as flarelettejwtkit.chrislyonsdevflarelettejwt.srcsign
+  rectangle "==src.parse\n<size:10>[Component: function]</size>\n\nParse a JWT token into header and payload without verification" <<flarelettejwtkit.chrislyonsdevflarelettejwt.srcparse>> as flarelettejwtkit.chrislyonsdevflarelettejwt.srcparse
+  rectangle "==src.isExpiringSoon\n<size:10>[Component: function]</size>\n\nCheck if JWT payload will expire within specified seconds" <<flarelettejwtkit.chrislyonsdevflarelettejwt.srcisExpiringSoon>> as flarelettejwtkit.chrislyonsdevflarelettejwt.srcisExpiringSoon
+  rectangle "==src.mapScopesToPermissions\n<size:10>[Component: function]</size>\n\nMap OAuth scopes to permission strings" <<flarelettejwtkit.chrislyonsdevflarelettejwt.srcmapScopesToPermissions>> as flarelettejwtkit.chrislyonsdevflarelettejwt.srcmapScopesToPermissions
+  rectangle "==src.verify\n<size:10>[Component: function]</size>\n\nVerify a JWT token with HS512 or EdDSA algorithm" <<flarelettejwtkit.chrislyonsdevflarelettejwt.srcverify>> as flarelettejwtkit.chrislyonsdevflarelettejwt.srcverify
+  rectangle "==src.envRead\n<size:10>[Component: function]</size>" <<flarelettejwtkit.chrislyonsdevflarelettejwt.srcenvRead>> as flarelettejwtkit.chrislyonsdevflarelettejwt.srcenvRead
+  rectangle "==src.envMode\n<size:10>[Component: function]</size>" <<flarelettejwtkit.chrislyonsdevflarelettejwt.srcenvMode>> as flarelettejwtkit.chrislyonsdevflarelettejwt.srcenvMode
+  rectangle "==src.getCommon\n<size:10>[Component: function]</size>\n\nGet common JWT configuration from environment Returns partial JwtProfile-compatible configuration" <<flarelettejwtkit.chrislyonsdevflarelettejwt.srcgetCommon>> as flarelettejwtkit.chrislyonsdevflarelettejwt.srcgetCommon
+  rectangle "==src.getProfile\n<size:10>[Component: function]</size>\n\nGet JWT profile from environment Returns complete JwtProfile with detected algorithm" <<flarelettejwtkit.chrislyonsdevflarelettejwt.srcgetProfile>> as flarelettejwtkit.chrislyonsdevflarelettejwt.srcgetProfile
+  rectangle "==src.getHSSecret\n<size:10>[Component: function]</size>" <<flarelettejwtkit.chrislyonsdevflarelettejwt.srcgetHSSecret>> as flarelettejwtkit.chrislyonsdevflarelettejwt.srcgetHSSecret
+}
+
+@enduml

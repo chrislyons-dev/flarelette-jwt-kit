@@ -1,0 +1,73 @@
+system:
+  name: flarelette-jwt-kit
+  description: JWT authentication and authorization library
+  repository: https://github.com/chrislyons-dev/flarelette-jwt-kit.git
+
+project:
+  name: flarelette-jwt-kit
+  description: JWT authentication and authorization library
+
+paths:
+  output: ./
+  logs: ./logs
+  ir_out: ./flarelette-jwt-kit-ir.json
+  dsl_out: ./flarelette-jwt-kit.dsl
+  render_out: ./diagrams
+  docs_out: ./
+
+allowedPluginPaths:
+  - ./plugins
+  - ./custom-plugins
+allowedAbsolutePaths:
+  - /users/chris/git/flarelette-jwt-kit
+  - C:\users\chris\git\flarelette-jwt-kit
+
+extractors:
+  - use: extractors/builtin/basic-node
+    inputs:
+      include:
+        - '/users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/**/*.js'
+        - '/users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/**/*.cjs'
+        - '/users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/**/*.mjs'
+        - '/users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/**/*.jsx'
+        - '/users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/**/*.ts'
+        - '/users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/**/*.tsx'
+      exclude:
+        - '**/node_modules/**'
+        - '**/dist/**'
+        - '**/build/**'
+        - '**/*.test.*'
+        - '**/*.spec.*'
+        - '**/test/**'
+        - '**/tests/**'
+        - '**/vitest.config.ts'
+  - use: extractors/builtin/basic-python
+    inputs:
+      include:
+        - '/users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-py/**/*.py'
+      exclude:
+        - '**/__pycache__/**'
+        - '**/venv/**'
+        - '**/*.venv/***'
+        - '**/test/**'
+        - '**/tests/**'
+
+# ir json in, ir json out (or errors)
+validators:
+  - use: validators/builtin/base-validator
+
+# ir json in, dsl out
+generators:
+  - use: generators/builtin/structurizr
+
+# dsl in, images out
+# Renderers run sequentially - order matters!
+# 1. Export DSL to PlantUML/Mermaid
+# 2. Render PlantUML to PNG images
+renderers:
+  - use: renderers/builtin/structurizr-export
+  - use: renderers/builtin/plantuml-render
+
+# dsl & images in, (likely markdown) docs out
+docs:
+  - use: docs/builtin/markdown-docs

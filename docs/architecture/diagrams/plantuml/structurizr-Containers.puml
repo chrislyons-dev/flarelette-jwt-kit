@@ -1,0 +1,44 @@
+@startuml
+set separator none
+title flarelette-jwt-kit - Containers
+
+top to bottom direction
+skinparam ranksep 60
+skinparam nodesep 30
+
+skinparam {
+  arrowFontSize 10
+  defaultTextAlignment center
+  wrapWidth 200
+  maxMessageSize 100
+  defaultFontName "Arial"
+}
+
+hide stereotype
+
+skinparam rectangle<<flarelettejwtkit.chrislyonsdevflarelettejwt>> {
+  BackgroundColor #438dd5
+  FontColor #ffffff
+  BorderColor #2e6295
+  roundCorner 20
+  shadowing false
+}
+skinparam rectangle<<flarelettejwtkit.flarelettejwt>> {
+  BackgroundColor #438dd5
+  FontColor #ffffff
+  BorderColor #2e6295
+  roundCorner 20
+  shadowing false
+}
+skinparam rectangle<<flarelettejwtkit>> {
+  BorderColor #0b4884
+  FontColor #0b4884
+  shadowing false
+}
+
+rectangle "flarelette-jwt-kit\n<size:10>[Software System]</size>" <<flarelettejwtkit>> {
+  rectangle "==@chrislyons-dev/flarelette-jwt\n<size:10>[Container: Service]</size>\n\nEnvironment-driven JWT authentication for Cloudflare Workers with secret-name indirection" <<flarelettejwtkit.chrislyonsdevflarelettejwt>> as flarelettejwtkit.chrislyonsdevflarelettejwt
+  rectangle "==flarelette-jwt\n<size:10>[Container: Service]</size>\n\nEnvironment-driven JWT authentication for Cloudflare Workers Python with secret-name indirection" <<flarelettejwtkit.flarelettejwt>> as flarelettejwtkit.flarelettejwt
+}
+
+@enduml

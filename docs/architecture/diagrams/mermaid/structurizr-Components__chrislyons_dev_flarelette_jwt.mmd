@@ -1,0 +1,17 @@
+graph TB
+  linkStyle default fill:#ffffff
+
+  subgraph diagram ["flarelette-jwt-kit - @chrislyons-dev/flarelette-jwt - Components"]
+    style diagram fill:#ffffff,stroke:#ffffff
+
+    subgraph 2 ["@chrislyons-dev/flarelette-jwt"]
+      style 2 fill:#ffffff,stroke:#2e6295,color:#2e6295
+
+      3("<div style='font-weight: bold'>src</div><div style='font-size: 70%; margin-top: 0px'>[Component: module]</div><div style='font-size: 80%; margin-top:10px'>Component inferred from<br />directory: src</div>")
+      style 3 fill:#85bbf0,stroke:#5d82a8,color:#000000
+      4("<div style='font-weight: bold'>adapters</div><div style='font-size: 70%; margin-top: 0px'>[Component: module]</div><div style='font-size: 80%; margin-top:10px'>Component inferred from<br />directory: adapters</div>")
+      style 4 fill:#85bbf0,stroke:#5d82a8,color:#000000
+    end
+
+    4-- "<div>* as kit | getJwksServiceName<br />| WorkerEnv | Fetcher</div><div style='font-size: 70%'></div>" -->3
+  end

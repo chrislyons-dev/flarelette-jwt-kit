@@ -1,8 +1,8 @@
 <p align="center">
   <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="docs/images/flarelette-logo-dark-mode.png">
+    <source media="(prefers-color-scheme: dark)" srcset="docs/images/flarelette-dark-mode-128.png">
     <source media="(prefers-color-scheme: light)" srcset="docs/images/flarelette-logo-light-mode.png">
-    <img alt="Flarelette JWT Kit" src="docs/images/flarelette-logo-light-mode.png" width="400">
+    <img alt="Flarelette JWT Kit" src="docs/images/flarelette-light-mode-128.png">
   </picture>
 </p>
 

@@ -1,0 +1,16 @@
+graph TB
+  linkStyle default fill:#ffffff
+
+  subgraph diagram ["flarelette-jwt-kit - Containers"]
+    style diagram fill:#ffffff,stroke:#ffffff
+
+    subgraph 1 ["flarelette-jwt-kit"]
+      style 1 fill:#ffffff,stroke:#0b4884,color:#0b4884
+
+      2("<div style='font-weight: bold'>@chrislyons-dev/flarelette-jwt</div><div style='font-size: 70%; margin-top: 0px'>[Container: Service]</div><div style='font-size: 80%; margin-top:10px'>Environment-driven JWT<br />authentication for Cloudflare<br />Workers with secret-name<br />indirection</div>")
+      style 2 fill:#438dd5,stroke:#2e6295,color:#ffffff
+      33("<div style='font-weight: bold'>flarelette-jwt</div><div style='font-size: 70%; margin-top: 0px'>[Container: Service]</div><div style='font-size: 80%; margin-top:10px'>Environment-driven JWT<br />authentication for Cloudflare<br />Workers Python with<br />secret-name indirection</div>")
+      style 33 fill:#438dd5,stroke:#2e6295,color:#ffffff
+    end
+
+  end
