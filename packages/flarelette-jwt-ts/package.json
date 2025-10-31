@@ -27,6 +27,17 @@
   "license": "MIT",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    },
+    "./adapters/hono": {
+      "types": "./dist/adapters/hono.d.ts",
+      "default": "./dist/adapters/hono.js"
+    },
+    "./package.json": "./package.json"
+  },
   "files": [
     "dist",
     "README.md",
