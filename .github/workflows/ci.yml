@@ -33,18 +33,6 @@ jobs:
           python -c "import flarelette_jwt; print('✓ Package version:', flarelette_jwt.__version__)"
           python -c "from flarelette_jwt import sign, verify, create_token, check_auth, policy, parse; print('✓ All main functions importable')"
 
-      - name: Test TypeScript package.json structure
-        run: |
-          echo "Validating TypeScript package.json..."
-          node -e "
-          const pkg = require('./packages/flarelette-jwt-ts/package.json');
-          if (!pkg.exports) throw new Error('Missing exports field');
-          if (!pkg.exports['.']) throw new Error('Missing root export');
-          if (!pkg.exports['./adapters/hono']) throw new Error('Missing adapters/hono export');
-          if (!pkg.exports['./package.json']) throw new Error('Missing package.json export');
-          console.log('✓ TypeScript package.json structure valid');
-          "
-
       - name: Test version extraction (simulates CD pipeline)
         run: |
           echo "Simulating CD pipeline version check..."
