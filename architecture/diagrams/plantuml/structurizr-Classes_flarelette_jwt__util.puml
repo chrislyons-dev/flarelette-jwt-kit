@@ -1,0 +1,396 @@
+@startuml
+set separator none
+title flarelette-jwt-kit - flarelette-jwt - Components
+
+top to bottom direction
+skinparam ranksep 60
+skinparam nodesep 30
+
+skinparam {
+  arrowFontSize 10
+  defaultTextAlignment center
+  wrapWidth 200
+  maxMessageSize 100
+  defaultFontName "Arial"
+}
+
+hide stereotype
+
+skinparam rectangle<<flarelettejwtkit.flarelettejwt.utilActorClaim>> {
+  BackgroundColor #85bbf0
+  FontColor #000000
+  BorderColor #5d82a8
+  roundCorner 20
+  shadowing false
+}
+skinparam rectangle<<flarelettejwtkit.flarelettejwt.utilAlgType>> {
+  BackgroundColor #85bbf0
+  FontColor #000000
+  BorderColor #5d82a8
+  roundCorner 20
+  shadowing false
+}
+skinparam rectangle<<flarelettejwtkit.flarelettejwt.utilAuthUser>> {
+  BackgroundColor #85bbf0
+  FontColor #000000
+  BorderColor #5d82a8
+  roundCorner 20
+  shadowing false
+}
+skinparam rectangle<<flarelettejwtkit.flarelettejwt.utilBuilder>> {
+  BackgroundColor #85bbf0
+  FontColor #000000
+  BorderColor #5d82a8
+  roundCorner 20
+  shadowing false
+}
+skinparam rectangle<<flarelettejwtkit.flarelettejwt.utilBuilderbase>> {
+  BackgroundColor #85bbf0
+  FontColor #000000
+  BorderColor #5d82a8
+  roundCorner 20
+  shadowing false
+}
+skinparam rectangle<<flarelettejwtkit.flarelettejwt.utilBuilderbuild>> {
+  BackgroundColor #85bbf0
+  FontColor #000000
+  BorderColor #5d82a8
+  roundCorner 20
+  shadowing false
+}
+skinparam rectangle<<flarelettejwtkit.flarelettejwt.utilBuilderneed_all>> {
+  BackgroundColor #85bbf0
+  FontColor #000000
+  BorderColor #5d82a8
+  roundCorner 20
+  shadowing false
+}
+skinparam rectangle<<flarelettejwtkit.flarelettejwt.utilBuilderneed_any>> {
+  BackgroundColor #85bbf0
+  FontColor #000000
+  BorderColor #5d82a8
+  roundCorner 20
+  shadowing false
+}
+skinparam rectangle<<flarelettejwtkit.flarelettejwt.utilBuilderroles_all>> {
+  BackgroundColor #85bbf0
+  FontColor #000000
+  BorderColor #5d82a8
+  roundCorner 20
+  shadowing false
+}
+skinparam rectangle<<flarelettejwtkit.flarelettejwt.utilBuilderroles_any>> {
+  BackgroundColor #85bbf0
+  FontColor #000000
+  BorderColor #5d82a8
+  roundCorner 20
+  shadowing false
+}
+skinparam rectangle<<flarelettejwtkit.flarelettejwt.utilBuilderwhere>> {
+  BackgroundColor #85bbf0
+  FontColor #000000
+  BorderColor #5d82a8
+  roundCorner 20
+  shadowing false
+}
+skinparam rectangle<<flarelettejwtkit.flarelettejwt.utilClaimsDict>> {
+  BackgroundColor #85bbf0
+  FontColor #000000
+  BorderColor #5d82a8
+  roundCorner 20
+  shadowing false
+}
+skinparam rectangle<<flarelettejwtkit.flarelettejwt.utilJwtCommonConfig>> {
+  BackgroundColor #85bbf0
+  FontColor #000000
+  BorderColor #5d82a8
+  roundCorner 20
+  shadowing false
+}
+skinparam rectangle<<flarelettejwtkit.flarelettejwt.utilJwtHeader>> {
+  BackgroundColor #85bbf0
+  FontColor #000000
+  BorderColor #5d82a8
+  roundCorner 20
+  shadowing false
+}
+skinparam rectangle<<flarelettejwtkit.flarelettejwt.utilJwtPayload>> {
+  BackgroundColor #85bbf0
+  FontColor #000000
+  BorderColor #5d82a8
+  roundCorner 20
+  shadowing false
+}
+skinparam rectangle<<flarelettejwtkit.flarelettejwt.utilJwtProfile>> {
+  BackgroundColor #85bbf0
+  FontColor #000000
+  BorderColor #5d82a8
+  roundCorner 20
+  shadowing false
+}
+skinparam rectangle<<flarelettejwtkit.flarelettejwt.utilJwtValue>> {
+  BackgroundColor #85bbf0
+  FontColor #000000
+  BorderColor #5d82a8
+  roundCorner 20
+  shadowing false
+}
+skinparam rectangle<<flarelettejwtkit.flarelettejwt.utilParsedJwt>> {
+  BackgroundColor #85bbf0
+  FontColor #000000
+  BorderColor #5d82a8
+  roundCorner 20
+  shadowing false
+}
+skinparam rectangle<<flarelettejwtkit.flarelettejwt.utilPolicyBuilder>> {
+  BackgroundColor #85bbf0
+  FontColor #000000
+  BorderColor #5d82a8
+  roundCorner 20
+  shadowing false
+}
+skinparam rectangle<<flarelettejwtkit.flarelettejwt.utilPolicyBuilderbase>> {
+  BackgroundColor #85bbf0
+  FontColor #000000
+  BorderColor #5d82a8
+  roundCorner 20
+  shadowing false
+}
+skinparam rectangle<<flarelettejwtkit.flarelettejwt.utilPolicyBuilderbuild>> {
+  BackgroundColor #85bbf0
+  FontColor #000000
+  BorderColor #5d82a8
+  roundCorner 20
+  shadowing false
+}
+skinparam rectangle<<flarelettejwtkit.flarelettejwt.utilPolicyBuilderneed_all>> {
+  BackgroundColor #85bbf0
+  FontColor #000000
+  BorderColor #5d82a8
+  roundCorner 20
+  shadowing false
+}
+skinparam rectangle<<flarelettejwtkit.flarelettejwt.utilPolicyBuilderneed_any>> {
+  BackgroundColor #85bbf0
+  FontColor #000000
+  BorderColor #5d82a8
+  roundCorner 20
+  shadowing false
+}
+skinparam rectangle<<flarelettejwtkit.flarelettejwt.utilPolicyBuilderroles_all>> {
+  BackgroundColor #85bbf0
+  FontColor #000000
+  BorderColor #5d82a8
+  roundCorner 20
+  shadowing false
+}
+skinparam rectangle<<flarelettejwtkit.flarelettejwt.utilPolicyBuilderroles_any>> {
+  BackgroundColor #85bbf0
+  FontColor #000000
+  BorderColor #5d82a8
+  roundCorner 20
+  shadowing false
+}
+skinparam rectangle<<flarelettejwtkit.flarelettejwt.utilPolicyBuilderwhere>> {
+  BackgroundColor #85bbf0
+  FontColor #000000
+  BorderColor #5d82a8
+  roundCorner 20
+  shadowing false
+}
+skinparam rectangle<<flarelettejwtkit.flarelettejwt.util_b64url>> {
+  BackgroundColor #85bbf0
+  FontColor #000000
+  BorderColor #5d82a8
+  roundCorner 20
+  shadowing false
+}
+skinparam rectangle<<flarelettejwtkit.flarelettejwt.util_b64url_decode>> {
+  BackgroundColor #85bbf0
+  FontColor #000000
+  BorderColor #5d82a8
+  roundCorner 20
+  shadowing false
+}
+skinparam rectangle<<flarelettejwtkit.flarelettejwt.util_get_indirect>> {
+  BackgroundColor #85bbf0
+  FontColor #000000
+  BorderColor #5d82a8
+  roundCorner 20
+  shadowing false
+}
+skinparam rectangle<<flarelettejwtkit.flarelettejwt.utilcheck_auth>> {
+  BackgroundColor #85bbf0
+  FontColor #000000
+  BorderColor #5d82a8
+  roundCorner 20
+  shadowing false
+}
+skinparam rectangle<<flarelettejwtkit.flarelettejwt.utilcommon>> {
+  BackgroundColor #85bbf0
+  FontColor #000000
+  BorderColor #5d82a8
+  roundCorner 20
+  shadowing false
+}
+skinparam rectangle<<flarelettejwtkit.flarelettejwt.utilcreate_delegated_token>> {
+  BackgroundColor #85bbf0
+  FontColor #000000
+  BorderColor #5d82a8
+  roundCorner 20
+  shadowing false
+}
+skinparam rectangle<<flarelettejwtkit.flarelettejwt.utilcreate_token>> {
+  BackgroundColor #85bbf0
+  FontColor #000000
+  BorderColor #5d82a8
+  roundCorner 20
+  shadowing false
+}
+skinparam rectangle<<flarelettejwtkit.flarelettejwt.utilgenerate_secret>> {
+  BackgroundColor #85bbf0
+  FontColor #000000
+  BorderColor #5d82a8
+  roundCorner 20
+  shadowing false
+}
+skinparam rectangle<<flarelettejwtkit.flarelettejwt.utilget_hs_secret_bytes>> {
+  BackgroundColor #85bbf0
+  FontColor #000000
+  BorderColor #5d82a8
+  roundCorner 20
+  shadowing false
+}
+skinparam rectangle<<flarelettejwtkit.flarelettejwt.utilget_public_jwk_string>> {
+  BackgroundColor #85bbf0
+  FontColor #000000
+  BorderColor #5d82a8
+  roundCorner 20
+  shadowing false
+}
+skinparam rectangle<<flarelettejwtkit.flarelettejwt.utilis_expiring_soon>> {
+  BackgroundColor #85bbf0
+  FontColor #000000
+  BorderColor #5d82a8
+  roundCorner 20
+  shadowing false
+}
+skinparam rectangle<<flarelettejwtkit.flarelettejwt.utilis_valid_base64url_secret>> {
+  BackgroundColor #85bbf0
+  FontColor #000000
+  BorderColor #5d82a8
+  roundCorner 20
+  shadowing false
+}
+skinparam rectangle<<flarelettejwtkit.flarelettejwt.utilmain>> {
+  BackgroundColor #85bbf0
+  FontColor #000000
+  BorderColor #5d82a8
+  roundCorner 20
+  shadowing false
+}
+skinparam rectangle<<flarelettejwtkit.flarelettejwt.utilmap_scopes_to_permissions>> {
+  BackgroundColor #85bbf0
+  FontColor #000000
+  BorderColor #5d82a8
+  roundCorner 20
+  shadowing false
+}
+skinparam rectangle<<flarelettejwtkit.flarelettejwt.utilmode>> {
+  BackgroundColor #85bbf0
+  FontColor #000000
+  BorderColor #5d82a8
+  roundCorner 20
+  shadowing false
+}
+skinparam rectangle<<flarelettejwtkit.flarelettejwt.utilparse>> {
+  BackgroundColor #85bbf0
+  FontColor #000000
+  BorderColor #5d82a8
+  roundCorner 20
+  shadowing false
+}
+skinparam rectangle<<flarelettejwtkit.flarelettejwt.utilpolicy>> {
+  BackgroundColor #85bbf0
+  FontColor #000000
+  BorderColor #5d82a8
+  roundCorner 20
+  shadowing false
+}
+skinparam rectangle<<flarelettejwtkit.flarelettejwt.utilprofile>> {
+  BackgroundColor #85bbf0
+  FontColor #000000
+  BorderColor #5d82a8
+  roundCorner 20
+  shadowing false
+}
+skinparam rectangle<<flarelettejwtkit.flarelettejwt.utilsign>> {
+  BackgroundColor #85bbf0
+  FontColor #000000
+  BorderColor #5d82a8
+  roundCorner 20
+  shadowing false
+}
+skinparam rectangle<<flarelettejwtkit.flarelettejwt.utilverify>> {
+  BackgroundColor #85bbf0
+  FontColor #000000
+  BorderColor #5d82a8
+  roundCorner 20
+  shadowing false
+}
+skinparam rectangle<<flarelettejwtkit.flarelettejwt>> {
+  BorderColor #2e6295
+  FontColor #2e6295
+  shadowing false
+}
+
+rectangle "flarelette-jwt\n<size:10>[Container: Service]</size>" <<flarelettejwtkit.flarelettejwt>> {
+  rectangle "==util.JwtHeader\n<size:10>[Component: class]</size>\n\nJWT token header structure." <<flarelettejwtkit.flarelettejwt.utilJwtHeader>> as flarelettejwtkit.flarelettejwt.utilJwtHeader
+  rectangle "==util.ActorClaim\n<size:10>[Component: class]</size>\n\nActor claim for service delegation (RFC 8693)." <<flarelettejwtkit.flarelettejwt.utilActorClaim>> as flarelettejwtkit.flarelettejwt.utilActorClaim
+  rectangle "==util.JwtPayload\n<size:10>[Component: class]</size>\n\nJWT token payload/claims structure." <<flarelettejwtkit.flarelettejwt.utilJwtPayload>> as flarelettejwtkit.flarelettejwt.utilJwtPayload
+  rectangle "==util.JwtProfile\n<size:10>[Component: class]</size>\n\nJWT Profile structure matching flarelette-jwt.profile.schema.json." <<flarelettejwtkit.flarelettejwt.utilJwtProfile>> as flarelettejwtkit.flarelettejwt.utilJwtProfile
+  rectangle "==util.JwtCommonConfig\n<size:10>[Component: class]</size>\n\nCommon JWT configuration from environment variables." <<flarelettejwtkit.flarelettejwt.utilJwtCommonConfig>> as flarelettejwtkit.flarelettejwt.utilJwtCommonConfig
+  rectangle "==util.mode\n<size:10>[Component: function]</size>\n\nDetect JWT algorithm mode from environment variables based on role." <<flarelettejwtkit.flarelettejwt.utilmode>> as flarelettejwtkit.flarelettejwt.utilmode
+  rectangle "==util.common\n<size:10>[Component: function]</size>\n\nGet common JWT configuration from environment." <<flarelettejwtkit.flarelettejwt.utilcommon>> as flarelettejwtkit.flarelettejwt.utilcommon
+  rectangle "==util.profile\n<size:10>[Component: function]</size>\n\nGet JWT profile from environment." <<flarelettejwtkit.flarelettejwt.utilprofile>> as flarelettejwtkit.flarelettejwt.utilprofile
+  rectangle "==util._get_indirect\n<size:10>[Component: function]</size>" <<flarelettejwtkit.flarelettejwt.util_get_indirect>> as flarelettejwtkit.flarelettejwt.util_get_indirect
+  rectangle "==util.get_hs_secret_bytes\n<size:10>[Component: function]</size>" <<flarelettejwtkit.flarelettejwt.utilget_hs_secret_bytes>> as flarelettejwtkit.flarelettejwt.utilget_hs_secret_bytes
+  rectangle "==util.get_public_jwk_string\n<size:10>[Component: function]</size>" <<flarelettejwtkit.flarelettejwt.utilget_public_jwk_string>> as flarelettejwtkit.flarelettejwt.utilget_public_jwk_string
+  rectangle "==util.AlgType\n<size:10>[Component: type]</size>" <<flarelettejwtkit.flarelettejwt.utilAlgType>> as flarelettejwtkit.flarelettejwt.utilAlgType
+  rectangle "==util.JwtValue\n<size:10>[Component: type]</size>" <<flarelettejwtkit.flarelettejwt.utilJwtValue>> as flarelettejwtkit.flarelettejwt.utilJwtValue
+  rectangle "==util.ClaimsDict\n<size:10>[Component: type]</size>" <<flarelettejwtkit.flarelettejwt.utilClaimsDict>> as flarelettejwtkit.flarelettejwt.utilClaimsDict
+  rectangle "==util.AuthUser\n<size:10>[Component: class]</size>\n\nAuthenticated user information returned by check_auth." <<flarelettejwtkit.flarelettejwt.utilAuthUser>> as flarelettejwtkit.flarelettejwt.utilAuthUser
+  rectangle "==util.PolicyBuilder\n<size:10>[Component: class]</size>\n\nBuilder interface for creating JWT authorization policies." <<flarelettejwtkit.flarelettejwt.utilPolicyBuilder>> as flarelettejwtkit.flarelettejwt.utilPolicyBuilder
+  rectangle "==util.PolicyBuilder.base\n<size:10>[Component: method]</size>" <<flarelettejwtkit.flarelettejwt.utilPolicyBuilderbase>> as flarelettejwtkit.flarelettejwt.utilPolicyBuilderbase
+  rectangle "==util.PolicyBuilder.need_all\n<size:10>[Component: method]</size>" <<flarelettejwtkit.flarelettejwt.utilPolicyBuilderneed_all>> as flarelettejwtkit.flarelettejwt.utilPolicyBuilderneed_all
+  rectangle "==util.PolicyBuilder.need_any\n<size:10>[Component: method]</size>" <<flarelettejwtkit.flarelettejwt.utilPolicyBuilderneed_any>> as flarelettejwtkit.flarelettejwt.utilPolicyBuilderneed_any
+  rectangle "==util.PolicyBuilder.roles_all\n<size:10>[Component: method]</size>" <<flarelettejwtkit.flarelettejwt.utilPolicyBuilderroles_all>> as flarelettejwtkit.flarelettejwt.utilPolicyBuilderroles_all
+  rectangle "==util.PolicyBuilder.roles_any\n<size:10>[Component: method]</size>" <<flarelettejwtkit.flarelettejwt.utilPolicyBuilderroles_any>> as flarelettejwtkit.flarelettejwt.utilPolicyBuilderroles_any
+  rectangle "==util.PolicyBuilder.where\n<size:10>[Component: method]</size>" <<flarelettejwtkit.flarelettejwt.utilPolicyBuilderwhere>> as flarelettejwtkit.flarelettejwt.utilPolicyBuilderwhere
+  rectangle "==util.PolicyBuilder.build\n<size:10>[Component: method]</size>" <<flarelettejwtkit.flarelettejwt.utilPolicyBuilderbuild>> as flarelettejwtkit.flarelettejwt.utilPolicyBuilderbuild
+  rectangle "==util.Builder\n<size:10>[Component: class]</size>" <<flarelettejwtkit.flarelettejwt.utilBuilder>> as flarelettejwtkit.flarelettejwt.utilBuilder
+  rectangle "==util.Builder.base\n<size:10>[Component: method]</size>" <<flarelettejwtkit.flarelettejwt.utilBuilderbase>> as flarelettejwtkit.flarelettejwt.utilBuilderbase
+  rectangle "==util.Builder.need_all\n<size:10>[Component: method]</size>" <<flarelettejwtkit.flarelettejwt.utilBuilderneed_all>> as flarelettejwtkit.flarelettejwt.utilBuilderneed_all
+  rectangle "==util.Builder.need_any\n<size:10>[Component: method]</size>" <<flarelettejwtkit.flarelettejwt.utilBuilderneed_any>> as flarelettejwtkit.flarelettejwt.utilBuilderneed_any
+  rectangle "==util.Builder.roles_all\n<size:10>[Component: method]</size>" <<flarelettejwtkit.flarelettejwt.utilBuilderroles_all>> as flarelettejwtkit.flarelettejwt.utilBuilderroles_all
+  rectangle "==util.Builder.roles_any\n<size:10>[Component: method]</size>" <<flarelettejwtkit.flarelettejwt.utilBuilderroles_any>> as flarelettejwtkit.flarelettejwt.utilBuilderroles_any
+  rectangle "==util.Builder.where\n<size:10>[Component: method]</size>" <<flarelettejwtkit.flarelettejwt.utilBuilderwhere>> as flarelettejwtkit.flarelettejwt.utilBuilderwhere
+  rectangle "==util.Builder.build\n<size:10>[Component: method]</size>" <<flarelettejwtkit.flarelettejwt.utilBuilderbuild>> as flarelettejwtkit.flarelettejwt.utilBuilderbuild
+  rectangle "==util.create_token\n<size:10>[Component: function]</size>\n\nCreate a signed JWT token with optional claims." <<flarelettejwtkit.flarelettejwt.utilcreate_token>> as flarelettejwtkit.flarelettejwt.utilcreate_token
+  rectangle "==util.create_delegated_token\n<size:10>[Component: function]</size>\n\nCreate a delegated JWT token following RFC 8693 actor claim pattern." <<flarelettejwtkit.flarelettejwt.utilcreate_delegated_token>> as flarelettejwtkit.flarelettejwt.utilcreate_delegated_token
+  rectangle "==util.check_auth\n<size:10>[Component: function]</size>\n\nVerify and authorize a JWT token with policy enforcement." <<flarelettejwtkit.flarelettejwt.utilcheck_auth>> as flarelettejwtkit.flarelettejwt.utilcheck_auth
+  rectangle "==util.policy\n<size:10>[Component: function]</size>\n\nFluent builder for creating authorization policies." <<flarelettejwtkit.flarelettejwt.utilpolicy>> as flarelettejwtkit.flarelettejwt.utilpolicy
+  rectangle "==util.generate_secret\n<size:10>[Component: function]</size>" <<flarelettejwtkit.flarelettejwt.utilgenerate_secret>> as flarelettejwtkit.flarelettejwt.utilgenerate_secret
+  rectangle "==util.is_valid_base64url_secret\n<size:10>[Component: function]</size>" <<flarelettejwtkit.flarelettejwt.utilis_valid_base64url_secret>> as flarelettejwtkit.flarelettejwt.utilis_valid_base64url_secret
+  rectangle "==util.main\n<size:10>[Component: function]</size>" <<flarelettejwtkit.flarelettejwt.utilmain>> as flarelettejwtkit.flarelettejwt.utilmain
+  rectangle "==util._b64url\n<size:10>[Component: function]</size>" <<flarelettejwtkit.flarelettejwt.util_b64url>> as flarelettejwtkit.flarelettejwt.util_b64url
+  rectangle "==util.sign\n<size:10>[Component: function]</size>\n\nSign a JWT token with HS512 or EdDSA algorithm." <<flarelettejwtkit.flarelettejwt.utilsign>> as flarelettejwtkit.flarelettejwt.utilsign
+  rectangle "==util.ParsedJwt\n<size:10>[Component: class]</size>\n\nParsed JWT token structure." <<flarelettejwtkit.flarelettejwt.utilParsedJwt>> as flarelettejwtkit.flarelettejwt.utilParsedJwt
+  rectangle "==util.parse\n<size:10>[Component: function]</size>\n\nParse a JWT token into header and payload without verification." <<flarelettejwtkit.flarelettejwt.utilparse>> as flarelettejwtkit.flarelettejwt.utilparse
+  rectangle "==util.is_expiring_soon\n<size:10>[Component: function]</size>\n\nCheck if JWT payload will expire within specified seconds." <<flarelettejwtkit.flarelettejwt.utilis_expiring_soon>> as flarelettejwtkit.flarelettejwt.utilis_expiring_soon
+  rectangle "==util.map_scopes_to_permissions\n<size:10>[Component: function]</size>\n\nMap OAuth scopes to permission strings." <<flarelettejwtkit.flarelettejwt.utilmap_scopes_to_permissions>> as flarelettejwtkit.flarelettejwt.utilmap_scopes_to_permissions
+  rectangle "==util._b64url_decode\n<size:10>[Component: function]</size>" <<flarelettejwtkit.flarelettejwt.util_b64url_decode>> as flarelettejwtkit.flarelettejwt.util_b64url_decode
+  rectangle "==util.verify\n<size:10>[Component: function]</size>\n\nVerify a JWT token with HS512 or EdDSA algorithm." <<flarelettejwtkit.flarelettejwt.utilverify>> as flarelettejwtkit.flarelettejwt.utilverify
+}
+
+@enduml
