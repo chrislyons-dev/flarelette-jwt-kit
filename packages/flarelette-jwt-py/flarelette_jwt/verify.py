@@ -14,8 +14,6 @@ import base64
 import json
 import time
 
-from js import crypto  # pyright: ignore[reportMissingImports]
-
 from .env import (
     AlgType,
     JwtHeader,
@@ -62,6 +60,8 @@ async def verify(
         sig = _b64url_decode(s_b64)
     except Exception:
         return None
+
+    from js import crypto  # Lazy import - only available in Pyodide/Workers
 
     if m == "HS512":
         if header.get("alg") != "HS512":
