@@ -14,6 +14,8 @@ import base64
 import json
 import time
 
+from js import crypto
+
 from .env import AlgType, common, get_hs_secret_bytes, mode
 
 
@@ -55,9 +57,6 @@ async def sign(
     body.setdefault("exp", now + ttl)
 
     if m == "HS512":
-        from js import crypto  # Lazy import - only available in Pyodide/Workers
-        from pyodide.ffi import to_py
-
         header = {"alg": "HS512", "typ": "JWT"}
         h = _b64url(json.dumps(header, separators=(",", ":")).encode())
         p = _b64url(json.dumps(body, separators=(",", ":")).encode())
@@ -70,6 +69,7 @@ async def sign(
             ["sign"],
         )
         sig = await crypto.subtle.sign({"name": "HMAC"}, key, signing_input)
+        from pyodide.ffi import to_py
 
         return f"{h}.{p}.{_b64url(bytes(to_py(sig)))}"
     else:
