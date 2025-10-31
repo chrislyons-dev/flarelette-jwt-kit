@@ -1,8 +1,10 @@
 {
+  "include-component-in-tag": true,
   "packages": {
     "packages/flarelette-jwt-ts": {
       "release-type": "node",
-      "package-name": "@chrislyons-dev/flarelette-jwt",
+      "package-name": "flarelette-jwt-ts",
+      "component": "flarelette-jwt-ts",
       "bump-minor-pre-major": true,
       "bump-patch-for-minor-pre-major": true,
       "changelog-sections": [
@@ -18,7 +20,8 @@
     },
     "packages/flarelette-jwt-py": {
       "release-type": "python",
-      "package-name": "flarelette-jwt",
+      "package-name": "flarelette-jwt-py",
+      "component": "flarelette-jwt-py",
       "bump-minor-pre-major": true,
       "bump-patch-for-minor-pre-major": true,
       "changelog-sections": [

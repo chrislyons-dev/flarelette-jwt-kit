@@ -671,7 +671,7 @@ Fluent builder for creating authorization policies.
 </tr>
 <tr>
 <td><strong>Location</strong></td>
-<td><code>C:\Users\chris\git\flarelette-jwt-kit\packages\flarelette-jwt-py\flarelette_jwt\sign.py:22</code></td>
+<td><code>C:\Users\chris\git\flarelette-jwt-kit\packages\flarelette-jwt-py\flarelette_jwt\sign.py:21</code></td>
 </tr>
 </tbody>
 </table>
@@ -705,7 +705,7 @@ Sign a JWT token with HS512 or EdDSA algorithm.
 </tr>
 <tr>
 <td><strong>Location</strong></td>
-<td><code>C:\Users\chris\git\flarelette-jwt-kit\packages\flarelette-jwt-py\flarelette_jwt\sign.py:26</code></td>
+<td><code>C:\Users\chris\git\flarelette-jwt-kit\packages\flarelette-jwt-py\flarelette_jwt\sign.py:25</code></td>
 </tr>
 </tbody>
 </table>
@@ -824,7 +824,7 @@ Map OAuth scopes to permission strings.
 </tr>
 <tr>
 <td><strong>Location</strong></td>
-<td><code>C:\Users\chris\git\flarelette-jwt-kit\packages\flarelette-jwt-py\flarelette_jwt\verify.py:30</code></td>
+<td><code>C:\Users\chris\git\flarelette-jwt-kit\packages\flarelette-jwt-py\flarelette_jwt\verify.py:29</code></td>
 </tr>
 </tbody>
 </table>
@@ -858,7 +858,7 @@ Verify a JWT token with HS512 or EdDSA algorithm.
 </tr>
 <tr>
 <td><strong>Location</strong></td>
-<td><code>C:\Users\chris\git\flarelette-jwt-kit\packages\flarelette-jwt-py\flarelette_jwt\verify.py:34</code></td>
+<td><code>C:\Users\chris\git\flarelette-jwt-kit\packages\flarelette-jwt-py\flarelette_jwt\verify.py:33</code></td>
 </tr>
 </tbody>
 </table>

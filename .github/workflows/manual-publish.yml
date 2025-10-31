@@ -1,40 +1,34 @@
-name: Release Please
+name: Manual Publish
 
 on:
-  push:
-    branches:
-      - main
+  workflow_dispatch:
+    inputs:
+      package:
+        description: 'Package to publish'
+        required: true
+        type: choice
+        options:
+          - typescript
+          - python
+          - both
+      git-ref:
+        description: 'Git ref (tag, branch, or commit SHA) to publish from'
+        required: true
+        default: 'main'
 
 permissions:
-  contents: write
-  pull-requests: write
+  contents: read
 
 jobs:
-  release-please:
-    runs-on: ubuntu-latest
-    outputs:
-      releases_created: ${{ steps.release.outputs.releases_created }}
-      ts_release_created: ${{ steps.release.outputs['flarelette-jwt-ts--release_created'] }}
-      py_release_created: ${{ steps.release.outputs['flarelette-jwt-py--release_created'] }}
-      ts_tag_name: ${{ steps.release.outputs['flarelette-jwt-ts--tag_name'] }}
-      py_tag_name: ${{ steps.release.outputs['flarelette-jwt-py--tag_name'] }}
-
-    steps:
-      - name: Run release-please
-        id: release
-        uses: google-github-actions/release-please-action@v4
-        with:
-          config-file: .github/release-please-config.json
-          manifest-file: .github/.release-please-manifest.json
-
   publish-npm:
-    needs: release-please
     runs-on: ubuntu-latest
-    if: ${{ needs.release-please.outputs.ts_release_created }}
+    if: ${{ github.event.inputs.package == 'typescript' || github.event.inputs.package == 'both' }}
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.inputs.git-ref }}
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -55,13 +49,14 @@ jobs:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
   publish-pypi:
-    needs: release-please
     runs-on: ubuntu-latest
-    if: ${{ needs.release-please.outputs.py_release_created }}
+    if: ${{ github.event.inputs.package == 'python' || github.event.inputs.package == 'both' }}
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.inputs.git-ref }}
 
       - name: Setup Python
         uses: actions/setup-python@v5
