@@ -56,6 +56,9 @@ yarn-error.log*
 .cache/
 coverage/
 .coverage
+packages/flarelette-jwt-py/CONTRIBUTING.md
+packages/flarelette-jwt-py/LICENSE
+packages/flarelette-jwt-py/THIRD_PARTY_LICENSES.md
 
 # Documentation (if you want to keep these private)
 CLAUDE.md
