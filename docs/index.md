@@ -12,18 +12,17 @@ Welcome to the Flarelette JWT Kit documentation! Below is a list of available gu
 
 ## Guides
 
-- [Setup Guide](./SETUP.md): Learn how to set up the development environment, install dependencies, and configure the project.
-- [Usage Guide](./usage.md): Explore how to use Flarelette JWT Kit for signing, verifying, and managing JWTs.
-- [Coding Standards](./CODING_STANDARDS.md): Follow best practices and guidelines for writing secure, maintainable, and consistent code.
-- [Testing Guide](./TESTING.md): Understand the testing framework and how to write and run tests for the project.
-- [Release Checklist](./RELEASE_CHECKLIST.md): Steps to follow for preparing and publishing a release.
+- [Setup Guide](./getting-started.md): Learn how to set up the development environment, install dependencies, and configure the project.
+- [Usage Guide](./usage-guide.md): Explore how to use Flarelette JWT Kit for signing, verifying, and managing JWTs.
+- [Security Guide](./security-guide.md): Learn about the security features and requirements of the project.
+- [Service Delegation](./service-delegation.md): Understand how to implement zero-trust delegation patterns.
+- [Core Concepts](./core-concepts.md): Dive into the architecture and key principles of the toolkit.
 
 ## References
 
-- [Engineering Discipline](./ENGINEERING_DISCIPLINE.md): Principles and practices for maintaining high-quality engineering standards.
-- [Security Guide](./security.md): Learn about the security features and requirements of the project.
-- [Releasing Guide](./RELEASING.md): Detailed instructions for the release process.
-- [Quick Reference](./QUICKREF.md): A handy reference for common commands and workflows.
+- [Cloudflare Workers Guide](./cloudflare-workers.md): Specific instructions for deploying and using the toolkit in Cloudflare Workers.
+- [Architecture Overview](./architecture/README.md): Explore the architectural design behind the toolkit (provided by [archlette](https://chrislyons-dev.github.io/archlette/)).
+- [Quick Reference](./requirements.txt): A handy reference for dependencies and requirements.
 
 For more information, visit the individual files linked above or explore the repository.
 
