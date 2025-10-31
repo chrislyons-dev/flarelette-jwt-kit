@@ -1,0 +1,53 @@
+{
+  "name": "@chrislyons-dev/flarelette-jwt",
+  "version": "0.1.0",
+  "description": "Environment-driven JWT authentication for Cloudflare Workers with secret-name indirection",
+  "keywords": [
+    "jwt",
+    "authentication",
+    "cloudflare",
+    "workers",
+    "edge",
+    "hs512",
+    "eddsa",
+    "ed25519",
+    "jwks",
+    "flarelette"
+  ],
+  "homepage": "https://github.com/chrislyons-dev/flarelette-jwt-kit#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/chrislyons-dev/flarelette-jwt-kit.git",
+    "directory": "packages/flarelette-jwt-ts"
+  },
+  "bugs": {
+    "url": "https://github.com/chrislyons-dev/flarelette-jwt-kit/issues"
+  },
+  "author": "Chris Lyons",
+  "license": "MIT",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "bin": {
+    "flarelette-jwt-secret": "dist/cli.js",
+    "flarelette-jwt-keygen": "dist/keygen.js"
+  },
+  "scripts": {
+    "build": "rimraf dist && tsc -p tsconfig.json && cp ../../README.md dist/ && cp ../../CONTRIBUTING.md dist/ && cp ../../THIRD_PARTY_LICENSES.md dist/",
+    "prepublishOnly": "npm run build"
+  },
+  "dependencies": {
+    "jose": "^5.3.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.6.3",
+    "rimraf": "^6.0.1"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

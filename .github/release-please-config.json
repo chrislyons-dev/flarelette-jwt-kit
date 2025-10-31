@@ -1,0 +1,37 @@
+{
+  "packages": {
+    "packages/flarelette-jwt-ts": {
+      "release-type": "node",
+      "package-name": "@chrislyons-dev/flarelette-jwt",
+      "bump-minor-pre-major": true,
+      "bump-patch-for-minor-pre-major": true,
+      "changelog-sections": [
+        { "type": "feat", "section": "Features" },
+        { "type": "fix", "section": "Bug Fixes" },
+        { "type": "perf", "section": "Performance Improvements" },
+        { "type": "revert", "section": "Reverts" },
+        { "type": "docs", "section": "Documentation" },
+        { "type": "refactor", "section": "Code Refactoring" },
+        { "type": "test", "section": "Tests", "hidden": false },
+        { "type": "chore", "section": "Miscellaneous", "hidden": false }
+      ]
+    },
+    "packages/flarelette-jwt-py": {
+      "release-type": "python",
+      "package-name": "flarelette-jwt",
+      "bump-minor-pre-major": true,
+      "bump-patch-for-minor-pre-major": true,
+      "changelog-sections": [
+        { "type": "feat", "section": "Features" },
+        { "type": "fix", "section": "Bug Fixes" },
+        { "type": "perf", "section": "Performance Improvements" },
+        { "type": "revert", "section": "Reverts" },
+        { "type": "docs", "section": "Documentation" },
+        { "type": "refactor", "section": "Code Refactoring" },
+        { "type": "test", "section": "Tests", "hidden": false },
+        { "type": "chore", "section": "Miscellaneous", "hidden": false }
+      ]
+    }
+  },
+  "bootstrap-sha": "HEAD"
+}

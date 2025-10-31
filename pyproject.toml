@@ -1,0 +1,131 @@
+
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "flarelette-jwt-kit-env"
+version = "1.7.0"
+description = "Env-driven JWT kit with secret-name indirection (Cloudflare-friendly)"
+readme = "README.md"
+license = { text = "MIT" }
+authors = [{ name = "Chris Lyons" }]
+requires-python = ">=3.11"
+dependencies = []
+
+[project.optional-dependencies]
+dev = [
+    "black>=23.0.0",
+    "ruff>=0.1.0",
+    "mypy>=1.7.0",
+    "pytest>=7.4.0",
+    "pytest-cov>=4.1.0",
+    "pytest-asyncio>=0.21.0",
+]
+
+# Black - Code formatter
+[tool.black]
+line-length = 88
+target-version = ['py311']
+include = '\.pyi?$'
+extend-exclude = '''
+/(
+  # directories
+  \.eggs
+  | \.git
+  | \.mypy_cache
+  | \.tox
+  | \.venv
+  | build
+  | dist
+  | node_modules
+)/
+'''
+
+# Ruff - Linter
+[tool.ruff]
+line-length = 88
+target-version = "py311"
+
+[tool.ruff.lint]
+select = [
+    "E",   # pycodestyle errors
+    "W",   # pycodestyle warnings
+    "F",   # pyflakes
+    "I",   # isort
+    "B",   # flake8-bugbear
+    "C4",  # flake8-comprehensions
+    "UP",  # pyupgrade
+    "ARG", # flake8-unused-arguments
+    "SIM", # flake8-simplify
+    "TCH", # flake8-type-checking
+]
+ignore = [
+    "E501", # line too long (handled by black)
+    "B008", # do not perform function calls in argument defaults
+    "W191", # indentation contains tabs
+]
+
+[tool.ruff.lint.per-file-ignores]
+"__init__.py" = ["F401"]   # Unused imports in __init__.py
+"**/tests/**" = ["ARG"]    # Unused arguments in tests
+"**/examples/**" = ["ARG"] # Unused arguments in examples
+
+# MyPy - Type checker
+[tool.mypy]
+python_version = "3.11"
+files = ["packages/flarelette-jwt-py"]
+exclude = "example_worker.py"
+ignore_missing_imports = true
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = true
+disallow_incomplete_defs = true
+check_untyped_defs = true
+no_implicit_optional = true
+warn_redundant_casts = true
+warn_unused_ignores = true
+warn_no_return = true
+strict_equality = true
+
+# Pytest - Test runner
+[tool.pytest.ini_options]
+testpaths = ["packages/flarelette-jwt-py/tests"]
+python_files = ["test_*.py", "*_test.py"]
+python_classes = ["Test*"]
+python_functions = ["test_*"]
+asyncio_mode = "auto"
+addopts = [
+    "-v",
+    "--strict-markers",
+    "--tb=short",
+    "--cov-config=pyproject.toml",
+]
+
+# Coverage.py - Code coverage
+[tool.coverage.run]
+source = ["packages/flarelette-jwt-py/flarelette_jwt"]
+omit = ["*/tests/*", "*/test_*.py", "*/__pycache__/*", "*/site-packages/*"]
+branch = true
+# Enable plugin to track code loaded via importlib
+plugins = []
+
+[tool.coverage.report]
+precision = 2
+show_missing = true
+skip_covered = false
+# Include files even if not imported through standard import
+include = ["packages/flarelette-jwt-py/flarelette_jwt/*.py"]
+exclude_lines = [
+    "pragma: no cover",
+    "def __repr__",
+    "raise AssertionError",
+    "raise NotImplementedError",
+    "if __name__ == .__main__.:",
+    "if TYPE_CHECKING:",
+    "class .*\\bProtocol\\):",
+    "@(abc\\.)?abstractmethod",
+]
+
+[tool.coverage.html]
+directory = "packages/flarelette-jwt-py/htmlcov"

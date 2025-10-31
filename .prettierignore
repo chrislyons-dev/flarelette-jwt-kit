@@ -1,0 +1,23 @@
+# Dependencies
+node_modules/
+dist/
+build/
+
+# Python
+__pycache__/
+*.pyc
+.mypy_cache/
+.pytest_cache/
+.ruff_cache/
+
+# Build artifacts
+*.egg-info/
+output/
+
+# Docs
+docs/architecture/
+site/
+
+# Config
+package-lock.json
+yarn.lock

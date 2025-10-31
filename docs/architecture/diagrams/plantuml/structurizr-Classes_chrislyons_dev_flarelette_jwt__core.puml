@@ -1,0 +1,100 @@
+@startuml
+set separator none
+title flarelette-jwt-kit - @chrislyons-dev/flarelette-jwt - Components
+
+top to bottom direction
+skinparam ranksep 60
+skinparam nodesep 30
+
+skinparam {
+  arrowFontSize 10
+  defaultTextAlignment center
+  wrapWidth 200
+  maxMessageSize 100
+  defaultFontName "Arial"
+}
+
+hide stereotype
+
+skinparam rectangle<<flarelettejwtkit.chrislyonsdevflarelettejwt.coreenvMode>> {
+  BackgroundColor #85bbf0
+  FontColor #000000
+  BorderColor #5d82a8
+  roundCorner 20
+  shadowing false
+}
+skinparam rectangle<<flarelettejwtkit.chrislyonsdevflarelettejwt.coreenvRead>> {
+  BackgroundColor #85bbf0
+  FontColor #000000
+  BorderColor #5d82a8
+  roundCorner 20
+  shadowing false
+}
+skinparam rectangle<<flarelettejwtkit.chrislyonsdevflarelettejwt.coregetCommon>> {
+  BackgroundColor #85bbf0
+  FontColor #000000
+  BorderColor #5d82a8
+  roundCorner 20
+  shadowing false
+}
+skinparam rectangle<<flarelettejwtkit.chrislyonsdevflarelettejwt.coregetHSSecret>> {
+  BackgroundColor #85bbf0
+  FontColor #000000
+  BorderColor #5d82a8
+  roundCorner 20
+  shadowing false
+}
+skinparam rectangle<<flarelettejwtkit.chrislyonsdevflarelettejwt.coregetJwksServiceName>> {
+  BackgroundColor #85bbf0
+  FontColor #000000
+  BorderColor #5d82a8
+  roundCorner 20
+  shadowing false
+}
+skinparam rectangle<<flarelettejwtkit.chrislyonsdevflarelettejwt.coregetPrivateJwkString>> {
+  BackgroundColor #85bbf0
+  FontColor #000000
+  BorderColor #5d82a8
+  roundCorner 20
+  shadowing false
+}
+skinparam rectangle<<flarelettejwtkit.chrislyonsdevflarelettejwt.coregetProfile>> {
+  BackgroundColor #85bbf0
+  FontColor #000000
+  BorderColor #5d82a8
+  roundCorner 20
+  shadowing false
+}
+skinparam rectangle<<flarelettejwtkit.chrislyonsdevflarelettejwt.coregetPublicJwkString>> {
+  BackgroundColor #85bbf0
+  FontColor #000000
+  BorderColor #5d82a8
+  roundCorner 20
+  shadowing false
+}
+skinparam rectangle<<flarelettejwtkit.chrislyonsdevflarelettejwt.coresign>> {
+  BackgroundColor #85bbf0
+  FontColor #000000
+  BorderColor #5d82a8
+  roundCorner 20
+  shadowing false
+}
+skinparam rectangle<<flarelettejwtkit.chrislyonsdevflarelettejwt>> {
+  BorderColor #2e6295
+  FontColor #2e6295
+  shadowing false
+}
+
+rectangle "@chrislyons-dev/flarelette-jwt\n<size:10>[Container: Service]</size>" <<flarelettejwtkit.chrislyonsdevflarelettejwt>> {
+  rectangle "==core.getCommon\n<size:10>[Component: function]</size>\n\nGet common JWT configuration from environment Returns partial JwtProfile-compatible configuration" <<flarelettejwtkit.chrislyonsdevflarelettejwt.coregetCommon>> as flarelettejwtkit.chrislyonsdevflarelettejwt.coregetCommon
+  rectangle "==core.getProfile\n<size:10>[Component: function]</size>\n\nGet JWT profile from environment Returns complete JwtProfile with detected algorithm" <<flarelettejwtkit.chrislyonsdevflarelettejwt.coregetProfile>> as flarelettejwtkit.chrislyonsdevflarelettejwt.coregetProfile
+  rectangle "==core.getHSSecret\n<size:10>[Component: function]</size>" <<flarelettejwtkit.chrislyonsdevflarelettejwt.coregetHSSecret>> as flarelettejwtkit.chrislyonsdevflarelettejwt.coregetHSSecret
+  rectangle "==core.getPrivateJwkString\n<size:10>[Component: function]</size>" <<flarelettejwtkit.chrislyonsdevflarelettejwt.coregetPrivateJwkString>> as flarelettejwtkit.chrislyonsdevflarelettejwt.coregetPrivateJwkString
+  rectangle "==core.getPublicJwkString\n<size:10>[Component: function]</size>" <<flarelettejwtkit.chrislyonsdevflarelettejwt.coregetPublicJwkString>> as flarelettejwtkit.chrislyonsdevflarelettejwt.coregetPublicJwkString
+  rectangle "==core.getJwksServiceName\n<size:10>[Component: function]</size>" <<flarelettejwtkit.chrislyonsdevflarelettejwt.coregetJwksServiceName>> as flarelettejwtkit.chrislyonsdevflarelettejwt.coregetJwksServiceName
+  rectangle "==core.sign\n<size:10>[Component: function]</size>\n\nSign a JWT token with HS512 or EdDSA algorithm" <<flarelettejwtkit.chrislyonsdevflarelettejwt.coresign>> as flarelettejwtkit.chrislyonsdevflarelettejwt.coresign
+  rectangle "==core.envRead\n<size:10>[Component: function]</size>" <<flarelettejwtkit.chrislyonsdevflarelettejwt.coreenvRead>> as flarelettejwtkit.chrislyonsdevflarelettejwt.coreenvRead
+  rectangle "==core.envMode\n<size:10>[Component: function]</size>" <<flarelettejwtkit.chrislyonsdevflarelettejwt.coreenvMode>> as flarelettejwtkit.chrislyonsdevflarelettejwt.coreenvMode
+}
+
+@enduml

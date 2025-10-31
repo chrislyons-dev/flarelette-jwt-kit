@@ -1,0 +1,52 @@
+@startuml
+set separator none
+title flarelette-jwt-kit - @chrislyons-dev/flarelette-jwt - Components
+
+top to bottom direction
+skinparam ranksep 60
+skinparam nodesep 30
+
+skinparam {
+  arrowFontSize 10
+  defaultTextAlignment center
+  wrapWidth 200
+  maxMessageSize 100
+  defaultFontName "Arial"
+}
+
+hide stereotype
+
+skinparam rectangle<<flarelettejwtkit.chrislyonsdevflarelettejwt.adaptersbindEnv>> {
+  BackgroundColor #85bbf0
+  FontColor #000000
+  BorderColor #5d82a8
+  roundCorner 20
+  shadowing false
+}
+skinparam rectangle<<flarelettejwtkit.chrislyonsdevflarelettejwt.adaptersgetServiceBinding>> {
+  BackgroundColor #85bbf0
+  FontColor #000000
+  BorderColor #5d82a8
+  roundCorner 20
+  shadowing false
+}
+skinparam rectangle<<flarelettejwtkit.chrislyonsdevflarelettejwt.adaptersmakeKit>> {
+  BackgroundColor #85bbf0
+  FontColor #000000
+  BorderColor #5d82a8
+  roundCorner 20
+  shadowing false
+}
+skinparam rectangle<<flarelettejwtkit.chrislyonsdevflarelettejwt>> {
+  BorderColor #2e6295
+  FontColor #2e6295
+  shadowing false
+}
+
+rectangle "@chrislyons-dev/flarelette-jwt\n<size:10>[Container: Service]</size>" <<flarelettejwtkit.chrislyonsdevflarelettejwt>> {
+  rectangle "==adapters.bindEnv\n<size:10>[Component: function]</size>\n\nStore both environment variables and service bindings globally" <<flarelettejwtkit.chrislyonsdevflarelettejwt.adaptersbindEnv>> as flarelettejwtkit.chrislyonsdevflarelettejwt.adaptersbindEnv
+  rectangle "==adapters.getServiceBinding\n<size:10>[Component: function]</size>\n\nGet service binding by name from global storage" <<flarelettejwtkit.chrislyonsdevflarelettejwt.adaptersgetServiceBinding>> as flarelettejwtkit.chrislyonsdevflarelettejwt.adaptersgetServiceBinding
+  rectangle "==adapters.makeKit\n<size:10>[Component: function]</size>\n\nReturns a namespaced kit whose calls use the provided env bag. Automatically injects JWKS service binding if configured." <<flarelettejwtkit.chrislyonsdevflarelettejwt.adaptersmakeKit>> as flarelettejwtkit.chrislyonsdevflarelettejwt.adaptersmakeKit
+}
+
+@enduml

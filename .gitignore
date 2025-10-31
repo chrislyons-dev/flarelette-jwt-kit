@@ -1,0 +1,65 @@
+# Dependencies
+node_modules/
+
+# Build artifacts
+dist/
+build/
+*.egg-info/
+
+# Documentation build
+site/
+.mkdocs_cache/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+.mypy_cache/
+.pytest_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+*.egg
+
+# Coverage reports
+coverage/
+*.lcov
+.nyc_output/
+coverage-final.json
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# Temporary files
+*.tmp
+.cache/
+coverage/
+
+# Documentation (if you want to keep these private)
+CLAUDE.md
+.claude/
+notes/
+packages/flarelette-jwt-py/CONTRIBUTING.md
+packages/flarelette-jwt-py/THIRD_PARTY_LICENSES.md
+packages/flarelette-jwt-py/LICENSE

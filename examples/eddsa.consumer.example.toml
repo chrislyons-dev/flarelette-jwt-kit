@@ -1,0 +1,32 @@
+# EdDSA JWT Consumer Configuration
+#
+# This worker verifies JWTs signed by the jwt-gateway producer.
+# Uses service binding to fetch JWKS (public keys) from the gateway.
+#
+# Prerequisites:
+#   - jwt-gateway must be deployed first
+#   - jwt-gateway name must match "service" in [[services]] below
+#
+# Deploy:
+#   wrangler deploy --config examples/eddsa.consumer.example.toml
+
+name = "consumer-app"
+main = "examples/eddsa.consumer.example.ts"
+compatibility_date = "2025-10-01"
+
+[vars]
+# Service binding name for JWKS fetching
+JWT_JWKS_SERVICE_NAME = "GATEWAY_BINDING"
+
+# Token claim expectations (must match producer)
+JWT_ISS = "https://gateway.internal"
+JWT_AUD = "api.internal"
+
+# Optional: Pin specific key thumbprints for additional security
+# JWT_ALLOWED_THUMBPRINTS = "thumb1,thumb2"
+
+# Service binding to jwt-gateway (JWKS provider)
+[[services]]
+binding = "GATEWAY_BINDING"
+service = "jwt-gateway"  # Must match producer's "name" in wrangler.toml
+environment = "production"  # or "staging", "development"
