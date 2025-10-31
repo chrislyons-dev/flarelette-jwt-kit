@@ -1763,7 +1763,7 @@
       ],
       "isAsync": false,
       "filePath": "C:\\Users\\chris\\git\\flarelette-jwt-kit\\packages\\flarelette-jwt-py\\flarelette_jwt\\sign.py",
-      "lineNumber": 22,
+      "lineNumber": 21,
       "metadata": {
         "language": "python",
         "decorators": [],
@@ -1796,7 +1796,7 @@
       ],
       "isAsync": true,
       "filePath": "C:\\Users\\chris\\git\\flarelette-jwt-kit\\packages\\flarelette-jwt-py\\flarelette_jwt\\sign.py",
-      "lineNumber": 26,
+      "lineNumber": 25,
       "metadata": {
         "language": "python",
         "decorators": [],
@@ -1953,7 +1953,7 @@
       ],
       "isAsync": false,
       "filePath": "C:\\Users\\chris\\git\\flarelette-jwt-kit\\packages\\flarelette-jwt-py\\flarelette_jwt\\verify.py",
-      "lineNumber": 30,
+      "lineNumber": 29,
       "metadata": {
         "language": "python",
         "decorators": [],
@@ -1986,7 +1986,7 @@
       ],
       "isAsync": true,
       "filePath": "C:\\Users\\chris\\git\\flarelette-jwt-kit\\packages\\flarelette-jwt-py\\flarelette_jwt\\verify.py",
-      "lineNumber": 34,
+      "lineNumber": 33,
       "metadata": {
         "language": "python",
         "decorators": [],
@@ -2134,12 +2134,6 @@
       "description": "time",
       "source": "flarelette_jwt__util",
       "destination": "time",
-      "stereotype": "import"
-    },
-    {
-      "description": "crypto",
-      "source": "flarelette_jwt__util",
-      "destination": "js",
       "stereotype": "import"
     }
   ],
