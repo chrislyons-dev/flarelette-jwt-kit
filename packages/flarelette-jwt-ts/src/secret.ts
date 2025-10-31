@@ -1,3 +1,13 @@
+/**
+ * Secret generation and validation utilities.
+ *
+ * This module provides functions to generate secure secrets and validate base64url-encoded secrets.
+ * It ensures compatibility with JWT signing requirements.
+ *
+ * @module util
+ *
+ */
+
 import { webcrypto } from 'crypto'
 
 export function generateSecret(lengthBytes = 64): string {

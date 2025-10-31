@@ -8,13 +8,12 @@ project:
   description: JWT authentication and authorization library
 
 paths:
-  output: ./
-  logs: ./logs
-  ir_out: ./flarelette-jwt-kit-ir.json
-  dsl_out: ./flarelette-jwt-kit.dsl
-  render_out: ./diagrams
-  docs_out: ./
-
+  output: ./architecture
+  logs: ./architecture/logs
+  ir_out: ./architecture/flarelette-jwt-kit-ir.json
+  dsl_out: ./architecture/flarelette-jwt-kit.dsl
+  render_out: ./architecture/diagrams
+  docs_out: ./architecture
 allowedPluginPaths:
   - ./plugins
   - ./custom-plugins
@@ -26,12 +25,12 @@ extractors:
   - use: extractors/builtin/basic-node
     inputs:
       include:
-        - '/users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/**/*.js'
-        - '/users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/**/*.cjs'
-        - '/users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/**/*.mjs'
-        - '/users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/**/*.jsx'
-        - '/users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/**/*.ts'
-        - '/users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/**/*.tsx'
+        - './packages/flarelette-jwt-ts/**/*.js'
+        - './packages/flarelette-jwt-ts/**/*.cjs'
+        - './packages/flarelette-jwt-ts/**/*.mjs'
+        - './packages/flarelette-jwt-ts/**/*.jsx'
+        - './packages/flarelette-jwt-ts/**/*.ts'
+        - './packages/flarelette-jwt-ts/**/*.tsx'
       exclude:
         - '**/node_modules/**'
         - '**/dist/**'
@@ -44,13 +43,16 @@ extractors:
   - use: extractors/builtin/basic-python
     inputs:
       include:
-        - '/users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-py/**/*.py'
+        - './packages/flarelette-jwt-py/**/*.py'
       exclude:
         - '**/__pycache__/**'
         - '**/venv/**'
         - '**/*.venv/***'
         - '**/test/**'
         - '**/tests/**'
+        - '**/*_test.py'
+        - '**/example*.py'
+        - '**/prepare.py'
 
 # ir json in, ir json out (or errors)
 validators:

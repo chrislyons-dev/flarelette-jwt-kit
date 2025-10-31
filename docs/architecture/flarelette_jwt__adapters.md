@@ -1,4 +1,4 @@
-# flarelette-jwt-py — Code View
+# adapters — Code View
 
 [← Back to Container](./flarelette_jwt.md) | [← Back to System](./README.md)
 
@@ -10,7 +10,7 @@
 <tbody>
 <tr>
 <td><strong>Component</strong></td>
-<td>flarelette-jwt-py</td>
+<td>adapters</td>
 </tr>
 <tr>
 <td><strong>Container</strong></td>
@@ -22,7 +22,10 @@
 </tr>
 <tr>
 <td><strong>Description</strong></td>
-<td>Component derived from directory: flarelette-jwt-py</td>
+<td>Adapters for Cloudflare Workers Environment
+
+This module provides utilities to adapt Cloudflare Workers environment variables
+for use with the Flarelette JWT library.</td>
 </tr>
 </tbody>
 </table>
@@ -33,20 +36,21 @@
 
 ### Class Diagram
 
-![Class Diagram](./diagrams/structurizr-Classes_flarelette_jwt__flarelette_jwt_py.png)
+![Class Diagram](./diagrams/structurizr-Classes_chrislyons_dev_flarelette_jwt__adapters.png)
+![Class Diagram](./diagrams/structurizr-Classes_flarelette_jwt__adapters.png)
 
 ### Code Elements
 
 <details>
-<summary><strong>3 code element(s)</strong></summary>
+<summary><strong>1 code element(s)</strong></summary>
 
 
 
 #### Functions
 
-##### `on_fetch()`
+##### `apply_env_bindings()`
 
-Handle incoming requests for testing.
+Copy a Cloudflare Worker `env` mapping into os.environ so the kit can read it.
 
 <table>
 <tbody>
@@ -59,19 +63,19 @@ Handle incoming requests for testing.
 <td><code></code></td>
 </tr>
 <tr>
-<td><strong>Async</strong></td>
-<td>Yes</td>
+<td><strong>Returns</strong></td>
+<td><code>None</code></td>
 </tr>
 <tr>
 <td><strong>Location</strong></td>
-<td><code>C:\users\chris\git\flarelette-jwt-kit\packages\flarelette-jwt-py\example_worker.py:11</code></td>
+<td><code>C:\Users\chris\git\flarelette-jwt-kit\packages\flarelette-jwt-py\flarelette_jwt\adapters.py:15</code></td>
 </tr>
 </tbody>
 </table>
 
 **Parameters:**
 
-- `request`: <code>any</code>- `_env`: <code>any</code>
+- `env`: <code>Mapping[str, str]</code>
 
 ---
 

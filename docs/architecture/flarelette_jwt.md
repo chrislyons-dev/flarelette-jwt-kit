@@ -56,10 +56,22 @@
 </thead>
 <tbody>
 <tr>
-<td><strong>flarelette-jwt-py</strong></td>
+<td><strong>adapters</strong></td>
 <td><code>module</code></td>
-<td>Component derived from directory: flarelette-jwt-py</td>
-<td><a href="./flarelette_jwt__flarelette_jwt_py.md">View →</a></td>
+<td>Adapters for Cloudflare Workers Environment
+
+This module provides utilities to adapt Cloudflare Workers environment variables
+for use with the Flarelette JWT library.</td>
+<td><a href="./flarelette_jwt__adapters.md">View →</a></td>
+</tr>
+<tr>
+<td><strong>util</strong></td>
+<td><code>module</code></td>
+<td>Environment Configuration for JWT Operations
+
+This module provides functions to read environment variables and derive JWT-related configurations.
+It supports both symmetric (HS512) and asymmetric (EdDSA) algorithms.</td>
+<td><a href="./flarelette_jwt__util.md">View →</a></td>
 </tr>
 <tr>
 <td><strong>flarelette_jwt</strong></td>

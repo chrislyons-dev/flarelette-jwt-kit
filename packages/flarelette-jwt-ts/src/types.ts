@@ -1,4 +1,14 @@
 /**
+ * Type definitions for JWT operations.
+ *
+ * This module defines types for JWT headers, payloads, profiles, and related structures.
+ * It ensures type safety and consistency across the library.
+ *
+ * @module types
+ *
+ */
+
+/**
  * Type definitions for Cloudflare Workers service bindings and environment
  */
 

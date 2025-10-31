@@ -1,3 +1,13 @@
+"""
+Adapters for Cloudflare Workers Environment
+
+This module provides utilities to adapt Cloudflare Workers environment variables
+for use with the Flarelette JWT library.
+
+@module adapters
+
+"""
+
 import os
 from collections.abc import Mapping
 

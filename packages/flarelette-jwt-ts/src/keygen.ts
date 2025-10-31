@@ -1,5 +1,15 @@
 #!/usr/bin/env node
 
+/**
+ * Key generation utility for EdDSA keys.
+ *
+ * This script generates EdDSA key pairs and exports them in JWK format.
+ * It is designed to be executed as a standalone Node.js script.
+ *
+ * @module util
+ *
+ */
+
 import { generateKeyPair, exportJWK } from 'jose'
 
 async function main() {

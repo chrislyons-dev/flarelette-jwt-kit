@@ -1,3 +1,9 @@
+/**
+ * High-level JWT utilities for creating, delegating, verifying, and authorizing JWT tokens
+ *
+ * @module util
+ *
+ */
 import { sign } from './sign.js'
 import { verify } from './verify.js'
 import type { ClaimsDict, Fetcher } from './types.js'

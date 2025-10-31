@@ -1,3 +1,13 @@
+"""
+Secret Generation and Validation Utilities
+
+This module provides functions to generate secure secrets and validate base64url-encoded secrets.
+It ensures compatibility with JWT signing requirements.
+
+@module util
+
+"""
+
 import argparse
 import base64
 import json

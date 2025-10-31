@@ -1,3 +1,13 @@
+"""
+JWT Verification Utilities
+
+This module provides functions to verify JWT tokens using HS512 or EdDSA algorithms.
+It includes support for audience and issuer validation, as well as clock skew tolerance.
+
+@module util
+
+"""
+
 from __future__ import annotations
 
 import base64

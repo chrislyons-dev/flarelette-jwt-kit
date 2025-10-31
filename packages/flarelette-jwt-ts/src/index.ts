@@ -1,3 +1,13 @@
+/**
+ * Entry point for the flarelette-jwt library.
+ *
+ * This module re-exports core functionalities, including signing, verification, utilities, and type definitions.
+ * It serves as the main interface for library consumers.
+ *
+ * @module main
+ *
+ */
+
 // Core configuration and environment
 export {
   envMode,
@@ -8,7 +18,6 @@ export {
   getPublicJwkString,
   getJwksServiceName,
 } from './config.js'
-export type { Mode } from './config.js'
 
 // Signing and verification
 export { sign } from './sign.js'

@@ -1,3 +1,13 @@
+/**
+ * Utility functions for JWT operations.
+ *
+ * This module provides helper functions for parsing JWTs, checking expiration, and mapping OAuth scopes.
+ * It is designed to support core JWT functionalities.
+ *
+ * @module util
+ *
+ */
+
 import type { ParsedJwt, JwtPayload } from './types.js'
 
 /**

@@ -1,3 +1,10 @@
+"""
+Flarelette JWT Python Library
+
+This package provides utilities for JWT signing, verification, and management.
+It includes support for both symmetric (HS512) and asymmetric (EdDSA) algorithms.
+"""
+
 from .env import (
     ActorClaim,
     AlgType,

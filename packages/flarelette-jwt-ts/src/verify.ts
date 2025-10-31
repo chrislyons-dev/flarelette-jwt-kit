@@ -1,3 +1,13 @@
+/**
+ * JWT verification utilities.
+ *
+ * This module provides functions to verify JWT tokens using either HS512 or EdDSA algorithms.
+ * It supports integration with JWKS services and thumbprint pinning.
+ *
+ * @module util
+ *
+ */
+
 import {
   jwtVerify,
   importJWK,

@@ -1,3 +1,13 @@
+/**
+ * JWT signing utilities.
+ *
+ * This module provides functions to sign JWT tokens using either HS512 or EdDSA algorithms.
+ * It supports custom claims and configuration overrides.
+ *
+ * @module core
+ *
+ */
+
 import { SignJWT, importJWK } from 'jose'
 import { envMode, getCommon, getHSSecret, getPrivateJwkString } from './config.js'
 import type { AlgType, ClaimsDict } from './types.js'

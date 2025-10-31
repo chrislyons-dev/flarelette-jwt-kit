@@ -16,7 +16,7 @@ skinparam {
 
 hide stereotype
 
-skinparam rectangle<<flarelettejwtkit.flarelettejwt.flarelettejwtpy>> {
+skinparam rectangle<<flarelettejwtkit.flarelettejwt.adapters>> {
   BackgroundColor #85bbf0
   FontColor #000000
   BorderColor #5d82a8
@@ -30,6 +30,13 @@ skinparam rectangle<<flarelettejwtkit.flarelettejwt.flarelette_jwt>> {
   roundCorner 20
   shadowing false
 }
+skinparam rectangle<<flarelettejwtkit.flarelettejwt.util>> {
+  BackgroundColor #85bbf0
+  FontColor #000000
+  BorderColor #5d82a8
+  roundCorner 20
+  shadowing false
+}
 skinparam rectangle<<flarelettejwtkit.flarelettejwt>> {
   BorderColor #2e6295
   FontColor #2e6295
@@ -37,9 +44,9 @@ skinparam rectangle<<flarelettejwtkit.flarelettejwt>> {
 }
 
 rectangle "flarelette-jwt\n<size:10>[Container: Service]</size>" <<flarelettejwtkit.flarelettejwt>> {
-  rectangle "==flarelette-jwt-py\n<size:10>[Component: module]</size>\n\nComponent derived from directory: flarelette-jwt-py" <<flarelettejwtkit.flarelettejwt.flarelettejwtpy>> as flarelettejwtkit.flarelettejwt.flarelettejwtpy
+  rectangle "==adapters\n<size:10>[Component: module]</size>\n\nAdapters for Cloudflare Workers Environment This module provides utilities to adapt Cloudflare Workers environment variables for use with the Flarelette JWT library." <<flarelettejwtkit.flarelettejwt.adapters>> as flarelettejwtkit.flarelettejwt.adapters
+  rectangle "==util\n<size:10>[Component: module]</size>\n\nEnvironment Configuration for JWT Operations This module provides functions to read environment variables and derive JWT-related configurations. It supports both symmetric (HS512) and asymmetric (EdDSA) algorithms." <<flarelettejwtkit.flarelettejwt.util>> as flarelettejwtkit.flarelettejwt.util
   rectangle "==flarelette_jwt\n<size:10>[Component: module]</size>\n\nComponent derived from directory: flarelette_jwt" <<flarelettejwtkit.flarelettejwt.flarelette_jwt>> as flarelettejwtkit.flarelettejwt.flarelette_jwt
 }
 
-flarelettejwtkit.flarelettejwt.flarelettejwtpy -[#707070,thickness=2]-> flarelettejwtkit.flarelettejwt.flarelette_jwt : "<color:#707070>create_token | sign | verify"
 @enduml

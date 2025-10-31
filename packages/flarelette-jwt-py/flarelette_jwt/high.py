@@ -1,3 +1,13 @@
+"""
+High-Level JWT API
+
+This module provides high-level functions for creating and verifying JWT tokens.
+It includes support for delegated tokens and policy-based authorization.
+
+@module util
+
+"""
+
 from __future__ import annotations
 
 from typing import TYPE_CHECKING, Any, Protocol, TypedDict

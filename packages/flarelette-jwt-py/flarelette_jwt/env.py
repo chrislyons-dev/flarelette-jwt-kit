@@ -1,3 +1,13 @@
+"""
+Environment Configuration for JWT Operations
+
+This module provides functions to read environment variables and derive JWT-related configurations.
+It supports both symmetric (HS512) and asymmetric (EdDSA) algorithms.
+
+@module util
+
+"""
+
 import base64
 import os
 from typing import Any, Literal, TypedDict

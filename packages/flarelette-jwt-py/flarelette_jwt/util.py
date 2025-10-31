@@ -1,3 +1,13 @@
+"""
+Utility Functions for JWT Operations
+
+This module provides helper functions for parsing JWTs, checking expiration,
+and mapping OAuth scopes to permissions.
+
+@module util
+
+"""
+
 import base64
 import json
 import time

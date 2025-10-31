@@ -1,9 +1,14 @@
-import type { AlgType } from './types.js'
-
 /**
- * @deprecated Use AlgType from types.ts instead
+ * Configuration utilities for JWT operations.
+ *
+ * This module provides functions to read environment variables and derive JWT-related configurations.
+ * It includes support for both symmetric (HS512) and asymmetric (EdDSA) algorithms.
+ *
+ * @module core
+ *
  */
-export type Mode = AlgType
+
+import type { AlgType } from './types.js'
 
 function envRead(name: string): string | undefined {
   // Prefer an injected edge env bag over process.env (which doesn't exist on Workers)

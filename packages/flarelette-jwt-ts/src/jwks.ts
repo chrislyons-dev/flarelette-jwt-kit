@@ -1,3 +1,13 @@
+/**
+ * JSON Web Key Set (JWKS) utilities.
+ *
+ * This module provides functions to fetch and manage JWKS, including caching and key lookup by key ID (kid).
+ * It supports integration with external JWKS services.
+ *
+ * @module util
+ *
+ */
+
 import { importJWK } from 'jose'
 import type { Fetcher, JWKSResponse } from './types.js'
 

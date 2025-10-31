@@ -64,14 +64,14 @@ Store both environment variables and service bindings globally
 </tr>
 <tr>
 <td><strong>Location</strong></td>
-<td><code>C:/users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/src/adapters/hono.ts:13</code></td>
+<td><code>C:/Users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/src/adapters/hono.ts:13</code></td>
 </tr>
 </tbody>
 </table>
 
 **Parameters:**
 
-- `env`: <code>import("C:/users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/src/types").WorkerEnv</code>
+- `env`: <code>import("C:/Users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/src/types").WorkerEnv</code>
 
 ---
 ##### `getServiceBinding()`
@@ -90,11 +90,11 @@ Get service binding by name from global storage
 </tr>
 <tr>
 <td><strong>Returns</strong></td>
-<td><code>import("C:/users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/src/types").Fetcher</code></td>
+<td><code>import("C:/Users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/src/types").Fetcher</code></td>
 </tr>
 <tr>
 <td><strong>Location</strong></td>
-<td><code>C:/users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/src/adapters/hono.ts:35</code></td>
+<td><code>C:/Users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/src/adapters/hono.ts:35</code></td>
 </tr>
 </tbody>
 </table>
@@ -121,18 +121,18 @@ Automatically injects JWKS service binding if configured.
 </tr>
 <tr>
 <td><strong>Returns</strong></td>
-<td><code>{ sign: typeof import("C:/users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/src/sign").sign; verify: (token: string, opts?: Partial<{ iss: string; aud: string; leeway: number; }>) => Promise<any>; createToken: typeof import("C:/users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/src/high").createToken; checkAuth: (token: string, opts?: import("C:/users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/src/high").AuthzOpts) => Promise<import("C:/users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/src/high").AuthUser>; policy: typeof import("C:/users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/src/high").policy; parse: typeof import("C:/users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/src/util").parse; isExpiringSoon: typeof import("C:/users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/src/util").isExpiringSoon; }</code></td>
+<td><code>{ sign: typeof import("C:/Users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/src/sign").sign; verify: (token: string, opts?: Partial<{ iss: string; aud: string; leeway: number; }>) => Promise<any>; createToken: typeof import("C:/Users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/src/high").createToken; checkAuth: (token: string, opts?: import("C:/Users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/src/high").AuthzOpts) => Promise<import("C:/Users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/src/high").AuthUser>; policy: typeof import("C:/Users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/src/high").policy; parse: typeof import("C:/Users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/src/util").parse; isExpiringSoon: typeof import("C:/Users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/src/util").isExpiringSoon; }</code></td>
 </tr>
 <tr>
 <td><strong>Location</strong></td>
-<td><code>C:/users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/src/adapters/hono.ts:45</code></td>
+<td><code>C:/Users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/src/adapters/hono.ts:45</code></td>
 </tr>
 </tbody>
 </table>
 
 **Parameters:**
 
-- `env`: <code>import("C:/users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/src/types").WorkerEnv</code>
+- `env`: <code>import("C:/Users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/src/types").WorkerEnv</code>
 
 ---
 

@@ -1,3 +1,13 @@
+"""
+JWT Signing Utilities
+
+This module provides functions to sign JWT tokens using HS512 or EdDSA algorithms.
+It supports custom claims and configuration overrides.
+
+@module util
+
+"""
+
 from __future__ import annotations
 
 import base64
