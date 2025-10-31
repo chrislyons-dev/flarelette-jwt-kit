@@ -14,8 +14,7 @@ import base64
 import json
 import time
 
-from js import crypto
-
+# NOTE: 'js' module imported lazily inside functions - only available in Cloudflare Workers
 from .env import AlgType, common, get_hs_secret_bytes, mode
 
 
@@ -57,6 +56,10 @@ async def sign(
     body.setdefault("exp", now + ttl)
 
     if m == "HS512":
+        # Lazy import - only available in Cloudflare Workers/Pyodide runtime
+        from js import crypto  # noqa: PLC0415
+        from pyodide.ffi import to_py  # noqa: PLC0415
+
         header = {"alg": "HS512", "typ": "JWT"}
         h = _b64url(json.dumps(header, separators=(",", ":")).encode())
         p = _b64url(json.dumps(body, separators=(",", ":")).encode())
@@ -69,7 +72,6 @@ async def sign(
             ["sign"],
         )
         sig = await crypto.subtle.sign({"name": "HMAC"}, key, signing_input)
-        from pyodide.ffi import to_py
 
         return f"{h}.{p}.{_b64url(bytes(to_py(sig)))}"
     else:

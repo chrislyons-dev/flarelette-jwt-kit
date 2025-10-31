@@ -70,6 +70,8 @@ ignore = [
 "__init__.py" = ["F401"]   # Unused imports in __init__.py
 "**/tests/**" = ["ARG"]    # Unused arguments in tests
 "**/examples/**" = ["ARG"] # Unused arguments in examples
+"**/sign.py" = ["PLC0415"] # Lazy imports required for Cloudflare Workers compatibility
+"**/verify.py" = ["PLC0415"] # Lazy imports required for Cloudflare Workers compatibility
 
 # MyPy - Type checker
 [tool.mypy]
