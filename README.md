@@ -8,6 +8,14 @@
 
 # Flarelette JWT Kit
 
+[![npm version](https://img.shields.io/npm/v/@chrislyons-dev/flarelette-jwt.svg?style=flat-square&logo=npm&label=npm)](https://www.npmjs.com/package/@chrislyons-dev/flarelette-jwt)
+[![PyPI version](https://img.shields.io/pypi/v/flarelette-jwt.svg?style=flat-square&logo=pypi&label=pypi)](https://pypi.org/project/flarelette-jwt/)
+[![npm downloads](https://img.shields.io/npm/dm/@chrislyons-dev/flarelette-jwt.svg?style=flat-square&label=npm%20downloads)](https://www.npmjs.com/package/@chrislyons-dev/flarelette-jwt)
+[![PyPI downloads](https://img.shields.io/pypi/dm/flarelette-jwt.svg?style=flat-square&label=pypi%20downloads)](https://pypi.org/project/flarelette-jwt/)
+[![CI Status](https://img.shields.io/github/actions/workflow/status/chrislyons-dev/flarelette-jwt-kit/ci.yml?branch=main&style=flat-square&logo=github&label=ci)](https://github.com/chrislyons-dev/flarelette-jwt-kit/actions/workflows/ci.yml)
+[![License](https://img.shields.io/github/license/chrislyons-dev/flarelette-jwt-kit.svg?style=flat-square&label=license)](https://github.com/chrislyons-dev/flarelette-jwt-kit/blob/main/LICENSE)
+[![Documentation](https://img.shields.io/badge/docs-github%20pages-blue?style=flat-square&logo=readme)](https://chrislyons-dev.github.io/flarelette-jwt-kit/)
+
 **Environment-driven JWT authentication for Cloudflare Workers. Like Starlette, but for the edge.**
 
 Cross-language JWT toolkit (TypeScript + Python) with identical APIs. Automatically selects HS512 or EdDSA based on environment configuration, loads secrets via Cloudflare bindings, and works across Workers, Node.js, and Python runtimes.

@@ -5,7 +5,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "flarelette-jwt-kit-env"
-version = "1.7.0"
+version = "1.8.0"
 description = "Env-driven JWT kit with secret-name indirection (Cloudflare-friendly)"
 readme = "README.md"
 license = { text = "MIT" }
@@ -70,6 +70,7 @@ ignore = [
 "__init__.py" = ["F401"]   # Unused imports in __init__.py
 "**/tests/**" = ["ARG"]    # Unused arguments in tests
 "**/examples/**" = ["ARG"] # Unused arguments in examples
+"**/example_worker.py" = ["ALL"] # Example code - ignore all lints
 "**/sign.py" = ["PLC0415"] # Lazy imports required for Cloudflare Workers compatibility
 "**/verify.py" = ["PLC0415"] # Lazy imports required for Cloudflare Workers compatibility
 

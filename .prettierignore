@@ -18,6 +18,9 @@ output/
 docs/architecture/
 site/
 
+# Generated files
+**/CHANGELOG.md
+
 # Config
 package-lock.json
 yarn.lock

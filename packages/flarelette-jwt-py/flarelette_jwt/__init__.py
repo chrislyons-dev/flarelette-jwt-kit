@@ -24,7 +24,7 @@ from .sign import sign
 from .util import ParsedJwt, is_expiring_soon, map_scopes_to_permissions, parse
 from .verify import verify
 
-__version__ = "0.1.1"
+__version__ = "1.8.0"
 
 __all__ = [
     # Types
