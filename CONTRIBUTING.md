@@ -79,6 +79,30 @@ npm run py:typecheck      # Python type checking (MyPy)
 
 See **[SETUP.md](SETUP.md)** for detailed information on quality gates and tooling.
 
+### Documentation Syncing
+
+The project maintains a single source of truth for documentation in the root directory (`README.md`, `CONTRIBUTING.md`, `THIRD_PARTY_LICENSES.md`, `LICENSE`). These files are automatically copied to packages during builds.
+
+**When to sync:**
+
+After editing any root documentation file (especially `README.md`), sync to the Python package:
+
+```bash
+npm run sync:docs
+```
+
+This runs `prepare.py` and stages the updated `README.md` in the Python package. Other files (`CONTRIBUTING.md`, `LICENSE`, etc.) are gitignored and only copied during CI/CD builds.
+
+**Automated sync:**
+
+- ✅ CI/CD builds automatically sync docs before publishing
+- ✅ Package build scripts include doc copying
+- ⚠️ Local development requires manual `npm run sync:docs`
+
+**Why this matters:**
+
+The Python package README is committed to the repository and must stay in sync with the root README. If out of sync, CI checks may fail with "Uncommitted changes detected."
+
 ### Commit Message Format
 
 Follow [Conventional Commits](https://www.conventionalcommits.org/):

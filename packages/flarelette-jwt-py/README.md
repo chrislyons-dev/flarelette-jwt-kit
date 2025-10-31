@@ -1,37 +1,149 @@
+<p align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="docs/images/flarelette-dark-mode-128.png">
+    <source media="(prefers-color-scheme: light)" srcset="docs/images/flarelette-logo-light-mode.png">
+    <img alt="Flarelette JWT Kit" src="docs/images/flarelette-light-mode-128.png">
+  </picture>
+</p>
+
 # Flarelette JWT Kit
 
 **Environment-driven JWT authentication for Cloudflare Workers. Like Starlette, but for the edge.**
 
-Same API for TS & Python (`sign`, `verify`, `createToken`, `checkAuth`), but the kit chooses crypto **from environment** and loads secrets **by name** (great for Cloudflare bindings).
+Cross-language JWT toolkit (TypeScript + Python) with identical APIs. Automatically selects HS512 or EdDSA based on environment configuration, loads secrets via Cloudflare bindings, and works across Workers, Node.js, and Python runtimes.
 
-## Modes
+## Part of the Flarelette Ecosystem
 
-- **HS512 (default):** used if `JWT_SECRET_NAME` → `<binding>` (preferred) or `JWT_SECRET` (legacy) is set.
-- **EdDSA (Ed25519):** used if any of `JWT_PRIVATE_JWK_NAME` / `JWT_PRIVATE_JWK` (producer) or `JWT_PUBLIC_JWK_NAME` / `JWT_PUBLIC_JWK` / `JWT_JWKS_URL_NAME` / `JWT_JWKS_URL` (consumer) is set.
+Flarelette JWT Kit provides the core cryptographic operations for the **Flarelette** authentication stack. It's framework-neutral by design — use it directly for low-level JWT operations or through higher-level adapters like `flarelette-hono` for route guards and middleware integration.
 
-## Common env
+**Stack layers:**
 
-- `JWT_ISS`, `JWT_AUD`
-- `JWT_TTL_SECONDS` (default 900)
-- `JWT_LEEWAY` (default 90)
+- **Your services** → Use JWT auth in APIs and UIs
+- **`flarelette` / `flarelette-hono`** → Framework middleware and route guards
+- **`flarelette-jwt-kit` (this package)** → Core JWT signing, verification, and key management
+- **Platform secrets** → Cloudflare bindings, environment variables
 
-## Secret-name indirection
+## Quick Start
 
-Instead of placing secret values in env vars directly, point to a binding name:
+### Installation
 
-- `JWT_SECRET_NAME=FLARELETTE_JWT_SECRET` → read from `process.env['FLARELETTE_JWT_SECRET']` (Node) or `os.environ['FLARELETTE_JWT_SECRET']` (Python).
-- Similarly for JWKs/URLs: `JWT_PRIVATE_JWK_NAME`, `JWT_PUBLIC_JWK_NAME`, `JWT_JWKS_URL_NAME`.
+**TypeScript/JavaScript:**
 
-### Cloudflare Workers (Wrangler)
-
-```toml
-# wrangler.toml
-name = "gateway"
-main = "src/index.ts"
-
-# Store the actual secret: wrangler secret put FLARELETTE_JWT_SECRET
-[vars]
-JWT_SECRET_NAME = "FLARELETTE_JWT_SECRET"
-JWT_ISS = "https://gw.example"
-JWT_AUD = "bond-math.api"
+```bash
+npm install @chrislyons-dev/flarelette-jwt
 ```
+
+**Python (Cloudflare Workers only):**
+
+```bash
+pip install flarelette-jwt
+```
+
+> **Note:** The Python package requires Cloudflare Workers Python runtime (Pyodide). For standard Python environments, use the TypeScript package via Node.js.
+
+### Basic Example
+
+**TypeScript:**
+
+```typescript
+import { sign, verify } from '@chrislyons-dev/flarelette-jwt'
+
+// Sign a token (algorithm chosen from environment)
+const token = await sign({ sub: 'user123', permissions: ['read:data'] })
+
+// Verify a token
+const payload = await verify(token)
+if (payload) {
+  console.log('Valid token:', payload.sub)
+}
+```
+
+**Python:**
+
+```python
+from flarelette_jwt import sign, verify
+
+# Sign a token (algorithm chosen from environment)
+token = await sign({"sub": "user123", "permissions": ["read:data"]})
+
+# Verify a token
+payload = await verify(token)
+if payload:
+    print(f"Valid token: {payload.get('sub')}")
+```
+
+## Key Features
+
+- **Algorithm auto-detection** — Chooses HS512 or EdDSA based on environment variables
+- **Secret-name indirection** — References Cloudflare secret bindings instead of raw values
+- **Identical TypeScript + Python APIs** — Same function names and behavior across languages
+- **Service bindings for JWKS** — Direct Worker-to-Worker RPC for key distribution
+- **Zero-trust delegation** — RFC 8693 actor claims for service-to-service authentication
+- **Policy-based authorization** — Fluent API for composing permission and role requirements
+
+## Configuration
+
+Configuration is entirely environment-driven. No config files required.
+
+**Common environment variables:**
+
+```bash
+JWT_ISS=https://gateway.example.com    # Token issuer
+JWT_AUD=api.example.com                 # Token audience
+JWT_TTL_SECONDS=900                     # Token lifetime (default: 15 min)
+JWT_LEEWAY=90                           # Clock skew tolerance (default: 90 sec)
+```
+
+**HS512 mode** (symmetric, shared secret):
+
+```bash
+JWT_SECRET_NAME=MY_JWT_SECRET           # Reference to secret binding
+```
+
+**EdDSA mode** (asymmetric, Ed25519):
+
+```bash
+# Producer (signs tokens):
+JWT_PRIVATE_JWK_NAME=GATEWAY_PRIVATE_KEY
+JWT_KID=ed25519-2025-01
+
+# Consumer (verifies tokens):
+JWT_PUBLIC_JWK_NAME=GATEWAY_PUBLIC_KEY
+# OR for key rotation:
+JWT_JWKS_SERVICE_NAME=GATEWAY_BINDING
+```
+
+## Documentation
+
+- **[Getting Started](./docs/getting-started.md)** — Installation, first token, and basic setup
+- **[Core Concepts](./docs/core-concepts.md)** — Algorithms, modes, and architecture
+- **[Usage Guide](./docs/usage-guide.md)** — Complete API reference for TypeScript and Python
+- **[Service Delegation](./docs/service-delegation.md)** — RFC 8693 actor claims for zero-trust
+- **[Security Guide](./docs/security-guide.md)** — Cryptographic profiles, key management, and best practices
+- **[Cloudflare Workers](./docs/cloudflare-workers.md)** — Workers-specific configuration and deployment
+
+## CLI Tools
+
+**Generate HS512 secrets:**
+
+```bash
+npx flarelette-jwt-secret --len=64 --dotenv
+```
+
+**Generate EdDSA keypairs:**
+
+```bash
+npx flarelette-jwt-keygen --kid=ed25519-2025-01
+```
+
+## Contributing
+
+See [CONTRIBUTING.md](./CONTRIBUTING.md) for development setup, coding standards, and release procedures.
+
+## License
+
+MIT — see [LICENSE](./LICENSE) for details.
+
+## Security
+
+For security concerns or vulnerability reports, see [docs/security-guide.md](./docs/security-guide.md) or open a security issue.
