@@ -7,9 +7,44 @@ on:
     branches: [main]
 
 jobs:
+  # Quick smoke test to catch import errors early
+  import-smoke-test:
+    name: Import Smoke Test
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Test Python package imports
+        working-directory: packages/flarelette-jwt-py
+        run: |
+          echo "Testing Python package can be imported in standard Python environment..."
+          python -c "import flarelette_jwt; print('✓ Package version:', flarelette_jwt.__version__)"
+          python -c "from flarelette_jwt import sign, verify, create_token, check_auth, policy, parse; print('✓ All main functions importable')"
+
+      - name: Test version extraction (simulates CD pipeline)
+        run: |
+          echo "Simulating CD pipeline version check..."
+          TS_VERSION=$(node -p "require('./packages/flarelette-jwt-ts/package.json').version")
+          PY_VERSION=$(python -c "import sys; sys.path.insert(0, 'packages/flarelette-jwt-py'); import flarelette_jwt; print(flarelette_jwt.__version__, end='')")
+          echo "✓ TypeScript version: $TS_VERSION"
+          echo "✓ Python version: $PY_VERSION"
+
   lint-and-format:
     name: Lint and Format Check
     runs-on: ubuntu-latest
+    needs: import-smoke-test
 
     steps:
       - name: Checkout code
@@ -50,6 +85,7 @@ jobs:
   typecheck:
     name: Type Check
     runs-on: ubuntu-latest
+    needs: import-smoke-test
 
     steps:
       - name: Checkout code
@@ -290,9 +326,9 @@ jobs:
           python -m venv test-env
           source test-env/bin/activate
           pip install $GITHUB_WORKSPACE/packages/flarelette-jwt-py/dist/*.whl
-          # Note: Package imports successfully (cannot test actual import without Pyodide/Workers runtime)
-          # The 'js' module is only available in Cloudflare Workers Python (Pyodide)
-          python -c "import sys; import importlib.util; spec = importlib.util.find_spec('flarelette_jwt'); print('✓ Python package installed successfully'); print('  (Runtime import requires Cloudflare Workers Python/Pyodide)')"
+          # Test that package imports successfully (lazy-loaded 'js' module only needed at function call time)
+          python -c "import flarelette_jwt; print('✓ Python package version:', flarelette_jwt.__version__)"
+          python -c "from flarelette_jwt import sign, verify, create_token, check_auth, policy, parse; print('✓ All functions importable (js module lazy-loaded at runtime)')"
           deactivate
 
       - name: Test TypeScript ESM imports
@@ -341,6 +377,7 @@ jobs:
     runs-on: ubuntu-latest
     needs:
       [
+        import-smoke-test,
         lint-and-format,
         typecheck,
         test,
@@ -354,7 +391,8 @@ jobs:
     steps:
       - name: Check all jobs
         run: |
-          if [[ "${{ needs.lint-and-format.result }}" != "success" ]] || \
+          if [[ "${{ needs.import-smoke-test.result }}" != "success" ]] || \
+             [[ "${{ needs.lint-and-format.result }}" != "success" ]] || \
              [[ "${{ needs.typecheck.result }}" != "success" ]] || \
              [[ "${{ needs.test.result }}" != "success" ]] || \
              [[ "${{ needs.security.result }}" != "success" ]] || \
