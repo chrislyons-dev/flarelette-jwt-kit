@@ -33,11 +33,13 @@ Flarelette JWT Kit provides the core cryptographic operations for the **Flarelet
 npm install @chrislyons-dev/flarelette-jwt
 ```
 
-**Python:**
+**Python (Cloudflare Workers only):**
 
 ```bash
 pip install flarelette-jwt
 ```
+
+> **Note:** The Python package requires Cloudflare Workers Python runtime (Pyodide). For standard Python environments, use the TypeScript package via Node.js.
 
 ### Basic Example
 

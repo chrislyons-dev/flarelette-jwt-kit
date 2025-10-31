@@ -60,6 +60,9 @@ Flarelette JWT Kit provides the core cryptographic operations for the **Flarelet
     pip install flarelette-jwt
     ```
 
+    !!! info "Cloudflare Workers Only"
+        Python package requires Cloudflare Workers runtime (Pyodide)
+
 ### Basic Example
 
 === "TypeScript"

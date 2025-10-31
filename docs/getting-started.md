@@ -23,8 +23,11 @@ pip install flarelette-jwt
 
 **Requirements:**
 
-- Python 3.11+ or Cloudflare Workers Python runtime
-- Works with standard Python and Pyodide (Workers)
+- Cloudflare Workers Python runtime (Pyodide)
+- Python 3.11+ (Pyodide-based)
+
+!!! warning "Cloudflare Workers Only"
+The Python package is designed exclusively for Cloudflare Workers Python runtime (Pyodide). It uses the `js` module to access WebCrypto APIs, which is not available in standard Python environments.
 
 ## Your First Token
 
