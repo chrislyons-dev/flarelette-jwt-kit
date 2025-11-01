@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.8.2](https://github.com/chrislyons-dev/flarelette-jwt-kit/compare/flarelette-jwt-ts-v1.8.1...flarelette-jwt-ts-v1.8.2) (2025-11-01)
+
+
+### Bug Fixes
+
+* jwt type corrections and documentation updates ([cf5b1d6](https://github.com/chrislyons-dev/flarelette-jwt-kit/commit/cf5b1d6e555c8b1b6257855274a7a19246f94e7a))
+
 ## [1.8.1](https://github.com/chrislyons-dev/flarelette-jwt-kit/compare/flarelette-jwt-v1.8.0...flarelette-jwt-v1.8.1) (2025-10-31)
 
 
