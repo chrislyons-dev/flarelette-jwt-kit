@@ -73,6 +73,8 @@ export interface JwtHeader {
 export interface ActorClaim {
   /** Service identifier acting on behalf of original subject */
   sub: string
+  /** The issuer of the actor token. */
+  iss?: string
   /** Nested actor for delegation chains (recursive) */
   act?: ActorClaim
 }
@@ -216,8 +218,8 @@ export interface Fetcher {
  */
 export interface WorkerEnv extends Record<string, unknown> {
   // Standard environment variables (strings)
-  JWT_ISS?: string
-  JWT_AUD?: string
+  JWT_ISS?: JwtValue
+  JWT_AUD?: JwtValue
   JWT_TTL_SECONDS?: string
   JWT_LEEWAY?: string
   JWT_KID?: string

@@ -109,7 +109,7 @@ JWT token payload/claims structure.
 </tr>
 <tr>
 <td><strong>Location</strong></td>
-<td><code>C:\Users\chris\git\flarelette-jwt-kit\packages\flarelette-jwt-py\flarelette_jwt\env.py:66</code></td>
+<td><code>C:\Users\chris\git\flarelette-jwt-kit\packages\flarelette-jwt-py\flarelette_jwt\env.py:68</code></td>
 </tr>
 </tbody>
 </table>
@@ -132,7 +132,7 @@ JWT Profile structure matching flarelette-jwt.profile.schema.json.
 </tr>
 <tr>
 <td><strong>Location</strong></td>
-<td><code>C:\Users\chris\git\flarelette-jwt-kit\packages\flarelette-jwt-py\flarelette_jwt\env.py:108</code></td>
+<td><code>C:\Users\chris\git\flarelette-jwt-kit\packages\flarelette-jwt-py\flarelette_jwt\env.py:110</code></td>
 </tr>
 </tbody>
 </table>
@@ -155,7 +155,7 @@ Common JWT configuration from environment variables.
 </tr>
 <tr>
 <td><strong>Location</strong></td>
-<td><code>C:\Users\chris\git\flarelette-jwt-kit\packages\flarelette-jwt-py\flarelette_jwt\env.py:123</code></td>
+<td><code>C:\Users\chris\git\flarelette-jwt-kit\packages\flarelette-jwt-py\flarelette_jwt\env.py:125</code></td>
 </tr>
 </tbody>
 </table>
@@ -276,7 +276,7 @@ Detect JWT algorithm mode from environment variables based on role.
 </tr>
 <tr>
 <td><strong>Location</strong></td>
-<td><code>C:\Users\chris\git\flarelette-jwt-kit\packages\flarelette-jwt-py\flarelette_jwt\env.py:137</code></td>
+<td><code>C:\Users\chris\git\flarelette-jwt-kit\packages\flarelette-jwt-py\flarelette_jwt\env.py:139</code></td>
 </tr>
 </tbody>
 </table>
@@ -306,7 +306,7 @@ Get common JWT configuration from environment.
 </tr>
 <tr>
 <td><strong>Location</strong></td>
-<td><code>C:\Users\chris\git\flarelette-jwt-kit\packages\flarelette-jwt-py\flarelette_jwt\env.py:167</code></td>
+<td><code>C:\Users\chris\git\flarelette-jwt-kit\packages\flarelette-jwt-py\flarelette_jwt\env.py:169</code></td>
 </tr>
 </tbody>
 </table>
@@ -334,7 +334,7 @@ Get JWT profile from environment.
 </tr>
 <tr>
 <td><strong>Location</strong></td>
-<td><code>C:\Users\chris\git\flarelette-jwt-kit\packages\flarelette-jwt-py\flarelette_jwt\env.py:181</code></td>
+<td><code>C:\Users\chris\git\flarelette-jwt-kit\packages\flarelette-jwt-py\flarelette_jwt\env.py:183</code></td>
 </tr>
 </tbody>
 </table>
@@ -363,7 +363,7 @@ Get JWT profile from environment.
 </tr>
 <tr>
 <td><strong>Location</strong></td>
-<td><code>C:\Users\chris\git\flarelette-jwt-kit\packages\flarelette-jwt-py\flarelette_jwt\env.py:204</code></td>
+<td><code>C:\Users\chris\git\flarelette-jwt-kit\packages\flarelette-jwt-py\flarelette_jwt\env.py:206</code></td>
 </tr>
 </tbody>
 </table>
@@ -392,7 +392,7 @@ Get JWT profile from environment.
 </tr>
 <tr>
 <td><strong>Location</strong></td>
-<td><code>C:\Users\chris\git\flarelette-jwt-kit\packages\flarelette-jwt-py\flarelette_jwt\env.py:211</code></td>
+<td><code>C:\Users\chris\git\flarelette-jwt-kit\packages\flarelette-jwt-py\flarelette_jwt\env.py:213</code></td>
 </tr>
 </tbody>
 </table>
@@ -419,7 +419,7 @@ Get JWT profile from environment.
 </tr>
 <tr>
 <td><strong>Location</strong></td>
-<td><code>C:\Users\chris\git\flarelette-jwt-kit\packages\flarelette-jwt-py\flarelette_jwt\env.py:226</code></td>
+<td><code>C:\Users\chris\git\flarelette-jwt-kit\packages\flarelette-jwt-py\flarelette_jwt\env.py:228</code></td>
 </tr>
 </tbody>
 </table>

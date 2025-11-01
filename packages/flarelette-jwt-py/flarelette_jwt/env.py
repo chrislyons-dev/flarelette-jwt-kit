@@ -54,10 +54,12 @@ class ActorClaim(TypedDict, total=False):
 
     Structure:
         sub: Service identifier acting on behalf of original subject
+        iss: The issuer of the actor token.
         act: Nested ActorClaim with same structure (recursive delegation chain)
     """
 
     sub: str
+    iss: str
     act: dict[
         str, JwtValue
     ]  # Nested ActorClaim (recursive, breaks TypedDict limitation)

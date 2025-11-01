@@ -1,9 +1,10 @@
 {
   "name": "@flarelette/jwt-kit-env",
-  "version": "1.8.0",
+  "version": "1.8.1",
   "type": "module",
   "private": true,
   "scripts": {
+    "archlette": "npx archlette all -f docs\\archlette.config.yaml",
     "build": "npm run build --workspaces",
     "test": "npm run test:js && npm run test:py",
     "test:js": "vitest run",
