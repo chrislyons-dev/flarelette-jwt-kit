@@ -5,7 +5,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "flarelette-jwt-kit-env"
-version = "1.8.0"
+version = "1.8.1"
 description = "Env-driven JWT kit with secret-name indirection (Cloudflare-friendly)"
 readme = "README.md"
 license = { text = "MIT" }

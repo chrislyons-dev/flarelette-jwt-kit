@@ -736,7 +736,7 @@
       "type": "class",
       "documentation": {
         "summary": "Actor claim for service delegation (RFC 8693).",
-        "details": "Identifies a service acting on behalf of another principal.\nCan be nested for delegation chains.\n\nStructure:\n    sub: Service identifier acting on behalf of original subject\n    act: Nested ActorClaim with same structure (recursive delegation chain)"
+        "details": "Identifies a service acting on behalf of another principal.\nCan be nested for delegation chains.\n\nStructure:\n    sub: Service identifier acting on behalf of original subject\n    iss: The issuer of the actor token.\n    act: Nested ActorClaim with same structure (recursive delegation chain)"
       },
       "filePath": "C:\\Users\\chris\\git\\flarelette-jwt-kit\\packages\\flarelette-jwt-py\\flarelette_jwt\\env.py",
       "lineNumber": 49,
@@ -764,7 +764,7 @@
         "details": "Includes standard JWT claims, OIDC claims, and common custom claims.\nNote: At runtime, can contain any string key with JwtValue-compatible values,\nbut only defined fields get type checking."
       },
       "filePath": "C:\\Users\\chris\\git\\flarelette-jwt-kit\\packages\\flarelette-jwt-py\\flarelette_jwt\\env.py",
-      "lineNumber": 66,
+      "lineNumber": 68,
       "metadata": {
         "language": "python",
         "baseClasses": [
@@ -789,7 +789,7 @@
         "details": "Represents the complete configuration profile for JWT operations.\nEnvironment-driven: populated from JWT_* environment variables via profile() function.\nValidates against the JSON Schema at project root for consistency across languages."
       },
       "filePath": "C:\\Users\\chris\\git\\flarelette-jwt-kit\\packages\\flarelette-jwt-py\\flarelette_jwt\\env.py",
-      "lineNumber": 108,
+      "lineNumber": 110,
       "metadata": {
         "language": "python",
         "baseClasses": [
@@ -814,7 +814,7 @@
         "details": "Subset of JwtProfile containing the fields shared across all operations\n(signing, verification, policy checks). Extracted by common() function\nand merged with algorithm-specific configuration in profile()."
       },
       "filePath": "C:\\Users\\chris\\git\\flarelette-jwt-kit\\packages\\flarelette-jwt-py\\flarelette_jwt\\env.py",
-      "lineNumber": 123,
+      "lineNumber": 125,
       "metadata": {
         "language": "python",
         "baseClasses": [
@@ -850,7 +850,7 @@
       ],
       "isAsync": false,
       "filePath": "C:\\Users\\chris\\git\\flarelette-jwt-kit\\packages\\flarelette-jwt-py\\flarelette_jwt\\env.py",
-      "lineNumber": 137,
+      "lineNumber": 139,
       "metadata": {
         "language": "python",
         "decorators": [],
@@ -876,7 +876,7 @@
       "parameters": [],
       "isAsync": false,
       "filePath": "C:\\Users\\chris\\git\\flarelette-jwt-kit\\packages\\flarelette-jwt-py\\flarelette_jwt\\env.py",
-      "lineNumber": 167,
+      "lineNumber": 169,
       "metadata": {
         "language": "python",
         "decorators": [],
@@ -909,7 +909,7 @@
       ],
       "isAsync": false,
       "filePath": "C:\\Users\\chris\\git\\flarelette-jwt-kit\\packages\\flarelette-jwt-py\\flarelette_jwt\\env.py",
-      "lineNumber": 181,
+      "lineNumber": 183,
       "metadata": {
         "language": "python",
         "decorators": [],
@@ -941,7 +941,7 @@
       ],
       "isAsync": false,
       "filePath": "C:\\Users\\chris\\git\\flarelette-jwt-kit\\packages\\flarelette-jwt-py\\flarelette_jwt\\env.py",
-      "lineNumber": 204,
+      "lineNumber": 206,
       "metadata": {
         "language": "python",
         "decorators": [],
@@ -962,7 +962,7 @@
       "parameters": [],
       "isAsync": false,
       "filePath": "C:\\Users\\chris\\git\\flarelette-jwt-kit\\packages\\flarelette-jwt-py\\flarelette_jwt\\env.py",
-      "lineNumber": 211,
+      "lineNumber": 213,
       "metadata": {
         "language": "python",
         "decorators": [],
@@ -983,7 +983,7 @@
       "parameters": [],
       "isAsync": false,
       "filePath": "C:\\Users\\chris\\git\\flarelette-jwt-kit\\packages\\flarelette-jwt-py\\flarelette_jwt\\env.py",
-      "lineNumber": 226,
+      "lineNumber": 228,
       "metadata": {
         "language": "python",
         "decorators": [],
@@ -1999,6 +1999,24 @@
   "containerRelationships": [],
   "componentRelationships": [
     {
+      "description": "copyFileSync | existsSync",
+      "source": "flarelette_jwt_ts",
+      "destination": "fs",
+      "stereotype": "import"
+    },
+    {
+      "description": "dirname | join | resolve",
+      "source": "flarelette_jwt_ts",
+      "destination": "path",
+      "stereotype": "import"
+    },
+    {
+      "description": "imports fileURLToPath",
+      "source": "flarelette_jwt_ts",
+      "destination": "url",
+      "stereotype": "import"
+    },
+    {
       "description": "imports generateSecret",
       "source": "chrislyons_dev_flarelette_jwt__core",
       "destination": "./secret.js",
@@ -2138,6 +2156,42 @@
     }
   ],
   "codeRelationships": [
+    {
+      "description": "imports copyFileSync",
+      "source": "C:/Users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/prepare.js",
+      "destination": "fs:copyFileSync",
+      "stereotype": "import"
+    },
+    {
+      "description": "imports existsSync",
+      "source": "C:/Users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/prepare.js",
+      "destination": "fs:existsSync",
+      "stereotype": "import"
+    },
+    {
+      "description": "imports dirname",
+      "source": "C:/Users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/prepare.js",
+      "destination": "path:dirname",
+      "stereotype": "import"
+    },
+    {
+      "description": "imports join",
+      "source": "C:/Users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/prepare.js",
+      "destination": "path:join",
+      "stereotype": "import"
+    },
+    {
+      "description": "imports resolve",
+      "source": "C:/Users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/prepare.js",
+      "destination": "path:resolve",
+      "stereotype": "import"
+    },
+    {
+      "description": "imports fileURLToPath",
+      "source": "C:/Users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/prepare.js",
+      "destination": "url:fileURLToPath",
+      "stereotype": "import"
+    },
     {
       "description": "imports generateSecret",
       "source": "C:/Users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/src/cli.ts",

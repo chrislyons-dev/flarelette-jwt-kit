@@ -115,3 +115,7 @@ nav:
       - Cloudflare Workers: cloudflare-workers.md
   - Security:
       - Security Guide: security-guide.md
+  - Architecture:
+      - Overview: architecture/README.md
+      - TypeScript Package: architecture/chrislyons_dev_flarelette_jwt.md
+      - Python Package: architecture/flarelette_jwt.md

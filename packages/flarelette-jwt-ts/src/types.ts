@@ -73,6 +73,8 @@ export interface JwtHeader {
 export interface ActorClaim {
   /** Service identifier acting on behalf of original subject */
   sub: string
+  /** The issuer of the actor token. */
+  iss?: string
   /** Nested actor for delegation chains (recursive) */
   act?: ActorClaim
 }
