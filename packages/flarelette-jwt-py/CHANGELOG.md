@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.8.3](https://github.com/chrislyons-dev/flarelette-jwt-kit/compare/flarelette-jwt-py-v1.8.2...flarelette-jwt-py-v1.8.3) (2025-11-01)
+
+
+### Bug Fixes
+
+* jwt type corrections and documentation updates ([cf5b1d6](https://github.com/chrislyons-dev/flarelette-jwt-kit/commit/cf5b1d6e555c8b1b6257855274a7a19246f94e7a))
+
+
+### Miscellaneous
+
+* release main ([#14](https://github.com/chrislyons-dev/flarelette-jwt-kit/issues/14)) ([bcff81d](https://github.com/chrislyons-dev/flarelette-jwt-kit/commit/bcff81d7f7305229c8af3c5b6deb25cc14ede05d))
+
 ## [1.8.2](https://github.com/chrislyons-dev/flarelette-jwt-kit/compare/flarelette-jwt-py-v1.8.1...flarelette-jwt-py-v1.8.2) (2025-11-01)
 
 
