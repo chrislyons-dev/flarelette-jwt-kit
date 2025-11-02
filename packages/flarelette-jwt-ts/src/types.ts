@@ -218,8 +218,8 @@ export interface Fetcher {
  */
 export interface WorkerEnv extends Record<string, unknown> {
   // Standard environment variables (strings)
-  JWT_ISS?: JwtValue
-  JWT_AUD?: JwtValue
+  JWT_ISS?: string
+  JWT_AUD?: string
   JWT_TTL_SECONDS?: string
   JWT_LEEWAY?: string
   JWT_KID?: string
