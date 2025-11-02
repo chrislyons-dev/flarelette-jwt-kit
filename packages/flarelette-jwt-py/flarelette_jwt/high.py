@@ -18,7 +18,7 @@ from .verify import verify
 if TYPE_CHECKING:
     from collections.abc import Callable
 
-    from .env import JwtPayload, JwtValue
+    from .env import JwtPayload
 
 
 class AuthUser(TypedDict, total=False):
@@ -51,12 +51,12 @@ class PolicyBuilder(Protocol):
     def need_any(self, *p: str) -> PolicyBuilder: ...
     def roles_all(self, *r: str) -> PolicyBuilder: ...
     def roles_any(self, *r: str) -> PolicyBuilder: ...
-    def where(self, fn: Callable[[dict[str, JwtValue]], bool]) -> PolicyBuilder: ...
+    def where(self, fn: Callable[[JwtPayload], bool]) -> PolicyBuilder: ...
     def build(self) -> dict[str, Any]: ...
 
 
 async def create_token(
-    claims: dict,
+    claims: JwtPayload,
     *,
     iss: str | None = None,
     aud: str | list[str] | None = None,
@@ -65,7 +65,7 @@ async def create_token(
     """Create a signed JWT token with optional claims.
 
     Args:
-        claims: Custom claims to include in the token
+        claims: Claims to include in the token (can include custom claims beyond standard JWT fields)
         iss: Optional issuer override
         aud: Optional audience override (string or list)
         ttl_seconds: Optional TTL override in seconds
@@ -77,7 +77,7 @@ async def create_token(
 
 
 async def create_delegated_token(
-    original_payload: dict[str, JwtValue],
+    original_payload: JwtPayload,
     actor_service: str,
     *,
     iss: str | None = None,
@@ -127,7 +127,7 @@ async def create_delegated_token(
         - security.md: Service Delegation Pattern section
     """
     # Preserve original user context and permissions
-    delegated_claims: dict[str, JwtValue] = {
+    delegated_claims: dict[str, Any] = {
         "sub": original_payload.get("sub"),  # Original end user
         "permissions": original_payload.get("permissions", []),  # NO escalation
         "roles": original_payload.get("roles", []),
@@ -146,11 +146,21 @@ async def create_delegated_token(
         delegated_claims["act"] = {"sub": actor_service}
 
     # Preserve additional context fields if present
-    for field in ["email", "name", "groups", "tid", "org_id", "department"]:
-        if field in original_payload:
-            delegated_claims[field] = original_payload[field]
+    if original_payload.get("email"):
+        delegated_claims["email"] = original_payload["email"]
+    if original_payload.get("name"):
+        delegated_claims["name"] = original_payload["name"]
+    if original_payload.get("groups"):
+        delegated_claims["groups"] = original_payload["groups"]
+    if original_payload.get("tid"):
+        delegated_claims["tid"] = original_payload["tid"]
+    if original_payload.get("org_id"):
+        delegated_claims["org_id"] = original_payload["org_id"]
+    if original_payload.get("department"):
+        delegated_claims["department"] = original_payload["department"]
 
-    return await sign(delegated_claims, iss=iss, aud=aud, ttl_seconds=ttl_seconds)
+    # Type cast to JwtPayload for type checking - safe because we control the structure
+    return await sign(delegated_claims, iss=iss, aud=aud, ttl_seconds=ttl_seconds)  # type: ignore[arg-type]
 
 
 async def check_auth(
@@ -163,7 +173,7 @@ async def check_auth(
     require_any_permission: list[str] | None = None,
     require_roles_all: list[str] | None = None,
     require_roles_any: list[str] | None = None,
-    predicates: list[Callable[[dict[str, JwtValue]], bool]] | None = None,
+    predicates: list[Callable[[JwtPayload], bool]] | None = None,
 ) -> AuthUser | None:
     """Verify and authorize a JWT token with policy enforcement.
 
@@ -196,7 +206,7 @@ async def check_auth(
         return None
     if predicates:
         for fn in predicates:
-            if not fn(payload):  # type: ignore[arg-type]
+            if not fn(payload):
                 return None
     return {
         "sub": payload.get("sub"),
@@ -239,7 +249,7 @@ def policy() -> PolicyBuilder:
             opts["require_roles_any"].extend(r)
             return self
 
-        def where(self, fn: Callable[[dict[str, JwtValue]], bool]) -> PolicyBuilder:
+        def where(self, fn: Callable[[JwtPayload], bool]) -> PolicyBuilder:
             opts.setdefault("predicates", [])
             opts["predicates"].append(fn)
             return self

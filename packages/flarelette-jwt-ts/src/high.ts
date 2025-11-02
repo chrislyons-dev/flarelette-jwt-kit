@@ -6,8 +6,7 @@
  */
 import { sign } from './sign.js'
 import { verify } from './verify.js'
-import type { ClaimsDict, Fetcher } from './types.js'
-import type { JWTPayload } from 'jose'
+import type { Fetcher, JwtPayload } from './types.js'
 
 /**
  * Create a signed JWT token with optional claims
@@ -17,7 +16,7 @@ import type { JWTPayload } from 'jose'
  * @returns Signed JWT token string
  */
 export async function createToken(
-  claims: ClaimsDict,
+  claims: JwtPayload,
   opts?: Partial<{ iss: string; aud: string | string[]; ttlSeconds: number }>
 ) {
   return sign(claims, opts)
@@ -60,12 +59,12 @@ export async function createToken(
  * @see security.md - Service Delegation Pattern section
  */
 export async function createDelegatedToken(
-  originalPayload: ClaimsDict,
+  originalPayload: JwtPayload,
   actorService: string,
   opts?: Partial<{ iss: string; aud: string | string[]; ttlSeconds: number }>
 ): Promise<string> {
   // Preserve original user context and permissions
-  const delegatedClaims: ClaimsDict = {
+  const delegatedClaims: JwtPayload = {
     sub: originalPayload.sub, // Original end user
     permissions: originalPayload.permissions || [], // NO escalation
     roles: originalPayload.roles || [],
@@ -85,19 +84,13 @@ export async function createDelegatedToken(
   }
 
   // Preserve additional context fields if present
-  const contextFields = [
-    'email',
-    'name',
-    'groups',
-    'tid',
-    'org_id',
-    'department',
-  ] as const
-  for (const field of contextFields) {
-    if (field in originalPayload) {
-      delegatedClaims[field] = originalPayload[field]
-    }
-  }
+  if (originalPayload.email) delegatedClaims.email = originalPayload.email
+  if (originalPayload.name) delegatedClaims.name = originalPayload.name
+  if (originalPayload.groups) delegatedClaims.groups = originalPayload.groups
+  if (originalPayload.tid) delegatedClaims.tid = originalPayload.tid
+  if (originalPayload.org_id) delegatedClaims.org_id = originalPayload.org_id
+  if (originalPayload.department)
+    delegatedClaims.department = originalPayload.department
 
   return sign(delegatedClaims, opts)
 }
@@ -120,7 +113,7 @@ export type AuthzOpts = Partial<{
   require_any_permission?: string[]
   require_roles_all?: string[]
   require_roles_any?: string[]
-  predicates?: Array<(payload: JWTPayload) => boolean>
+  predicates?: Array<(payload: JwtPayload) => boolean>
 }
 
 /**
@@ -136,7 +129,7 @@ export type AuthUser = {
   permissions: string[]
   roles: string[]
   jti: string | undefined
-  payload: JWTPayload
+  payload: JwtPayload
 }
 
 /**
@@ -204,7 +197,7 @@ export function policy() {
       opts.require_roles_any = [...(opts.require_roles_any || []), ...roles]
       return this
     },
-    where(fn: (payload: JWTPayload) => boolean) {
+    where(fn: (payload: JwtPayload) => boolean) {
       opts.predicates = [...(opts.predicates || []), fn]
       return this
     },

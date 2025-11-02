@@ -10,7 +10,7 @@
 
 import { SignJWT, importJWK } from 'jose'
 import { envMode, getCommon, getHSSecret, getPrivateJwkString } from './config.js'
-import type { AlgType, ClaimsDict } from './types.js'
+import type { AlgType, JwtPayload } from './types.js'
 
 /**
  * Sign a JWT token with HS512 or EdDSA algorithm
@@ -20,7 +20,7 @@ import type { AlgType, ClaimsDict } from './types.js'
  * @returns Signed JWT token string
  */
 export async function sign(
-  payload: ClaimsDict,
+  payload: JwtPayload,
   opts?: Partial<{ iss: string; aud: string | string[]; ttlSeconds: number }>
 ): Promise<string> {
   const mode: AlgType = envMode('producer')

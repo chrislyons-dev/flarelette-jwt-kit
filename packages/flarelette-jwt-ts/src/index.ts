@@ -37,7 +37,6 @@ export { generateSecret } from './secret.js'
 export type {
   AlgType,
   JwtValue,
-  ClaimsDict,
   JwtProfile,
   JwtHeader,
   JwtPayload,

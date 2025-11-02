@@ -8,7 +8,6 @@ It includes support for both symmetric (HS512) and asymmetric (EdDSA) algorithms
 from .env import (
     ActorClaim,
     AlgType,
-    ClaimsDict,
     JwtCommonConfig,
     JwtHeader,
     JwtPayload,
@@ -30,7 +29,6 @@ __all__ = [
     # Types
     "AlgType",
     "JwtValue",
-    "ClaimsDict",
     "JwtProfile",
     "JwtCommonConfig",
     "JwtHeader",

@@ -83,14 +83,14 @@ Create a signed JWT token with optional claims
 </tr>
 <tr>
 <td><strong>Location</strong></td>
-<td><code>C:/Users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/src/high.ts:19</code></td>
+<td><code>C:/Users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/src/high.ts:18</code></td>
 </tr>
 </tbody>
 </table>
 
 **Parameters:**
 
-- `claims`: <code>import("C:/Users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/src/types").ClaimsDict</code> — - Claims to include in the token (can include custom claims beyond standard JWT fields)- `opts`: <code>Partial<{ iss: string; aud: string | string[]; ttlSeconds: number; }></code> — - Optional overrides for iss, aud, ttlSeconds
+- `claims`: <code>import("C:/Users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/src/types").JwtPayload</code> — - Claims to include in the token (can include custom claims beyond standard JWT fields)- `opts`: <code>Partial<{ iss: string; aud: string | string[]; ttlSeconds: number; }></code> — - Optional overrides for iss, aud, ttlSeconds
 
 ---
 ##### `createDelegatedToken()`
@@ -125,14 +125,14 @@ Pattern: "I'm <actorService> doing work on behalf of <original user>"
 </tr>
 <tr>
 <td><strong>Location</strong></td>
-<td><code>C:/Users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/src/high.ts:62</code></td>
+<td><code>C:/Users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/src/high.ts:61</code></td>
 </tr>
 </tbody>
 </table>
 
 **Parameters:**
 
-- `originalPayload`: <code>import("C:/Users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/src/types").ClaimsDict</code> — - The verified JWT payload from external auth (e.g., Auth0)- `actorService`: <code>string</code> — - Identifier of the service creating this delegated token- `opts`: <code>Partial<{ iss: string; aud: string | string[]; ttlSeconds: number; }></code> — - Optional overrides for iss, aud, ttlSeconds
+- `originalPayload`: <code>import("C:/Users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/src/types").JwtPayload</code> — - The verified JWT payload from external auth (e.g., Auth0)- `actorService`: <code>string</code> — - Identifier of the service creating this delegated token- `opts`: <code>Partial<{ iss: string; aud: string | string[]; ttlSeconds: number; }></code> — - Optional overrides for iss, aud, ttlSeconds
 **Examples:**
 ```typescript
 
@@ -163,7 +163,7 @@ Verify and authorize a JWT token with policy enforcement
 </tr>
 <tr>
 <td><strong>Location</strong></td>
-<td><code>C:/Users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/src/high.ts:149</code></td>
+<td><code>C:/Users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/src/high.ts:142</code></td>
 </tr>
 </tbody>
 </table>
@@ -189,11 +189,11 @@ Fluent builder for creating authorization policies
 </tr>
 <tr>
 <td><strong>Returns</strong></td>
-<td><code>{ base(b: Partial<{ iss: string; aud: string | string[]; leeway: number; }>): any; needAll(...perms: string[]): any; needAny(...perms: string[]): any; rolesAll(...roles: string[]): any; rolesAny(...roles: string[]): any; where(fn: (payload: JWTPayload) => boolean): any; build(): import("C:/Users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/src/high").AuthzOpts; }</code> — Policy builder with chainable methods</td>
+<td><code>{ base(b: Partial<{ iss: string; aud: string | string[]; leeway: number; }>): any; needAll(...perms: string[]): any; needAny(...perms: string[]): any; rolesAll(...roles: string[]): any; rolesAny(...roles: string[]): any; where(fn: (payload: import("C:/Users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/src/types").JwtPayload) => boolean): any; build(): import("C:/Users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/src/high").AuthzOpts; }</code> — Policy builder with chainable methods</td>
 </tr>
 <tr>
 <td><strong>Location</strong></td>
-<td><code>C:/Users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/src/high.ts:184</code></td>
+<td><code>C:/Users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/src/high.ts:177</code></td>
 </tr>
 </tbody>
 </table>
@@ -525,11 +525,11 @@ Verify a JWT token with HS512 or EdDSA algorithm
 </tr>
 <tr>
 <td><strong>Returns</strong></td>
-<td><code>Promise<any></code> — Decoded payload if valid, null otherwise</td>
+<td><code>Promise<import("C:/Users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/src/types").JwtPayload></code> — Decoded payload if valid, null otherwise</td>
 </tr>
 <tr>
 <td><strong>Location</strong></td>
-<td><code>C:/Users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/src/verify.ts:29</code></td>
+<td><code>C:/Users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/src/verify.ts:28</code></td>
 </tr>
 </tbody>
 </table>
