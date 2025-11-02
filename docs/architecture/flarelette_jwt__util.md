@@ -223,7 +223,7 @@ Builder interface for creating JWT authorization policies.
 </tr>
 <tr>
 <td><strong>Location</strong></td>
-<td><code>C:\Users\chris\git\flarelette-jwt-kit\packages\flarelette-jwt-py\flarelette_jwt\high.py:217</code></td>
+<td><code>C:\Users\chris\git\flarelette-jwt-kit\packages\flarelette-jwt-py\flarelette_jwt\high.py:227</code></td>
 </tr>
 </tbody>
 </table>
@@ -458,7 +458,7 @@ Create a signed JWT token with optional claims.
 
 **Parameters:**
 
-- `claims`: <code>dict</code> — Custom claims to include in the token
+- `claims`: <code>JwtPayload</code> — Claims to include in the token (can include custom claims beyond standard JWT fields)
 
 ---
 ##### `create_delegated_token()`
@@ -496,7 +496,7 @@ See Also:
 
 **Parameters:**
 
-- `original_payload`: <code>dict[str, JwtValue]</code> — The verified JWT payload from external auth (e.g., Auth0)- `actor_service`: <code>str</code> — Identifier of the service creating this delegated token
+- `original_payload`: <code>JwtPayload</code> — The verified JWT payload from external auth (e.g., Auth0)- `actor_service`: <code>str</code> — Identifier of the service creating this delegated token
 **Examples:**
 ```typescript
 
@@ -527,7 +527,7 @@ Verify and authorize a JWT token with policy enforcement.
 </tr>
 <tr>
 <td><strong>Location</strong></td>
-<td><code>C:\Users\chris\git\flarelette-jwt-kit\packages\flarelette-jwt-py\flarelette_jwt\high.py:156</code></td>
+<td><code>C:\Users\chris\git\flarelette-jwt-kit\packages\flarelette-jwt-py\flarelette_jwt\high.py:166</code></td>
 </tr>
 </tbody>
 </table>
@@ -557,7 +557,7 @@ Fluent builder for creating authorization policies.
 </tr>
 <tr>
 <td><strong>Location</strong></td>
-<td><code>C:\Users\chris\git\flarelette-jwt-kit\packages\flarelette-jwt-py\flarelette_jwt\high.py:209</code></td>
+<td><code>C:\Users\chris\git\flarelette-jwt-kit\packages\flarelette-jwt-py\flarelette_jwt\high.py:219</code></td>
 </tr>
 </tbody>
 </table>
@@ -712,7 +712,7 @@ Sign a JWT token with HS512 or EdDSA algorithm.
 
 **Parameters:**
 
-- `payload`: <code>dict</code> — Claims to include in the token
+- `payload`: <code>JwtPayload</code> — Claims to include in the token (can include custom claims beyond standard JWT fields)
 
 ---
 ##### `parse()`

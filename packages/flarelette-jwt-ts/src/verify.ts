@@ -16,8 +16,7 @@ import {
 } from 'jose'
 import { envMode, getCommon, getHSSecret, getPublicJwkString } from './config.js'
 import { fetchJwksFromService, getKeyFromJwks, allowedThumbprints } from './jwks.js'
-import type { JWTPayload } from 'jose'
-import type { AlgType, Fetcher } from './types.js'
+import type { AlgType, Fetcher, JwtPayload } from './types.js'
 
 /**
  * Verify a JWT token with HS512 or EdDSA algorithm
@@ -34,7 +33,7 @@ export async function verify(
     leeway: number
     jwksService: Fetcher
   }>
-): Promise<JWTPayload | null> {
+): Promise<JwtPayload | null> {
   const mode: AlgType = envMode('consumer')
   const { iss, aud, leeway } = { ...getCommon(), ...(opts || {}) }
 

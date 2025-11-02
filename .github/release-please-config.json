@@ -7,6 +7,14 @@
       "component": "flarelette-jwt-ts",
       "bump-minor-pre-major": true,
       "bump-patch-for-minor-pre-major": true,
+      "extra-files": [
+        {
+          "type": "json",
+          "path": "packages/flarelette-jwt-py/pyproject.toml",
+          "jsonpath": "$.project.version"
+        },
+        "packages/flarelette-jwt-py/flarelette_jwt/__init__.py"
+      ],
       "changelog-sections": [
         { "type": "feat", "section": "Features" },
         { "type": "fix", "section": "Bug Fixes" },
@@ -24,6 +32,13 @@
       "component": "flarelette-jwt-py",
       "bump-minor-pre-major": true,
       "bump-patch-for-minor-pre-major": true,
+      "extra-files": [
+        {
+          "type": "json",
+          "path": "packages/flarelette-jwt-ts/package.json",
+          "jsonpath": "$.version"
+        }
+      ],
       "changelog-sections": [
         { "type": "feat", "section": "Features" },
         { "type": "fix", "section": "Bug Fixes" },

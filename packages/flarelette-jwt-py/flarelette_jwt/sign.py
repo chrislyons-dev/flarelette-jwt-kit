@@ -15,7 +15,7 @@ import json
 import time
 
 # NOTE: 'js' module imported lazily inside functions - only available in Cloudflare Workers
-from .env import AlgType, common, get_hs_secret_bytes, mode
+from .env import AlgType, JwtPayload, common, get_hs_secret_bytes, mode
 
 
 def _b64url(b: bytes) -> str:
@@ -23,7 +23,7 @@ def _b64url(b: bytes) -> str:
 
 
 async def sign(
-    payload: dict,
+    payload: JwtPayload,
     *,
     iss: str | None = None,
     aud: str | list[str] | None = None,
@@ -32,7 +32,7 @@ async def sign(
     """Sign a JWT token with HS512 or EdDSA algorithm.
 
     Args:
-        payload: Claims to include in the token
+        payload: Claims to include in the token (can include custom claims beyond standard JWT fields)
         iss: Optional issuer override
         aud: Optional audience override (string or list)
         ttl_seconds: Optional TTL override in seconds

@@ -7,12 +7,14 @@ to test the actual sign/verify logic without requiring Pyodide.
 from __future__ import annotations
 
 import os
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, cast
 
 import pytest
 
 if TYPE_CHECKING:
     from collections.abc import Generator
+
+    from flarelette_jwt import JwtPayload
 
 # Install js mock BEFORE importing anything from flarelette_jwt
 from .mock_js import install_js_mock, uninstall_js_mock
@@ -57,7 +59,9 @@ class TestSignVerifyWithMock:
     @pytest.mark.asyncio
     async def test_sign_creates_token(self) -> None:
         """Should sign a token with HS512."""
-        payload = {"sub": "123", "permissions": ["test@example.com"]}
+        payload = cast(
+            "JwtPayload", {"sub": "123", "permissions": ["test@example.com"]}
+        )
 
         token = await sign(payload)
 
@@ -68,7 +72,7 @@ class TestSignVerifyWithMock:
     @pytest.mark.asyncio
     async def test_sign_includes_claims(self) -> None:
         """Should include standard JWT claims."""
-        payload = {"sub": "123"}
+        payload = cast("JwtPayload", {"sub": "123"})
 
         token = await sign(payload)
         verified = await verify(token)
@@ -83,7 +87,7 @@ class TestSignVerifyWithMock:
     @pytest.mark.asyncio
     async def test_verify_accepts_valid_token(self) -> None:
         """Should verify a valid token."""
-        payload = {"sub": "456", "roles": ["admin"]}
+        payload = cast("JwtPayload", {"sub": "456", "roles": ["admin"]})
 
         token = await sign(payload)
         verified = await verify(token)
@@ -104,7 +108,7 @@ class TestSignVerifyWithMock:
     @pytest.mark.asyncio
     async def test_verify_with_custom_options(self) -> None:
         """Should accept custom issuer and audience."""
-        payload = {"permissions": ["test"]}
+        payload = cast("JwtPayload", {"permissions": ["test"]})
         token = await sign(payload)
 
         # Verify with same issuer/audience
@@ -116,7 +120,7 @@ class TestSignVerifyWithMock:
     @pytest.mark.asyncio
     async def test_sign_with_custom_ttl(self) -> None:
         """Should sign with custom TTL."""
-        payload = {"sub": "789"}
+        payload = cast("JwtPayload", {"sub": "789"})
 
         token = await sign(payload, ttl_seconds=7200)
         verified = await verify(token)
@@ -128,7 +132,7 @@ class TestSignVerifyWithMock:
     @pytest.mark.asyncio
     async def test_create_token_basic(self) -> None:
         """Should create token with basic payload."""
-        token = await create_token({"sub": "123"})
+        token = await create_token(cast("JwtPayload", {"sub": "123"}))
 
         verified = await verify(token)
 
@@ -139,7 +143,7 @@ class TestSignVerifyWithMock:
     async def test_create_token_with_options(self) -> None:
         """Should create token with custom options."""
         token = await create_token(
-            {"sub": "123"}, iss="custom-issuer", ttl_seconds=7200
+            cast("JwtPayload", {"sub": "123"}), iss="custom-issuer", ttl_seconds=7200
         )
 
         verified = await verify(token, iss="custom-issuer")
@@ -152,9 +156,9 @@ class TestSignVerifyWithMock:
     async def test_multiple_sign_verify_cycles(self) -> None:
         """Should handle multiple sign/verify operations."""
         payloads = [
-            {"sub": "1", "roles": ["Alice"]},
-            {"sub": "2", "roles": ["Bob"]},
-            {"sub": "3", "roles": ["Charlie"]},
+            cast("JwtPayload", {"sub": "1", "roles": ["Alice"]}),
+            cast("JwtPayload", {"sub": "2", "roles": ["Bob"]}),
+            cast("JwtPayload", {"sub": "3", "roles": ["Charlie"]}),
         ]
 
         for payload in payloads:
