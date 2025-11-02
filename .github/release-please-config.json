@@ -1,5 +1,6 @@
 {
   "include-component-in-tag": true,
+  "group-pull-request-title-pattern": "chore: release ${version}",
   "packages": {
     "packages/flarelette-jwt-ts": {
       "release-type": "node",
@@ -49,6 +50,11 @@
         { "type": "test", "section": "Tests", "hidden": false },
         { "type": "chore", "section": "Miscellaneous", "hidden": false }
       ]
+    }
+  },
+  "groups": {
+    "flarelette-jwt-kit": {
+      "packages": ["packages/flarelette-jwt-ts", "packages/flarelette-jwt-py"]
     }
   },
   "bootstrap-sha": "HEAD"
