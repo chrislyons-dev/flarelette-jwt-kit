@@ -1,6 +1,6 @@
 {
   "include-component-in-tag": true,
-  "group-pull-request-title-pattern": "chore: release ${version}",
+  "group-pull-request-title-pattern": "chore: release",
   "packages": {
     "packages/flarelette-jwt-ts": {
       "release-type": "node",
