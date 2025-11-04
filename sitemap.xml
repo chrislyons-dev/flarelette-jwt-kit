@@ -2,74 +2,90 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
          <loc>https://chrislyons-dev.github.io/flarelette-jwt-kit/</loc>
-         <lastmod>2025-11-02</lastmod>
+         <lastmod>2025-11-04</lastmod>
     </url>
     <url>
          <loc>https://chrislyons-dev.github.io/flarelette-jwt-kit/cloudflare-workers/</loc>
-         <lastmod>2025-11-02</lastmod>
+         <lastmod>2025-11-04</lastmod>
     </url>
     <url>
          <loc>https://chrislyons-dev.github.io/flarelette-jwt-kit/core-concepts/</loc>
-         <lastmod>2025-11-02</lastmod>
+         <lastmod>2025-11-04</lastmod>
+    </url>
+    <url>
+         <loc>https://chrislyons-dev.github.io/flarelette-jwt-kit/explicit-config/</loc>
+         <lastmod>2025-11-04</lastmod>
     </url>
     <url>
          <loc>https://chrislyons-dev.github.io/flarelette-jwt-kit/getting-started/</loc>
-         <lastmod>2025-11-02</lastmod>
+         <lastmod>2025-11-04</lastmod>
+    </url>
+    <url>
+         <loc>https://chrislyons-dev.github.io/flarelette-jwt-kit/quick-start-demo/</loc>
+         <lastmod>2025-11-04</lastmod>
     </url>
     <url>
          <loc>https://chrislyons-dev.github.io/flarelette-jwt-kit/security-guide/</loc>
-         <lastmod>2025-11-02</lastmod>
+         <lastmod>2025-11-04</lastmod>
     </url>
     <url>
          <loc>https://chrislyons-dev.github.io/flarelette-jwt-kit/service-delegation/</loc>
-         <lastmod>2025-11-02</lastmod>
+         <lastmod>2025-11-04</lastmod>
     </url>
     <url>
          <loc>https://chrislyons-dev.github.io/flarelette-jwt-kit/usage-guide/</loc>
-         <lastmod>2025-11-02</lastmod>
+         <lastmod>2025-11-04</lastmod>
     </url>
     <url>
          <loc>https://chrislyons-dev.github.io/flarelette-jwt-kit/architecture/</loc>
-         <lastmod>2025-11-02</lastmod>
+         <lastmod>2025-11-04</lastmod>
     </url>
     <url>
          <loc>https://chrislyons-dev.github.io/flarelette-jwt-kit/architecture/chrislyons_dev_flarelette_jwt/</loc>
-         <lastmod>2025-11-02</lastmod>
+         <lastmod>2025-11-04</lastmod>
     </url>
     <url>
          <loc>https://chrislyons-dev.github.io/flarelette-jwt-kit/architecture/chrislyons_dev_flarelette_jwt__adapters/</loc>
-         <lastmod>2025-11-02</lastmod>
+         <lastmod>2025-11-04</lastmod>
     </url>
     <url>
          <loc>https://chrislyons-dev.github.io/flarelette-jwt-kit/architecture/chrislyons_dev_flarelette_jwt__core/</loc>
-         <lastmod>2025-11-02</lastmod>
+         <lastmod>2025-11-04</lastmod>
+    </url>
+    <url>
+         <loc>https://chrislyons-dev.github.io/flarelette-jwt-kit/architecture/chrislyons_dev_flarelette_jwt__explicit/</loc>
+         <lastmod>2025-11-04</lastmod>
     </url>
     <url>
          <loc>https://chrislyons-dev.github.io/flarelette-jwt-kit/architecture/chrislyons_dev_flarelette_jwt__main/</loc>
-         <lastmod>2025-11-02</lastmod>
+         <lastmod>2025-11-04</lastmod>
     </url>
     <url>
          <loc>https://chrislyons-dev.github.io/flarelette-jwt-kit/architecture/chrislyons_dev_flarelette_jwt__types/</loc>
-         <lastmod>2025-11-02</lastmod>
+         <lastmod>2025-11-04</lastmod>
     </url>
     <url>
          <loc>https://chrislyons-dev.github.io/flarelette-jwt-kit/architecture/chrislyons_dev_flarelette_jwt__util/</loc>
-         <lastmod>2025-11-02</lastmod>
+         <lastmod>2025-11-04</lastmod>
     </url>
     <url>
          <loc>https://chrislyons-dev.github.io/flarelette-jwt-kit/architecture/flarelette_jwt/</loc>
-         <lastmod>2025-11-02</lastmod>
+         <lastmod>2025-11-04</lastmod>
     </url>
     <url>
          <loc>https://chrislyons-dev.github.io/flarelette-jwt-kit/architecture/flarelette_jwt__adapters/</loc>
-         <lastmod>2025-11-02</lastmod>
+         <lastmod>2025-11-04</lastmod>
+    </url>
+    <url>
+         <loc>https://chrislyons-dev.github.io/flarelette-jwt-kit/architecture/flarelette_jwt__explicit/</loc>
+         <lastmod>2025-11-04</lastmod>
     </url>
     <url>
          <loc>https://chrislyons-dev.github.io/flarelette-jwt-kit/architecture/flarelette_jwt__flarelette_jwt/</loc>
-         <lastmod>2025-11-02</lastmod>
+         <lastmod>2025-11-04</lastmod>
     </url>
     <url>
          <loc>https://chrislyons-dev.github.io/flarelette-jwt-kit/architecture/flarelette_jwt__util/</loc>
-         <lastmod>2025-11-02</lastmod>
+         <lastmod>2025-11-04</lastmod>
     </url>
 </urlset>

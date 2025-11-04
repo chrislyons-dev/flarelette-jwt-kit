@@ -345,6 +345,25 @@ skinparam rectangle<<flarelettejwtkit.flarelettejwt>> {
 }
 
 rectangle "flarelette-jwt\n<size:10>[Container: Service]</size>" <<flarelettejwtkit.flarelettejwt>> {
+  rectangle "==util.Builder.roles_all\n<size:10>[Component: method]</size>" <<flarelettejwtkit.flarelettejwt.utilBuilderroles_all>> as flarelettejwtkit.flarelettejwt.utilBuilderroles_all
+  rectangle "==util.Builder.roles_any\n<size:10>[Component: method]</size>" <<flarelettejwtkit.flarelettejwt.utilBuilderroles_any>> as flarelettejwtkit.flarelettejwt.utilBuilderroles_any
+  rectangle "==util.Builder.where\n<size:10>[Component: method]</size>" <<flarelettejwtkit.flarelettejwt.utilBuilderwhere>> as flarelettejwtkit.flarelettejwt.utilBuilderwhere
+  rectangle "==util.Builder.build\n<size:10>[Component: method]</size>" <<flarelettejwtkit.flarelettejwt.utilBuilderbuild>> as flarelettejwtkit.flarelettejwt.utilBuilderbuild
+  rectangle "==util.create_token\n<size:10>[Component: function]</size>\n\nCreate a signed JWT token with optional claims." <<flarelettejwtkit.flarelettejwt.utilcreate_token>> as flarelettejwtkit.flarelettejwt.utilcreate_token
+  rectangle "==util.create_delegated_token\n<size:10>[Component: function]</size>\n\nCreate a delegated JWT token following RFC 8693 actor claim pattern." <<flarelettejwtkit.flarelettejwt.utilcreate_delegated_token>> as flarelettejwtkit.flarelettejwt.utilcreate_delegated_token
+  rectangle "==util.check_auth\n<size:10>[Component: function]</size>\n\nVerify and authorize a JWT token with policy enforcement." <<flarelettejwtkit.flarelettejwt.utilcheck_auth>> as flarelettejwtkit.flarelettejwt.utilcheck_auth
+  rectangle "==util.policy\n<size:10>[Component: function]</size>\n\nFluent builder for creating authorization policies." <<flarelettejwtkit.flarelettejwt.utilpolicy>> as flarelettejwtkit.flarelettejwt.utilpolicy
+  rectangle "==util.generate_secret\n<size:10>[Component: function]</size>" <<flarelettejwtkit.flarelettejwt.utilgenerate_secret>> as flarelettejwtkit.flarelettejwt.utilgenerate_secret
+  rectangle "==util.is_valid_base64url_secret\n<size:10>[Component: function]</size>" <<flarelettejwtkit.flarelettejwt.utilis_valid_base64url_secret>> as flarelettejwtkit.flarelettejwt.utilis_valid_base64url_secret
+  rectangle "==util.main\n<size:10>[Component: function]</size>" <<flarelettejwtkit.flarelettejwt.utilmain>> as flarelettejwtkit.flarelettejwt.utilmain
+  rectangle "==util._b64url\n<size:10>[Component: function]</size>" <<flarelettejwtkit.flarelettejwt.util_b64url>> as flarelettejwtkit.flarelettejwt.util_b64url
+  rectangle "==util.sign\n<size:10>[Component: function]</size>\n\nSign a JWT token with HS512 or EdDSA algorithm." <<flarelettejwtkit.flarelettejwt.utilsign>> as flarelettejwtkit.flarelettejwt.utilsign
+  rectangle "==util.ParsedJwt\n<size:10>[Component: class]</size>\n\nParsed JWT token structure." <<flarelettejwtkit.flarelettejwt.utilParsedJwt>> as flarelettejwtkit.flarelettejwt.utilParsedJwt
+  rectangle "==util.parse\n<size:10>[Component: function]</size>\n\nParse a JWT token into header and payload without verification." <<flarelettejwtkit.flarelettejwt.utilparse>> as flarelettejwtkit.flarelettejwt.utilparse
+  rectangle "==util.is_expiring_soon\n<size:10>[Component: function]</size>\n\nCheck if JWT payload will expire within specified seconds." <<flarelettejwtkit.flarelettejwt.utilis_expiring_soon>> as flarelettejwtkit.flarelettejwt.utilis_expiring_soon
+  rectangle "==util.map_scopes_to_permissions\n<size:10>[Component: function]</size>\n\nMap OAuth scopes to permission strings." <<flarelettejwtkit.flarelettejwt.utilmap_scopes_to_permissions>> as flarelettejwtkit.flarelettejwt.utilmap_scopes_to_permissions
+  rectangle "==util._b64url_decode\n<size:10>[Component: function]</size>" <<flarelettejwtkit.flarelettejwt.util_b64url_decode>> as flarelettejwtkit.flarelettejwt.util_b64url_decode
+  rectangle "==util.verify\n<size:10>[Component: function]</size>\n\nVerify a JWT token with HS512 or EdDSA algorithm." <<flarelettejwtkit.flarelettejwt.utilverify>> as flarelettejwtkit.flarelettejwt.utilverify
   rectangle "==util.JwtHeader\n<size:10>[Component: class]</size>\n\nJWT token header structure." <<flarelettejwtkit.flarelettejwt.utilJwtHeader>> as flarelettejwtkit.flarelettejwt.utilJwtHeader
   rectangle "==util.ActorClaim\n<size:10>[Component: class]</size>\n\nActor claim for service delegation (RFC 8693)." <<flarelettejwtkit.flarelettejwt.utilActorClaim>> as flarelettejwtkit.flarelettejwt.utilActorClaim
   rectangle "==util.JwtPayload\n<size:10>[Component: class]</size>\n\nJWT token payload/claims structure." <<flarelettejwtkit.flarelettejwt.utilJwtPayload>> as flarelettejwtkit.flarelettejwt.utilJwtPayload
@@ -372,25 +391,6 @@ rectangle "flarelette-jwt\n<size:10>[Container: Service]</size>" <<flarelettejwt
   rectangle "==util.Builder.base\n<size:10>[Component: method]</size>" <<flarelettejwtkit.flarelettejwt.utilBuilderbase>> as flarelettejwtkit.flarelettejwt.utilBuilderbase
   rectangle "==util.Builder.need_all\n<size:10>[Component: method]</size>" <<flarelettejwtkit.flarelettejwt.utilBuilderneed_all>> as flarelettejwtkit.flarelettejwt.utilBuilderneed_all
   rectangle "==util.Builder.need_any\n<size:10>[Component: method]</size>" <<flarelettejwtkit.flarelettejwt.utilBuilderneed_any>> as flarelettejwtkit.flarelettejwt.utilBuilderneed_any
-  rectangle "==util.Builder.roles_all\n<size:10>[Component: method]</size>" <<flarelettejwtkit.flarelettejwt.utilBuilderroles_all>> as flarelettejwtkit.flarelettejwt.utilBuilderroles_all
-  rectangle "==util.Builder.roles_any\n<size:10>[Component: method]</size>" <<flarelettejwtkit.flarelettejwt.utilBuilderroles_any>> as flarelettejwtkit.flarelettejwt.utilBuilderroles_any
-  rectangle "==util.Builder.where\n<size:10>[Component: method]</size>" <<flarelettejwtkit.flarelettejwt.utilBuilderwhere>> as flarelettejwtkit.flarelettejwt.utilBuilderwhere
-  rectangle "==util.Builder.build\n<size:10>[Component: method]</size>" <<flarelettejwtkit.flarelettejwt.utilBuilderbuild>> as flarelettejwtkit.flarelettejwt.utilBuilderbuild
-  rectangle "==util.create_token\n<size:10>[Component: function]</size>\n\nCreate a signed JWT token with optional claims." <<flarelettejwtkit.flarelettejwt.utilcreate_token>> as flarelettejwtkit.flarelettejwt.utilcreate_token
-  rectangle "==util.create_delegated_token\n<size:10>[Component: function]</size>\n\nCreate a delegated JWT token following RFC 8693 actor claim pattern." <<flarelettejwtkit.flarelettejwt.utilcreate_delegated_token>> as flarelettejwtkit.flarelettejwt.utilcreate_delegated_token
-  rectangle "==util.check_auth\n<size:10>[Component: function]</size>\n\nVerify and authorize a JWT token with policy enforcement." <<flarelettejwtkit.flarelettejwt.utilcheck_auth>> as flarelettejwtkit.flarelettejwt.utilcheck_auth
-  rectangle "==util.policy\n<size:10>[Component: function]</size>\n\nFluent builder for creating authorization policies." <<flarelettejwtkit.flarelettejwt.utilpolicy>> as flarelettejwtkit.flarelettejwt.utilpolicy
-  rectangle "==util.generate_secret\n<size:10>[Component: function]</size>" <<flarelettejwtkit.flarelettejwt.utilgenerate_secret>> as flarelettejwtkit.flarelettejwt.utilgenerate_secret
-  rectangle "==util.is_valid_base64url_secret\n<size:10>[Component: function]</size>" <<flarelettejwtkit.flarelettejwt.utilis_valid_base64url_secret>> as flarelettejwtkit.flarelettejwt.utilis_valid_base64url_secret
-  rectangle "==util.main\n<size:10>[Component: function]</size>" <<flarelettejwtkit.flarelettejwt.utilmain>> as flarelettejwtkit.flarelettejwt.utilmain
-  rectangle "==util._b64url\n<size:10>[Component: function]</size>" <<flarelettejwtkit.flarelettejwt.util_b64url>> as flarelettejwtkit.flarelettejwt.util_b64url
-  rectangle "==util.sign\n<size:10>[Component: function]</size>\n\nSign a JWT token with HS512 or EdDSA algorithm." <<flarelettejwtkit.flarelettejwt.utilsign>> as flarelettejwtkit.flarelettejwt.utilsign
-  rectangle "==util.ParsedJwt\n<size:10>[Component: class]</size>\n\nParsed JWT token structure." <<flarelettejwtkit.flarelettejwt.utilParsedJwt>> as flarelettejwtkit.flarelettejwt.utilParsedJwt
-  rectangle "==util.parse\n<size:10>[Component: function]</size>\n\nParse a JWT token into header and payload without verification." <<flarelettejwtkit.flarelettejwt.utilparse>> as flarelettejwtkit.flarelettejwt.utilparse
-  rectangle "==util.is_expiring_soon\n<size:10>[Component: function]</size>\n\nCheck if JWT payload will expire within specified seconds." <<flarelettejwtkit.flarelettejwt.utilis_expiring_soon>> as flarelettejwtkit.flarelettejwt.utilis_expiring_soon
-  rectangle "==util.map_scopes_to_permissions\n<size:10>[Component: function]</size>\n\nMap OAuth scopes to permission strings." <<flarelettejwtkit.flarelettejwt.utilmap_scopes_to_permissions>> as flarelettejwtkit.flarelettejwt.utilmap_scopes_to_permissions
-  rectangle "==util._b64url_decode\n<size:10>[Component: function]</size>" <<flarelettejwtkit.flarelettejwt.util_b64url_decode>> as flarelettejwtkit.flarelettejwt.util_b64url_decode
-  rectangle "==util.verify\n<size:10>[Component: function]</size>\n\nVerify a JWT token with HS512 or EdDSA algorithm." <<flarelettejwtkit.flarelettejwt.utilverify>> as flarelettejwtkit.flarelettejwt.utilverify
 }
 
 @enduml
