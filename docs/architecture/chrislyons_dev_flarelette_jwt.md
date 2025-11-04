@@ -70,6 +70,17 @@ It supports custom claims and configuration overrides.</td>
 <td><a href="./chrislyons_dev_flarelette_jwt__core.md">View →</a></td>
 </tr>
 <tr>
+<td><strong>explicit</strong></td>
+<td><code>module</code></td>
+<td>Explicit configuration API for JWT operations.
+
+This module provides functions that accept explicit configuration objects
+instead of relying on environment variables or global state. Use this API
+when you need full control over configuration, especially in development
+environments or when working with multiple JWT configurations.</td>
+<td><a href="./chrislyons_dev_flarelette_jwt__explicit.md">View →</a></td>
+</tr>
+<tr>
 <td><strong>util</strong></td>
 <td><code>module</code></td>
 <td>High-level JWT utilities for creating, delegating, verifying, and authorizing JWT tokens | JSON Web Key Set (JWKS) utilities.

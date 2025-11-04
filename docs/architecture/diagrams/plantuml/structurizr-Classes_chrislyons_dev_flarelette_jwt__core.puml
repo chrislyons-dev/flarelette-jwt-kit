@@ -86,6 +86,7 @@ skinparam rectangle<<flarelettejwtkit.chrislyonsdevflarelettejwt>> {
 }
 
 rectangle "@chrislyons-dev/flarelette-jwt\n<size:10>[Container: Service]</size>" <<flarelettejwtkit.chrislyonsdevflarelettejwt>> {
+  rectangle "==core.envMode\n<size:10>[Component: function]</size>" <<flarelettejwtkit.chrislyonsdevflarelettejwt.coreenvMode>> as flarelettejwtkit.chrislyonsdevflarelettejwt.coreenvMode
   rectangle "==core.getCommon\n<size:10>[Component: function]</size>\n\nGet common JWT configuration from environment Returns partial JwtProfile-compatible configuration" <<flarelettejwtkit.chrislyonsdevflarelettejwt.coregetCommon>> as flarelettejwtkit.chrislyonsdevflarelettejwt.coregetCommon
   rectangle "==core.getProfile\n<size:10>[Component: function]</size>\n\nGet JWT profile from environment Returns complete JwtProfile with detected algorithm" <<flarelettejwtkit.chrislyonsdevflarelettejwt.coregetProfile>> as flarelettejwtkit.chrislyonsdevflarelettejwt.coregetProfile
   rectangle "==core.getHSSecret\n<size:10>[Component: function]</size>" <<flarelettejwtkit.chrislyonsdevflarelettejwt.coregetHSSecret>> as flarelettejwtkit.chrislyonsdevflarelettejwt.coregetHSSecret
@@ -94,7 +95,6 @@ rectangle "@chrislyons-dev/flarelette-jwt\n<size:10>[Container: Service]</size>"
   rectangle "==core.getJwksServiceName\n<size:10>[Component: function]</size>" <<flarelettejwtkit.chrislyonsdevflarelettejwt.coregetJwksServiceName>> as flarelettejwtkit.chrislyonsdevflarelettejwt.coregetJwksServiceName
   rectangle "==core.sign\n<size:10>[Component: function]</size>\n\nSign a JWT token with HS512 or EdDSA algorithm" <<flarelettejwtkit.chrislyonsdevflarelettejwt.coresign>> as flarelettejwtkit.chrislyonsdevflarelettejwt.coresign
   rectangle "==core.envRead\n<size:10>[Component: function]</size>" <<flarelettejwtkit.chrislyonsdevflarelettejwt.coreenvRead>> as flarelettejwtkit.chrislyonsdevflarelettejwt.coreenvRead
-  rectangle "==core.envMode\n<size:10>[Component: function]</size>" <<flarelettejwtkit.chrislyonsdevflarelettejwt.coreenvMode>> as flarelettejwtkit.chrislyonsdevflarelettejwt.coreenvMode
 }
 
 @enduml
