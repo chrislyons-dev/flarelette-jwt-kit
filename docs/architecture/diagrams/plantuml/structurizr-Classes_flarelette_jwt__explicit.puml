@@ -1,0 +1,172 @@
+@startuml
+set separator none
+title flarelette-jwt-kit - flarelette-jwt - Components
+
+top to bottom direction
+skinparam ranksep 60
+skinparam nodesep 30
+
+skinparam {
+  arrowFontSize 10
+  defaultTextAlignment center
+  wrapWidth 200
+  maxMessageSize 100
+  defaultFontName "Arial"
+}
+
+hide stereotype
+
+skinparam rectangle<<flarelettejwtkit.flarelettejwt.explicitAuthUser>> {
+  BackgroundColor #85bbf0
+  FontColor #000000
+  BorderColor #5d82a8
+  roundCorner 20
+  shadowing false
+}
+skinparam rectangle<<flarelettejwtkit.flarelettejwt.explicitAuthzOptsWithConfig>> {
+  BackgroundColor #85bbf0
+  FontColor #000000
+  BorderColor #5d82a8
+  roundCorner 20
+  shadowing false
+}
+skinparam rectangle<<flarelettejwtkit.flarelettejwt.explicitBaseJwtConfig>> {
+  BackgroundColor #85bbf0
+  FontColor #000000
+  BorderColor #5d82a8
+  roundCorner 20
+  shadowing false
+}
+skinparam rectangle<<flarelettejwtkit.flarelettejwt.explicitEdDSASignConfig>> {
+  BackgroundColor #85bbf0
+  FontColor #000000
+  BorderColor #5d82a8
+  roundCorner 20
+  shadowing false
+}
+skinparam rectangle<<flarelettejwtkit.flarelettejwt.explicitEdDSAVerifyConfig>> {
+  BackgroundColor #85bbf0
+  FontColor #000000
+  BorderColor #5d82a8
+  roundCorner 20
+  shadowing false
+}
+skinparam rectangle<<flarelettejwtkit.flarelettejwt.explicitHS512Config>> {
+  BackgroundColor #85bbf0
+  FontColor #000000
+  BorderColor #5d82a8
+  roundCorner 20
+  shadowing false
+}
+skinparam rectangle<<flarelettejwtkit.flarelettejwt.explicitSignConfig>> {
+  BackgroundColor #85bbf0
+  FontColor #000000
+  BorderColor #5d82a8
+  roundCorner 20
+  shadowing false
+}
+skinparam rectangle<<flarelettejwtkit.flarelettejwt.explicitVerifyConfig>> {
+  BackgroundColor #85bbf0
+  FontColor #000000
+  BorderColor #5d82a8
+  roundCorner 20
+  shadowing false
+}
+skinparam rectangle<<flarelettejwtkit.flarelettejwt.explicit_b64url>> {
+  BackgroundColor #85bbf0
+  FontColor #000000
+  BorderColor #5d82a8
+  roundCorner 20
+  shadowing false
+}
+skinparam rectangle<<flarelettejwtkit.flarelettejwt.explicit_b64url_decode>> {
+  BackgroundColor #85bbf0
+  FontColor #000000
+  BorderColor #5d82a8
+  roundCorner 20
+  shadowing false
+}
+skinparam rectangle<<flarelettejwtkit.flarelettejwt.explicitcheck_auth_with_config>> {
+  BackgroundColor #85bbf0
+  FontColor #000000
+  BorderColor #5d82a8
+  roundCorner 20
+  shadowing false
+}
+skinparam rectangle<<flarelettejwtkit.flarelettejwt.explicitcreate_delegated_token_with_config>> {
+  BackgroundColor #85bbf0
+  FontColor #000000
+  BorderColor #5d82a8
+  roundCorner 20
+  shadowing false
+}
+skinparam rectangle<<flarelettejwtkit.flarelettejwt.explicitcreate_eddsa_sign_config>> {
+  BackgroundColor #85bbf0
+  FontColor #000000
+  BorderColor #5d82a8
+  roundCorner 20
+  shadowing false
+}
+skinparam rectangle<<flarelettejwtkit.flarelettejwt.explicitcreate_eddsa_verify_config>> {
+  BackgroundColor #85bbf0
+  FontColor #000000
+  BorderColor #5d82a8
+  roundCorner 20
+  shadowing false
+}
+skinparam rectangle<<flarelettejwtkit.flarelettejwt.explicitcreate_hs512_config>> {
+  BackgroundColor #85bbf0
+  FontColor #000000
+  BorderColor #5d82a8
+  roundCorner 20
+  shadowing false
+}
+skinparam rectangle<<flarelettejwtkit.flarelettejwt.explicitcreate_token_with_config>> {
+  BackgroundColor #85bbf0
+  FontColor #000000
+  BorderColor #5d82a8
+  roundCorner 20
+  shadowing false
+}
+skinparam rectangle<<flarelettejwtkit.flarelettejwt.explicitsign_with_config>> {
+  BackgroundColor #85bbf0
+  FontColor #000000
+  BorderColor #5d82a8
+  roundCorner 20
+  shadowing false
+}
+skinparam rectangle<<flarelettejwtkit.flarelettejwt.explicitverify_with_config>> {
+  BackgroundColor #85bbf0
+  FontColor #000000
+  BorderColor #5d82a8
+  roundCorner 20
+  shadowing false
+}
+skinparam rectangle<<flarelettejwtkit.flarelettejwt>> {
+  BorderColor #2e6295
+  FontColor #2e6295
+  shadowing false
+}
+
+rectangle "flarelette-jwt\n<size:10>[Container: Service]</size>" <<flarelettejwtkit.flarelettejwt>> {
+  rectangle "==explicit.BaseJwtConfig\n<size:10>[Component: class]</size>\n\nBase JWT configuration shared by HS512 and EdDSA modes." <<flarelettejwtkit.flarelettejwt.explicitBaseJwtConfig>> as flarelettejwtkit.flarelettejwt.explicitBaseJwtConfig
+  rectangle "==explicit.HS512Config\n<size:10>[Component: class]</size>\n\nHS512 (HMAC-SHA512) symmetric configuration." <<flarelettejwtkit.flarelettejwt.explicitHS512Config>> as flarelettejwtkit.flarelettejwt.explicitHS512Config
+  rectangle "==explicit.EdDSASignConfig\n<size:10>[Component: class]</size>\n\nEdDSA (Ed25519) asymmetric configuration for signing." <<flarelettejwtkit.flarelettejwt.explicitEdDSASignConfig>> as flarelettejwtkit.flarelettejwt.explicitEdDSASignConfig
+  rectangle "==explicit.EdDSAVerifyConfig\n<size:10>[Component: class]</size>\n\nEdDSA (Ed25519) asymmetric configuration for verification." <<flarelettejwtkit.flarelettejwt.explicitEdDSAVerifyConfig>> as flarelettejwtkit.flarelettejwt.explicitEdDSAVerifyConfig
+  rectangle "==explicit.AuthzOptsWithConfig\n<size:10>[Component: class]</size>\n\nAuthorization options for check_auth_with_config." <<flarelettejwtkit.flarelettejwt.explicitAuthzOptsWithConfig>> as flarelettejwtkit.flarelettejwt.explicitAuthzOptsWithConfig
+  rectangle "==explicit.AuthUser\n<size:10>[Component: class]</size>\n\nAuthenticated user information." <<flarelettejwtkit.flarelettejwt.explicitAuthUser>> as flarelettejwtkit.flarelettejwt.explicitAuthUser
+  rectangle "==explicit._b64url\n<size:10>[Component: function]</size>\n\nEncode bytes to base64url without padding." <<flarelettejwtkit.flarelettejwt.explicit_b64url>> as flarelettejwtkit.flarelettejwt.explicit_b64url
+  rectangle "==explicit._b64url_decode\n<size:10>[Component: function]</size>\n\nDecode base64url string (with or without padding)." <<flarelettejwtkit.flarelettejwt.explicit_b64url_decode>> as flarelettejwtkit.flarelettejwt.explicit_b64url_decode
+  rectangle "==explicit.sign_with_config\n<size:10>[Component: function]</size>\n\nSign a JWT token with explicit configuration." <<flarelettejwtkit.flarelettejwt.explicitsign_with_config>> as flarelettejwtkit.flarelettejwt.explicitsign_with_config
+  rectangle "==explicit.verify_with_config\n<size:10>[Component: function]</size>\n\nVerify a JWT token with explicit configuration." <<flarelettejwtkit.flarelettejwt.explicitverify_with_config>> as flarelettejwtkit.flarelettejwt.explicitverify_with_config
+  rectangle "==explicit.create_token_with_config\n<size:10>[Component: function]</size>\n\nCreate a signed JWT token with explicit configuration." <<flarelettejwtkit.flarelettejwt.explicitcreate_token_with_config>> as flarelettejwtkit.flarelettejwt.explicitcreate_token_with_config
+  rectangle "==explicit.create_delegated_token_with_config\n<size:10>[Component: function]</size>\n\nCreate a delegated JWT token with explicit configuration." <<flarelettejwtkit.flarelettejwt.explicitcreate_delegated_token_with_config>> as flarelettejwtkit.flarelettejwt.explicitcreate_delegated_token_with_config
+  rectangle "==explicit.check_auth_with_config\n<size:10>[Component: function]</size>\n\nVerify and authorize a JWT token with explicit configuration." <<flarelettejwtkit.flarelettejwt.explicitcheck_auth_with_config>> as flarelettejwtkit.flarelettejwt.explicitcheck_auth_with_config
+  rectangle "==explicit.create_hs512_config\n<size:10>[Component: function]</size>\n\nHelper function to create HS512 config from base64url-encoded secret." <<flarelettejwtkit.flarelettejwt.explicitcreate_hs512_config>> as flarelettejwtkit.flarelettejwt.explicitcreate_hs512_config
+  rectangle "==explicit.create_eddsa_sign_config\n<size:10>[Component: function]</size>\n\nHelper function to create EdDSA sign config from JWK." <<flarelettejwtkit.flarelettejwt.explicitcreate_eddsa_sign_config>> as flarelettejwtkit.flarelettejwt.explicitcreate_eddsa_sign_config
+  rectangle "==explicit.create_eddsa_verify_config\n<size:10>[Component: function]</size>\n\nHelper function to create EdDSA verify config from JWK." <<flarelettejwtkit.flarelettejwt.explicitcreate_eddsa_verify_config>> as flarelettejwtkit.flarelettejwt.explicitcreate_eddsa_verify_config
+  rectangle "==explicit.SignConfig\n<size:10>[Component: type]</size>" <<flarelettejwtkit.flarelettejwt.explicitSignConfig>> as flarelettejwtkit.flarelettejwt.explicitSignConfig
+  rectangle "==explicit.VerifyConfig\n<size:10>[Component: type]</size>" <<flarelettejwtkit.flarelettejwt.explicitVerifyConfig>> as flarelettejwtkit.flarelettejwt.explicitVerifyConfig
+}
+
+@enduml

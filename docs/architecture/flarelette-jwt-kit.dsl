@@ -19,6 +19,10 @@ workspace "flarelette-jwt-kit" "JWT authentication and authorization library" {
                     description "CLI utility for generating JWT secrets. This script provides options to generate secrets in various formats, including JSON and dotenv. It is designed to be executed as a standalone Node.js script. | Configuration utilities for JWT operations. This module provides functions to read environment variables and derive JWT-related configurations. It includes support for both symmetric (HS512) and asymmetric (EdDSA) algorithms. | JWT signing utilities. This module provides functions to sign JWT tokens using either HS512 or EdDSA algorithms. It supports custom claims and configuration overrides."
                     technology "module"
                 }
+                chrislyons_dev_flarelette_jwt__explicit = component "explicit" {
+                    description "Explicit configuration API for JWT operations. This module provides functions that accept explicit configuration objects instead of relying on environment variables or global state. Use this API when you need full control over configuration, especially in development environments or when working with multiple JWT configurations."
+                    technology "module"
+                }
                 chrislyons_dev_flarelette_jwt__util = component "util" {
                     description "High-level JWT utilities for creating, delegating, verifying, and authorizing JWT tokens | JSON Web Key Set (JWKS) utilities. This module provides functions to fetch and manage JWKS, including caching and key lookup by key ID (kid). It supports integration with external JWKS services. | Key generation utility for EdDSA keys. This script generates EdDSA key pairs and exports them in JWK format. It is designed to be executed as a standalone Node.js script. | Secret generation and validation utilities. This module provides functions to generate secure secrets and validate base64url-encoded secrets. It ensures compatibility with JWT signing requirements. | Utility functions for JWT operations. This module provides helper functions for parsing JWTs, checking expiration, and mapping OAuth scopes. It is designed to support core JWT functionalities. | JWT verification utilities. This module provides functions to verify JWT tokens using either HS512 or EdDSA algorithms. It supports integration with JWKS services and thumbprint pinning."
                     technology "module"
@@ -68,6 +72,46 @@ workspace "flarelette-jwt-kit" "JWT authentication and authorization library" {
                     tags "Code"
                 }
                 chrislyons_dev_flarelette_jwt__core__getjwksservicename = component "core.getJwksServiceName" {
+                    technology "function"
+                    tags "Code"
+                }
+                chrislyons_dev_flarelette_jwt__explicit__signwithconfig = component "explicit.signWithConfig" {
+                    description "Sign a JWT token with explicit configuration"
+                    technology "function"
+                    tags "Code"
+                }
+                chrislyons_dev_flarelette_jwt__explicit__verifywithconfig = component "explicit.verifyWithConfig" {
+                    description "Verify a JWT token with explicit configuration"
+                    technology "function"
+                    tags "Code"
+                }
+                chrislyons_dev_flarelette_jwt__explicit__createtokenwithconfig = component "explicit.createTokenWithConfig" {
+                    description "Create a signed JWT token with explicit configuration Higher-level wrapper around signWithConfig for convenience."
+                    technology "function"
+                    tags "Code"
+                }
+                chrislyons_dev_flarelette_jwt__explicit__createdelegatedtokenwithconfig = component "explicit.createDelegatedTokenWithConfig" {
+                    description "Create a delegated JWT token with explicit configuration Implements RFC 8693 actor claim pattern for service-to-service delegation."
+                    technology "function"
+                    tags "Code"
+                }
+                chrislyons_dev_flarelette_jwt__explicit__checkauthwithconfig = component "explicit.checkAuthWithConfig" {
+                    description "Verify and authorize a JWT token with explicit configuration"
+                    technology "function"
+                    tags "Code"
+                }
+                chrislyons_dev_flarelette_jwt__explicit__createhs512config = component "explicit.createHS512Config" {
+                    description "Helper function to create HS512 config from base64url-encoded secret"
+                    technology "function"
+                    tags "Code"
+                }
+                chrislyons_dev_flarelette_jwt__explicit__createeddsasignconfig = component "explicit.createEdDSASignConfig" {
+                    description "Helper function to create EdDSA sign config from JWK"
+                    technology "function"
+                    tags "Code"
+                }
+                chrislyons_dev_flarelette_jwt__explicit__createeddsaverifyconfig = component "explicit.createEdDSAVerifyConfig" {
+                    description "Helper function to create EdDSA verify config from JWK"
                     technology "function"
                     tags "Code"
                 }
@@ -190,6 +234,10 @@ workspace "flarelette-jwt-kit" "JWT authentication and authorization library" {
                     description "Environment Configuration for JWT Operations This module provides functions to read environment variables and derive JWT-related configurations. It supports both symmetric (HS512) and asymmetric (EdDSA) algorithms."
                     technology "module"
                 }
+                flarelette_jwt__explicit = component "explicit" {
+                    description "Explicit Configuration API for JWT Operations This module provides functions that accept explicit configuration objects instead of relying on environment variables or global state. Use this API when you need full control over configuration, especially in development environments or when working with multiple JWT configurations."
+                    technology "module"
+                }
                 flarelette_jwt__flarelette_jwt = component "flarelette_jwt" {
                     description "Component derived from directory: flarelette_jwt"
                     technology "module"
@@ -262,6 +310,94 @@ workspace "flarelette-jwt-kit" "JWT authentication and authorization library" {
                     tags "Code,Code,Type"
                 }
                 flarelette_jwt__util__claimsdict = component "util.ClaimsDict" {
+                    technology "type"
+                    tags "Code,Code,Type"
+                }
+                flarelette_jwt__explicit__basejwtconfig = component "explicit.BaseJwtConfig" {
+                    description "Base JWT configuration shared by HS512 and EdDSA modes."
+                    technology "class"
+                    tags "Code,Code"
+                }
+                flarelette_jwt__explicit__hs512config = component "explicit.HS512Config" {
+                    description "HS512 (HMAC-SHA512) symmetric configuration."
+                    technology "class"
+                    tags "Code,Code"
+                }
+                flarelette_jwt__explicit__eddsasignconfig = component "explicit.EdDSASignConfig" {
+                    description "EdDSA (Ed25519) asymmetric configuration for signing."
+                    technology "class"
+                    tags "Code,Code"
+                }
+                flarelette_jwt__explicit__eddsaverifyconfig = component "explicit.EdDSAVerifyConfig" {
+                    description "EdDSA (Ed25519) asymmetric configuration for verification."
+                    technology "class"
+                    tags "Code,Code"
+                }
+                flarelette_jwt__explicit__authzoptswithconfig = component "explicit.AuthzOptsWithConfig" {
+                    description "Authorization options for check_auth_with_config."
+                    technology "class"
+                    tags "Code,Code"
+                }
+                flarelette_jwt__explicit__authuser = component "explicit.AuthUser" {
+                    description "Authenticated user information."
+                    technology "class"
+                    tags "Code,Code"
+                }
+                flarelette_jwt__explicit___b64url = component "explicit._b64url" {
+                    description "Encode bytes to base64url without padding."
+                    technology "function"
+                    tags "Code,Code"
+                }
+                flarelette_jwt__explicit___b64url_decode = component "explicit._b64url_decode" {
+                    description "Decode base64url string (with or without padding)."
+                    technology "function"
+                    tags "Code,Code"
+                }
+                flarelette_jwt__explicit__sign_with_config = component "explicit.sign_with_config" {
+                    description "Sign a JWT token with explicit configuration."
+                    technology "function"
+                    tags "Code,Code"
+                }
+                flarelette_jwt__explicit__verify_with_config = component "explicit.verify_with_config" {
+                    description "Verify a JWT token with explicit configuration."
+                    technology "function"
+                    tags "Code,Code"
+                }
+                flarelette_jwt__explicit__create_token_with_config = component "explicit.create_token_with_config" {
+                    description "Create a signed JWT token with explicit configuration."
+                    technology "function"
+                    tags "Code,Code"
+                }
+                flarelette_jwt__explicit__create_delegated_token_with_config = component "explicit.create_delegated_token_with_config" {
+                    description "Create a delegated JWT token with explicit configuration."
+                    technology "function"
+                    tags "Code,Code"
+                }
+                flarelette_jwt__explicit__check_auth_with_config = component "explicit.check_auth_with_config" {
+                    description "Verify and authorize a JWT token with explicit configuration."
+                    technology "function"
+                    tags "Code,Code"
+                }
+                flarelette_jwt__explicit__create_hs512_config = component "explicit.create_hs512_config" {
+                    description "Helper function to create HS512 config from base64url-encoded secret."
+                    technology "function"
+                    tags "Code,Code"
+                }
+                flarelette_jwt__explicit__create_eddsa_sign_config = component "explicit.create_eddsa_sign_config" {
+                    description "Helper function to create EdDSA sign config from JWK."
+                    technology "function"
+                    tags "Code,Code"
+                }
+                flarelette_jwt__explicit__create_eddsa_verify_config = component "explicit.create_eddsa_verify_config" {
+                    description "Helper function to create EdDSA verify config from JWK."
+                    technology "function"
+                    tags "Code,Code"
+                }
+                flarelette_jwt__explicit__signconfig = component "explicit.SignConfig" {
+                    technology "type"
+                    tags "Code,Code,Type"
+                }
+                flarelette_jwt__explicit__verifyconfig = component "explicit.VerifyConfig" {
                     technology "type"
                     tags "Code,Code,Type"
                 }
@@ -607,6 +743,7 @@ branding {
 
         component chrislyons_dev_flarelette_jwt "Components__chrislyons_dev_flarelette_jwt" {
             include chrislyons_dev_flarelette_jwt__core
+            include chrislyons_dev_flarelette_jwt__explicit
             include chrislyons_dev_flarelette_jwt__util
             include chrislyons_dev_flarelette_jwt__main
             include chrislyons_dev_flarelette_jwt__types
@@ -619,6 +756,7 @@ branding {
         component flarelette_jwt "Components_flarelette_jwt" {
             include flarelette_jwt__adapters
             include flarelette_jwt__util
+            include flarelette_jwt__explicit
             include flarelette_jwt__flarelette_jwt
             exclude "element.tag==Code"
             autoLayout
@@ -635,6 +773,19 @@ branding {
             include chrislyons_dev_flarelette_jwt__core__getpublicjwkstring
             include chrislyons_dev_flarelette_jwt__core__getjwksservicename
             include chrislyons_dev_flarelette_jwt__core__sign
+            autoLayout
+        }
+
+
+        component chrislyons_dev_flarelette_jwt "Classes_chrislyons_dev_flarelette_jwt__explicit" {
+            include chrislyons_dev_flarelette_jwt__explicit__signwithconfig
+            include chrislyons_dev_flarelette_jwt__explicit__verifywithconfig
+            include chrislyons_dev_flarelette_jwt__explicit__createtokenwithconfig
+            include chrislyons_dev_flarelette_jwt__explicit__createdelegatedtokenwithconfig
+            include chrislyons_dev_flarelette_jwt__explicit__checkauthwithconfig
+            include chrislyons_dev_flarelette_jwt__explicit__createhs512config
+            include chrislyons_dev_flarelette_jwt__explicit__createeddsasignconfig
+            include chrislyons_dev_flarelette_jwt__explicit__createeddsaverifyconfig
             autoLayout
         }
 
@@ -720,6 +871,29 @@ branding {
             include flarelette_jwt__util__map_scopes_to_permissions
             include flarelette_jwt__util___b64url_decode
             include flarelette_jwt__util__verify
+            autoLayout
+        }
+
+
+        component flarelette_jwt "Classes_flarelette_jwt__explicit" {
+            include flarelette_jwt__explicit__basejwtconfig
+            include flarelette_jwt__explicit__hs512config
+            include flarelette_jwt__explicit__eddsasignconfig
+            include flarelette_jwt__explicit__eddsaverifyconfig
+            include flarelette_jwt__explicit__authzoptswithconfig
+            include flarelette_jwt__explicit__authuser
+            include flarelette_jwt__explicit___b64url
+            include flarelette_jwt__explicit___b64url_decode
+            include flarelette_jwt__explicit__sign_with_config
+            include flarelette_jwt__explicit__verify_with_config
+            include flarelette_jwt__explicit__create_token_with_config
+            include flarelette_jwt__explicit__create_delegated_token_with_config
+            include flarelette_jwt__explicit__check_auth_with_config
+            include flarelette_jwt__explicit__create_hs512_config
+            include flarelette_jwt__explicit__create_eddsa_sign_config
+            include flarelette_jwt__explicit__create_eddsa_verify_config
+            include flarelette_jwt__explicit__signconfig
+            include flarelette_jwt__explicit__verifyconfig
             autoLayout
         }
 

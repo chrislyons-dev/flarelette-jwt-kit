@@ -50,3 +50,25 @@ export type {
 
 // Adapters
 export * as adapters from './adapters/hono.js'
+
+// Explicit configuration API (no environment dependencies)
+export {
+  signWithConfig,
+  verifyWithConfig,
+  createTokenWithConfig,
+  createDelegatedTokenWithConfig,
+  checkAuthWithConfig,
+  createHS512Config,
+  createEdDSASignConfig,
+  createEdDSAVerifyConfig,
+} from './explicit.js'
+
+export type {
+  BaseJwtConfig,
+  HS512Config,
+  EdDSASignConfig,
+  EdDSAVerifyConfig,
+  SignConfig,
+  VerifyConfig,
+  AuthzOptsWithConfig,
+} from './explicit.js'

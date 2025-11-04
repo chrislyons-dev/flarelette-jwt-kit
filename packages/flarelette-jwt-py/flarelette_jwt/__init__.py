@@ -17,6 +17,26 @@ from .env import (
     mode,
     profile,
 )
+from .explicit import (
+    AuthUser as AuthUserWithConfig,
+)
+from .explicit import (
+    AuthzOptsWithConfig,
+    BaseJwtConfig,
+    EdDSASignConfig,
+    EdDSAVerifyConfig,
+    HS512Config,
+    SignConfig,
+    VerifyConfig,
+    check_auth_with_config,
+    create_delegated_token_with_config,
+    create_eddsa_sign_config,
+    create_eddsa_verify_config,
+    create_hs512_config,
+    create_token_with_config,
+    sign_with_config,
+    verify_with_config,
+)
 from .high import AuthUser, check_auth, create_delegated_token, create_token, policy
 from .secret import generate_secret, is_valid_base64url_secret
 from .sign import sign
@@ -36,7 +56,16 @@ __all__ = [
     "ActorClaim",
     "ParsedJwt",
     "AuthUser",
-    # Functions
+    # Explicit config types
+    "BaseJwtConfig",
+    "HS512Config",
+    "EdDSASignConfig",
+    "EdDSAVerifyConfig",
+    "SignConfig",
+    "VerifyConfig",
+    "AuthzOptsWithConfig",
+    "AuthUserWithConfig",
+    # Environment-based functions
     "common",
     "mode",
     "profile",
@@ -51,4 +80,13 @@ __all__ = [
     "map_scopes_to_permissions",
     "parse",
     "verify",
+    # Explicit config functions
+    "sign_with_config",
+    "verify_with_config",
+    "create_token_with_config",
+    "create_delegated_token_with_config",
+    "check_auth_with_config",
+    "create_hs512_config",
+    "create_eddsa_sign_config",
+    "create_eddsa_verify_config",
 ]
