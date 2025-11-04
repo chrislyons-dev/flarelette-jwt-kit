@@ -49,7 +49,48 @@ pip install flarelette-jwt
 
 > **Note:** The Python package requires Cloudflare Workers Python runtime (Pyodide). For standard Python environments, use the TypeScript package via Node.js.
 
-### Basic Example
+### Two APIs: Choose Your Style
+
+**Option 1: Environment-Based (Production-Ready)**
+
+Perfect for production with Cloudflare bindings. Zero configuration code:
+
+**TypeScript:**
+
+```typescript
+import { sign, verify } from '@chrislyons-dev/flarelette-jwt'
+
+// Reads JWT_SECRET_NAME, JWT_ISS, JWT_AUD from environment
+const token = await sign({ sub: 'user123', permissions: ['read:data'] })
+const payload = await verify(token)
+```
+
+**Option 2: Explicit Configuration (Development-Friendly)** 🆕
+
+Perfect for development and testing. No environment setup required:
+
+**TypeScript:**
+
+```typescript
+import {
+  signWithConfig,
+  verifyWithConfig,
+  createHS512Config,
+} from '@chrislyons-dev/flarelette-jwt'
+
+// Pass configuration directly
+const config = createHS512Config('your-secret', {
+  iss: 'https://gateway.example.com',
+  aud: 'api.example.com',
+})
+
+const token = await signWithConfig({ sub: 'user123' }, config)
+const payload = await verifyWithConfig(token, config)
+```
+
+> **New in v1.9.0:** The explicit configuration API eliminates environment setup complexity. See [Explicit Configuration Guide](./docs/explicit-config.md).
+
+### Basic Example (Environment-Based)
 
 **TypeScript:**
 
@@ -124,6 +165,7 @@ JWT_JWKS_SERVICE_NAME=GATEWAY_BINDING
 ## Documentation
 
 - **[Getting Started](./docs/getting-started.md)** — Installation, first token, and basic setup
+- **[Explicit Configuration](./docs/explicit-config.md)** 🆕 — No environment setup required! Use config objects directly
 - **[Core Concepts](./docs/core-concepts.md)** — Algorithms, modes, and architecture
 - **[Usage Guide](./docs/usage-guide.md)** — Complete API reference for TypeScript and Python
 - **[Service Delegation](./docs/service-delegation.md)** — RFC 8693 actor claims for zero-trust

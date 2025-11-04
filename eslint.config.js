@@ -17,6 +17,7 @@ export default [
       'coverage/**',
       '**/htmlcov/**',
       '**/.pytest_cache/**',
+      '**/examples/**',
     ],
   },
 

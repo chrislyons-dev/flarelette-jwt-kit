@@ -34,7 +34,7 @@
     "typecheck:js": "cd packages/flarelette-jwt-ts && tsc --noEmit & cd ../..",
     "typecheck:py": "mypy packages/flarelette-jwt-py",
     "licenses:generate": "node scripts/generate-licenses.mjs",
-    "check": "npm run lint && npm run format:check && npm run typecheck && npm test",
+    "check": "npm run lint && npm run licenses:generate && npm run archlette && npm run format && npm run typecheck && npm run test:coverage",
     "pack:test": "npm run pack:test:ts && npm run pack:test:py",
     "pack:test:ts": "npm run build && cd packages/flarelette-jwt-ts && npm pack --pack-destination ./dist && cd ../.. && node scripts/inspect-pack-ts.js",
     "pack:test:py": "cd packages/flarelette-jwt-py && py prepare.py && python -m build && cd ../.. && node scripts/inspect-pack-py.js",

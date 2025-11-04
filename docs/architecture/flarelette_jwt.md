@@ -74,6 +74,17 @@ It supports both symmetric (HS512) and asymmetric (EdDSA) algorithms.</td>
 <td><a href="./flarelette_jwt__util.md">View →</a></td>
 </tr>
 <tr>
+<td><strong>explicit</strong></td>
+<td><code>module</code></td>
+<td>Explicit Configuration API for JWT Operations
+
+This module provides functions that accept explicit configuration objects
+instead of relying on environment variables or global state. Use this API
+when you need full control over configuration, especially in development
+environments or when working with multiple JWT configurations.</td>
+<td><a href="./flarelette_jwt__explicit.md">View →</a></td>
+</tr>
+<tr>
 <td><strong>flarelette_jwt</strong></td>
 <td><code>module</code></td>
 <td>Component derived from directory: flarelette_jwt</td>

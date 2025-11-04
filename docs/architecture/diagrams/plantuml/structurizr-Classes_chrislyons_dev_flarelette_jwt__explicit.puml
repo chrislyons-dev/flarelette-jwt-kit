@@ -1,0 +1,92 @@
+@startuml
+set separator none
+title flarelette-jwt-kit - @chrislyons-dev/flarelette-jwt - Components
+
+top to bottom direction
+skinparam ranksep 60
+skinparam nodesep 30
+
+skinparam {
+  arrowFontSize 10
+  defaultTextAlignment center
+  wrapWidth 200
+  maxMessageSize 100
+  defaultFontName "Arial"
+}
+
+hide stereotype
+
+skinparam rectangle<<flarelettejwtkit.chrislyonsdevflarelettejwt.explicitcheckAuthWithConfig>> {
+  BackgroundColor #85bbf0
+  FontColor #000000
+  BorderColor #5d82a8
+  roundCorner 20
+  shadowing false
+}
+skinparam rectangle<<flarelettejwtkit.chrislyonsdevflarelettejwt.explicitcreateDelegatedTokenWithConfig>> {
+  BackgroundColor #85bbf0
+  FontColor #000000
+  BorderColor #5d82a8
+  roundCorner 20
+  shadowing false
+}
+skinparam rectangle<<flarelettejwtkit.chrislyonsdevflarelettejwt.explicitcreateEdDSASignConfig>> {
+  BackgroundColor #85bbf0
+  FontColor #000000
+  BorderColor #5d82a8
+  roundCorner 20
+  shadowing false
+}
+skinparam rectangle<<flarelettejwtkit.chrislyonsdevflarelettejwt.explicitcreateEdDSAVerifyConfig>> {
+  BackgroundColor #85bbf0
+  FontColor #000000
+  BorderColor #5d82a8
+  roundCorner 20
+  shadowing false
+}
+skinparam rectangle<<flarelettejwtkit.chrislyonsdevflarelettejwt.explicitcreateHS512Config>> {
+  BackgroundColor #85bbf0
+  FontColor #000000
+  BorderColor #5d82a8
+  roundCorner 20
+  shadowing false
+}
+skinparam rectangle<<flarelettejwtkit.chrislyonsdevflarelettejwt.explicitcreateTokenWithConfig>> {
+  BackgroundColor #85bbf0
+  FontColor #000000
+  BorderColor #5d82a8
+  roundCorner 20
+  shadowing false
+}
+skinparam rectangle<<flarelettejwtkit.chrislyonsdevflarelettejwt.explicitsignWithConfig>> {
+  BackgroundColor #85bbf0
+  FontColor #000000
+  BorderColor #5d82a8
+  roundCorner 20
+  shadowing false
+}
+skinparam rectangle<<flarelettejwtkit.chrislyonsdevflarelettejwt.explicitverifyWithConfig>> {
+  BackgroundColor #85bbf0
+  FontColor #000000
+  BorderColor #5d82a8
+  roundCorner 20
+  shadowing false
+}
+skinparam rectangle<<flarelettejwtkit.chrislyonsdevflarelettejwt>> {
+  BorderColor #2e6295
+  FontColor #2e6295
+  shadowing false
+}
+
+rectangle "@chrislyons-dev/flarelette-jwt\n<size:10>[Container: Service]</size>" <<flarelettejwtkit.chrislyonsdevflarelettejwt>> {
+  rectangle "==explicit.signWithConfig\n<size:10>[Component: function]</size>\n\nSign a JWT token with explicit configuration" <<flarelettejwtkit.chrislyonsdevflarelettejwt.explicitsignWithConfig>> as flarelettejwtkit.chrislyonsdevflarelettejwt.explicitsignWithConfig
+  rectangle "==explicit.verifyWithConfig\n<size:10>[Component: function]</size>\n\nVerify a JWT token with explicit configuration" <<flarelettejwtkit.chrislyonsdevflarelettejwt.explicitverifyWithConfig>> as flarelettejwtkit.chrislyonsdevflarelettejwt.explicitverifyWithConfig
+  rectangle "==explicit.createTokenWithConfig\n<size:10>[Component: function]</size>\n\nCreate a signed JWT token with explicit configuration Higher-level wrapper around signWithConfig for convenience." <<flarelettejwtkit.chrislyonsdevflarelettejwt.explicitcreateTokenWithConfig>> as flarelettejwtkit.chrislyonsdevflarelettejwt.explicitcreateTokenWithConfig
+  rectangle "==explicit.createDelegatedTokenWithConfig\n<size:10>[Component: function]</size>\n\nCreate a delegated JWT token with explicit configuration Implements RFC 8693 actor claim pattern for service-to-service delegation." <<flarelettejwtkit.chrislyonsdevflarelettejwt.explicitcreateDelegatedTokenWithConfig>> as flarelettejwtkit.chrislyonsdevflarelettejwt.explicitcreateDelegatedTokenWithConfig
+  rectangle "==explicit.checkAuthWithConfig\n<size:10>[Component: function]</size>\n\nVerify and authorize a JWT token with explicit configuration" <<flarelettejwtkit.chrislyonsdevflarelettejwt.explicitcheckAuthWithConfig>> as flarelettejwtkit.chrislyonsdevflarelettejwt.explicitcheckAuthWithConfig
+  rectangle "==explicit.createHS512Config\n<size:10>[Component: function]</size>\n\nHelper function to create HS512 config from base64url-encoded secret" <<flarelettejwtkit.chrislyonsdevflarelettejwt.explicitcreateHS512Config>> as flarelettejwtkit.chrislyonsdevflarelettejwt.explicitcreateHS512Config
+  rectangle "==explicit.createEdDSASignConfig\n<size:10>[Component: function]</size>\n\nHelper function to create EdDSA sign config from JWK" <<flarelettejwtkit.chrislyonsdevflarelettejwt.explicitcreateEdDSASignConfig>> as flarelettejwtkit.chrislyonsdevflarelettejwt.explicitcreateEdDSASignConfig
+  rectangle "==explicit.createEdDSAVerifyConfig\n<size:10>[Component: function]</size>\n\nHelper function to create EdDSA verify config from JWK" <<flarelettejwtkit.chrislyonsdevflarelettejwt.explicitcreateEdDSAVerifyConfig>> as flarelettejwtkit.chrislyonsdevflarelettejwt.explicitcreateEdDSAVerifyConfig
+}
+
+@enduml
