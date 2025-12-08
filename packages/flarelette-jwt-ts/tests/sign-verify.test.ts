@@ -120,7 +120,10 @@ describe('Sign and Verify - EdDSA Mode', () => {
 
   beforeEach(async () => {
     // Generate Ed25519 key pair
-    const keyPair = await generateKeyPair('EdDSA', { crv: 'Ed25519' })
+    const keyPair = await generateKeyPair('EdDSA', {
+      crv: 'Ed25519',
+      extractable: true,
+    })
     const privateJwkObj = await exportJWK(keyPair.privateKey)
     const publicJwkObj = await exportJWK(keyPair.publicKey)
     privateJwk = JSON.stringify(privateJwkObj)
@@ -321,7 +324,10 @@ describe('Thumbprint Pinning (EdDSA)', () => {
 
   beforeEach(async () => {
     // Generate Ed25519 key pair
-    const keyPair = await generateKeyPair('EdDSA', { crv: 'Ed25519' })
+    const keyPair = await generateKeyPair('EdDSA', {
+      crv: 'Ed25519',
+      extractable: true,
+    })
     const privateJwkObj = await exportJWK(keyPair.privateKey)
     const publicJwkObj = await exportJWK(keyPair.publicKey)
     privateJwkObj.kid = 'pinned-key'
