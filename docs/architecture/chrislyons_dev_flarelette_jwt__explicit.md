@@ -43,7 +43,7 @@ environments or when working with multiple JWT configurations.</td>
 ### Code Elements
 
 <details>
-<summary><strong>8 code element(s)</strong></summary>
+<summary><strong>9 code element(s)</strong></summary>
 
 
 
@@ -73,7 +73,7 @@ Sign a JWT token with explicit configuration
 </tr>
 <tr>
 <td><strong>Location</strong></td>
-<td><code>C:/Users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/src/explicit.ts:102</code></td>
+<td><code>C:/Users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/src/explicit.ts:122</code></td>
 </tr>
 </tbody>
 </table>
@@ -111,7 +111,7 @@ Verify a JWT token with explicit configuration
 </tr>
 <tr>
 <td><strong>Location</strong></td>
-<td><code>C:/Users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/src/explicit.ts:160</code></td>
+<td><code>C:/Users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/src/explicit.ts:181</code></td>
 </tr>
 </tbody>
 </table>
@@ -151,7 +151,7 @@ Higher-level wrapper around signWithConfig for convenience.
 </tr>
 <tr>
 <td><strong>Location</strong></td>
-<td><code>C:/Users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/src/explicit.ts:209</code></td>
+<td><code>C:/Users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/src/explicit.ts:246</code></td>
 </tr>
 </tbody>
 </table>
@@ -187,7 +187,7 @@ Implements RFC 8693 actor claim pattern for service-to-service delegation.
 </tr>
 <tr>
 <td><strong>Location</strong></td>
-<td><code>C:/Users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/src/explicit.ts:246</code></td>
+<td><code>C:/Users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/src/explicit.ts:283</code></td>
 </tr>
 </tbody>
 </table>
@@ -225,7 +225,7 @@ Verify and authorize a JWT token with explicit configuration
 </tr>
 <tr>
 <td><strong>Location</strong></td>
-<td><code>C:/Users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/src/explicit.ts:332</code></td>
+<td><code>C:/Users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/src/explicit.ts:369</code></td>
 </tr>
 </tbody>
 </table>
@@ -259,7 +259,7 @@ Helper function to create HS512 config from base64url-encoded secret
 </tr>
 <tr>
 <td><strong>Location</strong></td>
-<td><code>C:/Users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/src/explicit.ts:386</code></td>
+<td><code>C:/Users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/src/explicit.ts:423</code></td>
 </tr>
 </tbody>
 </table>
@@ -289,7 +289,7 @@ Helper function to create EdDSA sign config from JWK
 </tr>
 <tr>
 <td><strong>Location</strong></td>
-<td><code>C:/Users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/src/explicit.ts:414</code></td>
+<td><code>C:/Users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/src/explicit.ts:452</code></td>
 </tr>
 </tbody>
 </table>
@@ -319,7 +319,7 @@ Helper function to create EdDSA verify config from JWK
 </tr>
 <tr>
 <td><strong>Location</strong></td>
-<td><code>C:/Users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/src/explicit.ts:436</code></td>
+<td><code>C:/Users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/src/explicit.ts:474</code></td>
 </tr>
 </tbody>
 </table>
@@ -327,6 +327,42 @@ Helper function to create EdDSA verify config from JWK
 **Parameters:**
 
 - `publicJwk`: <code>any</code> — - Public JWK object or JSON string- `baseConfig`: <code>Omit<import("C:/Users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/src/explicit").BaseJwtConfig, "ttlSeconds" | "leeway"> & Partial<Pick<import("C:/Users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/src/explicit").BaseJwtConfig, "ttlSeconds" | "leeway">></code> — - Base JWT configuration
+
+---
+##### `createJWKSUrlVerifyConfig()`
+
+Helper function to create HTTP JWKS URL verification config
+
+Enables testing without environment variables by providing explicit configuration
+
+<table>
+<tbody>
+<tr>
+<td><strong>Type</strong></td>
+<td><code>function</code></td>
+</tr>
+<tr>
+<td><strong>Visibility</strong></td>
+<td><code>public</code></td>
+</tr>
+<tr>
+<td><strong>Returns</strong></td>
+<td><code>import("C:/Users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/src/explicit").JWKSUrlVerifyConfig</code> — JWKS URL verification configuration</td>
+</tr>
+<tr>
+<td><strong>Location</strong></td>
+<td><code>C:/Users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/src/explicit.ts:511</code></td>
+</tr>
+</tbody>
+</table>
+
+**Parameters:**
+
+- `jwksUrl`: <code>string</code> — - HTTP(S) URL to JWKS endpoint- `baseConfig`: <code>Omit<import("C:/Users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/src/explicit").BaseJwtConfig, "ttlSeconds" | "leeway"> & Partial<Pick<import("C:/Users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/src/explicit").BaseJwtConfig, "ttlSeconds" | "leeway">></code> — - Base JWT configuration- `cacheTtl`: <code>number</code> — - Optional cache TTL in seconds (default: 300)
+**Examples:**
+```typescript
+
+```
 
 ---
 

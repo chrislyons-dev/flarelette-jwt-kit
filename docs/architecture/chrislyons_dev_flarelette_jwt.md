@@ -83,10 +83,7 @@ environments or when working with multiple JWT configurations.</td>
 <tr>
 <td><strong>util</strong></td>
 <td><code>module</code></td>
-<td>High-level JWT utilities for creating, delegating, verifying, and authorizing JWT tokens | JSON Web Key Set (JWKS) utilities.
-
-This module provides functions to fetch and manage JWKS, including caching and key lookup by key ID (kid).
-It supports integration with external JWKS services. | Key generation utility for EdDSA keys.
+<td>High-level JWT utilities for creating, delegating, verifying, and authorizing JWT tokens | Key generation utility for EdDSA keys.
 
 This script generates EdDSA key pairs and exports them in JWK format.
 It is designed to be executed as a standalone Node.js script. | Secret generation and validation utilities.
@@ -95,10 +92,7 @@ This module provides functions to generate secure secrets and validate base64url
 It ensures compatibility with JWT signing requirements. | Utility functions for JWT operations.
 
 This module provides helper functions for parsing JWTs, checking expiration, and mapping OAuth scopes.
-It is designed to support core JWT functionalities. | JWT verification utilities.
-
-This module provides functions to verify JWT tokens using either HS512 or EdDSA algorithms.
-It supports integration with JWKS services and thumbprint pinning.</td>
+It is designed to support core JWT functionalities.</td>
 <td><a href="./chrislyons_dev_flarelette_jwt__util.md">View →</a></td>
 </tr>
 <tr>
@@ -111,6 +105,15 @@ It serves as the main interface for library consumers.</td>
 <td><a href="./chrislyons_dev_flarelette_jwt__main.md">View →</a></td>
 </tr>
 <tr>
+<td><strong>jwks</strong></td>
+<td><code>module</code></td>
+<td>JSON Web Key Set (JWKS) utilities.
+
+This module provides functions to fetch and manage JWKS, including caching and key lookup by key ID (kid).
+It supports integration with external JWKS services.</td>
+<td><a href="./chrislyons_dev_flarelette_jwt__jwks.md">View →</a></td>
+</tr>
+<tr>
 <td><strong>types</strong></td>
 <td><code>module</code></td>
 <td>Type definitions for JWT operations.
@@ -118,6 +121,15 @@ It serves as the main interface for library consumers.</td>
 This module defines types for JWT headers, payloads, profiles, and related structures.
 It ensures type safety and consistency across the library.</td>
 <td><a href="./chrislyons_dev_flarelette_jwt__types.md">View →</a></td>
+</tr>
+<tr>
+<td><strong>verify</strong></td>
+<td><code>module</code></td>
+<td>JWT verification utilities.
+
+This module provides functions to verify JWT tokens using either HS512 or EdDSA algorithms.
+It supports integration with JWKS services and thumbprint pinning.</td>
+<td><a href="./chrislyons_dev_flarelette_jwt__verify.md">View →</a></td>
 </tr>
 <tr>
 <td><strong>adapters</strong></td>

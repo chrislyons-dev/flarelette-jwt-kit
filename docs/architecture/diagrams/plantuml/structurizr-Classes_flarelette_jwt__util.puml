@@ -345,6 +345,17 @@ skinparam rectangle<<flarelettejwtkit.flarelettejwt>> {
 }
 
 rectangle "flarelette-jwt\n<size:10>[Container: Service]</size>" <<flarelettejwtkit.flarelettejwt>> {
+  rectangle "==util.PolicyBuilder.base\n<size:10>[Component: method]</size>" <<flarelettejwtkit.flarelettejwt.utilPolicyBuilderbase>> as flarelettejwtkit.flarelettejwt.utilPolicyBuilderbase
+  rectangle "==util.PolicyBuilder.need_all\n<size:10>[Component: method]</size>" <<flarelettejwtkit.flarelettejwt.utilPolicyBuilderneed_all>> as flarelettejwtkit.flarelettejwt.utilPolicyBuilderneed_all
+  rectangle "==util.PolicyBuilder.need_any\n<size:10>[Component: method]</size>" <<flarelettejwtkit.flarelettejwt.utilPolicyBuilderneed_any>> as flarelettejwtkit.flarelettejwt.utilPolicyBuilderneed_any
+  rectangle "==util.PolicyBuilder.roles_all\n<size:10>[Component: method]</size>" <<flarelettejwtkit.flarelettejwt.utilPolicyBuilderroles_all>> as flarelettejwtkit.flarelettejwt.utilPolicyBuilderroles_all
+  rectangle "==util.PolicyBuilder.roles_any\n<size:10>[Component: method]</size>" <<flarelettejwtkit.flarelettejwt.utilPolicyBuilderroles_any>> as flarelettejwtkit.flarelettejwt.utilPolicyBuilderroles_any
+  rectangle "==util.PolicyBuilder.where\n<size:10>[Component: method]</size>" <<flarelettejwtkit.flarelettejwt.utilPolicyBuilderwhere>> as flarelettejwtkit.flarelettejwt.utilPolicyBuilderwhere
+  rectangle "==util.PolicyBuilder.build\n<size:10>[Component: method]</size>" <<flarelettejwtkit.flarelettejwt.utilPolicyBuilderbuild>> as flarelettejwtkit.flarelettejwt.utilPolicyBuilderbuild
+  rectangle "==util.Builder\n<size:10>[Component: class]</size>" <<flarelettejwtkit.flarelettejwt.utilBuilder>> as flarelettejwtkit.flarelettejwt.utilBuilder
+  rectangle "==util.Builder.base\n<size:10>[Component: method]</size>" <<flarelettejwtkit.flarelettejwt.utilBuilderbase>> as flarelettejwtkit.flarelettejwt.utilBuilderbase
+  rectangle "==util.Builder.need_all\n<size:10>[Component: method]</size>" <<flarelettejwtkit.flarelettejwt.utilBuilderneed_all>> as flarelettejwtkit.flarelettejwt.utilBuilderneed_all
+  rectangle "==util.Builder.need_any\n<size:10>[Component: method]</size>" <<flarelettejwtkit.flarelettejwt.utilBuilderneed_any>> as flarelettejwtkit.flarelettejwt.utilBuilderneed_any
   rectangle "==util.Builder.roles_all\n<size:10>[Component: method]</size>" <<flarelettejwtkit.flarelettejwt.utilBuilderroles_all>> as flarelettejwtkit.flarelettejwt.utilBuilderroles_all
   rectangle "==util.Builder.roles_any\n<size:10>[Component: method]</size>" <<flarelettejwtkit.flarelettejwt.utilBuilderroles_any>> as flarelettejwtkit.flarelettejwt.utilBuilderroles_any
   rectangle "==util.Builder.where\n<size:10>[Component: method]</size>" <<flarelettejwtkit.flarelettejwt.utilBuilderwhere>> as flarelettejwtkit.flarelettejwt.utilBuilderwhere
@@ -380,17 +391,6 @@ rectangle "flarelette-jwt\n<size:10>[Container: Service]</size>" <<flarelettejwt
   rectangle "==util.ClaimsDict\n<size:10>[Component: type]</size>" <<flarelettejwtkit.flarelettejwt.utilClaimsDict>> as flarelettejwtkit.flarelettejwt.utilClaimsDict
   rectangle "==util.AuthUser\n<size:10>[Component: class]</size>\n\nAuthenticated user information returned by check_auth." <<flarelettejwtkit.flarelettejwt.utilAuthUser>> as flarelettejwtkit.flarelettejwt.utilAuthUser
   rectangle "==util.PolicyBuilder\n<size:10>[Component: class]</size>\n\nBuilder interface for creating JWT authorization policies." <<flarelettejwtkit.flarelettejwt.utilPolicyBuilder>> as flarelettejwtkit.flarelettejwt.utilPolicyBuilder
-  rectangle "==util.PolicyBuilder.base\n<size:10>[Component: method]</size>" <<flarelettejwtkit.flarelettejwt.utilPolicyBuilderbase>> as flarelettejwtkit.flarelettejwt.utilPolicyBuilderbase
-  rectangle "==util.PolicyBuilder.need_all\n<size:10>[Component: method]</size>" <<flarelettejwtkit.flarelettejwt.utilPolicyBuilderneed_all>> as flarelettejwtkit.flarelettejwt.utilPolicyBuilderneed_all
-  rectangle "==util.PolicyBuilder.need_any\n<size:10>[Component: method]</size>" <<flarelettejwtkit.flarelettejwt.utilPolicyBuilderneed_any>> as flarelettejwtkit.flarelettejwt.utilPolicyBuilderneed_any
-  rectangle "==util.PolicyBuilder.roles_all\n<size:10>[Component: method]</size>" <<flarelettejwtkit.flarelettejwt.utilPolicyBuilderroles_all>> as flarelettejwtkit.flarelettejwt.utilPolicyBuilderroles_all
-  rectangle "==util.PolicyBuilder.roles_any\n<size:10>[Component: method]</size>" <<flarelettejwtkit.flarelettejwt.utilPolicyBuilderroles_any>> as flarelettejwtkit.flarelettejwt.utilPolicyBuilderroles_any
-  rectangle "==util.PolicyBuilder.where\n<size:10>[Component: method]</size>" <<flarelettejwtkit.flarelettejwt.utilPolicyBuilderwhere>> as flarelettejwtkit.flarelettejwt.utilPolicyBuilderwhere
-  rectangle "==util.PolicyBuilder.build\n<size:10>[Component: method]</size>" <<flarelettejwtkit.flarelettejwt.utilPolicyBuilderbuild>> as flarelettejwtkit.flarelettejwt.utilPolicyBuilderbuild
-  rectangle "==util.Builder\n<size:10>[Component: class]</size>" <<flarelettejwtkit.flarelettejwt.utilBuilder>> as flarelettejwtkit.flarelettejwt.utilBuilder
-  rectangle "==util.Builder.base\n<size:10>[Component: method]</size>" <<flarelettejwtkit.flarelettejwt.utilBuilderbase>> as flarelettejwtkit.flarelettejwt.utilBuilderbase
-  rectangle "==util.Builder.need_all\n<size:10>[Component: method]</size>" <<flarelettejwtkit.flarelettejwt.utilBuilderneed_all>> as flarelettejwtkit.flarelettejwt.utilBuilderneed_all
-  rectangle "==util.Builder.need_any\n<size:10>[Component: method]</size>" <<flarelettejwtkit.flarelettejwt.utilBuilderneed_any>> as flarelettejwtkit.flarelettejwt.utilBuilderneed_any
 }
 
 @enduml

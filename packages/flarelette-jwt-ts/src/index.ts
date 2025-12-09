@@ -17,6 +17,8 @@ export {
   getPrivateJwkString,
   getPublicJwkString,
   getJwksServiceName,
+  getJwksUrl,
+  getJwksCacheTtl,
 } from './config.js'
 
 // Signing and verification
@@ -61,6 +63,7 @@ export {
   createHS512Config,
   createEdDSASignConfig,
   createEdDSAVerifyConfig,
+  createJWKSUrlVerifyConfig,
 } from './explicit.js'
 
 export type {
@@ -68,6 +71,7 @@ export type {
   HS512Config,
   EdDSASignConfig,
   EdDSAVerifyConfig,
+  JWKSUrlVerifyConfig,
   SignConfig,
   VerifyConfig,
   AuthzOptsWithConfig,

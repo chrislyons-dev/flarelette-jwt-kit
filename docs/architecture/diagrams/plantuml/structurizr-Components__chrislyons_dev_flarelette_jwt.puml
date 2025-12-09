@@ -37,6 +37,13 @@ skinparam rectangle<<flarelettejwtkit.chrislyonsdevflarelettejwt.explicit>> {
   roundCorner 20
   shadowing false
 }
+skinparam rectangle<<flarelettejwtkit.chrislyonsdevflarelettejwt.jwks>> {
+  BackgroundColor #85bbf0
+  FontColor #000000
+  BorderColor #5d82a8
+  roundCorner 20
+  shadowing false
+}
 skinparam rectangle<<flarelettejwtkit.chrislyonsdevflarelettejwt.main>> {
   BackgroundColor #85bbf0
   FontColor #000000
@@ -58,6 +65,13 @@ skinparam rectangle<<flarelettejwtkit.chrislyonsdevflarelettejwt.util>> {
   roundCorner 20
   shadowing false
 }
+skinparam rectangle<<flarelettejwtkit.chrislyonsdevflarelettejwt.verify>> {
+  BackgroundColor #85bbf0
+  FontColor #000000
+  BorderColor #5d82a8
+  roundCorner 20
+  shadowing false
+}
 skinparam rectangle<<flarelettejwtkit.chrislyonsdevflarelettejwt>> {
   BorderColor #2e6295
   FontColor #2e6295
@@ -65,16 +79,20 @@ skinparam rectangle<<flarelettejwtkit.chrislyonsdevflarelettejwt>> {
 }
 
 rectangle "@chrislyons-dev/flarelette-jwt\n<size:10>[Container: Service]</size>" <<flarelettejwtkit.chrislyonsdevflarelettejwt>> {
+  rectangle "==adapters\n<size:10>[Component: module]</size>\n\nComponent inferred from directory: adapters" <<flarelettejwtkit.chrislyonsdevflarelettejwt.adapters>> as flarelettejwtkit.chrislyonsdevflarelettejwt.adapters
   rectangle "==core\n<size:10>[Component: module]</size>\n\nCLI utility for generating JWT secrets. This script provides options to generate secrets in various formats, including JSON and dotenv. It is designed to be executed as a standalone Node.js script. | Configuration utilities for JWT operations. This module provides functions to read environment variables and derive JWT-related configurations. It includes support for both symmetric (HS512) and asymmetric (EdDSA) algorithms. | JWT signing utilities. This module provides functions to sign JWT tokens using either HS512 or EdDSA algorithms. It supports custom claims and configuration overrides." <<flarelettejwtkit.chrislyonsdevflarelettejwt.core>> as flarelettejwtkit.chrislyonsdevflarelettejwt.core
   rectangle "==explicit\n<size:10>[Component: module]</size>\n\nExplicit configuration API for JWT operations. This module provides functions that accept explicit configuration objects instead of relying on environment variables or global state. Use this API when you need full control over configuration, especially in development environments or when working with multiple JWT configurations." <<flarelettejwtkit.chrislyonsdevflarelettejwt.explicit>> as flarelettejwtkit.chrislyonsdevflarelettejwt.explicit
-  rectangle "==util\n<size:10>[Component: module]</size>\n\nHigh-level JWT utilities for creating, delegating, verifying, and authorizing JWT tokens | JSON Web Key Set (JWKS) utilities. This module provides functions to fetch and manage JWKS, including caching and key lookup by key ID (kid). It supports integration with external JWKS services. | Key generation utility for EdDSA keys. This script generates EdDSA key pairs and exports them in JWK format. It is designed to be executed as a standalone Node.js script. | Secret generation and validation utilities. This module provides functions to generate secure secrets and validate base64url-encoded secrets. It ensures compatibility with JWT signing requirements. | Utility functions for JWT operations. This module provides helper functions for parsing JWTs, checking expiration, and mapping OAuth scopes. It is designed to support core JWT functionalities. | JWT verification utilities. This module provides functions to verify JWT tokens using either HS512 or EdDSA algorithms. It supports integration with JWKS services and thumbprint pinning." <<flarelettejwtkit.chrislyonsdevflarelettejwt.util>> as flarelettejwtkit.chrislyonsdevflarelettejwt.util
+  rectangle "==util\n<size:10>[Component: module]</size>\n\nHigh-level JWT utilities for creating, delegating, verifying, and authorizing JWT tokens | Key generation utility for EdDSA keys. This script generates EdDSA key pairs and exports them in JWK format. It is designed to be executed as a standalone Node.js script. | Secret generation and validation utilities. This module provides functions to generate secure secrets and validate base64url-encoded secrets. It ensures compatibility with JWT signing requirements. | Utility functions for JWT operations. This module provides helper functions for parsing JWTs, checking expiration, and mapping OAuth scopes. It is designed to support core JWT functionalities." <<flarelettejwtkit.chrislyonsdevflarelettejwt.util>> as flarelettejwtkit.chrislyonsdevflarelettejwt.util
   rectangle "==main\n<size:10>[Component: module]</size>\n\nEntry point for the flarelette-jwt library. This module re-exports core functionalities, including signing, verification, utilities, and type definitions. It serves as the main interface for library consumers." <<flarelettejwtkit.chrislyonsdevflarelettejwt.main>> as flarelettejwtkit.chrislyonsdevflarelettejwt.main
+  rectangle "==jwks\n<size:10>[Component: module]</size>\n\nJSON Web Key Set (JWKS) utilities. This module provides functions to fetch and manage JWKS, including caching and key lookup by key ID (kid). It supports integration with external JWKS services." <<flarelettejwtkit.chrislyonsdevflarelettejwt.jwks>> as flarelettejwtkit.chrislyonsdevflarelettejwt.jwks
   rectangle "==types\n<size:10>[Component: module]</size>\n\nType definitions for JWT operations. This module defines types for JWT headers, payloads, profiles, and related structures. It ensures type safety and consistency across the library." <<flarelettejwtkit.chrislyonsdevflarelettejwt.types>> as flarelettejwtkit.chrislyonsdevflarelettejwt.types
-  rectangle "==adapters\n<size:10>[Component: module]</size>\n\nComponent inferred from directory: adapters" <<flarelettejwtkit.chrislyonsdevflarelettejwt.adapters>> as flarelettejwtkit.chrislyonsdevflarelettejwt.adapters
+  rectangle "==verify\n<size:10>[Component: module]</size>\n\nJWT verification utilities. This module provides functions to verify JWT tokens using either HS512 or EdDSA algorithms. It supports integration with JWKS services and thumbprint pinning." <<flarelettejwtkit.chrislyonsdevflarelettejwt.verify>> as flarelettejwtkit.chrislyonsdevflarelettejwt.verify
 }
 
-flarelettejwtkit.chrislyonsdevflarelettejwt.util -[#707070,thickness=2]-> flarelettejwtkit.chrislyonsdevflarelettejwt.types : "<color:#707070>ParsedJwt | JwtPayload | AlgType | Fetcher"
-flarelettejwtkit.chrislyonsdevflarelettejwt.util -[#707070,thickness=2]-> flarelettejwtkit.chrislyonsdevflarelettejwt.core : "<color:#707070>envMode | getCommon | getHSSecret | getPublicJwkString"
+flarelettejwtkit.chrislyonsdevflarelettejwt.util -[#707070,thickness=2]-> flarelettejwtkit.chrislyonsdevflarelettejwt.types : "<color:#707070>ParsedJwt | JwtPayload"
+flarelettejwtkit.chrislyonsdevflarelettejwt.verify -[#707070,thickness=2]-> flarelettejwtkit.chrislyonsdevflarelettejwt.core : "<color:#707070>envMode | getCommon | getHSSecret | getPublicJwkString | getJwksUrl | getJwksCacheTtl"
+flarelettejwtkit.chrislyonsdevflarelettejwt.verify -[#707070,thickness=2]-> flarelettejwtkit.chrislyonsdevflarelettejwt.jwks : "<color:#707070>fetchJwksFromService | fetchJwksFromUrl | getKeyFromJwks | allowedThumbprints"
+flarelettejwtkit.chrislyonsdevflarelettejwt.verify -[#707070,thickness=2]-> flarelettejwtkit.chrislyonsdevflarelettejwt.types : "<color:#707070>AlgType | Fetcher | JwtPayload"
 flarelettejwtkit.chrislyonsdevflarelettejwt.adapters -[#707070,thickness=2]-> flarelettejwtkit.chrislyonsdevflarelettejwt.main : "<color:#707070>imports * as kit"
 flarelettejwtkit.chrislyonsdevflarelettejwt.adapters -[#707070,thickness=2]-> flarelettejwtkit.chrislyonsdevflarelettejwt.core : "<color:#707070>imports getJwksServiceName"
 flarelettejwtkit.chrislyonsdevflarelettejwt.adapters -[#707070,thickness=2]-> flarelettejwtkit.chrislyonsdevflarelettejwt.types : "<color:#707070>WorkerEnv | Fetcher"

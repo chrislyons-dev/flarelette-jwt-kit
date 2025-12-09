@@ -44,7 +44,21 @@ skinparam rectangle<<flarelettejwtkit.chrislyonsdevflarelettejwt.coregetHSSecret
   roundCorner 20
   shadowing false
 }
+skinparam rectangle<<flarelettejwtkit.chrislyonsdevflarelettejwt.coregetJwksCacheTtl>> {
+  BackgroundColor #85bbf0
+  FontColor #000000
+  BorderColor #5d82a8
+  roundCorner 20
+  shadowing false
+}
 skinparam rectangle<<flarelettejwtkit.chrislyonsdevflarelettejwt.coregetJwksServiceName>> {
+  BackgroundColor #85bbf0
+  FontColor #000000
+  BorderColor #5d82a8
+  roundCorner 20
+  shadowing false
+}
+skinparam rectangle<<flarelettejwtkit.chrislyonsdevflarelettejwt.coregetJwksUrl>> {
   BackgroundColor #85bbf0
   FontColor #000000
   BorderColor #5d82a8
@@ -86,6 +100,7 @@ skinparam rectangle<<flarelettejwtkit.chrislyonsdevflarelettejwt>> {
 }
 
 rectangle "@chrislyons-dev/flarelette-jwt\n<size:10>[Container: Service]</size>" <<flarelettejwtkit.chrislyonsdevflarelettejwt>> {
+  rectangle "==core.envRead\n<size:10>[Component: function]</size>" <<flarelettejwtkit.chrislyonsdevflarelettejwt.coreenvRead>> as flarelettejwtkit.chrislyonsdevflarelettejwt.coreenvRead
   rectangle "==core.envMode\n<size:10>[Component: function]</size>" <<flarelettejwtkit.chrislyonsdevflarelettejwt.coreenvMode>> as flarelettejwtkit.chrislyonsdevflarelettejwt.coreenvMode
   rectangle "==core.getCommon\n<size:10>[Component: function]</size>\n\nGet common JWT configuration from environment Returns partial JwtProfile-compatible configuration" <<flarelettejwtkit.chrislyonsdevflarelettejwt.coregetCommon>> as flarelettejwtkit.chrislyonsdevflarelettejwt.coregetCommon
   rectangle "==core.getProfile\n<size:10>[Component: function]</size>\n\nGet JWT profile from environment Returns complete JwtProfile with detected algorithm" <<flarelettejwtkit.chrislyonsdevflarelettejwt.coregetProfile>> as flarelettejwtkit.chrislyonsdevflarelettejwt.coregetProfile
@@ -93,8 +108,9 @@ rectangle "@chrislyons-dev/flarelette-jwt\n<size:10>[Container: Service]</size>"
   rectangle "==core.getPrivateJwkString\n<size:10>[Component: function]</size>" <<flarelettejwtkit.chrislyonsdevflarelettejwt.coregetPrivateJwkString>> as flarelettejwtkit.chrislyonsdevflarelettejwt.coregetPrivateJwkString
   rectangle "==core.getPublicJwkString\n<size:10>[Component: function]</size>" <<flarelettejwtkit.chrislyonsdevflarelettejwt.coregetPublicJwkString>> as flarelettejwtkit.chrislyonsdevflarelettejwt.coregetPublicJwkString
   rectangle "==core.getJwksServiceName\n<size:10>[Component: function]</size>" <<flarelettejwtkit.chrislyonsdevflarelettejwt.coregetJwksServiceName>> as flarelettejwtkit.chrislyonsdevflarelettejwt.coregetJwksServiceName
+  rectangle "==core.getJwksUrl\n<size:10>[Component: function]</size>" <<flarelettejwtkit.chrislyonsdevflarelettejwt.coregetJwksUrl>> as flarelettejwtkit.chrislyonsdevflarelettejwt.coregetJwksUrl
+  rectangle "==core.getJwksCacheTtl\n<size:10>[Component: function]</size>" <<flarelettejwtkit.chrislyonsdevflarelettejwt.coregetJwksCacheTtl>> as flarelettejwtkit.chrislyonsdevflarelettejwt.coregetJwksCacheTtl
   rectangle "==core.sign\n<size:10>[Component: function]</size>\n\nSign a JWT token with HS512 or EdDSA algorithm" <<flarelettejwtkit.chrislyonsdevflarelettejwt.coresign>> as flarelettejwtkit.chrislyonsdevflarelettejwt.coresign
-  rectangle "==core.envRead\n<size:10>[Component: function]</size>" <<flarelettejwtkit.chrislyonsdevflarelettejwt.coreenvRead>> as flarelettejwtkit.chrislyonsdevflarelettejwt.coreenvRead
 }
 
 @enduml

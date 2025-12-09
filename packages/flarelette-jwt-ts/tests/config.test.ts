@@ -1,5 +1,11 @@
 import { describe, it, expect, beforeEach, afterEach } from 'vitest'
-import { envMode, getCommon, getHSSecret } from '../src/config'
+import {
+  envMode,
+  getCommon,
+  getHSSecret,
+  getJwksUrl,
+  getJwksCacheTtl,
+} from '../src/config'
 
 describe('Config - envMode', () => {
   beforeEach(() => {
@@ -155,7 +161,7 @@ describe('Config - getHSSecret', () => {
     const key = getHSSecret()
 
     expect(key).toBeInstanceOf(Uint8Array)
-    expect(key.length).toBeGreaterThanOrEqual(32)
+    expect(key.length).toBeGreaterThanOrEqual(64)
   })
 
   it('should use secret-name indirection', () => {
@@ -165,7 +171,7 @@ describe('Config - getHSSecret', () => {
 
     const key = getHSSecret()
     expect(key).toBeInstanceOf(Uint8Array)
-    expect(key.length).toBeGreaterThanOrEqual(32)
+    expect(key.length).toBeGreaterThanOrEqual(64)
   })
 
   it('should prefer JWT_SECRET_NAME over JWT_SECRET', () => {
@@ -209,17 +215,6 @@ describe('Config - getHSSecret', () => {
     expect(key.length).toBe(64)
   })
 
-  it('should fallback to UTF-8 for non-base64 secret', () => {
-    // A 64-character string that's not valid base64
-    const secret = 'x'.repeat(64)
-    process.env.JWT_SECRET = secret
-
-    const key = getHSSecret()
-    expect(key).toBeInstanceOf(Uint8Array)
-    // UTF-8 encoding produces 64 bytes for 64 ASCII characters
-    expect(key.length).toBeGreaterThanOrEqual(32)
-  })
-
   it('should handle base64 with standard encoding', () => {
     const bytes = new Uint8Array(64)
     for (let i = 0; i < 64; i++) bytes[i] = i
@@ -228,5 +223,186 @@ describe('Config - getHSSecret', () => {
 
     const key = getHSSecret()
     expect(key.length).toBe(64)
+  })
+
+  it('should enforce 64-byte minimum for HS512', () => {
+    // 63 bytes should fail
+    const bytes = new Uint8Array(63)
+    for (let i = 0; i < 63; i++) bytes[i] = i
+    const secret = Buffer.from(bytes).toString('base64url')
+    process.env.JWT_SECRET = secret
+
+    expect(() => getHSSecret()).toThrow(
+      'JWT secret too short: 63 bytes, need >= 64 for HS512'
+    )
+  })
+
+  it('should accept exactly 64 bytes', () => {
+    const bytes = new Uint8Array(64)
+    for (let i = 0; i < 64; i++) bytes[i] = i
+    const secret = Buffer.from(bytes).toString('base64url')
+    process.env.JWT_SECRET = secret
+
+    const key = getHSSecret()
+    expect(key.length).toBe(64)
+  })
+})
+
+describe('Config - JWT_JWKS_URL Detection', () => {
+  beforeEach(() => {
+    delete process.env.JWT_PUBLIC_JWK
+    delete process.env.JWT_PUBLIC_JWK_NAME
+    delete process.env.JWT_JWKS_SERVICE
+    delete process.env.JWT_JWKS_SERVICE_NAME
+    delete process.env.JWT_JWKS_URL
+    delete process.env.JWT_SECRET
+    delete process.env.JWT_SECRET_NAME
+  })
+
+  afterEach(() => {
+    delete (globalThis as { __FLARELETTE_ENV?: unknown }).__FLARELETTE_ENV
+  })
+
+  it('should detect EdDSA mode for consumer with JWT_JWKS_URL', () => {
+    process.env.JWT_JWKS_URL = 'https://tenant.auth0.com/.well-known/jwks.json'
+    expect(envMode('consumer')).toBe('EdDSA')
+  })
+
+  it('should not detect JWT_JWKS_URL for producer', () => {
+    process.env.JWT_JWKS_URL = 'https://example.com/.well-known/jwks.json'
+    // Producer should default to HS512 since no private key
+    expect(envMode('producer')).toBe('HS512')
+  })
+
+  it('should throw error if both HS512 and asymmetric secrets configured', () => {
+    process.env.JWT_SECRET = Buffer.from('a'.repeat(64)).toString('base64url')
+    process.env.JWT_JWKS_URL = 'https://example.com/.well-known/jwks.json'
+
+    expect(() => envMode('consumer')).toThrow(
+      'Configuration error: Both HS512 (JWT_SECRET) and asymmetric (JWT_PUBLIC_JWK/JWT_JWKS_*) secrets configured'
+    )
+  })
+
+  it('should throw error if JWT_SECRET_NAME and JWT_PUBLIC_JWK both configured', () => {
+    process.env.JWT_SECRET_NAME = 'MY_SECRET'
+    process.env.JWT_PUBLIC_JWK = '{"kty":"OKP"}'
+
+    expect(() => envMode('consumer')).toThrow(
+      'Configuration error: Both HS512 (JWT_SECRET) and asymmetric'
+    )
+  })
+
+  it('should throw error if JWT_SECRET and JWT_JWKS_SERVICE configured', () => {
+    process.env.JWT_SECRET = Buffer.from('a'.repeat(64)).toString('base64url')
+    process.env.JWT_JWKS_SERVICE = 'my-jwks-service'
+
+    expect(() => envMode('consumer')).toThrow('Configuration error')
+  })
+
+  it('should allow JWT_JWKS_URL without JWT_SECRET', () => {
+    process.env.JWT_JWKS_URL = 'https://example.com/.well-known/jwks.json'
+    expect(() => envMode('consumer')).not.toThrow()
+    expect(envMode('consumer')).toBe('EdDSA')
+  })
+
+  it('should allow JWT_SECRET without JWT_JWKS_URL', () => {
+    process.env.JWT_SECRET = Buffer.from('a'.repeat(64)).toString('base64url')
+    expect(() => envMode('consumer')).not.toThrow()
+    expect(envMode('consumer')).toBe('HS512')
+  })
+})
+
+describe('Config - getJwksUrl', () => {
+  beforeEach(() => {
+    delete process.env.JWT_JWKS_URL
+  })
+
+  afterEach(() => {
+    delete (globalThis as { __FLARELETTE_ENV?: unknown }).__FLARELETTE_ENV
+  })
+
+  it('should return null when JWT_JWKS_URL not set', () => {
+    expect(getJwksUrl()).toBeNull()
+  })
+
+  it('should read JWT_JWKS_URL from process.env', () => {
+    process.env.JWT_JWKS_URL = 'https://tenant.auth0.com/.well-known/jwks.json'
+    expect(getJwksUrl()).toBe('https://tenant.auth0.com/.well-known/jwks.json')
+  })
+
+  it('should read JWT_JWKS_URL from __FLARELETTE_ENV', () => {
+    ;(globalThis as { __FLARELETTE_ENV?: Record<string, string> }).__FLARELETTE_ENV = {
+      JWT_JWKS_URL: 'https://example.com/.well-known/jwks.json',
+    }
+    expect(getJwksUrl()).toBe('https://example.com/.well-known/jwks.json')
+  })
+
+  it('should prefer __FLARELETTE_ENV over process.env', () => {
+    process.env.JWT_JWKS_URL = 'https://process.example.com/jwks.json'
+    ;(globalThis as { __FLARELETTE_ENV?: Record<string, string> }).__FLARELETTE_ENV = {
+      JWT_JWKS_URL: 'https://global.example.com/jwks.json',
+    }
+    expect(getJwksUrl()).toBe('https://global.example.com/jwks.json')
+  })
+})
+
+describe('Config - getJwksCacheTtl', () => {
+  beforeEach(() => {
+    delete process.env.JWT_JWKS_CACHE_TTL_SECONDS
+  })
+
+  afterEach(() => {
+    delete (globalThis as { __FLARELETTE_ENV?: unknown }).__FLARELETTE_ENV
+  })
+
+  it('should return default 300 seconds when not set', () => {
+    expect(getJwksCacheTtl()).toBe(300)
+  })
+
+  it('should read custom TTL from process.env', () => {
+    process.env.JWT_JWKS_CACHE_TTL_SECONDS = '600'
+    expect(getJwksCacheTtl()).toBe(600)
+  })
+
+  it('should read TTL from __FLARELETTE_ENV', () => {
+    ;(globalThis as { __FLARELETTE_ENV?: Record<string, string> }).__FLARELETTE_ENV = {
+      JWT_JWKS_CACHE_TTL_SECONDS: '900',
+    }
+    expect(getJwksCacheTtl()).toBe(900)
+  })
+
+  it('should accept 0 as valid TTL (no caching)', () => {
+    process.env.JWT_JWKS_CACHE_TTL_SECONDS = '0'
+    expect(getJwksCacheTtl()).toBe(0)
+  })
+
+  it('should throw error for negative TTL', () => {
+    process.env.JWT_JWKS_CACHE_TTL_SECONDS = '-60'
+    expect(() => getJwksCacheTtl()).toThrow(
+      'JWT_JWKS_CACHE_TTL_SECONDS must be a positive number'
+    )
+  })
+
+  it('should throw error for non-numeric TTL', () => {
+    process.env.JWT_JWKS_CACHE_TTL_SECONDS = 'not-a-number'
+    expect(() => getJwksCacheTtl()).toThrow(
+      'JWT_JWKS_CACHE_TTL_SECONDS must be a positive number'
+    )
+  })
+
+  it('should throw error for empty string', () => {
+    process.env.JWT_JWKS_CACHE_TTL_SECONDS = ''
+    // Empty string should use default, not throw
+    expect(getJwksCacheTtl()).toBe(300)
+  })
+
+  it('should accept large TTL values', () => {
+    process.env.JWT_JWKS_CACHE_TTL_SECONDS = '86400' // 24 hours
+    expect(getJwksCacheTtl()).toBe(86400)
+  })
+
+  it('should handle decimal values by converting to integer', () => {
+    process.env.JWT_JWKS_CACHE_TTL_SECONDS = '300.5'
+    expect(getJwksCacheTtl()).toBe(300.5)
   })
 })

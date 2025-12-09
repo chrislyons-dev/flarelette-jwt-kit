@@ -110,7 +110,7 @@ Symmetric (shared secret) configuration:
 ```typescript
 interface HS512Config extends BaseJwtConfig {
   alg: 'HS512'
-  secret: Uint8Array // Minimum 32 bytes
+  secret: Uint8Array // Minimum 64 bytes (HS512 requirement)
 }
 ```
 
@@ -256,10 +256,10 @@ Create EdDSA verification configuration from public JWK.
 **Solution:** Create config objects directly:
 
 ```typescript
-// No .env files needed!
+// No .env files needed
 const devConfig = {
   alg: 'HS512' as const,
-  secret: new Uint8Array(32), // Simple dev secret
+  secret: new Uint8Array(64), // 64-byte dev secret
   iss: 'http://localhost:3000',
   aud: ['http://localhost:3001', 'http://localhost:3002'],
   ttlSeconds: 3600, // 1 hour
@@ -279,7 +279,7 @@ const token = await createTokenWithConfig({ sub: 'dev-user' }, devConfig)
 describe('JWT authentication', () => {
   const testConfig = {
     alg: 'HS512' as const,
-    secret: new Uint8Array(32),
+    secret: new Uint8Array(64),
     iss: 'test-issuer',
     aud: 'test-audience',
   }
@@ -341,7 +341,7 @@ const payload = await verify(token)
 ### Explicit Configuration API (New)
 
 ```typescript
-// No environment variables required!
+// No environment variables required
 import {
   signWithConfig,
   verifyWithConfig,
@@ -439,7 +439,7 @@ function createJwtConfig(env: 'dev' | 'prod'): HS512Config {
   if (env === 'dev') {
     return {
       alg: 'HS512',
-      secret: new Uint8Array(32), // Dev secret
+      secret: new Uint8Array(64), // 64-byte dev secret
       iss: 'http://localhost:3000',
       aud: 'http://localhost:3001',
       ttlSeconds: 3600,

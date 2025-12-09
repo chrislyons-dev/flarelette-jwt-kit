@@ -4,100 +4,100 @@ graph TB
   subgraph diagram ["flarelette-jwt-kit - flarelette-jwt - Components"]
     style diagram fill:#ffffff,stroke:#ffffff
 
-    subgraph 49 ["flarelette-jwt"]
-      style 49 fill:#ffffff,stroke:#2e6295,color:#2e6295
+    subgraph 60 ["flarelette-jwt"]
+      style 60 fill:#ffffff,stroke:#2e6295,color:#2e6295
 
-      100("<div style='font-weight: bold'>util.Builder.roles_all</div><div style='font-size: 70%; margin-top: 0px'>[Component: method]</div>")
+      100("<div style='font-weight: bold'>util.PolicyBuilder.base</div><div style='font-size: 70%; margin-top: 0px'>[Component: method]</div>")
       style 100 fill:#85bbf0,stroke:#5d82a8,color:#000000
-      101("<div style='font-weight: bold'>util.Builder.roles_any</div><div style='font-size: 70%; margin-top: 0px'>[Component: method]</div>")
+      101("<div style='font-weight: bold'>util.PolicyBuilder.need_all</div><div style='font-size: 70%; margin-top: 0px'>[Component: method]</div>")
       style 101 fill:#85bbf0,stroke:#5d82a8,color:#000000
-      102("<div style='font-weight: bold'>util.Builder.where</div><div style='font-size: 70%; margin-top: 0px'>[Component: method]</div>")
+      102("<div style='font-weight: bold'>util.PolicyBuilder.need_any</div><div style='font-size: 70%; margin-top: 0px'>[Component: method]</div>")
       style 102 fill:#85bbf0,stroke:#5d82a8,color:#000000
-      103("<div style='font-weight: bold'>util.Builder.build</div><div style='font-size: 70%; margin-top: 0px'>[Component: method]</div>")
+      103("<div style='font-weight: bold'>util.PolicyBuilder.roles_all</div><div style='font-size: 70%; margin-top: 0px'>[Component: method]</div>")
       style 103 fill:#85bbf0,stroke:#5d82a8,color:#000000
-      104("<div style='font-weight: bold'>util.create_token</div><div style='font-size: 70%; margin-top: 0px'>[Component: function]</div><div style='font-size: 80%; margin-top:10px'>Create a signed JWT token<br />with optional claims.</div>")
+      104("<div style='font-weight: bold'>util.PolicyBuilder.roles_any</div><div style='font-size: 70%; margin-top: 0px'>[Component: method]</div>")
       style 104 fill:#85bbf0,stroke:#5d82a8,color:#000000
-      105("<div style='font-weight: bold'>util.create_delegated_token</div><div style='font-size: 70%; margin-top: 0px'>[Component: function]</div><div style='font-size: 80%; margin-top:10px'>Create a delegated JWT token<br />following RFC 8693 actor<br />claim pattern.</div>")
+      105("<div style='font-weight: bold'>util.PolicyBuilder.where</div><div style='font-size: 70%; margin-top: 0px'>[Component: method]</div>")
       style 105 fill:#85bbf0,stroke:#5d82a8,color:#000000
-      106("<div style='font-weight: bold'>util.check_auth</div><div style='font-size: 70%; margin-top: 0px'>[Component: function]</div><div style='font-size: 80%; margin-top:10px'>Verify and authorize a JWT<br />token with policy<br />enforcement.</div>")
+      106("<div style='font-weight: bold'>util.PolicyBuilder.build</div><div style='font-size: 70%; margin-top: 0px'>[Component: method]</div>")
       style 106 fill:#85bbf0,stroke:#5d82a8,color:#000000
-      107("<div style='font-weight: bold'>util.policy</div><div style='font-size: 70%; margin-top: 0px'>[Component: function]</div><div style='font-size: 80%; margin-top:10px'>Fluent builder for creating<br />authorization policies.</div>")
+      107("<div style='font-weight: bold'>util.Builder</div><div style='font-size: 70%; margin-top: 0px'>[Component: class]</div>")
       style 107 fill:#85bbf0,stroke:#5d82a8,color:#000000
-      108("<div style='font-weight: bold'>util.generate_secret</div><div style='font-size: 70%; margin-top: 0px'>[Component: function]</div>")
+      108("<div style='font-weight: bold'>util.Builder.base</div><div style='font-size: 70%; margin-top: 0px'>[Component: method]</div>")
       style 108 fill:#85bbf0,stroke:#5d82a8,color:#000000
-      109("<div style='font-weight: bold'>util.is_valid_base64url_secret</div><div style='font-size: 70%; margin-top: 0px'>[Component: function]</div>")
+      109("<div style='font-weight: bold'>util.Builder.need_all</div><div style='font-size: 70%; margin-top: 0px'>[Component: method]</div>")
       style 109 fill:#85bbf0,stroke:#5d82a8,color:#000000
-      110("<div style='font-weight: bold'>util.main</div><div style='font-size: 70%; margin-top: 0px'>[Component: function]</div>")
+      110("<div style='font-weight: bold'>util.Builder.need_any</div><div style='font-size: 70%; margin-top: 0px'>[Component: method]</div>")
       style 110 fill:#85bbf0,stroke:#5d82a8,color:#000000
-      111("<div style='font-weight: bold'>util._b64url</div><div style='font-size: 70%; margin-top: 0px'>[Component: function]</div>")
+      111("<div style='font-weight: bold'>util.Builder.roles_all</div><div style='font-size: 70%; margin-top: 0px'>[Component: method]</div>")
       style 111 fill:#85bbf0,stroke:#5d82a8,color:#000000
-      112("<div style='font-weight: bold'>util.sign</div><div style='font-size: 70%; margin-top: 0px'>[Component: function]</div><div style='font-size: 80%; margin-top:10px'>Sign a JWT token with HS512<br />or EdDSA algorithm.</div>")
+      112("<div style='font-weight: bold'>util.Builder.roles_any</div><div style='font-size: 70%; margin-top: 0px'>[Component: method]</div>")
       style 112 fill:#85bbf0,stroke:#5d82a8,color:#000000
-      113("<div style='font-weight: bold'>util.ParsedJwt</div><div style='font-size: 70%; margin-top: 0px'>[Component: class]</div><div style='font-size: 80%; margin-top:10px'>Parsed JWT token structure.</div>")
+      113("<div style='font-weight: bold'>util.Builder.where</div><div style='font-size: 70%; margin-top: 0px'>[Component: method]</div>")
       style 113 fill:#85bbf0,stroke:#5d82a8,color:#000000
-      114("<div style='font-weight: bold'>util.parse</div><div style='font-size: 70%; margin-top: 0px'>[Component: function]</div><div style='font-size: 80%; margin-top:10px'>Parse a JWT token into header<br />and payload without<br />verification.</div>")
+      114("<div style='font-weight: bold'>util.Builder.build</div><div style='font-size: 70%; margin-top: 0px'>[Component: method]</div>")
       style 114 fill:#85bbf0,stroke:#5d82a8,color:#000000
-      115("<div style='font-weight: bold'>util.is_expiring_soon</div><div style='font-size: 70%; margin-top: 0px'>[Component: function]</div><div style='font-size: 80%; margin-top:10px'>Check if JWT payload will<br />expire within specified<br />seconds.</div>")
+      115("<div style='font-weight: bold'>util.create_token</div><div style='font-size: 70%; margin-top: 0px'>[Component: function]</div><div style='font-size: 80%; margin-top:10px'>Create a signed JWT token<br />with optional claims.</div>")
       style 115 fill:#85bbf0,stroke:#5d82a8,color:#000000
-      116("<div style='font-weight: bold'>util.map_scopes_to_permissions</div><div style='font-size: 70%; margin-top: 0px'>[Component: function]</div><div style='font-size: 80%; margin-top:10px'>Map OAuth scopes to<br />permission strings.</div>")
+      116("<div style='font-weight: bold'>util.create_delegated_token</div><div style='font-size: 70%; margin-top: 0px'>[Component: function]</div><div style='font-size: 80%; margin-top:10px'>Create a delegated JWT token<br />following RFC 8693 actor<br />claim pattern.</div>")
       style 116 fill:#85bbf0,stroke:#5d82a8,color:#000000
-      117("<div style='font-weight: bold'>util._b64url_decode</div><div style='font-size: 70%; margin-top: 0px'>[Component: function]</div>")
+      117("<div style='font-weight: bold'>util.check_auth</div><div style='font-size: 70%; margin-top: 0px'>[Component: function]</div><div style='font-size: 80%; margin-top:10px'>Verify and authorize a JWT<br />token with policy<br />enforcement.</div>")
       style 117 fill:#85bbf0,stroke:#5d82a8,color:#000000
-      118("<div style='font-weight: bold'>util.verify</div><div style='font-size: 70%; margin-top: 0px'>[Component: function]</div><div style='font-size: 80%; margin-top:10px'>Verify a JWT token with HS512<br />or EdDSA algorithm.</div>")
+      118("<div style='font-weight: bold'>util.policy</div><div style='font-size: 70%; margin-top: 0px'>[Component: function]</div><div style='font-size: 80%; margin-top:10px'>Fluent builder for creating<br />authorization policies.</div>")
       style 118 fill:#85bbf0,stroke:#5d82a8,color:#000000
-      55("<div style='font-weight: bold'>util.JwtHeader</div><div style='font-size: 70%; margin-top: 0px'>[Component: class]</div><div style='font-size: 80%; margin-top:10px'>JWT token header structure.</div>")
-      style 55 fill:#85bbf0,stroke:#5d82a8,color:#000000
-      56("<div style='font-weight: bold'>util.ActorClaim</div><div style='font-size: 70%; margin-top: 0px'>[Component: class]</div><div style='font-size: 80%; margin-top:10px'>Actor claim for service<br />delegation (RFC 8693).</div>")
-      style 56 fill:#85bbf0,stroke:#5d82a8,color:#000000
-      57("<div style='font-weight: bold'>util.JwtPayload</div><div style='font-size: 70%; margin-top: 0px'>[Component: class]</div><div style='font-size: 80%; margin-top:10px'>JWT token payload/claims<br />structure.</div>")
-      style 57 fill:#85bbf0,stroke:#5d82a8,color:#000000
-      58("<div style='font-weight: bold'>util.JwtProfile</div><div style='font-size: 70%; margin-top: 0px'>[Component: class]</div><div style='font-size: 80%; margin-top:10px'>JWT Profile structure<br />matching<br />flarelette-jwt.profile.schema.json.</div>")
-      style 58 fill:#85bbf0,stroke:#5d82a8,color:#000000
-      59("<div style='font-weight: bold'>util.JwtCommonConfig</div><div style='font-size: 70%; margin-top: 0px'>[Component: class]</div><div style='font-size: 80%; margin-top:10px'>Common JWT configuration from<br />environment variables.</div>")
-      style 59 fill:#85bbf0,stroke:#5d82a8,color:#000000
-      60("<div style='font-weight: bold'>util.mode</div><div style='font-size: 70%; margin-top: 0px'>[Component: function]</div><div style='font-size: 80%; margin-top:10px'>Detect JWT algorithm mode<br />from environment variables<br />based on role.</div>")
-      style 60 fill:#85bbf0,stroke:#5d82a8,color:#000000
-      61("<div style='font-weight: bold'>util.common</div><div style='font-size: 70%; margin-top: 0px'>[Component: function]</div><div style='font-size: 80%; margin-top:10px'>Get common JWT configuration<br />from environment.</div>")
-      style 61 fill:#85bbf0,stroke:#5d82a8,color:#000000
-      62("<div style='font-weight: bold'>util.profile</div><div style='font-size: 70%; margin-top: 0px'>[Component: function]</div><div style='font-size: 80%; margin-top:10px'>Get JWT profile from<br />environment.</div>")
-      style 62 fill:#85bbf0,stroke:#5d82a8,color:#000000
-      63("<div style='font-weight: bold'>util._get_indirect</div><div style='font-size: 70%; margin-top: 0px'>[Component: function]</div>")
-      style 63 fill:#85bbf0,stroke:#5d82a8,color:#000000
-      64("<div style='font-weight: bold'>util.get_hs_secret_bytes</div><div style='font-size: 70%; margin-top: 0px'>[Component: function]</div>")
-      style 64 fill:#85bbf0,stroke:#5d82a8,color:#000000
-      65("<div style='font-weight: bold'>util.get_public_jwk_string</div><div style='font-size: 70%; margin-top: 0px'>[Component: function]</div>")
-      style 65 fill:#85bbf0,stroke:#5d82a8,color:#000000
-      66("<div style='font-weight: bold'>util.AlgType</div><div style='font-size: 70%; margin-top: 0px'>[Component: type]</div>")
+      119("<div style='font-weight: bold'>util.generate_secret</div><div style='font-size: 70%; margin-top: 0px'>[Component: function]</div>")
+      style 119 fill:#85bbf0,stroke:#5d82a8,color:#000000
+      120("<div style='font-weight: bold'>util.is_valid_base64url_secret</div><div style='font-size: 70%; margin-top: 0px'>[Component: function]</div>")
+      style 120 fill:#85bbf0,stroke:#5d82a8,color:#000000
+      121("<div style='font-weight: bold'>util.main</div><div style='font-size: 70%; margin-top: 0px'>[Component: function]</div>")
+      style 121 fill:#85bbf0,stroke:#5d82a8,color:#000000
+      122("<div style='font-weight: bold'>util._b64url</div><div style='font-size: 70%; margin-top: 0px'>[Component: function]</div>")
+      style 122 fill:#85bbf0,stroke:#5d82a8,color:#000000
+      123("<div style='font-weight: bold'>util.sign</div><div style='font-size: 70%; margin-top: 0px'>[Component: function]</div><div style='font-size: 80%; margin-top:10px'>Sign a JWT token with HS512<br />or EdDSA algorithm.</div>")
+      style 123 fill:#85bbf0,stroke:#5d82a8,color:#000000
+      124("<div style='font-weight: bold'>util.ParsedJwt</div><div style='font-size: 70%; margin-top: 0px'>[Component: class]</div><div style='font-size: 80%; margin-top:10px'>Parsed JWT token structure.</div>")
+      style 124 fill:#85bbf0,stroke:#5d82a8,color:#000000
+      125("<div style='font-weight: bold'>util.parse</div><div style='font-size: 70%; margin-top: 0px'>[Component: function]</div><div style='font-size: 80%; margin-top:10px'>Parse a JWT token into header<br />and payload without<br />verification.</div>")
+      style 125 fill:#85bbf0,stroke:#5d82a8,color:#000000
+      126("<div style='font-weight: bold'>util.is_expiring_soon</div><div style='font-size: 70%; margin-top: 0px'>[Component: function]</div><div style='font-size: 80%; margin-top:10px'>Check if JWT payload will<br />expire within specified<br />seconds.</div>")
+      style 126 fill:#85bbf0,stroke:#5d82a8,color:#000000
+      127("<div style='font-weight: bold'>util.map_scopes_to_permissions</div><div style='font-size: 70%; margin-top: 0px'>[Component: function]</div><div style='font-size: 80%; margin-top:10px'>Map OAuth scopes to<br />permission strings.</div>")
+      style 127 fill:#85bbf0,stroke:#5d82a8,color:#000000
+      128("<div style='font-weight: bold'>util._b64url_decode</div><div style='font-size: 70%; margin-top: 0px'>[Component: function]</div>")
+      style 128 fill:#85bbf0,stroke:#5d82a8,color:#000000
+      129("<div style='font-weight: bold'>util.verify</div><div style='font-size: 70%; margin-top: 0px'>[Component: function]</div><div style='font-size: 80%; margin-top:10px'>Verify a JWT token with HS512<br />or EdDSA algorithm.</div>")
+      style 129 fill:#85bbf0,stroke:#5d82a8,color:#000000
+      66("<div style='font-weight: bold'>util.JwtHeader</div><div style='font-size: 70%; margin-top: 0px'>[Component: class]</div><div style='font-size: 80%; margin-top:10px'>JWT token header structure.</div>")
       style 66 fill:#85bbf0,stroke:#5d82a8,color:#000000
-      67("<div style='font-weight: bold'>util.JwtValue</div><div style='font-size: 70%; margin-top: 0px'>[Component: type]</div>")
+      67("<div style='font-weight: bold'>util.ActorClaim</div><div style='font-size: 70%; margin-top: 0px'>[Component: class]</div><div style='font-size: 80%; margin-top:10px'>Actor claim for service<br />delegation (RFC 8693).</div>")
       style 67 fill:#85bbf0,stroke:#5d82a8,color:#000000
-      68("<div style='font-weight: bold'>util.ClaimsDict</div><div style='font-size: 70%; margin-top: 0px'>[Component: type]</div>")
+      68("<div style='font-weight: bold'>util.JwtPayload</div><div style='font-size: 70%; margin-top: 0px'>[Component: class]</div><div style='font-size: 80%; margin-top:10px'>JWT token payload/claims<br />structure.</div>")
       style 68 fill:#85bbf0,stroke:#5d82a8,color:#000000
-      87("<div style='font-weight: bold'>util.AuthUser</div><div style='font-size: 70%; margin-top: 0px'>[Component: class]</div><div style='font-size: 80%; margin-top:10px'>Authenticated user<br />information returned by<br />check_auth.</div>")
-      style 87 fill:#85bbf0,stroke:#5d82a8,color:#000000
-      88("<div style='font-weight: bold'>util.PolicyBuilder</div><div style='font-size: 70%; margin-top: 0px'>[Component: class]</div><div style='font-size: 80%; margin-top:10px'>Builder interface for<br />creating JWT authorization<br />policies.</div>")
-      style 88 fill:#85bbf0,stroke:#5d82a8,color:#000000
-      89("<div style='font-weight: bold'>util.PolicyBuilder.base</div><div style='font-size: 70%; margin-top: 0px'>[Component: method]</div>")
-      style 89 fill:#85bbf0,stroke:#5d82a8,color:#000000
-      90("<div style='font-weight: bold'>util.PolicyBuilder.need_all</div><div style='font-size: 70%; margin-top: 0px'>[Component: method]</div>")
-      style 90 fill:#85bbf0,stroke:#5d82a8,color:#000000
-      91("<div style='font-weight: bold'>util.PolicyBuilder.need_any</div><div style='font-size: 70%; margin-top: 0px'>[Component: method]</div>")
-      style 91 fill:#85bbf0,stroke:#5d82a8,color:#000000
-      92("<div style='font-weight: bold'>util.PolicyBuilder.roles_all</div><div style='font-size: 70%; margin-top: 0px'>[Component: method]</div>")
-      style 92 fill:#85bbf0,stroke:#5d82a8,color:#000000
-      93("<div style='font-weight: bold'>util.PolicyBuilder.roles_any</div><div style='font-size: 70%; margin-top: 0px'>[Component: method]</div>")
-      style 93 fill:#85bbf0,stroke:#5d82a8,color:#000000
-      94("<div style='font-weight: bold'>util.PolicyBuilder.where</div><div style='font-size: 70%; margin-top: 0px'>[Component: method]</div>")
-      style 94 fill:#85bbf0,stroke:#5d82a8,color:#000000
-      95("<div style='font-weight: bold'>util.PolicyBuilder.build</div><div style='font-size: 70%; margin-top: 0px'>[Component: method]</div>")
-      style 95 fill:#85bbf0,stroke:#5d82a8,color:#000000
-      96("<div style='font-weight: bold'>util.Builder</div><div style='font-size: 70%; margin-top: 0px'>[Component: class]</div>")
-      style 96 fill:#85bbf0,stroke:#5d82a8,color:#000000
-      97("<div style='font-weight: bold'>util.Builder.base</div><div style='font-size: 70%; margin-top: 0px'>[Component: method]</div>")
-      style 97 fill:#85bbf0,stroke:#5d82a8,color:#000000
-      98("<div style='font-weight: bold'>util.Builder.need_all</div><div style='font-size: 70%; margin-top: 0px'>[Component: method]</div>")
+      69("<div style='font-weight: bold'>util.JwtProfile</div><div style='font-size: 70%; margin-top: 0px'>[Component: class]</div><div style='font-size: 80%; margin-top:10px'>JWT Profile structure<br />matching<br />flarelette-jwt.profile.schema.json.</div>")
+      style 69 fill:#85bbf0,stroke:#5d82a8,color:#000000
+      70("<div style='font-weight: bold'>util.JwtCommonConfig</div><div style='font-size: 70%; margin-top: 0px'>[Component: class]</div><div style='font-size: 80%; margin-top:10px'>Common JWT configuration from<br />environment variables.</div>")
+      style 70 fill:#85bbf0,stroke:#5d82a8,color:#000000
+      71("<div style='font-weight: bold'>util.mode</div><div style='font-size: 70%; margin-top: 0px'>[Component: function]</div><div style='font-size: 80%; margin-top:10px'>Detect JWT algorithm mode<br />from environment variables<br />based on role.</div>")
+      style 71 fill:#85bbf0,stroke:#5d82a8,color:#000000
+      72("<div style='font-weight: bold'>util.common</div><div style='font-size: 70%; margin-top: 0px'>[Component: function]</div><div style='font-size: 80%; margin-top:10px'>Get common JWT configuration<br />from environment.</div>")
+      style 72 fill:#85bbf0,stroke:#5d82a8,color:#000000
+      73("<div style='font-weight: bold'>util.profile</div><div style='font-size: 70%; margin-top: 0px'>[Component: function]</div><div style='font-size: 80%; margin-top:10px'>Get JWT profile from<br />environment.</div>")
+      style 73 fill:#85bbf0,stroke:#5d82a8,color:#000000
+      74("<div style='font-weight: bold'>util._get_indirect</div><div style='font-size: 70%; margin-top: 0px'>[Component: function]</div>")
+      style 74 fill:#85bbf0,stroke:#5d82a8,color:#000000
+      75("<div style='font-weight: bold'>util.get_hs_secret_bytes</div><div style='font-size: 70%; margin-top: 0px'>[Component: function]</div>")
+      style 75 fill:#85bbf0,stroke:#5d82a8,color:#000000
+      76("<div style='font-weight: bold'>util.get_public_jwk_string</div><div style='font-size: 70%; margin-top: 0px'>[Component: function]</div>")
+      style 76 fill:#85bbf0,stroke:#5d82a8,color:#000000
+      77("<div style='font-weight: bold'>util.AlgType</div><div style='font-size: 70%; margin-top: 0px'>[Component: type]</div>")
+      style 77 fill:#85bbf0,stroke:#5d82a8,color:#000000
+      78("<div style='font-weight: bold'>util.JwtValue</div><div style='font-size: 70%; margin-top: 0px'>[Component: type]</div>")
+      style 78 fill:#85bbf0,stroke:#5d82a8,color:#000000
+      79("<div style='font-weight: bold'>util.ClaimsDict</div><div style='font-size: 70%; margin-top: 0px'>[Component: type]</div>")
+      style 79 fill:#85bbf0,stroke:#5d82a8,color:#000000
+      98("<div style='font-weight: bold'>util.AuthUser</div><div style='font-size: 70%; margin-top: 0px'>[Component: class]</div><div style='font-size: 80%; margin-top:10px'>Authenticated user<br />information returned by<br />check_auth.</div>")
       style 98 fill:#85bbf0,stroke:#5d82a8,color:#000000
-      99("<div style='font-weight: bold'>util.Builder.need_any</div><div style='font-size: 70%; margin-top: 0px'>[Component: method]</div>")
+      99("<div style='font-weight: bold'>util.PolicyBuilder</div><div style='font-size: 70%; margin-top: 0px'>[Component: class]</div><div style='font-size: 80%; margin-top:10px'>Builder interface for<br />creating JWT authorization<br />policies.</div>")
       style 99 fill:#85bbf0,stroke:#5d82a8,color:#000000
     end
 

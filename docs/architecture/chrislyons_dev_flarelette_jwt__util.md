@@ -22,10 +22,7 @@
 </tr>
 <tr>
 <td><strong>Description</strong></td>
-<td>High-level JWT utilities for creating, delegating, verifying, and authorizing JWT tokens | JSON Web Key Set (JWKS) utilities.
-
-This module provides functions to fetch and manage JWKS, including caching and key lookup by key ID (kid).
-It supports integration with external JWKS services. | Key generation utility for EdDSA keys.
+<td>High-level JWT utilities for creating, delegating, verifying, and authorizing JWT tokens | Key generation utility for EdDSA keys.
 
 This script generates EdDSA key pairs and exports them in JWK format.
 It is designed to be executed as a standalone Node.js script. | Secret generation and validation utilities.
@@ -34,10 +31,7 @@ This module provides functions to generate secure secrets and validate base64url
 It ensures compatibility with JWT signing requirements. | Utility functions for JWT operations.
 
 This module provides helper functions for parsing JWTs, checking expiration, and mapping OAuth scopes.
-It is designed to support core JWT functionalities. | JWT verification utilities.
-
-This module provides functions to verify JWT tokens using either HS512 or EdDSA algorithms.
-It supports integration with JWKS services and thumbprint pinning.</td>
+It is designed to support core JWT functionalities.</td>
 </tr>
 </tbody>
 </table>
@@ -53,7 +47,7 @@ It supports integration with JWKS services and thumbprint pinning.</td>
 ### Code Elements
 
 <details>
-<summary><strong>15 code element(s)</strong></summary>
+<summary><strong>10 code element(s)</strong></summary>
 
 
 
@@ -194,131 +188,6 @@ Fluent builder for creating authorization policies
 <tr>
 <td><strong>Location</strong></td>
 <td><code>C:/Users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/src/high.ts:177</code></td>
-</tr>
-</tbody>
-</table>
-
-
-
----
-##### `clearJwksCache()`
-
-Clear the JWKS cache (for testing purposes)
-
-<table>
-<tbody>
-<tr>
-<td><strong>Type</strong></td>
-<td><code>function</code></td>
-</tr>
-<tr>
-<td><strong>Visibility</strong></td>
-<td><code>public</code></td>
-</tr>
-<tr>
-<td><strong>Returns</strong></td>
-<td><code>void</code></td>
-</tr>
-<tr>
-<td><strong>Location</strong></td>
-<td><code>C:/Users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/src/jwks.ts:37</code></td>
-</tr>
-</tbody>
-</table>
-
-
-
----
-##### `fetchJwksFromService()`
-
-Fetch JWKS from a service binding
-Implements 5-minute caching to reduce load on JWKS service
-
-<table>
-<tbody>
-<tr>
-<td><strong>Type</strong></td>
-<td><code>function</code></td>
-</tr>
-<tr>
-<td><strong>Visibility</strong></td>
-<td><code>public</code></td>
-</tr>
-<tr>
-<td><strong>Async</strong></td>
-<td>Yes</td>
-</tr>
-<tr>
-<td><strong>Returns</strong></td>
-<td><code>Promise<JWKWithKid[]></code></td>
-</tr>
-<tr>
-<td><strong>Location</strong></td>
-<td><code>C:/Users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/src/jwks.ts:45</code></td>
-</tr>
-</tbody>
-</table>
-
-**Parameters:**
-
-- `service`: <code>import("C:/Users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/src/types").Fetcher</code>
-
----
-##### `getKeyFromJwks()`
-
-Find and import a specific key from JWKS by kid
-
-<table>
-<tbody>
-<tr>
-<td><strong>Type</strong></td>
-<td><code>function</code></td>
-</tr>
-<tr>
-<td><strong>Visibility</strong></td>
-<td><code>public</code></td>
-</tr>
-<tr>
-<td><strong>Async</strong></td>
-<td>Yes</td>
-</tr>
-<tr>
-<td><strong>Returns</strong></td>
-<td><code>Promise<Uint8Array<ArrayBufferLike> | CryptoKey></code></td>
-</tr>
-<tr>
-<td><strong>Location</strong></td>
-<td><code>C:/Users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/src/jwks.ts:75</code></td>
-</tr>
-</tbody>
-</table>
-
-**Parameters:**
-
-- `kid`: <code>string</code>- `jwks`: <code>JWKWithKid[]</code>
-
----
-##### `allowedThumbprints()`
-
-Get allowed thumbprints for key pinning (optional security measure)
-
-<table>
-<tbody>
-<tr>
-<td><strong>Type</strong></td>
-<td><code>function</code></td>
-</tr>
-<tr>
-<td><strong>Visibility</strong></td>
-<td><code>public</code></td>
-</tr>
-<tr>
-<td><strong>Returns</strong></td>
-<td><code>Set<string></code></td>
-</tr>
-<tr>
-<td><strong>Location</strong></td>
-<td><code>C:/Users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/src/jwks.ts:104</code></td>
 </tr>
 </tbody>
 </table>
@@ -503,40 +372,6 @@ Map OAuth scopes to permission strings
 **Parameters:**
 
 - `scopes`: <code>string[]</code> — - List of OAuth scope strings
-
----
-##### `verify()`
-
-Verify a JWT token with HS512 or EdDSA algorithm
-
-<table>
-<tbody>
-<tr>
-<td><strong>Type</strong></td>
-<td><code>function</code></td>
-</tr>
-<tr>
-<td><strong>Visibility</strong></td>
-<td><code>public</code></td>
-</tr>
-<tr>
-<td><strong>Async</strong></td>
-<td>Yes</td>
-</tr>
-<tr>
-<td><strong>Returns</strong></td>
-<td><code>Promise<import("C:/Users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/src/types").JwtPayload></code> — Decoded payload if valid, null otherwise</td>
-</tr>
-<tr>
-<td><strong>Location</strong></td>
-<td><code>C:/Users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/src/verify.ts:28</code></td>
-</tr>
-</tbody>
-</table>
-
-**Parameters:**
-
-- `token`: <code>string</code> — - JWT token string to verify- `opts`: <code>Partial<{ iss: string; aud: string | string[]; leeway: number; jwksService: import("C:/Users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/src/types").Fetcher; }></code> — - Optional overrides for iss, aud, leeway, and jwksService
 
 ---
 

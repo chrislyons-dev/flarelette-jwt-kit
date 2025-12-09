@@ -1,10 +1,152 @@
 # Security Guide
 
-Comprehensive security baseline for Flarelette JWT Kit across HS512 and EdDSA profiles.
+Comprehensive security baseline for Flarelette JWT Kit across HS512, EdDSA, and RSA profiles.
+
+## Trust Model: Why This Library Is Secure
+
+Flarelette JWT Kit is designed from the ground up to prevent the most common JWT vulnerabilities. This section explains **exactly how** we mitigate historic attacks.
+
+### Protection Against Historic JWT Vulnerabilities
+
+#### 1. Algorithm Confusion Attacks (CVE-2015-2951: `alg: none`)
+
+**Vulnerability:** Attacker sets `alg: "none"` in token header, library accepts unsigned tokens.
+
+**Our Protection:**
+
+- **Mode determined by server configuration only** — Verification mode (HS512 vs EdDSA/RSA) is chosen exclusively from server environment variables, never from the token header
+- **Strict algorithm whitelists** — Each mode has an explicit whitelist of allowed algorithms:
+  - HS512 mode: `['HS512']` only
+  - EdDSA/RSA mode: `['EdDSA', 'RS256', 'RS384', 'RS512']` only
+- **No `none` algorithm support** — The `none` algorithm is never included in any whitelist
+- **Token `alg` treated as untrusted input** — The `alg` header must match the allowed algorithms for the selected mode. Mismatches are rejected.
+
+**Code location:** `src/verify.ts:145-152` (verification with explicit algorithm whitelist)
+
+#### 2. Algorithm Substitution (CVE-2015-9235: RS256 Public Key as HMAC Secret)
+
+**Vulnerability:** Attacker obtains RSA public key, creates HMAC-signed token, library verifies using public key as HMAC secret.
+
+**Our Protection:**
+
+- **Symmetric and asymmetric keys never shared** — HS512 and EdDSA/RSA use completely separate code paths
+- **Configuration conflict detection** — Throws error if both `JWT_SECRET` (HS512) and `JWT_PUBLIC_JWK`/`JWT_JWKS_*` (asymmetric) are configured
+- **Separate verification strategies** — Key resolution uses strategy pattern with no code path allowing symmetric key to be used for asymmetric verification
+
+**Code location:** `src/config.ts:36-51` (mode conflict detection)
+
+```typescript
+// SECURITY: Detect conflicting configuration
+if (hasHS512 && hasAsymmetric) {
+  throw new Error(
+    'Configuration error: Both HS512 (JWT_SECRET) and asymmetric (JWT_PUBLIC_JWK/JWT_JWKS_*) secrets configured. Choose one to prevent algorithm confusion attacks.'
+  )
+}
+```
+
+#### 3. JWKS Injection Attacks
+
+**Vulnerability:** Token includes `jku` (JWKS URL) or `x5u` (X.509 URL) header, attacker points to malicious key server.
+
+**Our Protection:**
+
+- **JWKS URL pinned in server configuration** — `JWT_JWKS_URL` is set in environment variables, never read from token headers
+- **No `jku`/`x5u` header support** — These headers are completely ignored by the library
+- **Service binding JWKS** — For Cloudflare Workers, JWKS is fetched via direct Worker-to-Worker RPC (no external URLs)
+
+**Code location:** `src/verify.ts:102-114` (HTTP JWKS with config-only URL)
+
+#### 4. Key ID (`kid`) Injection Attacks
+
+**Vulnerability:** Attacker manipulates `kid` header to perform SQL injection, path traversal, or SSRF.
+
+**Our Protection:**
+
+- **`kid` treated as pure lookup key** — Used only for array/map lookups, never interpolated into SQL, file paths, or URLs
+- **JWKS array searched by equality** — `kid` compared using strict equality (`===`), no string concatenation or interpolation
+
+**Code location:** `src/jwks.ts:219` (kid lookup with strict equality)
+
+```typescript
+const jwk = jwks.find(k => k.kid === kid) // Safe: no interpolation
+```
+
+#### 5. Weak HS512 Secrets
+
+**Vulnerability:** Short HMAC secrets vulnerable to brute force attacks.
+
+**Our Protection:**
+
+- **64-byte minimum enforced** — HS512 requires exactly 64 bytes (512 bits), matching SHA-512 digest size
+- **Fail-fast on short secrets** — Configuration with secrets < 64 bytes throws explicit error with remediation instructions
+- **CLI tool for secure generation** — `npx flarelette-jwt-secret --len=64` generates cryptographically random secrets
+
+**Code location:** `src/config.ts:104-109`, `src/explicit.ts:139-142`
+
+```typescript
+// SECURITY: HS512 requires 64-byte minimum (SHA-512 digest size)
+if (buf.length < 64) {
+  throw new Error(
+    `JWT secret too short: ${buf.length} bytes, need >= 64 for HS512 (use 'npx flarelette-jwt-secret --len=64')`
+  )
+}
+```
+
+#### 6. Mode Confusion Within Library
+
+**Vulnerability:** Library allows both HS512 and asymmetric configuration simultaneously, creating unpredictable behavior.
+
+**Our Protection:**
+
+- **Single-mode enforcement** — Configuration error thrown if both symmetric and asymmetric secrets detected
+- **Explicit mode detection** — Mode determined once at startup based on environment variables
+
+**Code location:** `src/config.ts:47-51`
+
+### Algorithm Pinning at Key Import
+
+When importing JWKs, the expected algorithm is provided explicitly to the `jose` library:
+
+```typescript
+// Inline JWK import with explicit algorithm
+const key = await importJWK(jwk, 'EdDSA') // Algorithm pinned at import time
+```
+
+This ensures keys cannot be repurposed for other algorithms, even within the same key family (e.g., cannot use Ed25519 key for RS256).
+
+**Code location:** `src/verify.ts:73`
+
+### Fail-Silent Pattern with Observability
+
+**Pattern:** All verification failures return `null` to callers (never throw exceptions).
+
+**Rationale:**
+
+- Simplifies error handling in HTTP request handlers
+- Prevents information leakage via error messages
+- Consistent interface for all failure modes
+
+**Observability:** While the library returns `null` for all failures, **applications should log verification failures** with structured metadata:
+
+```typescript
+const payload = await verify(token)
+if (!payload) {
+  // Log failure with context (but not the token itself)
+  console.warn({
+    event: 'jwt_verification_failed',
+    iss: config.iss, // Expected issuer
+    aud: config.aud, // Expected audience
+    // DO NOT log the actual token
+  })
+  return new Response('Unauthorized', { status: 401 })
+}
+```
+
+**Recommendation:** Track verification failure rates in metrics/APM for anomaly detection.
 
 ## Cryptographic Profiles
 
-The kit supports exactly two JWT algorithms by design. Each has specific security properties and use cases.
+The kit supports three JWT algorithm profiles by design. Each has specific security properties and use cases.
 
 ### HS512 (Symmetric)
 
@@ -574,6 +716,7 @@ Before deploying to production:
 - [ ] HS512 or EdDSA explicitly enforced (not both in same environment)
 - [ ] Secrets stored as Cloudflare bindings (`*_NAME` pattern)
 - [ ] TTL ≤ 15 minutes; leeway ≤ 90 seconds
+- [ ] `JWT_AUD` is specific per service (no wildcard audiences) — prevents token reuse between services
 - [ ] No tokens in logs, URLs, or version control
 - [ ] Minimal claims principle applied (no PII unless necessary)
 - [ ] Rotation policy documented and tested (both HS512 and EdDSA)

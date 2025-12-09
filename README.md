@@ -123,12 +123,33 @@ if payload:
 
 ## Key Features
 
-- **Algorithm auto-detection** — Chooses HS512 or EdDSA based on environment variables
+- **Algorithm auto-detection** — Chooses HS512, EdDSA, or RSA based on environment variables
+- **HTTP JWKS for OIDC** — Verify tokens from Auth0, Okta, Google, Azure AD, and Cloudflare Access (TypeScript)
 - **Secret-name indirection** — References Cloudflare secret bindings instead of raw values
 - **Identical TypeScript + Python APIs** — Same function names and behavior across languages
 - **Service bindings for JWKS** — Direct Worker-to-Worker RPC for key distribution
 - **Zero-trust delegation** — RFC 8693 actor claims for service-to-service authentication
 - **Policy-based authorization** — Fluent API for composing permission and role requirements
+- **Explicit configuration API** — Test without environment variables using config objects
+
+## Security
+
+Flarelette JWT Kit is designed to prevent common JWT vulnerabilities:
+
+- **No algorithm confusion** — Mode determined by server configuration only, never from token headers. Strict algorithm whitelists per mode.
+- **No RS↔HS attacks** — Symmetric and asymmetric keys never shared. Configuration error thrown if both HS512 and EdDSA/RSA secrets configured.
+- **No JWKS injection** — JWKS URLs pinned in configuration, `jku`/`x5u` headers ignored.
+- **Strong secrets enforced** — 64-byte minimum for HS512 (512 bits), matching SHA-512 digest size.
+- **Algorithm pinning at import** — Keys imported with explicit algorithm specification, preventing repurposing.
+
+**Mode selection is driven exclusively by server environment variables:**
+
+- HS512 mode: `algorithms: ['HS512']` only
+- EdDSA/RSA mode: `algorithms: ['EdDSA', 'RS256', 'RS384', 'RS512']` only
+
+The `alg` header is treated as untrusted input and must match the allowed algorithms for the selected mode. Mismatches are rejected.
+
+**For complete security documentation**, see [docs/security-guide.md](./docs/security-guide.md).
 
 ## Configuration
 
@@ -161,6 +182,59 @@ JWT_PUBLIC_JWK_NAME=GATEWAY_PUBLIC_KEY
 # OR for key rotation:
 JWT_JWKS_SERVICE_NAME=GATEWAY_BINDING
 ```
+
+**HTTP JWKS mode** (external OIDC providers - TypeScript only):
+
+Verify tokens from Auth0, Okta, Google, Azure AD, and other OIDC providers:
+
+```bash
+# Environment-based configuration:
+JWT_ISS=https://tenant.auth0.com/
+JWT_AUD=your-client-id
+JWT_JWKS_URL=https://tenant.auth0.com/.well-known/jwks.json
+JWT_JWKS_CACHE_TTL_SECONDS=300  # Optional: cache duration (default: 5 minutes)
+```
+
+**Explicit configuration (no environment setup):**
+
+```typescript
+import {
+  verifyWithConfig,
+  createJWKSUrlVerifyConfig,
+} from '@chrislyons-dev/flarelette-jwt'
+
+const config = createJWKSUrlVerifyConfig(
+  'https://tenant.auth0.com/.well-known/jwks.json',
+  {
+    iss: 'https://tenant.auth0.com/',
+    aud: 'your-client-id',
+  },
+  300 // cacheTtl in seconds
+)
+
+const payload = await verifyWithConfig(token, config)
+```
+
+**Supported OIDC providers:**
+
+- **Auth0:** `https://tenant.auth0.com/.well-known/jwks.json`
+- **Okta:** `https://domain.okta.com/oauth2/default/v1/keys`
+- **Google:** `https://www.googleapis.com/oauth2/v3/certs`
+- **Azure AD:** `https://login.microsoftonline.com/tenant-id/discovery/v2.0/keys`
+- **Cloudflare Access:** `https://team.cloudflareaccess.com/cdn-cgi/access/certs`
+
+> **Note:** HTTP JWKS is TypeScript-only. Python support pending Cloudflare runtime improvements.
+
+### Verification Key Resolution Priority
+
+When verifying tokens, the library uses the first available key source in this order:
+
+1. **HS512 shared secret** — `JWT_SECRET` or `JWT_SECRET_NAME`
+2. **Inline public JWK** — `JWT_PUBLIC_JWK` or `JWT_PUBLIC_JWK_NAME`
+3. **Service binding JWKS** — `JWT_JWKS_SERVICE` or `JWT_JWKS_SERVICE_NAME` (TypeScript only)
+4. **HTTP JWKS URL** — `JWT_JWKS_URL` (TypeScript only)
+
+**Security note:** The library prevents mode confusion by rejecting configurations that mix symmetric (HS512) and asymmetric (EdDSA/RSA) secrets.
 
 ## Documentation
 

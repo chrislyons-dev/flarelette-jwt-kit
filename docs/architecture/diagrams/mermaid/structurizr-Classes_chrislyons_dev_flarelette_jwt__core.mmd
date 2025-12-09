@@ -7,24 +7,28 @@ graph TB
     subgraph 2 ["@chrislyons-dev/flarelette-jwt"]
       style 2 fill:#ffffff,stroke:#2e6295,color:#2e6295
 
-      10("<div style='font-weight: bold'>core.envMode</div><div style='font-size: 70%; margin-top: 0px'>[Component: function]</div>")
-      style 10 fill:#85bbf0,stroke:#5d82a8,color:#000000
-      11("<div style='font-weight: bold'>core.getCommon</div><div style='font-size: 70%; margin-top: 0px'>[Component: function]</div><div style='font-size: 80%; margin-top:10px'>Get common JWT configuration<br />from environment Returns<br />partial JwtProfile-compatible<br />configuration</div>")
+      11("<div style='font-weight: bold'>core.envRead</div><div style='font-size: 70%; margin-top: 0px'>[Component: function]</div>")
       style 11 fill:#85bbf0,stroke:#5d82a8,color:#000000
-      12("<div style='font-weight: bold'>core.getProfile</div><div style='font-size: 70%; margin-top: 0px'>[Component: function]</div><div style='font-size: 80%; margin-top:10px'>Get JWT profile from<br />environment Returns complete<br />JwtProfile with detected<br />algorithm</div>")
+      12("<div style='font-weight: bold'>core.envMode</div><div style='font-size: 70%; margin-top: 0px'>[Component: function]</div>")
       style 12 fill:#85bbf0,stroke:#5d82a8,color:#000000
-      13("<div style='font-weight: bold'>core.getHSSecret</div><div style='font-size: 70%; margin-top: 0px'>[Component: function]</div>")
+      13("<div style='font-weight: bold'>core.getCommon</div><div style='font-size: 70%; margin-top: 0px'>[Component: function]</div><div style='font-size: 80%; margin-top:10px'>Get common JWT configuration<br />from environment Returns<br />partial JwtProfile-compatible<br />configuration</div>")
       style 13 fill:#85bbf0,stroke:#5d82a8,color:#000000
-      14("<div style='font-weight: bold'>core.getPrivateJwkString</div><div style='font-size: 70%; margin-top: 0px'>[Component: function]</div>")
+      14("<div style='font-weight: bold'>core.getProfile</div><div style='font-size: 70%; margin-top: 0px'>[Component: function]</div><div style='font-size: 80%; margin-top:10px'>Get JWT profile from<br />environment Returns complete<br />JwtProfile with detected<br />algorithm</div>")
       style 14 fill:#85bbf0,stroke:#5d82a8,color:#000000
-      15("<div style='font-weight: bold'>core.getPublicJwkString</div><div style='font-size: 70%; margin-top: 0px'>[Component: function]</div>")
+      15("<div style='font-weight: bold'>core.getHSSecret</div><div style='font-size: 70%; margin-top: 0px'>[Component: function]</div>")
       style 15 fill:#85bbf0,stroke:#5d82a8,color:#000000
-      16("<div style='font-weight: bold'>core.getJwksServiceName</div><div style='font-size: 70%; margin-top: 0px'>[Component: function]</div>")
+      16("<div style='font-weight: bold'>core.getPrivateJwkString</div><div style='font-size: 70%; margin-top: 0px'>[Component: function]</div>")
       style 16 fill:#85bbf0,stroke:#5d82a8,color:#000000
-      36("<div style='font-weight: bold'>core.sign</div><div style='font-size: 70%; margin-top: 0px'>[Component: function]</div><div style='font-size: 80%; margin-top:10px'>Sign a JWT token with HS512<br />or EdDSA algorithm</div>")
-      style 36 fill:#85bbf0,stroke:#5d82a8,color:#000000
-      9("<div style='font-weight: bold'>core.envRead</div><div style='font-size: 70%; margin-top: 0px'>[Component: function]</div>")
-      style 9 fill:#85bbf0,stroke:#5d82a8,color:#000000
+      17("<div style='font-weight: bold'>core.getPublicJwkString</div><div style='font-size: 70%; margin-top: 0px'>[Component: function]</div>")
+      style 17 fill:#85bbf0,stroke:#5d82a8,color:#000000
+      18("<div style='font-weight: bold'>core.getJwksServiceName</div><div style='font-size: 70%; margin-top: 0px'>[Component: function]</div>")
+      style 18 fill:#85bbf0,stroke:#5d82a8,color:#000000
+      19("<div style='font-weight: bold'>core.getJwksUrl</div><div style='font-size: 70%; margin-top: 0px'>[Component: function]</div>")
+      style 19 fill:#85bbf0,stroke:#5d82a8,color:#000000
+      20("<div style='font-weight: bold'>core.getJwksCacheTtl</div><div style='font-size: 70%; margin-top: 0px'>[Component: function]</div>")
+      style 20 fill:#85bbf0,stroke:#5d82a8,color:#000000
+      44("<div style='font-weight: bold'>core.sign</div><div style='font-size: 70%; margin-top: 0px'>[Component: function]</div><div style='font-size: 80%; margin-top:10px'>Sign a JWT token with HS512<br />or EdDSA algorithm</div>")
+      style 44 fill:#85bbf0,stroke:#5d82a8,color:#000000
     end
 
   end

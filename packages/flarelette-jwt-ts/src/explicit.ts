@@ -9,7 +9,15 @@
  * @module explicit
  */
 
-import { SignJWT, jwtVerify, importJWK, type JWTVerifyResult, type JWK } from 'jose'
+import {
+  SignJWT,
+  jwtVerify,
+  importJWK,
+  decodeProtectedHeader,
+  type JWTVerifyResult,
+  type JWK,
+} from 'jose'
+import { fetchJwksFromUrl, getKeyFromJwks } from './jwks.js'
 import type { JwtPayload } from './types.js'
 
 /**
@@ -59,6 +67,18 @@ export interface EdDSAVerifyConfig extends BaseJwtConfig {
 }
 
 /**
+ * EdDSA/RSA asymmetric configuration for verification via HTTP JWKS
+ * Uses a remote JWKS endpoint to fetch public keys (supports key rotation)
+ */
+export interface JWKSUrlVerifyConfig extends BaseJwtConfig {
+  alg: 'EdDSA' | 'RS256' | 'RS384' | 'RS512'
+  /** HTTP(S) URL to JWKS endpoint */
+  jwksUrl: string
+  /** Cache TTL in seconds (default: 300) */
+  cacheTtl?: number
+}
+
+/**
  * Union type for signing configuration
  */
 export type SignConfig = HS512Config | EdDSASignConfig
@@ -66,7 +86,7 @@ export type SignConfig = HS512Config | EdDSASignConfig
 /**
  * Union type for verification configuration
  */
-export type VerifyConfig = HS512Config | EdDSAVerifyConfig
+export type VerifyConfig = HS512Config | EdDSAVerifyConfig | JWKSUrlVerifyConfig
 
 /**
  * Sign a JWT token with explicit configuration
@@ -116,8 +136,11 @@ export async function signWithConfig(
     .setExpirationTime(now + ttlSeconds)
 
   if (config.alg === 'HS512') {
-    if (config.secret.length < 32) {
-      throw new Error(`JWT secret too short: ${config.secret.length} bytes, need >= 32`)
+    // SECURITY: HS512 requires 64-byte minimum (SHA-512 digest size)
+    if (config.secret.length < 64) {
+      throw new Error(
+        `JWT secret too short: ${config.secret.length} bytes, need >= 64 for HS512`
+      )
     }
     return jwt.setProtectedHeader({ alg: 'HS512', typ: 'JWT' }).sign(config.secret)
   } else {
@@ -170,9 +193,10 @@ export async function verifyWithConfig(
     let result: JWTVerifyResult
 
     if (config.alg === 'HS512') {
-      if (config.secret.length < 32) {
+      // SECURITY: HS512 requires 64-byte minimum (SHA-512 digest size)
+      if (config.secret.length < 64) {
         throw new Error(
-          `JWT secret too short: ${config.secret.length} bytes, need >= 32`
+          `JWT secret too short: ${config.secret.length} bytes, need >= 64 for HS512`
         )
       }
       result = await jwtVerify(token, config.secret, {
@@ -180,13 +204,28 @@ export async function verifyWithConfig(
         audience: aud,
         clockTolerance: leeway,
       })
-    } else {
+    } else if ('publicJwk' in config) {
+      // Inline JWK verification
       const key = await importJWK(config.publicJwk, 'EdDSA')
       result = await jwtVerify(token, key, {
         issuer: iss,
         audience: aud,
         clockTolerance: leeway,
       })
+    } else if ('jwksUrl' in config) {
+      // HTTP JWKS verification (NEW)
+      const header = decodeProtectedHeader(token)
+      const jwks = await fetchJwksFromUrl(config.jwksUrl, config.cacheTtl)
+      const key = await getKeyFromJwks(header.kid, jwks)
+
+      result = await jwtVerify(token, key, {
+        algorithms: ['EdDSA', 'RS256', 'RS384', 'RS512'],
+        issuer: iss,
+        audience: aud,
+        clockTolerance: leeway,
+      })
+    } else {
+      throw new Error('Invalid verification config')
     }
 
     return result.payload as JwtPayload
@@ -392,8 +431,9 @@ export function createHS512Config(
   const b64 = secret.replace(/-/g, '+').replace(/_/g, '/')
   const buf = Buffer.from(b64, 'base64')
 
-  if (buf.length < 32) {
-    throw new Error(`JWT secret too short: ${buf.length} bytes, need >= 32`)
+  // SECURITY: HS512 requires 64-byte minimum (SHA-512 digest size)
+  if (buf.length < 64) {
+    throw new Error(`JWT secret too short: ${buf.length} bytes, need >= 64 for HS512`)
   }
 
   return {
@@ -442,6 +482,44 @@ export function createEdDSAVerifyConfig(
   return {
     alg: 'EdDSA',
     publicJwk: jwk,
+    ...baseConfig,
+  }
+}
+
+/**
+ * Helper function to create HTTP JWKS URL verification config
+ *
+ * Enables testing without environment variables by providing explicit configuration
+ *
+ * @example
+ * ```typescript
+ * // Auth0 configuration
+ * const config = createJWKSUrlVerifyConfig(
+ *   'https://tenant.auth0.com/.well-known/jwks.json',
+ *   {
+ *     iss: 'https://tenant.auth0.com/',
+ *     aud: 'my-client-id'
+ *   }
+ * )
+ *
+ * const payload = await verifyWithConfig(token, config)
+ * ```
+ *
+ * @param jwksUrl - HTTP(S) URL to JWKS endpoint
+ * @param baseConfig - Base JWT configuration
+ * @param cacheTtl - Optional cache TTL in seconds (default: 300)
+ * @returns JWKS URL verification configuration
+ */
+export function createJWKSUrlVerifyConfig(
+  jwksUrl: string,
+  baseConfig: Omit<BaseJwtConfig, 'ttlSeconds' | 'leeway'> &
+    Partial<Pick<BaseJwtConfig, 'ttlSeconds' | 'leeway'>>,
+  cacheTtl?: number
+): JWKSUrlVerifyConfig {
+  return {
+    alg: 'EdDSA', // Default, will support RSA via JWKS
+    jwksUrl,
+    cacheTtl,
     ...baseConfig,
   }
 }
