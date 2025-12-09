@@ -24,15 +24,23 @@ workspace "flarelette-jwt-kit" "JWT authentication and authorization library" {
                     technology "module"
                 }
                 chrislyons_dev_flarelette_jwt__util = component "util" {
-                    description "High-level JWT utilities for creating, delegating, verifying, and authorizing JWT tokens | JSON Web Key Set (JWKS) utilities. This module provides functions to fetch and manage JWKS, including caching and key lookup by key ID (kid). It supports integration with external JWKS services. | Key generation utility for EdDSA keys. This script generates EdDSA key pairs and exports them in JWK format. It is designed to be executed as a standalone Node.js script. | Secret generation and validation utilities. This module provides functions to generate secure secrets and validate base64url-encoded secrets. It ensures compatibility with JWT signing requirements. | Utility functions for JWT operations. This module provides helper functions for parsing JWTs, checking expiration, and mapping OAuth scopes. It is designed to support core JWT functionalities. | JWT verification utilities. This module provides functions to verify JWT tokens using either HS512 or EdDSA algorithms. It supports integration with JWKS services and thumbprint pinning."
+                    description "High-level JWT utilities for creating, delegating, verifying, and authorizing JWT tokens | Key generation utility for EdDSA keys. This script generates EdDSA key pairs and exports them in JWK format. It is designed to be executed as a standalone Node.js script. | Secret generation and validation utilities. This module provides functions to generate secure secrets and validate base64url-encoded secrets. It ensures compatibility with JWT signing requirements. | Utility functions for JWT operations. This module provides helper functions for parsing JWTs, checking expiration, and mapping OAuth scopes. It is designed to support core JWT functionalities."
                     technology "module"
                 }
                 chrislyons_dev_flarelette_jwt__main = component "main" {
                     description "Entry point for the flarelette-jwt library. This module re-exports core functionalities, including signing, verification, utilities, and type definitions. It serves as the main interface for library consumers."
                     technology "module"
                 }
+                chrislyons_dev_flarelette_jwt__jwks = component "jwks" {
+                    description "JSON Web Key Set (JWKS) utilities. This module provides functions to fetch and manage JWKS, including caching and key lookup by key ID (kid). It supports integration with external JWKS services."
+                    technology "module"
+                }
                 chrislyons_dev_flarelette_jwt__types = component "types" {
                     description "Type definitions for JWT operations. This module defines types for JWT headers, payloads, profiles, and related structures. It ensures type safety and consistency across the library."
+                    technology "module"
+                }
+                chrislyons_dev_flarelette_jwt__verify = component "verify" {
+                    description "JWT verification utilities. This module provides functions to verify JWT tokens using either HS512 or EdDSA algorithms. It supports integration with JWKS services and thumbprint pinning."
                     technology "module"
                 }
                 chrislyons_dev_flarelette_jwt__adapters = component "adapters" {
@@ -72,6 +80,14 @@ workspace "flarelette-jwt-kit" "JWT authentication and authorization library" {
                     tags "Code"
                 }
                 chrislyons_dev_flarelette_jwt__core__getjwksservicename = component "core.getJwksServiceName" {
+                    technology "function"
+                    tags "Code"
+                }
+                chrislyons_dev_flarelette_jwt__core__getjwksurl = component "core.getJwksUrl" {
+                    technology "function"
+                    tags "Code"
+                }
+                chrislyons_dev_flarelette_jwt__core__getjwkscachettl = component "core.getJwksCacheTtl" {
                     technology "function"
                     tags "Code"
                 }
@@ -115,6 +131,11 @@ workspace "flarelette-jwt-kit" "JWT authentication and authorization library" {
                     technology "function"
                     tags "Code"
                 }
+                chrislyons_dev_flarelette_jwt__explicit__createjwksurlverifyconfig = component "explicit.createJWKSUrlVerifyConfig" {
+                    description "Helper function to create HTTP JWKS URL verification config Enables testing without environment variables by providing explicit configuration"
+                    technology "function"
+                    tags "Code"
+                }
                 chrislyons_dev_flarelette_jwt__util__createtoken = component "util.createToken" {
                     description "Create a signed JWT token with optional claims"
                     technology "function"
@@ -135,22 +156,37 @@ workspace "flarelette-jwt-kit" "JWT authentication and authorization library" {
                     technology "function"
                     tags "Code"
                 }
-                chrislyons_dev_flarelette_jwt__util__clearjwkscache = component "util.clearJwksCache" {
+                chrislyons_dev_flarelette_jwt__jwks__clearjwkscache = component "jwks.clearJwksCache" {
                     description "Clear the JWKS cache (for testing purposes)"
                     technology "function"
                     tags "Code"
                 }
-                chrislyons_dev_flarelette_jwt__util__fetchjwksfromservice = component "util.fetchJwksFromService" {
+                chrislyons_dev_flarelette_jwt__jwks__clearhttpjwkscache = component "jwks.clearHttpJwksCache" {
+                    description "Clear the HTTP JWKS cache (for testing purposes)"
+                    technology "function"
+                    tags "Code"
+                }
+                chrislyons_dev_flarelette_jwt__jwks__fetchjwksfromservice = component "jwks.fetchJwksFromService" {
                     description "Fetch JWKS from a service binding Implements 5-minute caching to reduce load on JWKS service"
                     technology "function"
                     tags "Code"
                 }
-                chrislyons_dev_flarelette_jwt__util__getkeyfromjwks = component "util.getKeyFromJwks" {
-                    description "Find and import a specific key from JWKS by kid"
+                chrislyons_dev_flarelette_jwt__jwks__validatejwksurl = component "jwks.validateJwksUrl" {
+                    description "Validate JWKS URL for security requirements Requirements: - Must be valid URL format - Must use HTTPS (except localhost/127.0.0.1/[::1] for testing)"
                     technology "function"
                     tags "Code"
                 }
-                chrislyons_dev_flarelette_jwt__util__allowedthumbprints = component "util.allowedThumbprints" {
+                chrislyons_dev_flarelette_jwt__jwks__fetchjwksfromurl = component "jwks.fetchJwksFromUrl" {
+                    description "Fetch JWKS from HTTP URL with caching Implements configurable TTL caching (default 5 minutes) Security: HTTPS-only (except localhost), 5-second timeout, 100KB size limit"
+                    technology "function"
+                    tags "Code"
+                }
+                chrislyons_dev_flarelette_jwt__jwks__getkeyfromjwks = component "jwks.getKeyFromJwks" {
+                    description "Find and import a specific key from JWKS by kid Supports both EdDSA (Ed25519) and RSA (RS256/RS384/RS512) keys Algorithm is auto-detected from key type (kty) and curve (crv)"
+                    technology "function"
+                    tags "Code"
+                }
+                chrislyons_dev_flarelette_jwt__jwks__allowedthumbprints = component "jwks.allowedThumbprints" {
                     description "Get allowed thumbprints for key pinning (optional security measure)"
                     technology "function"
                     tags "Code"
@@ -187,8 +223,13 @@ workspace "flarelette-jwt-kit" "JWT authentication and authorization library" {
                     technology "function"
                     tags "Code"
                 }
-                chrislyons_dev_flarelette_jwt__util__verify = component "util.verify" {
-                    description "Verify a JWT token with HS512 or EdDSA algorithm"
+                chrislyons_dev_flarelette_jwt__verify__resolveverificationkey = component "verify.resolveVerificationKey" {
+                    description "Resolve verification key from configured sources Implements key resolution strategy pattern: - Strategy 1: HS512 shared secret - Strategy 2: Inline public JWK - Strategy 3: Service binding JWKS - Strategy 4: HTTP JWKS URL"
+                    technology "function"
+                    tags "Code"
+                }
+                chrislyons_dev_flarelette_jwt__verify__verify = component "verify.verify" {
+                    description "Verify a JWT token with HS512, EdDSA, or RSA algorithms Supports multiple key resolution strategies with automatic algorithm detection"
                     technology "function"
                     tags "Code"
                 }
@@ -209,8 +250,10 @@ workspace "flarelette-jwt-kit" "JWT authentication and authorization library" {
                 }
 
                 # Component relationships
-                chrislyons_dev_flarelette_jwt__util -> chrislyons_dev_flarelette_jwt__types "ParsedJwt | JwtPayload | AlgType | Fetcher"
-                chrislyons_dev_flarelette_jwt__util -> chrislyons_dev_flarelette_jwt__core "envMode | getCommon | getHSSecret | getPublicJwkString"
+                chrislyons_dev_flarelette_jwt__util -> chrislyons_dev_flarelette_jwt__types "ParsedJwt | JwtPayload"
+                chrislyons_dev_flarelette_jwt__verify -> chrislyons_dev_flarelette_jwt__core "envMode | getCommon | getHSSecret | getPublicJwkString | getJwksUrl | getJwksCacheTtl"
+                chrislyons_dev_flarelette_jwt__verify -> chrislyons_dev_flarelette_jwt__jwks "fetchJwksFromService | fetchJwksFromUrl | getKeyFromJwks | allowedThumbprints"
+                chrislyons_dev_flarelette_jwt__verify -> chrislyons_dev_flarelette_jwt__types "AlgType | Fetcher | JwtPayload"
                 chrislyons_dev_flarelette_jwt__adapters -> chrislyons_dev_flarelette_jwt__main "imports * as kit"
                 chrislyons_dev_flarelette_jwt__adapters -> chrislyons_dev_flarelette_jwt__core "imports getJwksServiceName"
                 chrislyons_dev_flarelette_jwt__adapters -> chrislyons_dev_flarelette_jwt__types "WorkerEnv | Fetcher"
@@ -746,7 +789,9 @@ branding {
             include chrislyons_dev_flarelette_jwt__explicit
             include chrislyons_dev_flarelette_jwt__util
             include chrislyons_dev_flarelette_jwt__main
+            include chrislyons_dev_flarelette_jwt__jwks
             include chrislyons_dev_flarelette_jwt__types
+            include chrislyons_dev_flarelette_jwt__verify
             include chrislyons_dev_flarelette_jwt__adapters
             exclude "element.tag==Code"
             autoLayout
@@ -772,6 +817,8 @@ branding {
             include chrislyons_dev_flarelette_jwt__core__getprivatejwkstring
             include chrislyons_dev_flarelette_jwt__core__getpublicjwkstring
             include chrislyons_dev_flarelette_jwt__core__getjwksservicename
+            include chrislyons_dev_flarelette_jwt__core__getjwksurl
+            include chrislyons_dev_flarelette_jwt__core__getjwkscachettl
             include chrislyons_dev_flarelette_jwt__core__sign
             autoLayout
         }
@@ -786,6 +833,7 @@ branding {
             include chrislyons_dev_flarelette_jwt__explicit__createhs512config
             include chrislyons_dev_flarelette_jwt__explicit__createeddsasignconfig
             include chrislyons_dev_flarelette_jwt__explicit__createeddsaverifyconfig
+            include chrislyons_dev_flarelette_jwt__explicit__createjwksurlverifyconfig
             autoLayout
         }
 
@@ -795,17 +843,31 @@ branding {
             include chrislyons_dev_flarelette_jwt__util__createdelegatedtoken
             include chrislyons_dev_flarelette_jwt__util__checkauth
             include chrislyons_dev_flarelette_jwt__util__policy
-            include chrislyons_dev_flarelette_jwt__util__clearjwkscache
-            include chrislyons_dev_flarelette_jwt__util__fetchjwksfromservice
-            include chrislyons_dev_flarelette_jwt__util__getkeyfromjwks
-            include chrislyons_dev_flarelette_jwt__util__allowedthumbprints
             include chrislyons_dev_flarelette_jwt__util__main
             include chrislyons_dev_flarelette_jwt__util__generatesecret
             include chrislyons_dev_flarelette_jwt__util__isvalidbase64urlsecret
             include chrislyons_dev_flarelette_jwt__util__parse
             include chrislyons_dev_flarelette_jwt__util__isexpiringsoon
             include chrislyons_dev_flarelette_jwt__util__mapscopestopermissions
-            include chrislyons_dev_flarelette_jwt__util__verify
+            autoLayout
+        }
+
+
+        component chrislyons_dev_flarelette_jwt "Classes_chrislyons_dev_flarelette_jwt__jwks" {
+            include chrislyons_dev_flarelette_jwt__jwks__clearjwkscache
+            include chrislyons_dev_flarelette_jwt__jwks__clearhttpjwkscache
+            include chrislyons_dev_flarelette_jwt__jwks__fetchjwksfromservice
+            include chrislyons_dev_flarelette_jwt__jwks__validatejwksurl
+            include chrislyons_dev_flarelette_jwt__jwks__fetchjwksfromurl
+            include chrislyons_dev_flarelette_jwt__jwks__getkeyfromjwks
+            include chrislyons_dev_flarelette_jwt__jwks__allowedthumbprints
+            autoLayout
+        }
+
+
+        component chrislyons_dev_flarelette_jwt "Classes_chrislyons_dev_flarelette_jwt__verify" {
+            include chrislyons_dev_flarelette_jwt__verify__resolveverificationkey
+            include chrislyons_dev_flarelette_jwt__verify__verify
             autoLayout
         }
 

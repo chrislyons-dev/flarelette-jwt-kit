@@ -1,0 +1,16 @@
+graph TB
+  linkStyle default fill:#ffffff
+
+  subgraph diagram ["flarelette-jwt-kit - @chrislyons-dev/flarelette-jwt - Components"]
+    style diagram fill:#ffffff,stroke:#ffffff
+
+    subgraph 2 ["@chrislyons-dev/flarelette-jwt"]
+      style 2 fill:#ffffff,stroke:#2e6295,color:#2e6295
+
+      48("<div style='font-weight: bold'>verify.resolveVerificationKey</div><div style='font-size: 70%; margin-top: 0px'>[Component: function]</div><div style='font-size: 80%; margin-top:10px'>Resolve verification key from<br />configured sources Implements<br />key resolution strategy<br />pattern: - Strategy 1: HS512<br />shared secret - Strategy 2:<br />Inline public JWK - Strategy<br />3: Service binding JWKS -<br />Strategy 4: HTTP JWKS URL</div>")
+      style 48 fill:#85bbf0,stroke:#5d82a8,color:#000000
+      49("<div style='font-weight: bold'>verify.verify</div><div style='font-size: 70%; margin-top: 0px'>[Component: function]</div><div style='font-size: 80%; margin-top:10px'>Verify a JWT token with<br />HS512, EdDSA, or RSA<br />algorithms Supports multiple<br />key resolution strategies<br />with automatic algorithm<br />detection</div>")
+      style 49 fill:#85bbf0,stroke:#5d82a8,color:#000000
+    end
+
+  end

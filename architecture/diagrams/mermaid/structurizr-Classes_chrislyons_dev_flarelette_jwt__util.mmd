@@ -7,36 +7,26 @@ graph TB
     subgraph 2 ["@chrislyons-dev/flarelette-jwt"]
       style 2 fill:#ffffff,stroke:#2e6295,color:#2e6295
 
-      25("<div style='font-weight: bold'>util.createToken</div><div style='font-size: 70%; margin-top: 0px'>[Component: function]</div><div style='font-size: 80%; margin-top:10px'>Create a signed JWT token<br />with optional claims</div>")
-      style 25 fill:#85bbf0,stroke:#5d82a8,color:#000000
-      26("<div style='font-weight: bold'>util.createDelegatedToken</div><div style='font-size: 70%; margin-top: 0px'>[Component: function]</div><div style='font-size: 80%; margin-top:10px'>Create a delegated JWT token<br />following RFC 8693 actor<br />claim pattern Mints a new<br />short-lived token for use<br />within service boundaries<br />where a service acts on<br />behalf of the original end<br />user. This implements<br />zero-trust delegation: -<br />Preserves original user<br />identity (sub) and<br />permissions - Identifies the<br />acting service via 'act'<br />claim - Prevents permission<br />escalation by copying<br />original permissions Pattern:<br />"I'm <actorService> doing<br />work on behalf of <original<br />user>"</div>")
-      style 26 fill:#85bbf0,stroke:#5d82a8,color:#000000
-      27("<div style='font-weight: bold'>util.checkAuth</div><div style='font-size: 70%; margin-top: 0px'>[Component: function]</div><div style='font-size: 80%; margin-top:10px'>Verify and authorize a JWT<br />token with policy enforcement</div>")
-      style 27 fill:#85bbf0,stroke:#5d82a8,color:#000000
-      28("<div style='font-weight: bold'>util.policy</div><div style='font-size: 70%; margin-top: 0px'>[Component: function]</div><div style='font-size: 80%; margin-top:10px'>Fluent builder for creating<br />authorization policies</div>")
-      style 28 fill:#85bbf0,stroke:#5d82a8,color:#000000
-      29("<div style='font-weight: bold'>util.clearJwksCache</div><div style='font-size: 70%; margin-top: 0px'>[Component: function]</div><div style='font-size: 80%; margin-top:10px'>Clear the JWKS cache (for<br />testing purposes)</div>")
-      style 29 fill:#85bbf0,stroke:#5d82a8,color:#000000
-      30("<div style='font-weight: bold'>util.fetchJwksFromService</div><div style='font-size: 70%; margin-top: 0px'>[Component: function]</div><div style='font-size: 80%; margin-top:10px'>Fetch JWKS from a service<br />binding Implements 5-minute<br />caching to reduce load on<br />JWKS service</div>")
+      30("<div style='font-weight: bold'>util.createToken</div><div style='font-size: 70%; margin-top: 0px'>[Component: function]</div><div style='font-size: 80%; margin-top:10px'>Create a signed JWT token<br />with optional claims</div>")
       style 30 fill:#85bbf0,stroke:#5d82a8,color:#000000
-      31("<div style='font-weight: bold'>util.getKeyFromJwks</div><div style='font-size: 70%; margin-top: 0px'>[Component: function]</div><div style='font-size: 80%; margin-top:10px'>Find and import a specific<br />key from JWKS by kid</div>")
+      31("<div style='font-weight: bold'>util.createDelegatedToken</div><div style='font-size: 70%; margin-top: 0px'>[Component: function]</div><div style='font-size: 80%; margin-top:10px'>Create a delegated JWT token<br />following RFC 8693 actor<br />claim pattern Mints a new<br />short-lived token for use<br />within service boundaries<br />where a service acts on<br />behalf of the original end<br />user. This implements<br />zero-trust delegation: -<br />Preserves original user<br />identity (sub) and<br />permissions - Identifies the<br />acting service via 'act'<br />claim - Prevents permission<br />escalation by copying<br />original permissions Pattern:<br />"I'm <actorService> doing<br />work on behalf of <original<br />user>"</div>")
       style 31 fill:#85bbf0,stroke:#5d82a8,color:#000000
-      32("<div style='font-weight: bold'>util.allowedThumbprints</div><div style='font-size: 70%; margin-top: 0px'>[Component: function]</div><div style='font-size: 80%; margin-top:10px'>Get allowed thumbprints for<br />key pinning (optional<br />security measure)</div>")
+      32("<div style='font-weight: bold'>util.checkAuth</div><div style='font-size: 70%; margin-top: 0px'>[Component: function]</div><div style='font-size: 80%; margin-top:10px'>Verify and authorize a JWT<br />token with policy enforcement</div>")
       style 32 fill:#85bbf0,stroke:#5d82a8,color:#000000
-      33("<div style='font-weight: bold'>util.main</div><div style='font-size: 70%; margin-top: 0px'>[Component: function]</div>")
+      33("<div style='font-weight: bold'>util.policy</div><div style='font-size: 70%; margin-top: 0px'>[Component: function]</div><div style='font-size: 80%; margin-top:10px'>Fluent builder for creating<br />authorization policies</div>")
       style 33 fill:#85bbf0,stroke:#5d82a8,color:#000000
-      34("<div style='font-weight: bold'>util.generateSecret</div><div style='font-size: 70%; margin-top: 0px'>[Component: function]</div>")
-      style 34 fill:#85bbf0,stroke:#5d82a8,color:#000000
-      35("<div style='font-weight: bold'>util.isValidBase64UrlSecret</div><div style='font-size: 70%; margin-top: 0px'>[Component: function]</div>")
-      style 35 fill:#85bbf0,stroke:#5d82a8,color:#000000
-      37("<div style='font-weight: bold'>util.parse</div><div style='font-size: 70%; margin-top: 0px'>[Component: function]</div><div style='font-size: 80%; margin-top:10px'>Parse a JWT token into header<br />and payload without<br />verification</div>")
-      style 37 fill:#85bbf0,stroke:#5d82a8,color:#000000
-      38("<div style='font-weight: bold'>util.isExpiringSoon</div><div style='font-size: 70%; margin-top: 0px'>[Component: function]</div><div style='font-size: 80%; margin-top:10px'>Check if JWT payload will<br />expire within specified<br />seconds</div>")
-      style 38 fill:#85bbf0,stroke:#5d82a8,color:#000000
-      39("<div style='font-weight: bold'>util.mapScopesToPermissions</div><div style='font-size: 70%; margin-top: 0px'>[Component: function]</div><div style='font-size: 80%; margin-top:10px'>Map OAuth scopes to<br />permission strings</div>")
-      style 39 fill:#85bbf0,stroke:#5d82a8,color:#000000
-      40("<div style='font-weight: bold'>util.verify</div><div style='font-size: 70%; margin-top: 0px'>[Component: function]</div><div style='font-size: 80%; margin-top:10px'>Verify a JWT token with HS512<br />or EdDSA algorithm</div>")
-      style 40 fill:#85bbf0,stroke:#5d82a8,color:#000000
+      41("<div style='font-weight: bold'>util.main</div><div style='font-size: 70%; margin-top: 0px'>[Component: function]</div>")
+      style 41 fill:#85bbf0,stroke:#5d82a8,color:#000000
+      42("<div style='font-weight: bold'>util.generateSecret</div><div style='font-size: 70%; margin-top: 0px'>[Component: function]</div>")
+      style 42 fill:#85bbf0,stroke:#5d82a8,color:#000000
+      43("<div style='font-weight: bold'>util.isValidBase64UrlSecret</div><div style='font-size: 70%; margin-top: 0px'>[Component: function]</div>")
+      style 43 fill:#85bbf0,stroke:#5d82a8,color:#000000
+      45("<div style='font-weight: bold'>util.parse</div><div style='font-size: 70%; margin-top: 0px'>[Component: function]</div><div style='font-size: 80%; margin-top:10px'>Parse a JWT token into header<br />and payload without<br />verification</div>")
+      style 45 fill:#85bbf0,stroke:#5d82a8,color:#000000
+      46("<div style='font-weight: bold'>util.isExpiringSoon</div><div style='font-size: 70%; margin-top: 0px'>[Component: function]</div><div style='font-size: 80%; margin-top:10px'>Check if JWT payload will<br />expire within specified<br />seconds</div>")
+      style 46 fill:#85bbf0,stroke:#5d82a8,color:#000000
+      47("<div style='font-weight: bold'>util.mapScopesToPermissions</div><div style='font-size: 70%; margin-top: 0px'>[Component: function]</div><div style='font-size: 80%; margin-top:10px'>Map OAuth scopes to<br />permission strings</div>")
+      style 47 fill:#85bbf0,stroke:#5d82a8,color:#000000
     end
 
   end
