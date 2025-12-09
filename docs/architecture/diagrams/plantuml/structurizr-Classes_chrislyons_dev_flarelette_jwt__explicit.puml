@@ -51,6 +51,13 @@ skinparam rectangle<<flarelettejwtkit.chrislyonsdevflarelettejwt.explicitcreateH
   roundCorner 20
   shadowing false
 }
+skinparam rectangle<<flarelettejwtkit.chrislyonsdevflarelettejwt.explicitcreateJWKSUrlVerifyConfig>> {
+  BackgroundColor #85bbf0
+  FontColor #000000
+  BorderColor #5d82a8
+  roundCorner 20
+  shadowing false
+}
 skinparam rectangle<<flarelettejwtkit.chrislyonsdevflarelettejwt.explicitcreateTokenWithConfig>> {
   BackgroundColor #85bbf0
   FontColor #000000
@@ -87,6 +94,7 @@ rectangle "@chrislyons-dev/flarelette-jwt\n<size:10>[Container: Service]</size>"
   rectangle "==explicit.createHS512Config\n<size:10>[Component: function]</size>\n\nHelper function to create HS512 config from base64url-encoded secret" <<flarelettejwtkit.chrislyonsdevflarelettejwt.explicitcreateHS512Config>> as flarelettejwtkit.chrislyonsdevflarelettejwt.explicitcreateHS512Config
   rectangle "==explicit.createEdDSASignConfig\n<size:10>[Component: function]</size>\n\nHelper function to create EdDSA sign config from JWK" <<flarelettejwtkit.chrislyonsdevflarelettejwt.explicitcreateEdDSASignConfig>> as flarelettejwtkit.chrislyonsdevflarelettejwt.explicitcreateEdDSASignConfig
   rectangle "==explicit.createEdDSAVerifyConfig\n<size:10>[Component: function]</size>\n\nHelper function to create EdDSA verify config from JWK" <<flarelettejwtkit.chrislyonsdevflarelettejwt.explicitcreateEdDSAVerifyConfig>> as flarelettejwtkit.chrislyonsdevflarelettejwt.explicitcreateEdDSAVerifyConfig
+  rectangle "==explicit.createJWKSUrlVerifyConfig\n<size:10>[Component: function]</size>\n\nHelper function to create HTTP JWKS URL verification config Enables testing without environment variables by providing explicit configuration" <<flarelettejwtkit.chrislyonsdevflarelettejwt.explicitcreateJWKSUrlVerifyConfig>> as flarelettejwtkit.chrislyonsdevflarelettejwt.explicitcreateJWKSUrlVerifyConfig
 }
 
 @enduml

@@ -21,7 +21,7 @@ describe('Explicit Configuration API', () => {
 
   beforeEach(() => {
     // Create a fresh config for each test - no environment pollution!
-    const secret = new Uint8Array(32).fill(42) // 32 bytes, all set to 42
+    const secret = new Uint8Array(64).fill(42) // 64 bytes (HS512 minimum)
     testConfig = {
       alg: 'HS512',
       secret,
@@ -73,10 +73,10 @@ describe('Explicit Configuration API', () => {
       expect(payload?.sub).toBe('user123')
     })
 
-    it('should reject secrets shorter than 32 bytes', async () => {
+    it('should reject secrets shorter than 64 bytes', async () => {
       const shortConfig = {
         ...testConfig,
-        secret: new Uint8Array(16), // Too short!
+        secret: new Uint8Array(63), // Too short (need 64 for HS512)!
       }
 
       await expect(signWithConfig({ sub: 'test' }, shortConfig)).rejects.toThrow(
@@ -375,8 +375,8 @@ describe('Explicit Configuration API', () => {
 
   describe('createHS512Config helper', () => {
     it('should create config from base64url secret', () => {
-      // Create a base64url-encoded secret (32 bytes)
-      const secret = Buffer.alloc(32, 42).toString('base64url')
+      // Create a base64url-encoded secret (64 bytes minimum for HS512)
+      const secret = Buffer.alloc(64, 42).toString('base64url')
 
       const config = createHS512Config(secret, {
         iss: 'test-issuer',
@@ -385,7 +385,7 @@ describe('Explicit Configuration API', () => {
 
       expect(config.alg).toBe('HS512')
       expect(config.secret).toBeInstanceOf(Uint8Array)
-      expect(config.secret.length).toBe(32)
+      expect(config.secret.length).toBe(64)
       expect(config.iss).toBe('test-issuer')
       expect(config.aud).toBe('test-audience')
     })
@@ -411,7 +411,7 @@ describe('Explicit Configuration API', () => {
       try {
         const config = {
           alg: 'HS512' as const,
-          secret: new Uint8Array(32).fill(1),
+          secret: new Uint8Array(64).fill(1),
           iss: 'isolated-test',
           aud: 'isolated-audience',
         }
@@ -429,14 +429,14 @@ describe('Explicit Configuration API', () => {
     it('should allow multiple configs in same process', async () => {
       const config1 = {
         alg: 'HS512' as const,
-        secret: new Uint8Array(32).fill(1),
+        secret: new Uint8Array(64).fill(1),
         iss: 'issuer-1',
         aud: 'audience-1',
       }
 
       const config2 = {
         alg: 'HS512' as const,
-        secret: new Uint8Array(32).fill(2),
+        secret: new Uint8Array(64).fill(2),
         iss: 'issuer-2',
         aud: 'audience-2',
       }

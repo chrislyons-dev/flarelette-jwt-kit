@@ -4,7 +4,11 @@ Understanding how Flarelette JWT Kit makes cryptographic and architectural decis
 
 ## Algorithm Selection
 
-The kit supports exactly two JWT algorithms by design. No configuration required — the mode is detected automatically from your environment.
+The kit supports **two signing algorithms** (HS512, EdDSA) and **three verification profiles** (HS512, EdDSA, RSA). No configuration required — the mode is detected automatically from your environment.
+
+**Signing:** HS512 for symmetric trust, EdDSA for asymmetric trust.
+
+**Verification:** HS512 and EdDSA for internal tokens, RSA for external OIDC providers.
 
 ### HS512 (Symmetric)
 
@@ -64,9 +68,44 @@ JWT_PUBLIC_JWK_NAME=GATEWAY_PUBLIC
 
 # Option 2: Service binding for JWKS (supports rotation)
 JWT_JWKS_SERVICE_NAME=GATEWAY_BINDING
+
+# Option 3: HTTP JWKS URL for external OIDC providers (TypeScript only)
+JWT_JWKS_URL=https://tenant.auth0.com/.well-known/jwks.json
 ```
 
-### Why Only Two Algorithms?
+### RSA (External OIDC Verification)
+
+**RS256, RS384, RS512** verification for external OIDC providers.
+
+**Use when:**
+
+- Verifying tokens from Auth0, Okta, Google, Azure AD, or Cloudflare Access
+- Gateway integrates with external identity providers
+- Tokens are signed externally, only verification is needed
+
+**Security properties:**
+
+- Verification-only (no signing capability)
+- Supports key rotation via JWKS
+- HTTPS-only URL fetching with caching
+- TypeScript only (Python pending Cloudflare runtime improvements)
+
+**Environment detection (consumer):**
+
+```bash
+JWT_JWKS_URL=https://tenant.auth0.com/.well-known/jwks.json
+JWT_JWKS_CACHE_TTL_SECONDS=300  # Optional: default 5 minutes
+```
+
+**Supported OIDC providers:**
+
+- **Auth0**: `https://tenant.auth0.com/.well-known/jwks.json`
+- **Okta**: `https://domain.okta.com/oauth2/default/v1/keys`
+- **Google**: `https://www.googleapis.com/oauth2/v3/certs`
+- **Azure AD**: `https://login.microsoftonline.com/tenant-id/discovery/v2.0/keys`
+- **Cloudflare Access**: `https://team.cloudflareaccess.com/cdn-cgi/access/certs`
+
+### Algorithm Design Philosophy
 
 **Reduced attack surface:** Fewer algorithms means less code to audit and fewer potential vulnerabilities.
 
@@ -86,9 +125,11 @@ Producer (signing):
   Otherwise → HS512 mode
 
 Consumer (verification):
-  If JWT_PUBLIC_JWK* or JWT_JWKS_SERVICE* exists → EdDSA mode
+  If JWT_PUBLIC_JWK* or JWT_JWKS_SERVICE* or JWT_JWKS_URL exists → EdDSA/RSA mode
   Otherwise → HS512 mode
 ```
+
+**Note:** EdDSA/RSA mode supports both EdDSA (Ed25519) and RSA (RS256/384/512) verification. The actual algorithm is auto-detected from the JWK structure or token header.
 
 **Verification in code:**
 
@@ -109,6 +150,105 @@ from flarelette_jwt import mode
 detected = mode('producer')  # or 'consumer'
 print(f'Detected mode: {detected}')  # "HS512" or "EdDSA"
 ```
+
+## JWKS Resolution Strategies
+
+When verifying EdDSA or RSA tokens, the kit supports four strategies for obtaining the verification key. Each strategy has different trade-offs for security, performance, and operational complexity.
+
+### Strategy 1: HS512 Shared Secret
+
+**Use case:** Simplest configuration for trusted producer-consumer pairs.
+
+**Configuration:**
+
+```bash
+JWT_SECRET_NAME=MY_JWT_SECRET
+```
+
+**Characteristics:**
+
+- Single secret shared between producer and consumer
+- No key distribution complexity
+- Fastest verification (symmetric)
+- Requires mutual trust between services
+
+**When to use:** Internal services where both producer and consumer are under your control.
+
+### Strategy 2: Inline Public JWK
+
+**Use case:** Single EdDSA verification key, no rotation needed.
+
+**Configuration:**
+
+```bash
+JWT_PUBLIC_JWK_NAME=GATEWAY_PUBLIC
+```
+
+**Characteristics:**
+
+- Public key embedded in environment
+- No network calls during verification
+- No key rotation support (requires redeployment to update key)
+- Works in both TypeScript and Python
+
+**When to use:** Internal services with infrequent key rotation, or Python Workers verifying EdDSA tokens.
+
+### Strategy 3: Service Binding JWKS
+
+**Use case:** Internal key rotation with Worker-to-Worker RPC.
+
+**Configuration:**
+
+```toml
+# Consumer wrangler.toml
+[[services]]
+binding = "GATEWAY_BINDING"
+service = "jwt-gateway"
+
+[vars]
+JWT_JWKS_SERVICE_NAME = "GATEWAY_BINDING"
+```
+
+**Characteristics:**
+
+- Keys fetched from internal JWKS endpoint via Worker-to-Worker RPC
+- Supports multiple active keys (key rotation)
+- No public HTTP endpoint required
+- Cached for 5 minutes
+- TypeScript only
+
+**When to use:** Internal service mesh with key rotation requirements and no external OIDC provider.
+
+### Strategy 4: HTTP JWKS URL
+
+**Use case:** External OIDC provider verification (Auth0, Okta, Google, Azure AD).
+
+**Configuration:**
+
+```bash
+JWT_JWKS_URL=https://tenant.auth0.com/.well-known/jwks.json
+JWT_JWKS_CACHE_TTL_SECONDS=300  # Optional: default 5 minutes
+```
+
+**Characteristics:**
+
+- Keys fetched from public HTTPS endpoint
+- Supports multiple active keys (key rotation)
+- HTTPS-only (except localhost for testing)
+- Cached with configurable TTL
+- TypeScript only
+- 5-second timeout, 100KB size limit
+
+**When to use:** Verifying tokens from external OIDC providers like Auth0, Okta, Google Workspace, Azure AD, or Cloudflare Access.
+
+### Comparison Table
+
+| Strategy          | Key Rotation | Network Calls | Python Support | Use Case                    |
+| ----------------- | ------------ | ------------- | -------------- | --------------------------- |
+| HS512 Shared      | ❌           | ❌            | ✅             | Trusted internal services   |
+| Inline Public JWK | ❌           | ❌            | ✅             | Single key, no rotation     |
+| Service Binding   | ✅           | ✅ (internal) | ❌             | Internal mesh with rotation |
+| HTTP JWKS URL     | ✅           | ✅ (external) | ❌             | External OIDC providers     |
 
 ## Secret-Name Indirection
 
@@ -285,6 +425,7 @@ TypeScript and Python implementations are kept in sync:
 | HS512 verification      | ✅         | ✅                    |
 | EdDSA signing           | ✅         | ❌ (use Node gateway) |
 | EdDSA verification      | ✅         | ✅ (inline JWK only)  |
+| RSA verification        | ✅         | ❌                    |
 | JWKS fetch              | ✅         | ❌ (inline JWK only)  |
 | Service bindings        | ✅         | ❌                    |
 | Secret-name indirection | ✅         | ✅                    |

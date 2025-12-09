@@ -172,6 +172,7 @@ describe('jwks.ts', () => {
           kty: 'OKP',
           crv: 'Ed25519',
           x: '11qYAYKxCrfVS_7TyWQHOg7hcvPapiMlrwIaaPcHURo',
+          alg: 'EdDSA',
           use: 'sig',
         },
       ]

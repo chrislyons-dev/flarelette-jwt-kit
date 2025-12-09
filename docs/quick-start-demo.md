@@ -118,7 +118,7 @@ app.use('*', async (c, next) => {
 
 ## Development Environment Setup
 
-### No .dev.vars Required!
+### No .dev.vars Required
 
 Create a shared config for all services:
 

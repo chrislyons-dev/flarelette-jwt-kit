@@ -204,6 +204,49 @@ else:
     print("Authorization failed")
 ```
 
+## Explicit Configuration (No Environment Variables)
+
+> **New in v1.9.0**: Pass configuration directly without environment setup
+
+For development, testing, or scenarios where environment variables are inconvenient, use the explicit configuration API:
+
+**TypeScript:**
+
+```typescript
+import {
+  createHS512Config,
+  createTokenWithConfig,
+  verifyWithConfig,
+} from '@chrislyons-dev/flarelette-jwt'
+
+// Create config object (no environment variables needed)
+const config = createHS512Config('your-base64url-secret-here', {
+  iss: 'https://gateway.example.com',
+  aud: 'api.example.com',
+  ttlSeconds: 900,
+})
+
+// Sign and verify
+const token = await createTokenWithConfig(
+  {
+    sub: 'user123',
+    permissions: ['read:data'],
+  },
+  config
+)
+
+const payload = await verifyWithConfig(token, config)
+console.log('User:', payload?.sub)
+```
+
+**When to use:**
+
+- Development environments (skip .env setup)
+- Testing (isolated configs per test)
+- Multi-tenant apps (different configs per tenant)
+
+**Full documentation:** [Explicit Configuration API](./explicit-config.md)
+
 ## Next Steps
 
 - **[Core Concepts](./core-concepts.md)** — Understand algorithms, modes, and architecture

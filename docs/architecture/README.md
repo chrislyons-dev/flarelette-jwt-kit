@@ -1,7 +1,7 @@
 # 🏗️ flarelette-jwt-kit
 
 **Architecture Documentation**
-Generated 2025-12-07 21:02:30
+Generated 2025-12-08 19:38:11
 
 ## Overview
 

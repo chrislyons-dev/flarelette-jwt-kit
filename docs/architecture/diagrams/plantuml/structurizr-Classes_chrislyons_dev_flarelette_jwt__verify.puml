@@ -1,0 +1,44 @@
+@startuml
+set separator none
+title flarelette-jwt-kit - @chrislyons-dev/flarelette-jwt - Components
+
+top to bottom direction
+skinparam ranksep 60
+skinparam nodesep 30
+
+skinparam {
+  arrowFontSize 10
+  defaultTextAlignment center
+  wrapWidth 200
+  maxMessageSize 100
+  defaultFontName "Arial"
+}
+
+hide stereotype
+
+skinparam rectangle<<flarelettejwtkit.chrislyonsdevflarelettejwt.verifyresolveVerificationKey>> {
+  BackgroundColor #85bbf0
+  FontColor #000000
+  BorderColor #5d82a8
+  roundCorner 20
+  shadowing false
+}
+skinparam rectangle<<flarelettejwtkit.chrislyonsdevflarelettejwt.verifyverify>> {
+  BackgroundColor #85bbf0
+  FontColor #000000
+  BorderColor #5d82a8
+  roundCorner 20
+  shadowing false
+}
+skinparam rectangle<<flarelettejwtkit.chrislyonsdevflarelettejwt>> {
+  BorderColor #2e6295
+  FontColor #2e6295
+  shadowing false
+}
+
+rectangle "@chrislyons-dev/flarelette-jwt\n<size:10>[Container: Service]</size>" <<flarelettejwtkit.chrislyonsdevflarelettejwt>> {
+  rectangle "==verify.resolveVerificationKey\n<size:10>[Component: function]</size>\n\nResolve verification key from configured sources Implements key resolution strategy pattern: - Strategy 1: HS512 shared secret - Strategy 2: Inline public JWK - Strategy 3: Service binding JWKS - Strategy 4: HTTP JWKS URL" <<flarelettejwtkit.chrislyonsdevflarelettejwt.verifyresolveVerificationKey>> as flarelettejwtkit.chrislyonsdevflarelettejwt.verifyresolveVerificationKey
+  rectangle "==verify.verify\n<size:10>[Component: function]</size>\n\nVerify a JWT token with HS512, EdDSA, or RSA algorithms Supports multiple key resolution strategies with automatic algorithm detection" <<flarelettejwtkit.chrislyonsdevflarelettejwt.verifyverify>> as flarelettejwtkit.chrislyonsdevflarelettejwt.verifyverify
+}
+
+@enduml

@@ -1,6 +1,6 @@
 {
   "name": "@chrislyons-dev/flarelette-jwt",
-  "version": "1.12.0",
+  "version": "1.13.0",
   "type": "module",
   "description": "Environment-driven JWT authentication for Cloudflare Workers with secret-name indirection",
   "keywords": [

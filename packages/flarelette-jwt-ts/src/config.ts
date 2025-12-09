@@ -34,12 +34,23 @@ export function envMode(role: 'producer' | 'consumer'): AlgType {
 
   // Consumers use public keys or JWKS to verify
   if (role === 'consumer') {
-    if (
+    // SECURITY: Detect conflicting configuration to prevent mode confusion attacks
+    const hasHS512 = !!(env.JWT_SECRET || env.JWT_SECRET_NAME)
+    const hasAsymmetric = !!(
       env.JWT_PUBLIC_JWK ||
       env.JWT_PUBLIC_JWK_NAME ||
       env.JWT_JWKS_SERVICE ||
-      env.JWT_JWKS_SERVICE_NAME
-    ) {
+      env.JWT_JWKS_SERVICE_NAME ||
+      env.JWT_JWKS_URL
+    )
+
+    if (hasHS512 && hasAsymmetric) {
+      throw new Error(
+        'Configuration error: Both HS512 (JWT_SECRET) and asymmetric (JWT_PUBLIC_JWK/JWT_JWKS_*) secrets configured. Choose one to prevent algorithm confusion attacks.'
+      )
+    }
+
+    if (hasAsymmetric) {
       return 'EdDSA'
     }
   }
@@ -90,8 +101,12 @@ export function getHSSecret(): Uint8Array {
   const b64 = s.replace(/-/g, '+').replace(/_/g, '/')
   try {
     const buf = Buffer.from(b64, 'base64')
-    if (buf.length >= 32) return new Uint8Array(buf)
-    throw new Error(`JWT secret too short: ${buf.length} bytes, need >= 32`)
+    // SECURITY: HS512 uses SHA-512 (512 bits = 64 bytes). Enforce minimum 64-byte secret.
+    // This prevents brute-force attacks and ensures secret entropy matches algorithm strength.
+    if (buf.length >= 64) return new Uint8Array(buf)
+    throw new Error(
+      `JWT secret too short: ${buf.length} bytes, need >= 64 for HS512 (use 'npx flarelette-jwt-secret --len=64')`
+    )
   } catch (e) {
     if (e instanceof Error && e.message.includes('too short')) throw e
     // Fallback to UTF-8 encoding for backwards compatibility
@@ -99,8 +114,10 @@ export function getHSSecret(): Uint8Array {
       'JWT_SECRET is not valid base64url. Treating as raw UTF-8 string (not recommended for production)'
     )
     const bytes = new TextEncoder().encode(s)
-    if (bytes.length < 32) {
-      throw new Error(`JWT secret too short: ${bytes.length} bytes, need >= 32`)
+    if (bytes.length < 64) {
+      throw new Error(
+        `JWT secret too short: ${bytes.length} bytes, need >= 64 for HS512 (use 'npx flarelette-jwt-secret --len=64')`
+      )
     }
     return bytes
   }
@@ -122,4 +139,20 @@ export function getJwksServiceName(): string | null {
   const name = envRead('JWT_JWKS_SERVICE_NAME') as string | undefined
   if (name && envRead(name)) return envRead(name)!
   return envRead('JWT_JWKS_SERVICE') || null
+}
+
+export function getJwksUrl(): string | null {
+  return envRead('JWT_JWKS_URL') || null
+}
+
+export function getJwksCacheTtl(): number {
+  const ttl = envRead('JWT_JWKS_CACHE_TTL_SECONDS')
+  if (!ttl) return 300 // Default: 5 minutes
+
+  const parsed = Number(ttl)
+  if (isNaN(parsed) || parsed < 0) {
+    throw new Error('JWT_JWKS_CACHE_TTL_SECONDS must be a positive number')
+  }
+
+  return parsed
 }

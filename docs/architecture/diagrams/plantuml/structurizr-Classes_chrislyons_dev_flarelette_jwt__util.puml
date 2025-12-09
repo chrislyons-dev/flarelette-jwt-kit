@@ -16,21 +16,7 @@ skinparam {
 
 hide stereotype
 
-skinparam rectangle<<flarelettejwtkit.chrislyonsdevflarelettejwt.utilallowedThumbprints>> {
-  BackgroundColor #85bbf0
-  FontColor #000000
-  BorderColor #5d82a8
-  roundCorner 20
-  shadowing false
-}
 skinparam rectangle<<flarelettejwtkit.chrislyonsdevflarelettejwt.utilcheckAuth>> {
-  BackgroundColor #85bbf0
-  FontColor #000000
-  BorderColor #5d82a8
-  roundCorner 20
-  shadowing false
-}
-skinparam rectangle<<flarelettejwtkit.chrislyonsdevflarelettejwt.utilclearJwksCache>> {
   BackgroundColor #85bbf0
   FontColor #000000
   BorderColor #5d82a8
@@ -51,21 +37,7 @@ skinparam rectangle<<flarelettejwtkit.chrislyonsdevflarelettejwt.utilcreateToken
   roundCorner 20
   shadowing false
 }
-skinparam rectangle<<flarelettejwtkit.chrislyonsdevflarelettejwt.utilfetchJwksFromService>> {
-  BackgroundColor #85bbf0
-  FontColor #000000
-  BorderColor #5d82a8
-  roundCorner 20
-  shadowing false
-}
 skinparam rectangle<<flarelettejwtkit.chrislyonsdevflarelettejwt.utilgenerateSecret>> {
-  BackgroundColor #85bbf0
-  FontColor #000000
-  BorderColor #5d82a8
-  roundCorner 20
-  shadowing false
-}
-skinparam rectangle<<flarelettejwtkit.chrislyonsdevflarelettejwt.utilgetKeyFromJwks>> {
   BackgroundColor #85bbf0
   FontColor #000000
   BorderColor #5d82a8
@@ -114,13 +86,6 @@ skinparam rectangle<<flarelettejwtkit.chrislyonsdevflarelettejwt.utilpolicy>> {
   roundCorner 20
   shadowing false
 }
-skinparam rectangle<<flarelettejwtkit.chrislyonsdevflarelettejwt.utilverify>> {
-  BackgroundColor #85bbf0
-  FontColor #000000
-  BorderColor #5d82a8
-  roundCorner 20
-  shadowing false
-}
 skinparam rectangle<<flarelettejwtkit.chrislyonsdevflarelettejwt>> {
   BorderColor #2e6295
   FontColor #2e6295
@@ -132,17 +97,12 @@ rectangle "@chrislyons-dev/flarelette-jwt\n<size:10>[Container: Service]</size>"
   rectangle "==util.createDelegatedToken\n<size:10>[Component: function]</size>\n\nCreate a delegated JWT token following RFC 8693 actor claim pattern Mints a new short-lived token for use within service boundaries where a service acts on behalf of the original end user. This implements zero-trust delegation: - Preserves original user identity (sub) and permissions - Identifies the acting service via 'act' claim - Prevents permission escalation by copying original permissions Pattern: "I'm <actorService> doing work on behalf of <original user>"" <<flarelettejwtkit.chrislyonsdevflarelettejwt.utilcreateDelegatedToken>> as flarelettejwtkit.chrislyonsdevflarelettejwt.utilcreateDelegatedToken
   rectangle "==util.checkAuth\n<size:10>[Component: function]</size>\n\nVerify and authorize a JWT token with policy enforcement" <<flarelettejwtkit.chrislyonsdevflarelettejwt.utilcheckAuth>> as flarelettejwtkit.chrislyonsdevflarelettejwt.utilcheckAuth
   rectangle "==util.policy\n<size:10>[Component: function]</size>\n\nFluent builder for creating authorization policies" <<flarelettejwtkit.chrislyonsdevflarelettejwt.utilpolicy>> as flarelettejwtkit.chrislyonsdevflarelettejwt.utilpolicy
-  rectangle "==util.clearJwksCache\n<size:10>[Component: function]</size>\n\nClear the JWKS cache (for testing purposes)" <<flarelettejwtkit.chrislyonsdevflarelettejwt.utilclearJwksCache>> as flarelettejwtkit.chrislyonsdevflarelettejwt.utilclearJwksCache
-  rectangle "==util.fetchJwksFromService\n<size:10>[Component: function]</size>\n\nFetch JWKS from a service binding Implements 5-minute caching to reduce load on JWKS service" <<flarelettejwtkit.chrislyonsdevflarelettejwt.utilfetchJwksFromService>> as flarelettejwtkit.chrislyonsdevflarelettejwt.utilfetchJwksFromService
-  rectangle "==util.getKeyFromJwks\n<size:10>[Component: function]</size>\n\nFind and import a specific key from JWKS by kid" <<flarelettejwtkit.chrislyonsdevflarelettejwt.utilgetKeyFromJwks>> as flarelettejwtkit.chrislyonsdevflarelettejwt.utilgetKeyFromJwks
-  rectangle "==util.allowedThumbprints\n<size:10>[Component: function]</size>\n\nGet allowed thumbprints for key pinning (optional security measure)" <<flarelettejwtkit.chrislyonsdevflarelettejwt.utilallowedThumbprints>> as flarelettejwtkit.chrislyonsdevflarelettejwt.utilallowedThumbprints
   rectangle "==util.main\n<size:10>[Component: function]</size>" <<flarelettejwtkit.chrislyonsdevflarelettejwt.utilmain>> as flarelettejwtkit.chrislyonsdevflarelettejwt.utilmain
   rectangle "==util.generateSecret\n<size:10>[Component: function]</size>" <<flarelettejwtkit.chrislyonsdevflarelettejwt.utilgenerateSecret>> as flarelettejwtkit.chrislyonsdevflarelettejwt.utilgenerateSecret
   rectangle "==util.isValidBase64UrlSecret\n<size:10>[Component: function]</size>" <<flarelettejwtkit.chrislyonsdevflarelettejwt.utilisValidBase64UrlSecret>> as flarelettejwtkit.chrislyonsdevflarelettejwt.utilisValidBase64UrlSecret
   rectangle "==util.parse\n<size:10>[Component: function]</size>\n\nParse a JWT token into header and payload without verification" <<flarelettejwtkit.chrislyonsdevflarelettejwt.utilparse>> as flarelettejwtkit.chrislyonsdevflarelettejwt.utilparse
   rectangle "==util.isExpiringSoon\n<size:10>[Component: function]</size>\n\nCheck if JWT payload will expire within specified seconds" <<flarelettejwtkit.chrislyonsdevflarelettejwt.utilisExpiringSoon>> as flarelettejwtkit.chrislyonsdevflarelettejwt.utilisExpiringSoon
   rectangle "==util.mapScopesToPermissions\n<size:10>[Component: function]</size>\n\nMap OAuth scopes to permission strings" <<flarelettejwtkit.chrislyonsdevflarelettejwt.utilmapScopesToPermissions>> as flarelettejwtkit.chrislyonsdevflarelettejwt.utilmapScopesToPermissions
-  rectangle "==util.verify\n<size:10>[Component: function]</size>\n\nVerify a JWT token with HS512 or EdDSA algorithm" <<flarelettejwtkit.chrislyonsdevflarelettejwt.utilverify>> as flarelettejwtkit.chrislyonsdevflarelettejwt.utilverify
 }
 
 @enduml

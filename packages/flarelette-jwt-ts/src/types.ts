@@ -239,6 +239,10 @@ export interface WorkerEnv extends Record<string, unknown> {
   JWT_JWKS_SERVICE?: Fetcher
   JWT_JWKS_SERVICE_NAME?: string
 
+  // HTTP JWKS (TypeScript only - Python support pending)
+  JWT_JWKS_URL?: string
+  JWT_JWKS_CACHE_TTL_SECONDS?: string
+
   // Thumbprint pinning
   JWT_ALLOWED_THUMBPRINTS?: string
 }

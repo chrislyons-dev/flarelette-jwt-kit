@@ -47,7 +47,7 @@ It supports custom claims and configuration overrides.</td>
 ### Code Elements
 
 <details>
-<summary><strong>9 code element(s)</strong></summary>
+<summary><strong>11 code element(s)</strong></summary>
 
 
 
@@ -132,7 +132,7 @@ Returns partial JwtProfile-compatible configuration
 </tr>
 <tr>
 <td><strong>Location</strong></td>
-<td><code>C:/Users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/src/config.ts:54</code></td>
+<td><code>C:/Users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/src/config.ts:65</code></td>
 </tr>
 </tbody>
 </table>
@@ -161,7 +161,7 @@ Returns complete JwtProfile with detected algorithm
 </tr>
 <tr>
 <td><strong>Location</strong></td>
-<td><code>C:/Users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/src/config.ts:67</code></td>
+<td><code>C:/Users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/src/config.ts:78</code></td>
 </tr>
 </tbody>
 </table>
@@ -190,7 +190,7 @@ Returns complete JwtProfile with detected algorithm
 </tr>
 <tr>
 <td><strong>Location</strong></td>
-<td><code>C:/Users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/src/config.ts:82</code></td>
+<td><code>C:/Users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/src/config.ts:93</code></td>
 </tr>
 </tbody>
 </table>
@@ -217,7 +217,7 @@ Returns complete JwtProfile with detected algorithm
 </tr>
 <tr>
 <td><strong>Location</strong></td>
-<td><code>C:/Users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/src/config.ts:109</code></td>
+<td><code>C:/Users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/src/config.ts:126</code></td>
 </tr>
 </tbody>
 </table>
@@ -244,7 +244,7 @@ Returns complete JwtProfile with detected algorithm
 </tr>
 <tr>
 <td><strong>Location</strong></td>
-<td><code>C:/Users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/src/config.ts:115</code></td>
+<td><code>C:/Users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/src/config.ts:132</code></td>
 </tr>
 </tbody>
 </table>
@@ -271,7 +271,61 @@ Returns complete JwtProfile with detected algorithm
 </tr>
 <tr>
 <td><strong>Location</strong></td>
-<td><code>C:/Users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/src/config.ts:121</code></td>
+<td><code>C:/Users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/src/config.ts:138</code></td>
+</tr>
+</tbody>
+</table>
+
+
+
+---
+##### `getJwksUrl()`
+
+
+<table>
+<tbody>
+<tr>
+<td><strong>Type</strong></td>
+<td><code>function</code></td>
+</tr>
+<tr>
+<td><strong>Visibility</strong></td>
+<td><code>public</code></td>
+</tr>
+<tr>
+<td><strong>Returns</strong></td>
+<td><code>string</code></td>
+</tr>
+<tr>
+<td><strong>Location</strong></td>
+<td><code>C:/Users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/src/config.ts:144</code></td>
+</tr>
+</tbody>
+</table>
+
+
+
+---
+##### `getJwksCacheTtl()`
+
+
+<table>
+<tbody>
+<tr>
+<td><strong>Type</strong></td>
+<td><code>function</code></td>
+</tr>
+<tr>
+<td><strong>Visibility</strong></td>
+<td><code>public</code></td>
+</tr>
+<tr>
+<td><strong>Returns</strong></td>
+<td><code>number</code></td>
+</tr>
+<tr>
+<td><strong>Location</strong></td>
+<td><code>C:/Users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/src/config.ts:148</code></td>
 </tr>
 </tbody>
 </table>

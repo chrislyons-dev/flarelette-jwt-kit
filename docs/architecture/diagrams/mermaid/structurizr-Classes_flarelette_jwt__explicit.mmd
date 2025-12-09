@@ -4,45 +4,45 @@ graph TB
   subgraph diagram ["flarelette-jwt-kit - flarelette-jwt - Components"]
     style diagram fill:#ffffff,stroke:#ffffff
 
-    subgraph 49 ["flarelette-jwt"]
-      style 49 fill:#ffffff,stroke:#2e6295,color:#2e6295
+    subgraph 60 ["flarelette-jwt"]
+      style 60 fill:#ffffff,stroke:#2e6295,color:#2e6295
 
-      69("<div style='font-weight: bold'>explicit.BaseJwtConfig</div><div style='font-size: 70%; margin-top: 0px'>[Component: class]</div><div style='font-size: 80%; margin-top:10px'>Base JWT configuration shared<br />by HS512 and EdDSA modes.</div>")
-      style 69 fill:#85bbf0,stroke:#5d82a8,color:#000000
-      70("<div style='font-weight: bold'>explicit.HS512Config</div><div style='font-size: 70%; margin-top: 0px'>[Component: class]</div><div style='font-size: 80%; margin-top:10px'>HS512 (HMAC-SHA512) symmetric<br />configuration.</div>")
-      style 70 fill:#85bbf0,stroke:#5d82a8,color:#000000
-      71("<div style='font-weight: bold'>explicit.EdDSASignConfig</div><div style='font-size: 70%; margin-top: 0px'>[Component: class]</div><div style='font-size: 80%; margin-top:10px'>EdDSA (Ed25519) asymmetric<br />configuration for signing.</div>")
-      style 71 fill:#85bbf0,stroke:#5d82a8,color:#000000
-      72("<div style='font-weight: bold'>explicit.EdDSAVerifyConfig</div><div style='font-size: 70%; margin-top: 0px'>[Component: class]</div><div style='font-size: 80%; margin-top:10px'>EdDSA (Ed25519) asymmetric<br />configuration for<br />verification.</div>")
-      style 72 fill:#85bbf0,stroke:#5d82a8,color:#000000
-      73("<div style='font-weight: bold'>explicit.AuthzOptsWithConfig</div><div style='font-size: 70%; margin-top: 0px'>[Component: class]</div><div style='font-size: 80%; margin-top:10px'>Authorization options for<br />check_auth_with_config.</div>")
-      style 73 fill:#85bbf0,stroke:#5d82a8,color:#000000
-      74("<div style='font-weight: bold'>explicit.AuthUser</div><div style='font-size: 70%; margin-top: 0px'>[Component: class]</div><div style='font-size: 80%; margin-top:10px'>Authenticated user<br />information.</div>")
-      style 74 fill:#85bbf0,stroke:#5d82a8,color:#000000
-      75("<div style='font-weight: bold'>explicit._b64url</div><div style='font-size: 70%; margin-top: 0px'>[Component: function]</div><div style='font-size: 80%; margin-top:10px'>Encode bytes to base64url<br />without padding.</div>")
-      style 75 fill:#85bbf0,stroke:#5d82a8,color:#000000
-      76("<div style='font-weight: bold'>explicit._b64url_decode</div><div style='font-size: 70%; margin-top: 0px'>[Component: function]</div><div style='font-size: 80%; margin-top:10px'>Decode base64url string (with<br />or without padding).</div>")
-      style 76 fill:#85bbf0,stroke:#5d82a8,color:#000000
-      77("<div style='font-weight: bold'>explicit.sign_with_config</div><div style='font-size: 70%; margin-top: 0px'>[Component: function]</div><div style='font-size: 80%; margin-top:10px'>Sign a JWT token with<br />explicit configuration.</div>")
-      style 77 fill:#85bbf0,stroke:#5d82a8,color:#000000
-      78("<div style='font-weight: bold'>explicit.verify_with_config</div><div style='font-size: 70%; margin-top: 0px'>[Component: function]</div><div style='font-size: 80%; margin-top:10px'>Verify a JWT token with<br />explicit configuration.</div>")
-      style 78 fill:#85bbf0,stroke:#5d82a8,color:#000000
-      79("<div style='font-weight: bold'>explicit.create_token_with_config</div><div style='font-size: 70%; margin-top: 0px'>[Component: function]</div><div style='font-size: 80%; margin-top:10px'>Create a signed JWT token<br />with explicit configuration.</div>")
-      style 79 fill:#85bbf0,stroke:#5d82a8,color:#000000
-      80("<div style='font-weight: bold'>explicit.create_delegated_token_with_config</div><div style='font-size: 70%; margin-top: 0px'>[Component: function]</div><div style='font-size: 80%; margin-top:10px'>Create a delegated JWT token<br />with explicit configuration.</div>")
+      80("<div style='font-weight: bold'>explicit.BaseJwtConfig</div><div style='font-size: 70%; margin-top: 0px'>[Component: class]</div><div style='font-size: 80%; margin-top:10px'>Base JWT configuration shared<br />by HS512 and EdDSA modes.</div>")
       style 80 fill:#85bbf0,stroke:#5d82a8,color:#000000
-      81("<div style='font-weight: bold'>explicit.check_auth_with_config</div><div style='font-size: 70%; margin-top: 0px'>[Component: function]</div><div style='font-size: 80%; margin-top:10px'>Verify and authorize a JWT<br />token with explicit<br />configuration.</div>")
+      81("<div style='font-weight: bold'>explicit.HS512Config</div><div style='font-size: 70%; margin-top: 0px'>[Component: class]</div><div style='font-size: 80%; margin-top:10px'>HS512 (HMAC-SHA512) symmetric<br />configuration.</div>")
       style 81 fill:#85bbf0,stroke:#5d82a8,color:#000000
-      82("<div style='font-weight: bold'>explicit.create_hs512_config</div><div style='font-size: 70%; margin-top: 0px'>[Component: function]</div><div style='font-size: 80%; margin-top:10px'>Helper function to create<br />HS512 config from<br />base64url-encoded secret.</div>")
+      82("<div style='font-weight: bold'>explicit.EdDSASignConfig</div><div style='font-size: 70%; margin-top: 0px'>[Component: class]</div><div style='font-size: 80%; margin-top:10px'>EdDSA (Ed25519) asymmetric<br />configuration for signing.</div>")
       style 82 fill:#85bbf0,stroke:#5d82a8,color:#000000
-      83("<div style='font-weight: bold'>explicit.create_eddsa_sign_config</div><div style='font-size: 70%; margin-top: 0px'>[Component: function]</div><div style='font-size: 80%; margin-top:10px'>Helper function to create<br />EdDSA sign config from JWK.</div>")
+      83("<div style='font-weight: bold'>explicit.EdDSAVerifyConfig</div><div style='font-size: 70%; margin-top: 0px'>[Component: class]</div><div style='font-size: 80%; margin-top:10px'>EdDSA (Ed25519) asymmetric<br />configuration for<br />verification.</div>")
       style 83 fill:#85bbf0,stroke:#5d82a8,color:#000000
-      84("<div style='font-weight: bold'>explicit.create_eddsa_verify_config</div><div style='font-size: 70%; margin-top: 0px'>[Component: function]</div><div style='font-size: 80%; margin-top:10px'>Helper function to create<br />EdDSA verify config from JWK.</div>")
+      84("<div style='font-weight: bold'>explicit.AuthzOptsWithConfig</div><div style='font-size: 70%; margin-top: 0px'>[Component: class]</div><div style='font-size: 80%; margin-top:10px'>Authorization options for<br />check_auth_with_config.</div>")
       style 84 fill:#85bbf0,stroke:#5d82a8,color:#000000
-      85("<div style='font-weight: bold'>explicit.SignConfig</div><div style='font-size: 70%; margin-top: 0px'>[Component: type]</div>")
+      85("<div style='font-weight: bold'>explicit.AuthUser</div><div style='font-size: 70%; margin-top: 0px'>[Component: class]</div><div style='font-size: 80%; margin-top:10px'>Authenticated user<br />information.</div>")
       style 85 fill:#85bbf0,stroke:#5d82a8,color:#000000
-      86("<div style='font-weight: bold'>explicit.VerifyConfig</div><div style='font-size: 70%; margin-top: 0px'>[Component: type]</div>")
+      86("<div style='font-weight: bold'>explicit._b64url</div><div style='font-size: 70%; margin-top: 0px'>[Component: function]</div><div style='font-size: 80%; margin-top:10px'>Encode bytes to base64url<br />without padding.</div>")
       style 86 fill:#85bbf0,stroke:#5d82a8,color:#000000
+      87("<div style='font-weight: bold'>explicit._b64url_decode</div><div style='font-size: 70%; margin-top: 0px'>[Component: function]</div><div style='font-size: 80%; margin-top:10px'>Decode base64url string (with<br />or without padding).</div>")
+      style 87 fill:#85bbf0,stroke:#5d82a8,color:#000000
+      88("<div style='font-weight: bold'>explicit.sign_with_config</div><div style='font-size: 70%; margin-top: 0px'>[Component: function]</div><div style='font-size: 80%; margin-top:10px'>Sign a JWT token with<br />explicit configuration.</div>")
+      style 88 fill:#85bbf0,stroke:#5d82a8,color:#000000
+      89("<div style='font-weight: bold'>explicit.verify_with_config</div><div style='font-size: 70%; margin-top: 0px'>[Component: function]</div><div style='font-size: 80%; margin-top:10px'>Verify a JWT token with<br />explicit configuration.</div>")
+      style 89 fill:#85bbf0,stroke:#5d82a8,color:#000000
+      90("<div style='font-weight: bold'>explicit.create_token_with_config</div><div style='font-size: 70%; margin-top: 0px'>[Component: function]</div><div style='font-size: 80%; margin-top:10px'>Create a signed JWT token<br />with explicit configuration.</div>")
+      style 90 fill:#85bbf0,stroke:#5d82a8,color:#000000
+      91("<div style='font-weight: bold'>explicit.create_delegated_token_with_config</div><div style='font-size: 70%; margin-top: 0px'>[Component: function]</div><div style='font-size: 80%; margin-top:10px'>Create a delegated JWT token<br />with explicit configuration.</div>")
+      style 91 fill:#85bbf0,stroke:#5d82a8,color:#000000
+      92("<div style='font-weight: bold'>explicit.check_auth_with_config</div><div style='font-size: 70%; margin-top: 0px'>[Component: function]</div><div style='font-size: 80%; margin-top:10px'>Verify and authorize a JWT<br />token with explicit<br />configuration.</div>")
+      style 92 fill:#85bbf0,stroke:#5d82a8,color:#000000
+      93("<div style='font-weight: bold'>explicit.create_hs512_config</div><div style='font-size: 70%; margin-top: 0px'>[Component: function]</div><div style='font-size: 80%; margin-top:10px'>Helper function to create<br />HS512 config from<br />base64url-encoded secret.</div>")
+      style 93 fill:#85bbf0,stroke:#5d82a8,color:#000000
+      94("<div style='font-weight: bold'>explicit.create_eddsa_sign_config</div><div style='font-size: 70%; margin-top: 0px'>[Component: function]</div><div style='font-size: 80%; margin-top:10px'>Helper function to create<br />EdDSA sign config from JWK.</div>")
+      style 94 fill:#85bbf0,stroke:#5d82a8,color:#000000
+      95("<div style='font-weight: bold'>explicit.create_eddsa_verify_config</div><div style='font-size: 70%; margin-top: 0px'>[Component: function]</div><div style='font-size: 80%; margin-top:10px'>Helper function to create<br />EdDSA verify config from JWK.</div>")
+      style 95 fill:#85bbf0,stroke:#5d82a8,color:#000000
+      96("<div style='font-weight: bold'>explicit.SignConfig</div><div style='font-size: 70%; margin-top: 0px'>[Component: type]</div>")
+      style 96 fill:#85bbf0,stroke:#5d82a8,color:#000000
+      97("<div style='font-weight: bold'>explicit.VerifyConfig</div><div style='font-size: 70%; margin-top: 0px'>[Component: type]</div>")
+      style 97 fill:#85bbf0,stroke:#5d82a8,color:#000000
     end
 
   end

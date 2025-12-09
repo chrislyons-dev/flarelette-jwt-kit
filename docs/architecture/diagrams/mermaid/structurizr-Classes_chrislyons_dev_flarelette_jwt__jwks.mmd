@@ -1,0 +1,26 @@
+graph TB
+  linkStyle default fill:#ffffff
+
+  subgraph diagram ["flarelette-jwt-kit - @chrislyons-dev/flarelette-jwt - Components"]
+    style diagram fill:#ffffff,stroke:#ffffff
+
+    subgraph 2 ["@chrislyons-dev/flarelette-jwt"]
+      style 2 fill:#ffffff,stroke:#2e6295,color:#2e6295
+
+      34("<div style='font-weight: bold'>jwks.clearJwksCache</div><div style='font-size: 70%; margin-top: 0px'>[Component: function]</div><div style='font-size: 80%; margin-top:10px'>Clear the JWKS cache (for<br />testing purposes)</div>")
+      style 34 fill:#85bbf0,stroke:#5d82a8,color:#000000
+      35("<div style='font-weight: bold'>jwks.clearHttpJwksCache</div><div style='font-size: 70%; margin-top: 0px'>[Component: function]</div><div style='font-size: 80%; margin-top:10px'>Clear the HTTP JWKS cache<br />(for testing purposes)</div>")
+      style 35 fill:#85bbf0,stroke:#5d82a8,color:#000000
+      36("<div style='font-weight: bold'>jwks.fetchJwksFromService</div><div style='font-size: 70%; margin-top: 0px'>[Component: function]</div><div style='font-size: 80%; margin-top:10px'>Fetch JWKS from a service<br />binding Implements 5-minute<br />caching to reduce load on<br />JWKS service</div>")
+      style 36 fill:#85bbf0,stroke:#5d82a8,color:#000000
+      37("<div style='font-weight: bold'>jwks.validateJwksUrl</div><div style='font-size: 70%; margin-top: 0px'>[Component: function]</div><div style='font-size: 80%; margin-top:10px'>Validate JWKS URL for<br />security requirements<br />Requirements: - Must be valid<br />URL format - Must use HTTPS<br />(except<br />localhost/127.0.0.1/[::1] for<br />testing)</div>")
+      style 37 fill:#85bbf0,stroke:#5d82a8,color:#000000
+      38("<div style='font-weight: bold'>jwks.fetchJwksFromUrl</div><div style='font-size: 70%; margin-top: 0px'>[Component: function]</div><div style='font-size: 80%; margin-top:10px'>Fetch JWKS from HTTP URL with<br />caching Implements<br />configurable TTL caching<br />(default 5 minutes) Security:<br />HTTPS-only (except<br />localhost), 5-second timeout,<br />100KB size limit</div>")
+      style 38 fill:#85bbf0,stroke:#5d82a8,color:#000000
+      39("<div style='font-weight: bold'>jwks.getKeyFromJwks</div><div style='font-size: 70%; margin-top: 0px'>[Component: function]</div><div style='font-size: 80%; margin-top:10px'>Find and import a specific<br />key from JWKS by kid Supports<br />both EdDSA (Ed25519) and RSA<br />(RS256/RS384/RS512) keys<br />Algorithm is auto-detected<br />from key type (kty) and curve<br />(crv)</div>")
+      style 39 fill:#85bbf0,stroke:#5d82a8,color:#000000
+      40("<div style='font-weight: bold'>jwks.allowedThumbprints</div><div style='font-size: 70%; margin-top: 0px'>[Component: function]</div><div style='font-size: 80%; margin-top:10px'>Get allowed thumbprints for<br />key pinning (optional<br />security measure)</div>")
+      style 40 fill:#85bbf0,stroke:#5d82a8,color:#000000
+    end
+
+  end
