@@ -77,6 +77,6 @@
     "wrangler": "^4.45.1"
   },
   "dependencies": {
-    "@chrislyons-dev/archlette": "^1.2.0"
+    "@chrislyons-dev/archlette": "^1.3.2"
   }
 }

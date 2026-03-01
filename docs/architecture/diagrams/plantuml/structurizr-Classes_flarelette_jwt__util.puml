@@ -2,9 +2,9 @@
 set separator none
 title flarelette-jwt-kit - flarelette-jwt - Components
 
-top to bottom direction
-skinparam ranksep 60
-skinparam nodesep 30
+left to right direction
+skinparam ranksep 20
+skinparam nodesep 10
 
 skinparam {
   arrowFontSize 10
@@ -17,324 +17,324 @@ skinparam {
 hide stereotype
 
 skinparam rectangle<<flarelettejwtkit.flarelettejwt.utilActorClaim>> {
-  BackgroundColor #85bbf0
+  BackgroundColor #d4e8fc
   FontColor #000000
-  BorderColor #5d82a8
+  BorderColor #94a2b0
   roundCorner 20
   shadowing false
 }
 skinparam rectangle<<flarelettejwtkit.flarelettejwt.utilAlgType>> {
-  BackgroundColor #85bbf0
+  BackgroundColor #d4e8fc
   FontColor #000000
-  BorderColor #5d82a8
+  BorderColor #94a2b0
   roundCorner 20
   shadowing false
 }
 skinparam rectangle<<flarelettejwtkit.flarelettejwt.utilAuthUser>> {
-  BackgroundColor #85bbf0
+  BackgroundColor #d4e8fc
   FontColor #000000
-  BorderColor #5d82a8
+  BorderColor #94a2b0
   roundCorner 20
   shadowing false
 }
 skinparam rectangle<<flarelettejwtkit.flarelettejwt.utilBuilder>> {
-  BackgroundColor #85bbf0
+  BackgroundColor #d4e8fc
   FontColor #000000
-  BorderColor #5d82a8
+  BorderColor #94a2b0
   roundCorner 20
   shadowing false
 }
 skinparam rectangle<<flarelettejwtkit.flarelettejwt.utilBuilderbase>> {
-  BackgroundColor #85bbf0
+  BackgroundColor #d4e8fc
   FontColor #000000
-  BorderColor #5d82a8
+  BorderColor #94a2b0
   roundCorner 20
   shadowing false
 }
 skinparam rectangle<<flarelettejwtkit.flarelettejwt.utilBuilderbuild>> {
-  BackgroundColor #85bbf0
+  BackgroundColor #d4e8fc
   FontColor #000000
-  BorderColor #5d82a8
+  BorderColor #94a2b0
   roundCorner 20
   shadowing false
 }
 skinparam rectangle<<flarelettejwtkit.flarelettejwt.utilBuilderneed_all>> {
-  BackgroundColor #85bbf0
+  BackgroundColor #d4e8fc
   FontColor #000000
-  BorderColor #5d82a8
+  BorderColor #94a2b0
   roundCorner 20
   shadowing false
 }
 skinparam rectangle<<flarelettejwtkit.flarelettejwt.utilBuilderneed_any>> {
-  BackgroundColor #85bbf0
+  BackgroundColor #d4e8fc
   FontColor #000000
-  BorderColor #5d82a8
+  BorderColor #94a2b0
   roundCorner 20
   shadowing false
 }
 skinparam rectangle<<flarelettejwtkit.flarelettejwt.utilBuilderroles_all>> {
-  BackgroundColor #85bbf0
+  BackgroundColor #d4e8fc
   FontColor #000000
-  BorderColor #5d82a8
+  BorderColor #94a2b0
   roundCorner 20
   shadowing false
 }
 skinparam rectangle<<flarelettejwtkit.flarelettejwt.utilBuilderroles_any>> {
-  BackgroundColor #85bbf0
+  BackgroundColor #d4e8fc
   FontColor #000000
-  BorderColor #5d82a8
+  BorderColor #94a2b0
   roundCorner 20
   shadowing false
 }
 skinparam rectangle<<flarelettejwtkit.flarelettejwt.utilBuilderwhere>> {
-  BackgroundColor #85bbf0
+  BackgroundColor #d4e8fc
   FontColor #000000
-  BorderColor #5d82a8
+  BorderColor #94a2b0
   roundCorner 20
   shadowing false
 }
 skinparam rectangle<<flarelettejwtkit.flarelettejwt.utilClaimsDict>> {
-  BackgroundColor #85bbf0
+  BackgroundColor #d4e8fc
   FontColor #000000
-  BorderColor #5d82a8
+  BorderColor #94a2b0
   roundCorner 20
   shadowing false
 }
 skinparam rectangle<<flarelettejwtkit.flarelettejwt.utilJwtCommonConfig>> {
-  BackgroundColor #85bbf0
+  BackgroundColor #d4e8fc
   FontColor #000000
-  BorderColor #5d82a8
+  BorderColor #94a2b0
   roundCorner 20
   shadowing false
 }
 skinparam rectangle<<flarelettejwtkit.flarelettejwt.utilJwtHeader>> {
-  BackgroundColor #85bbf0
+  BackgroundColor #d4e8fc
   FontColor #000000
-  BorderColor #5d82a8
+  BorderColor #94a2b0
   roundCorner 20
   shadowing false
 }
 skinparam rectangle<<flarelettejwtkit.flarelettejwt.utilJwtPayload>> {
-  BackgroundColor #85bbf0
+  BackgroundColor #d4e8fc
   FontColor #000000
-  BorderColor #5d82a8
+  BorderColor #94a2b0
   roundCorner 20
   shadowing false
 }
 skinparam rectangle<<flarelettejwtkit.flarelettejwt.utilJwtProfile>> {
-  BackgroundColor #85bbf0
+  BackgroundColor #d4e8fc
   FontColor #000000
-  BorderColor #5d82a8
+  BorderColor #94a2b0
   roundCorner 20
   shadowing false
 }
 skinparam rectangle<<flarelettejwtkit.flarelettejwt.utilJwtValue>> {
-  BackgroundColor #85bbf0
+  BackgroundColor #d4e8fc
   FontColor #000000
-  BorderColor #5d82a8
+  BorderColor #94a2b0
   roundCorner 20
   shadowing false
 }
 skinparam rectangle<<flarelettejwtkit.flarelettejwt.utilParsedJwt>> {
-  BackgroundColor #85bbf0
+  BackgroundColor #d4e8fc
   FontColor #000000
-  BorderColor #5d82a8
+  BorderColor #94a2b0
   roundCorner 20
   shadowing false
 }
 skinparam rectangle<<flarelettejwtkit.flarelettejwt.utilPolicyBuilder>> {
-  BackgroundColor #85bbf0
+  BackgroundColor #d4e8fc
   FontColor #000000
-  BorderColor #5d82a8
+  BorderColor #94a2b0
   roundCorner 20
   shadowing false
 }
 skinparam rectangle<<flarelettejwtkit.flarelettejwt.utilPolicyBuilderbase>> {
-  BackgroundColor #85bbf0
+  BackgroundColor #d4e8fc
   FontColor #000000
-  BorderColor #5d82a8
+  BorderColor #94a2b0
   roundCorner 20
   shadowing false
 }
 skinparam rectangle<<flarelettejwtkit.flarelettejwt.utilPolicyBuilderbuild>> {
-  BackgroundColor #85bbf0
+  BackgroundColor #d4e8fc
   FontColor #000000
-  BorderColor #5d82a8
+  BorderColor #94a2b0
   roundCorner 20
   shadowing false
 }
 skinparam rectangle<<flarelettejwtkit.flarelettejwt.utilPolicyBuilderneed_all>> {
-  BackgroundColor #85bbf0
+  BackgroundColor #d4e8fc
   FontColor #000000
-  BorderColor #5d82a8
+  BorderColor #94a2b0
   roundCorner 20
   shadowing false
 }
 skinparam rectangle<<flarelettejwtkit.flarelettejwt.utilPolicyBuilderneed_any>> {
-  BackgroundColor #85bbf0
+  BackgroundColor #d4e8fc
   FontColor #000000
-  BorderColor #5d82a8
+  BorderColor #94a2b0
   roundCorner 20
   shadowing false
 }
 skinparam rectangle<<flarelettejwtkit.flarelettejwt.utilPolicyBuilderroles_all>> {
-  BackgroundColor #85bbf0
+  BackgroundColor #d4e8fc
   FontColor #000000
-  BorderColor #5d82a8
+  BorderColor #94a2b0
   roundCorner 20
   shadowing false
 }
 skinparam rectangle<<flarelettejwtkit.flarelettejwt.utilPolicyBuilderroles_any>> {
-  BackgroundColor #85bbf0
+  BackgroundColor #d4e8fc
   FontColor #000000
-  BorderColor #5d82a8
+  BorderColor #94a2b0
   roundCorner 20
   shadowing false
 }
 skinparam rectangle<<flarelettejwtkit.flarelettejwt.utilPolicyBuilderwhere>> {
-  BackgroundColor #85bbf0
+  BackgroundColor #d4e8fc
   FontColor #000000
-  BorderColor #5d82a8
+  BorderColor #94a2b0
   roundCorner 20
   shadowing false
 }
 skinparam rectangle<<flarelettejwtkit.flarelettejwt.util_b64url>> {
-  BackgroundColor #85bbf0
+  BackgroundColor #d4e8fc
   FontColor #000000
-  BorderColor #5d82a8
+  BorderColor #94a2b0
   roundCorner 20
   shadowing false
 }
 skinparam rectangle<<flarelettejwtkit.flarelettejwt.util_b64url_decode>> {
-  BackgroundColor #85bbf0
+  BackgroundColor #d4e8fc
   FontColor #000000
-  BorderColor #5d82a8
+  BorderColor #94a2b0
   roundCorner 20
   shadowing false
 }
 skinparam rectangle<<flarelettejwtkit.flarelettejwt.util_get_indirect>> {
-  BackgroundColor #85bbf0
+  BackgroundColor #d4e8fc
   FontColor #000000
-  BorderColor #5d82a8
+  BorderColor #94a2b0
   roundCorner 20
   shadowing false
 }
 skinparam rectangle<<flarelettejwtkit.flarelettejwt.utilcheck_auth>> {
-  BackgroundColor #85bbf0
+  BackgroundColor #d4e8fc
   FontColor #000000
-  BorderColor #5d82a8
+  BorderColor #94a2b0
   roundCorner 20
   shadowing false
 }
 skinparam rectangle<<flarelettejwtkit.flarelettejwt.utilcommon>> {
-  BackgroundColor #85bbf0
+  BackgroundColor #d4e8fc
   FontColor #000000
-  BorderColor #5d82a8
+  BorderColor #94a2b0
   roundCorner 20
   shadowing false
 }
 skinparam rectangle<<flarelettejwtkit.flarelettejwt.utilcreate_delegated_token>> {
-  BackgroundColor #85bbf0
+  BackgroundColor #d4e8fc
   FontColor #000000
-  BorderColor #5d82a8
+  BorderColor #94a2b0
   roundCorner 20
   shadowing false
 }
 skinparam rectangle<<flarelettejwtkit.flarelettejwt.utilcreate_token>> {
-  BackgroundColor #85bbf0
+  BackgroundColor #d4e8fc
   FontColor #000000
-  BorderColor #5d82a8
+  BorderColor #94a2b0
   roundCorner 20
   shadowing false
 }
 skinparam rectangle<<flarelettejwtkit.flarelettejwt.utilgenerate_secret>> {
-  BackgroundColor #85bbf0
+  BackgroundColor #d4e8fc
   FontColor #000000
-  BorderColor #5d82a8
+  BorderColor #94a2b0
   roundCorner 20
   shadowing false
 }
 skinparam rectangle<<flarelettejwtkit.flarelettejwt.utilget_hs_secret_bytes>> {
-  BackgroundColor #85bbf0
+  BackgroundColor #d4e8fc
   FontColor #000000
-  BorderColor #5d82a8
+  BorderColor #94a2b0
   roundCorner 20
   shadowing false
 }
 skinparam rectangle<<flarelettejwtkit.flarelettejwt.utilget_public_jwk_string>> {
-  BackgroundColor #85bbf0
+  BackgroundColor #d4e8fc
   FontColor #000000
-  BorderColor #5d82a8
+  BorderColor #94a2b0
   roundCorner 20
   shadowing false
 }
 skinparam rectangle<<flarelettejwtkit.flarelettejwt.utilis_expiring_soon>> {
-  BackgroundColor #85bbf0
+  BackgroundColor #d4e8fc
   FontColor #000000
-  BorderColor #5d82a8
+  BorderColor #94a2b0
   roundCorner 20
   shadowing false
 }
 skinparam rectangle<<flarelettejwtkit.flarelettejwt.utilis_valid_base64url_secret>> {
-  BackgroundColor #85bbf0
+  BackgroundColor #d4e8fc
   FontColor #000000
-  BorderColor #5d82a8
+  BorderColor #94a2b0
   roundCorner 20
   shadowing false
 }
 skinparam rectangle<<flarelettejwtkit.flarelettejwt.utilmain>> {
-  BackgroundColor #85bbf0
+  BackgroundColor #d4e8fc
   FontColor #000000
-  BorderColor #5d82a8
+  BorderColor #94a2b0
   roundCorner 20
   shadowing false
 }
 skinparam rectangle<<flarelettejwtkit.flarelettejwt.utilmap_scopes_to_permissions>> {
-  BackgroundColor #85bbf0
+  BackgroundColor #d4e8fc
   FontColor #000000
-  BorderColor #5d82a8
+  BorderColor #94a2b0
   roundCorner 20
   shadowing false
 }
 skinparam rectangle<<flarelettejwtkit.flarelettejwt.utilmode>> {
-  BackgroundColor #85bbf0
+  BackgroundColor #d4e8fc
   FontColor #000000
-  BorderColor #5d82a8
+  BorderColor #94a2b0
   roundCorner 20
   shadowing false
 }
 skinparam rectangle<<flarelettejwtkit.flarelettejwt.utilparse>> {
-  BackgroundColor #85bbf0
+  BackgroundColor #d4e8fc
   FontColor #000000
-  BorderColor #5d82a8
+  BorderColor #94a2b0
   roundCorner 20
   shadowing false
 }
 skinparam rectangle<<flarelettejwtkit.flarelettejwt.utilpolicy>> {
-  BackgroundColor #85bbf0
+  BackgroundColor #d4e8fc
   FontColor #000000
-  BorderColor #5d82a8
+  BorderColor #94a2b0
   roundCorner 20
   shadowing false
 }
 skinparam rectangle<<flarelettejwtkit.flarelettejwt.utilprofile>> {
-  BackgroundColor #85bbf0
+  BackgroundColor #d4e8fc
   FontColor #000000
-  BorderColor #5d82a8
+  BorderColor #94a2b0
   roundCorner 20
   shadowing false
 }
 skinparam rectangle<<flarelettejwtkit.flarelettejwt.utilsign>> {
-  BackgroundColor #85bbf0
+  BackgroundColor #d4e8fc
   FontColor #000000
-  BorderColor #5d82a8
+  BorderColor #94a2b0
   roundCorner 20
   shadowing false
 }
 skinparam rectangle<<flarelettejwtkit.flarelettejwt.utilverify>> {
-  BackgroundColor #85bbf0
+  BackgroundColor #d4e8fc
   FontColor #000000
-  BorderColor #5d82a8
+  BorderColor #94a2b0
   roundCorner 20
   shadowing false
 }
@@ -345,6 +345,7 @@ skinparam rectangle<<flarelettejwtkit.flarelettejwt>> {
 }
 
 rectangle "flarelette-jwt\n<size:10>[Container: Service]</size>" <<flarelettejwtkit.flarelettejwt>> {
+  rectangle "==util.PolicyBuilder\n<size:10>[Component: class]</size>\n\nBuilder interface for creating JWT authorization policies." <<flarelettejwtkit.flarelettejwt.utilPolicyBuilder>> as flarelettejwtkit.flarelettejwt.utilPolicyBuilder
   rectangle "==util.PolicyBuilder.base\n<size:10>[Component: method]</size>" <<flarelettejwtkit.flarelettejwt.utilPolicyBuilderbase>> as flarelettejwtkit.flarelettejwt.utilPolicyBuilderbase
   rectangle "==util.PolicyBuilder.need_all\n<size:10>[Component: method]</size>" <<flarelettejwtkit.flarelettejwt.utilPolicyBuilderneed_all>> as flarelettejwtkit.flarelettejwt.utilPolicyBuilderneed_all
   rectangle "==util.PolicyBuilder.need_any\n<size:10>[Component: method]</size>" <<flarelettejwtkit.flarelettejwt.utilPolicyBuilderneed_any>> as flarelettejwtkit.flarelettejwt.utilPolicyBuilderneed_any
@@ -390,7 +391,6 @@ rectangle "flarelette-jwt\n<size:10>[Container: Service]</size>" <<flarelettejwt
   rectangle "==util.JwtValue\n<size:10>[Component: type]</size>" <<flarelettejwtkit.flarelettejwt.utilJwtValue>> as flarelettejwtkit.flarelettejwt.utilJwtValue
   rectangle "==util.ClaimsDict\n<size:10>[Component: type]</size>" <<flarelettejwtkit.flarelettejwt.utilClaimsDict>> as flarelettejwtkit.flarelettejwt.utilClaimsDict
   rectangle "==util.AuthUser\n<size:10>[Component: class]</size>\n\nAuthenticated user information returned by check_auth." <<flarelettejwtkit.flarelettejwt.utilAuthUser>> as flarelettejwtkit.flarelettejwt.utilAuthUser
-  rectangle "==util.PolicyBuilder\n<size:10>[Component: class]</size>\n\nBuilder interface for creating JWT authorization policies." <<flarelettejwtkit.flarelettejwt.utilPolicyBuilder>> as flarelettejwtkit.flarelettejwt.utilPolicyBuilder
 }
 
 @enduml

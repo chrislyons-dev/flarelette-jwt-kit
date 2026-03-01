@@ -6,30 +6,12 @@
 
 ## Component Information
 
-<table>
-<tbody>
-<tr>
-<td><strong>Component</strong></td>
-<td>types</td>
-</tr>
-<tr>
-<td><strong>Container</strong></td>
-<td>@chrislyons-dev/flarelette-jwt</td>
-</tr>
-<tr>
-<td><strong>Type</strong></td>
-<td><code>module</code></td>
-</tr>
-<tr>
-<td><strong>Description</strong></td>
-<td>Type definitions for JWT operations.
-
-This module defines types for JWT headers, payloads, profiles, and related structures.
-It ensures type safety and consistency across the library.</td>
-</tr>
-</tbody>
-</table>
-
+| Field | Value |
+| --- | --- |
+| **Component** | types |
+| **Container** | @chrislyons-dev/flarelette-jwt |
+| **Type** | `module` |
+| **Description** | Type definitions for JWT operations.<br><br>This module defines types for JWT headers, payloads, profiles, and related structures.<br>It ensures type safety and consistency across the library. |
 ---
 
 ## Code Structure
@@ -44,3 +26,4 @@ It ensures type safety and consistency across the library.</td>
 <div align="center">
 <sub><a href="./chrislyons_dev_flarelette_jwt.md">← Back to Container</a> | <a href="./README.md">← Back to System</a> | Generated with <a href="https://github.com/chrislyons-dev/archlette">Archlette</a></sub>
 </div>
+

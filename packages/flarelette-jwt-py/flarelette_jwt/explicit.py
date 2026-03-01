@@ -139,7 +139,7 @@ async def sign_with_config(
         Signed JWT token string
 
     Raises:
-        ValueError: If secret is too short (< 32 bytes)
+        ValueError: If secret is too short (< 64 bytes)
         RuntimeError: If EdDSA signing is attempted (not supported in Python Workers)
     """
     iss_val = iss or config.get("iss", "")
@@ -155,8 +155,11 @@ async def sign_with_config(
 
     if config["alg"] == "HS512":
         secret = config["secret"]
-        if len(secret) < 32:
-            raise ValueError(f"JWT secret too short: {len(secret)} bytes, need >= 32")
+        # SECURITY: HS512 requires 64-byte minimum (SHA-512 digest size)
+        if len(secret) < 64:
+            raise ValueError(
+                f"JWT secret too short: {len(secret)} bytes, need >= 64 for HS512"
+            )
 
         # Lazy import - only available in Cloudflare Workers/Pyodide runtime
         from js import crypto  # noqa: PLC0415
@@ -243,7 +246,8 @@ async def verify_with_config(
             return None
 
         secret = config["secret"]
-        if len(secret) < 32:
+        # SECURITY: HS512 requires 64-byte minimum (SHA-512 digest size)
+        if len(secret) < 64:
             return None
 
         key = await crypto.subtle.importKey(
@@ -527,7 +531,7 @@ def create_hs512_config(
     """Helper function to create HS512 config from base64url-encoded secret.
 
     Args:
-        secret: Base64url-encoded secret string or raw bytes (minimum 32 bytes)
+        secret: Base64url-encoded secret string or raw bytes (minimum 64 bytes)
         iss: Token issuer
         aud: Token audience (string or list)
         ttl_seconds: Token lifetime in seconds (default: 900 = 15 minutes)
@@ -537,7 +541,7 @@ def create_hs512_config(
         HS512Config
 
     Raises:
-        ValueError: If secret is too short (< 32 bytes)
+        ValueError: If secret is too short (< 64 bytes)
     """
     if isinstance(secret, str):
         # Decode base64url
@@ -545,8 +549,11 @@ def create_hs512_config(
     else:
         secret_bytes = secret
 
-    if len(secret_bytes) < 32:
-        raise ValueError(f"JWT secret too short: {len(secret_bytes)} bytes, need >= 32")
+    # SECURITY: HS512 requires 64-byte minimum (SHA-512 digest size)
+    if len(secret_bytes) < 64:
+        raise ValueError(
+            f"JWT secret too short: {len(secret_bytes)} bytes, need >= 64 for HS512"
+        )
 
     return {
         "alg": "HS512",

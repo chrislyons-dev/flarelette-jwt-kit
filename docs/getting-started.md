@@ -245,12 +245,12 @@ console.log('User:', payload?.sub)
 - Testing (isolated configs per test)
 - Multi-tenant apps (different configs per tenant)
 
-**Full documentation:** [Explicit Configuration API](./explicit-config.md)
+**Full documentation:** [Explicit Configuration API](./user-guide/explicit-config.md)
 
 ## Next Steps
 
-- **[Core Concepts](./core-concepts.md)** — Understand algorithms, modes, and architecture
-- **[Usage Guide](./usage-guide.md)** — Explore the complete API
+- **[Core Concepts](./user-guide/core-concepts.md)** — Understand algorithms, modes, and architecture
+- **[Usage Guide](./user-guide/usage-guide.md)** — Explore the complete API
 - **[Cloudflare Workers](./cloudflare-workers.md)** — Deploy to Workers with proper secret management
 - **[Security Guide](./security-guide.md)** — Learn cryptographic profiles and best practices
 
@@ -274,7 +274,7 @@ console.log('User:', payload?.sub)
 
 - Verify both producer and consumer use the same environment configuration
 - Check which mode is active using the `envMode()` function (TypeScript) or `mode()` function (Python)
-- See [Core Concepts](./core-concepts.md) for mode detection rules
+- See [Core Concepts](./user-guide/core-concepts.md) for mode detection rules
 
 ### Token Always Returns Null
 

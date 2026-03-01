@@ -444,5 +444,5 @@ export default app
 
 - **[RFC 8693: OAuth 2.0 Token Exchange](https://www.rfc-editor.org/rfc/rfc8693.html)** — Actor claim specification
 - **[Core Concepts](./core-concepts.md)** — Algorithm selection and architecture
-- **[Security Guide](./security-guide.md)** — Cryptographic profiles and best practices
-- **[Cloudflare Workers](./cloudflare-workers.md)** — Deployment and configuration
+- **[Security Guide](../security-guide.md)** — Cryptographic profiles and best practices
+- **[Cloudflare Workers](../cloudflare-workers.md)** — Deployment and configuration

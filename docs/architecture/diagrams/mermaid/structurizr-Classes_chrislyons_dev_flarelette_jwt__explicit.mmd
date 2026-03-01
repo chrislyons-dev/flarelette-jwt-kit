@@ -1,30 +1,32 @@
-graph TB
+graph LR
   linkStyle default fill:#ffffff
 
-  subgraph diagram ["flarelette-jwt-kit - @chrislyons-dev/flarelette-jwt - Components"]
+  subgraph diagram [" "]
     style diagram fill:#ffffff,stroke:#ffffff
 
-    subgraph 2 ["@chrislyons-dev/flarelette-jwt"]
+    subgraph 2 [" "]
       style 2 fill:#ffffff,stroke:#2e6295,color:#2e6295
 
       21("<div style='font-weight: bold'>explicit.signWithConfig</div><div style='font-size: 70%; margin-top: 0px'>[Component: function]</div><div style='font-size: 80%; margin-top:10px'>Sign a JWT token with<br />explicit configuration</div>")
-      style 21 fill:#85bbf0,stroke:#5d82a8,color:#000000
+      style 21 fill:#d4e8fc,stroke:#94a2b0,color:#000000
       22("<div style='font-weight: bold'>explicit.verifyWithConfig</div><div style='font-size: 70%; margin-top: 0px'>[Component: function]</div><div style='font-size: 80%; margin-top:10px'>Verify a JWT token with<br />explicit configuration</div>")
-      style 22 fill:#85bbf0,stroke:#5d82a8,color:#000000
+      style 22 fill:#d4e8fc,stroke:#94a2b0,color:#000000
       23("<div style='font-weight: bold'>explicit.createTokenWithConfig</div><div style='font-size: 70%; margin-top: 0px'>[Component: function]</div><div style='font-size: 80%; margin-top:10px'>Create a signed JWT token<br />with explicit configuration<br />Higher-level wrapper around<br />signWithConfig for<br />convenience.</div>")
-      style 23 fill:#85bbf0,stroke:#5d82a8,color:#000000
+      style 23 fill:#d4e8fc,stroke:#94a2b0,color:#000000
       24("<div style='font-weight: bold'>explicit.createDelegatedTokenWithConfig</div><div style='font-size: 70%; margin-top: 0px'>[Component: function]</div><div style='font-size: 80%; margin-top:10px'>Create a delegated JWT token<br />with explicit configuration<br />Implements RFC 8693 actor<br />claim pattern for<br />service-to-service<br />delegation.</div>")
-      style 24 fill:#85bbf0,stroke:#5d82a8,color:#000000
+      style 24 fill:#d4e8fc,stroke:#94a2b0,color:#000000
       25("<div style='font-weight: bold'>explicit.checkAuthWithConfig</div><div style='font-size: 70%; margin-top: 0px'>[Component: function]</div><div style='font-size: 80%; margin-top:10px'>Verify and authorize a JWT<br />token with explicit<br />configuration</div>")
-      style 25 fill:#85bbf0,stroke:#5d82a8,color:#000000
+      style 25 fill:#d4e8fc,stroke:#94a2b0,color:#000000
       26("<div style='font-weight: bold'>explicit.createHS512Config</div><div style='font-size: 70%; margin-top: 0px'>[Component: function]</div><div style='font-size: 80%; margin-top:10px'>Helper function to create<br />HS512 config from<br />base64url-encoded secret</div>")
-      style 26 fill:#85bbf0,stroke:#5d82a8,color:#000000
+      style 26 fill:#d4e8fc,stroke:#94a2b0,color:#000000
       27("<div style='font-weight: bold'>explicit.createEdDSASignConfig</div><div style='font-size: 70%; margin-top: 0px'>[Component: function]</div><div style='font-size: 80%; margin-top:10px'>Helper function to create<br />EdDSA sign config from JWK</div>")
-      style 27 fill:#85bbf0,stroke:#5d82a8,color:#000000
+      style 27 fill:#d4e8fc,stroke:#94a2b0,color:#000000
       28("<div style='font-weight: bold'>explicit.createEdDSAVerifyConfig</div><div style='font-size: 70%; margin-top: 0px'>[Component: function]</div><div style='font-size: 80%; margin-top:10px'>Helper function to create<br />EdDSA verify config from JWK</div>")
-      style 28 fill:#85bbf0,stroke:#5d82a8,color:#000000
-      29("<div style='font-weight: bold'>explicit.createJWKSUrlVerifyConfig</div><div style='font-size: 70%; margin-top: 0px'>[Component: function]</div><div style='font-size: 80%; margin-top:10px'>Helper function to create<br />HTTP JWKS URL verification<br />config Enables testing<br />without environment variables<br />by providing explicit<br />configuration</div>")
-      style 29 fill:#85bbf0,stroke:#5d82a8,color:#000000
+      style 28 fill:#d4e8fc,stroke:#94a2b0,color:#000000
+      29("<div style='font-weight: bold'>explicit.createES512SignConfig</div><div style='font-size: 70%; margin-top: 0px'>[Component: function]</div><div style='font-size: 80%; margin-top:10px'>Helper function to create<br />ES512 sign config from a<br />P-521 EC private JWK</div>")
+      style 29 fill:#d4e8fc,stroke:#94a2b0,color:#000000
+      30("<div style='font-weight: bold'>explicit.createJWKSUrlVerifyConfig</div><div style='font-size: 70%; margin-top: 0px'>[Component: function]</div><div style='font-size: 80%; margin-top:10px'>Helper function to create<br />HTTP JWKS URL verification<br />config Enables testing<br />without environment variables<br />by providing explicit<br />configuration</div>")
+      style 30 fill:#d4e8fc,stroke:#94a2b0,color:#000000
     end
 
   end

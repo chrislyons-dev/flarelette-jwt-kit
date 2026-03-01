@@ -4,7 +4,7 @@ Complete API reference for Flarelette JWT Kit with examples in TypeScript and Py
 
 ## Overview
 
-This guide covers all exported functions, types, and patterns for both languages. For conceptual understanding, see [Core Concepts](./core-concepts.md). For security best practices, see [Security Guide](./security-guide.md).
+This guide covers all exported functions, types, and patterns for both languages. For conceptual understanding, see [Core Concepts](./core-concepts.md). For security best practices, see [Security Guide](../security-guide.md).
 
 ## Core Functions
 
@@ -989,8 +989,8 @@ export default app
 
 ## Next Topics
 
-- **[Getting Started](./getting-started.md)** — Installation and first token
+- **[Getting Started](../getting-started.md)** — Installation and first token
 - **[Core Concepts](./core-concepts.md)** — Algorithms, modes, and architecture
 - **[Service Delegation](./service-delegation.md)** — RFC 8693 actor claims for zero-trust
-- **[Security Guide](./security-guide.md)** — Cryptographic profiles and best practices
-- **[Cloudflare Workers](./cloudflare-workers.md)** — Workers deployment and configuration
+- **[Security Guide](../security-guide.md)** — Cryptographic profiles and best practices
+- **[Cloudflare Workers](../cloudflare-workers.md)** — Workers deployment and configuration

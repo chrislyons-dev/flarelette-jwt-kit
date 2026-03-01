@@ -2,9 +2,9 @@
 set separator none
 title flarelette-jwt-kit - flarelette-jwt - Components
 
-top to bottom direction
-skinparam ranksep 60
-skinparam nodesep 30
+left to right direction
+skinparam ranksep 20
+skinparam nodesep 10
 
 skinparam {
   arrowFontSize 10
@@ -17,128 +17,128 @@ skinparam {
 hide stereotype
 
 skinparam rectangle<<flarelettejwtkit.flarelettejwt.explicitAuthUser>> {
-  BackgroundColor #85bbf0
+  BackgroundColor #d4e8fc
   FontColor #000000
-  BorderColor #5d82a8
+  BorderColor #94a2b0
   roundCorner 20
   shadowing false
 }
 skinparam rectangle<<flarelettejwtkit.flarelettejwt.explicitAuthzOptsWithConfig>> {
-  BackgroundColor #85bbf0
+  BackgroundColor #d4e8fc
   FontColor #000000
-  BorderColor #5d82a8
+  BorderColor #94a2b0
   roundCorner 20
   shadowing false
 }
 skinparam rectangle<<flarelettejwtkit.flarelettejwt.explicitBaseJwtConfig>> {
-  BackgroundColor #85bbf0
+  BackgroundColor #d4e8fc
   FontColor #000000
-  BorderColor #5d82a8
+  BorderColor #94a2b0
   roundCorner 20
   shadowing false
 }
 skinparam rectangle<<flarelettejwtkit.flarelettejwt.explicitEdDSASignConfig>> {
-  BackgroundColor #85bbf0
+  BackgroundColor #d4e8fc
   FontColor #000000
-  BorderColor #5d82a8
+  BorderColor #94a2b0
   roundCorner 20
   shadowing false
 }
 skinparam rectangle<<flarelettejwtkit.flarelettejwt.explicitEdDSAVerifyConfig>> {
-  BackgroundColor #85bbf0
+  BackgroundColor #d4e8fc
   FontColor #000000
-  BorderColor #5d82a8
+  BorderColor #94a2b0
   roundCorner 20
   shadowing false
 }
 skinparam rectangle<<flarelettejwtkit.flarelettejwt.explicitHS512Config>> {
-  BackgroundColor #85bbf0
+  BackgroundColor #d4e8fc
   FontColor #000000
-  BorderColor #5d82a8
+  BorderColor #94a2b0
   roundCorner 20
   shadowing false
 }
 skinparam rectangle<<flarelettejwtkit.flarelettejwt.explicitSignConfig>> {
-  BackgroundColor #85bbf0
+  BackgroundColor #d4e8fc
   FontColor #000000
-  BorderColor #5d82a8
+  BorderColor #94a2b0
   roundCorner 20
   shadowing false
 }
 skinparam rectangle<<flarelettejwtkit.flarelettejwt.explicitVerifyConfig>> {
-  BackgroundColor #85bbf0
+  BackgroundColor #d4e8fc
   FontColor #000000
-  BorderColor #5d82a8
+  BorderColor #94a2b0
   roundCorner 20
   shadowing false
 }
 skinparam rectangle<<flarelettejwtkit.flarelettejwt.explicit_b64url>> {
-  BackgroundColor #85bbf0
+  BackgroundColor #d4e8fc
   FontColor #000000
-  BorderColor #5d82a8
+  BorderColor #94a2b0
   roundCorner 20
   shadowing false
 }
 skinparam rectangle<<flarelettejwtkit.flarelettejwt.explicit_b64url_decode>> {
-  BackgroundColor #85bbf0
+  BackgroundColor #d4e8fc
   FontColor #000000
-  BorderColor #5d82a8
+  BorderColor #94a2b0
   roundCorner 20
   shadowing false
 }
 skinparam rectangle<<flarelettejwtkit.flarelettejwt.explicitcheck_auth_with_config>> {
-  BackgroundColor #85bbf0
+  BackgroundColor #d4e8fc
   FontColor #000000
-  BorderColor #5d82a8
+  BorderColor #94a2b0
   roundCorner 20
   shadowing false
 }
 skinparam rectangle<<flarelettejwtkit.flarelettejwt.explicitcreate_delegated_token_with_config>> {
-  BackgroundColor #85bbf0
+  BackgroundColor #d4e8fc
   FontColor #000000
-  BorderColor #5d82a8
+  BorderColor #94a2b0
   roundCorner 20
   shadowing false
 }
 skinparam rectangle<<flarelettejwtkit.flarelettejwt.explicitcreate_eddsa_sign_config>> {
-  BackgroundColor #85bbf0
+  BackgroundColor #d4e8fc
   FontColor #000000
-  BorderColor #5d82a8
+  BorderColor #94a2b0
   roundCorner 20
   shadowing false
 }
 skinparam rectangle<<flarelettejwtkit.flarelettejwt.explicitcreate_eddsa_verify_config>> {
-  BackgroundColor #85bbf0
+  BackgroundColor #d4e8fc
   FontColor #000000
-  BorderColor #5d82a8
+  BorderColor #94a2b0
   roundCorner 20
   shadowing false
 }
 skinparam rectangle<<flarelettejwtkit.flarelettejwt.explicitcreate_hs512_config>> {
-  BackgroundColor #85bbf0
+  BackgroundColor #d4e8fc
   FontColor #000000
-  BorderColor #5d82a8
+  BorderColor #94a2b0
   roundCorner 20
   shadowing false
 }
 skinparam rectangle<<flarelettejwtkit.flarelettejwt.explicitcreate_token_with_config>> {
-  BackgroundColor #85bbf0
+  BackgroundColor #d4e8fc
   FontColor #000000
-  BorderColor #5d82a8
+  BorderColor #94a2b0
   roundCorner 20
   shadowing false
 }
 skinparam rectangle<<flarelettejwtkit.flarelettejwt.explicitsign_with_config>> {
-  BackgroundColor #85bbf0
+  BackgroundColor #d4e8fc
   FontColor #000000
-  BorderColor #5d82a8
+  BorderColor #94a2b0
   roundCorner 20
   shadowing false
 }
 skinparam rectangle<<flarelettejwtkit.flarelettejwt.explicitverify_with_config>> {
-  BackgroundColor #85bbf0
+  BackgroundColor #d4e8fc
   FontColor #000000
-  BorderColor #5d82a8
+  BorderColor #94a2b0
   roundCorner 20
   shadowing false
 }

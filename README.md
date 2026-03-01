@@ -18,7 +18,7 @@
 
 **Environment-driven JWT authentication for Cloudflare Workers. Like Starlette, but for the edge.**
 
-Cross-language JWT toolkit (TypeScript + Python) with identical APIs. Automatically selects HS512 or EdDSA based on environment configuration, loads secrets via Cloudflare bindings, and works across Workers, Node.js, and Python runtimes.
+Cross-language JWT toolkit (TypeScript + Python) with identical APIs. Automatically selects HS512 or EdDSA based on environment configuration, and supports ES512 and RSA for external OIDC verification. Loads secrets via Cloudflare bindings and works across Workers, Node.js, and Python runtimes.
 
 ## Part of the Flarelette Ecosystem
 
@@ -88,7 +88,7 @@ const token = await signWithConfig({ sub: 'user123' }, config)
 const payload = await verifyWithConfig(token, config)
 ```
 
-> **New in v1.9.0:** The explicit configuration API eliminates environment setup complexity. See [Explicit Configuration Guide](./docs/explicit-config.md).
+> **New in v1.9.0:** The explicit configuration API eliminates environment setup complexity. See [Explicit Configuration Guide](./docs/user-guide/explicit-config.md).
 
 ### Basic Example (Environment-Based)
 
@@ -145,7 +145,7 @@ Flarelette JWT Kit is designed to prevent common JWT vulnerabilities:
 **Mode selection is driven exclusively by server environment variables:**
 
 - HS512 mode: `algorithms: ['HS512']` only
-- EdDSA/RSA mode: `algorithms: ['EdDSA', 'RS256', 'RS384', 'RS512']` only
+- EdDSA/ECDSA/RSA mode: `algorithms: ['EdDSA', 'ES256', 'ES384', 'ES512', 'RS256', 'RS384', 'RS512']` only
 
 The `alg` header is treated as untrusted input and must match the allowed algorithms for the selected mode. Mismatches are rejected.
 
@@ -239,7 +239,7 @@ When verifying tokens, the library uses the first available key source in this o
 ## Documentation
 
 - **[Getting Started](./docs/getting-started.md)** — Installation, first token, and basic setup
-- **[Explicit Configuration](./docs/explicit-config.md)** 🆕 — No environment setup required! Use config objects directly
+- **[Explicit Configuration](./docs/user-guide/explicit-config.md)** 🆕 — No environment setup required! Use config objects directly
 - **[Core Concepts](./docs/core-concepts.md)** — Algorithms, modes, and architecture
 - **[Usage Guide](./docs/usage-guide.md)** — Complete API reference for TypeScript and Python
 - **[Service Delegation](./docs/service-delegation.md)** — RFC 8693 actor claims for zero-trust
@@ -254,10 +254,12 @@ When verifying tokens, the library uses the first available key source in this o
 npx flarelette-jwt-secret --len=64 --dotenv
 ```
 
-**Generate EdDSA keypairs:**
+**Generate asymmetric keypairs (EdDSA default, or ES256/ES384/ES512):**
 
 ```bash
-npx flarelette-jwt-keygen --kid=ed25519-2025-01
+npx flarelette-jwt-keygen --kid=ed25519-2025-01           # EdDSA (default)
+npx flarelette-jwt-keygen --alg=ES512 --kid=es512-2025-01 # ECDSA P-521
+npx flarelette-jwt-keygen --alg=EdDSA --dotenv            # Output as .env assignments
 ```
 
 ## Contributing

@@ -104,7 +104,7 @@ Added exports for all new explicit API functions and types.
 
 ### 4. Documentation
 
-**New Guide:** `docs/explicit-config.md`
+**New Guide:** `docs/user-guide/explicit-config.md`
 
 - Complete API reference
 - Use case examples
@@ -257,7 +257,7 @@ export async function mintToken(c: Context) {
 
 - ✨ **Added:** `packages/flarelette-jwt-ts/src/explicit.ts` (489 lines)
 - ✨ **Added:** `packages/flarelette-jwt-ts/tests/explicit.test.ts` (470 lines)
-- ✨ **Added:** `docs/explicit-config.md` (complete guide)
+- ✨ **Added:** `docs/user-guide/explicit-config.md` (complete guide)
 - ✨ **Added:** `examples/explicit-config-example.ts` (example code)
 - 📝 **Updated:** `packages/flarelette-jwt-ts/src/index.ts` (added exports)
 - 📝 **Updated:** `README.md` (added new API section)

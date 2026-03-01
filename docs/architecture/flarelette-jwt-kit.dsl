@@ -10,7 +10,7 @@ workspace "flarelette-jwt-kit" "JWT authentication and authorization library" {
 
 
             chrislyons_dev_flarelette_jwt = container "@chrislyons-dev/flarelette-jwt" {
-                description "Environment-driven JWT authentication for Cloudflare Workers with secret-name indirection"
+                description "TypeScript implementation of the Flarelette JWT Kit: An environment-driven JWT authentication package for Cloudflare Workers"
                 technology "Service"
                 tags "Service,Auto-generated"
 
@@ -24,7 +24,7 @@ workspace "flarelette-jwt-kit" "JWT authentication and authorization library" {
                     technology "module"
                 }
                 chrislyons_dev_flarelette_jwt__util = component "util" {
-                    description "High-level JWT utilities for creating, delegating, verifying, and authorizing JWT tokens | Key generation utility for EdDSA keys. This script generates EdDSA key pairs and exports them in JWK format. It is designed to be executed as a standalone Node.js script. | Secret generation and validation utilities. This module provides functions to generate secure secrets and validate base64url-encoded secrets. It ensures compatibility with JWT signing requirements. | Utility functions for JWT operations. This module provides helper functions for parsing JWTs, checking expiration, and mapping OAuth scopes. It is designed to support core JWT functionalities."
+                    description "High-level JWT utilities for creating, delegating, verifying, and authorizing JWT tokens | Key generation utility for EdDSA and ECDSA keys. Generates asymmetric key pairs and exports them in JWK format. Designed to be executed as a standalone Node.js script. | Secret generation and validation utilities. This module provides functions to generate secure secrets and validate base64url-encoded secrets. It ensures compatibility with JWT signing requirements. | Utility functions for JWT operations. This module provides helper functions for parsing JWTs, checking expiration, and mapping OAuth scopes. It is designed to support core JWT functionalities."
                     technology "module"
                 }
                 chrislyons_dev_flarelette_jwt__main = component "main" {
@@ -128,6 +128,11 @@ workspace "flarelette-jwt-kit" "JWT authentication and authorization library" {
                 }
                 chrislyons_dev_flarelette_jwt__explicit__createeddsaverifyconfig = component "explicit.createEdDSAVerifyConfig" {
                     description "Helper function to create EdDSA verify config from JWK"
+                    technology "function"
+                    tags "Code"
+                }
+                chrislyons_dev_flarelette_jwt__explicit__createes512signconfig = component "explicit.createES512SignConfig" {
+                    description "Helper function to create ES512 sign config from a P-521 EC private JWK"
                     technology "function"
                     tags "Code"
                 }
@@ -264,7 +269,7 @@ workspace "flarelette-jwt-kit" "JWT authentication and authorization library" {
 
 
             flarelette_jwt = container "flarelette-jwt" {
-                description "Environment-driven JWT authentication for Cloudflare Workers Python with secret-name indirection"
+                description "Python implementation of the Flarelette JWT Kit: An environment-driven JWT authentication package for Cloudflare Workers"
                 technology "Service"
                 tags "Service,Auto-generated"
 
@@ -590,197 +595,15 @@ workspace "flarelette-jwt-kit" "JWT authentication and authorization library" {
     }
 
     views {
-/**
- * Default Structurizr theme for Archlette
- * 
- * This theme provides a modern, professional color scheme for architecture diagrams
- * with clear visual hierarchy and accessibility considerations.
- */
-
-theme default
-
-// Element styles
-styles {
-    // Person/Actor styles
-    element "Person" {
-        background #08427b
-        color #ffffff
-        shape Person
-        fontSize 22
-    }
-
-    // External System styles
-    element "External System" {
-        background #999999
-        color #ffffff
-        shape RoundedBox
-        fontSize 22
-    }
-
-    element "External" {
-        background #999999
-        color #ffffff
-        shape RoundedBox
-        fontSize 22
-    }
-
-    // System styles
-    element "Software System" {
-        background #1168bd
-        color #ffffff
-        shape RoundedBox
-        fontSize 24
-    }
-
-    // Container styles
-    element "Container" {
-        background #438dd5
-        color #ffffff
-        shape RoundedBox
-        fontSize 20
-    }
-
-    element "Database" {
-        background #438dd5
-        color #ffffff
-        shape Cylinder
-        fontSize 20
-    }
-
-    element "Web Browser" {
-        background #438dd5
-        color #ffffff
-        shape WebBrowser
-        fontSize 20
-    }
-
-    element "Mobile App" {
-        background #438dd5
-        color #ffffff
-        shape MobileDevicePortrait
-        fontSize 20
-    }
-
-    // Component styles
-    element "Component" {
-        background #85bbf0
-        color #000000
-        shape RoundedBox
-        fontSize 18
-    }
-
-    // Technology-specific styles
-    element "Cloudflare Worker" {
-        background #f6821f
-        color #ffffff
-        shape RoundedBox
-        fontSize 18
-    }
-
-    element "Service" {
-        background #438dd5
-        color #ffffff
-        shape RoundedBox
-        fontSize 18
-    }
-
-    element "API" {
-        background #85bbf0
-        color #000000
-        shape Hexagon
-        fontSize 18
-    }
-
-    element "Queue" {
-        background #85bbf0
-        color #000000
-        shape Pipe
-        fontSize 18
-    }
-
-    // Tag-based styles
-    element "Internal System" {
-        background #1168bd
-        color #ffffff
-    }
-
-    element "Deprecated" {
-        background #cc0000
-        color #ffffff
-        opacity 60
-    }
-
-    element "Future" {
-        background #dddddd
-        color #000000
-        opacity 50
-        stroke #999999
-        strokeWidth 2
-    }
-
-    element "Auto Generated" {
-        stroke #999999
-        strokeWidth 1
-    }
-
-    // Infrastructure styles
-    element "Infrastructure" {
-        background #92278f
-        color #ffffff
-        shape RoundedBox
-    }
-
-    element "Message Bus" {
-        background #85bbf0
-        color #000000
-        shape Pipe
-    }
-
-    // Relationship styles
-    relationship "Relationship" {
-        color #707070
-        dashed false
-        routing Curved
-        fontSize 12
-        thickness 2
-    }
-
-    relationship "Async" {
-        dashed true
-        color #707070
-    }
-
-    relationship "Sync" {
-        dashed false
-        color #707070
-    }
-
-    relationship "Uses" {
-        color #707070
-        dashed false
-    }
-
-    relationship "Depends On" {
-        color #707070
-        dashed true
-    }
-}
-
-// Diagram customization
-branding {
-    font "Arial"
-}
-
-
         systemContext flarelette_jwt_kit "SystemContext" {
             include flarelette_jwt_kit
-            autoLayout
+            autoLayout lr 100 100
         }
 
         container flarelette_jwt_kit "Containers" {
             include chrislyons_dev_flarelette_jwt
             include flarelette_jwt
-            autoLayout
+            autoLayout lr 100 100
         }
 
 
@@ -794,7 +617,7 @@ branding {
             include chrislyons_dev_flarelette_jwt__verify
             include chrislyons_dev_flarelette_jwt__adapters
             exclude "element.tag==Code"
-            autoLayout
+            autoLayout lr 100 100
         }
 
 
@@ -804,7 +627,7 @@ branding {
             include flarelette_jwt__explicit
             include flarelette_jwt__flarelette_jwt
             exclude "element.tag==Code"
-            autoLayout
+            autoLayout lr 100 100
         }
 
 
@@ -820,7 +643,7 @@ branding {
             include chrislyons_dev_flarelette_jwt__core__getjwksurl
             include chrislyons_dev_flarelette_jwt__core__getjwkscachettl
             include chrislyons_dev_flarelette_jwt__core__sign
-            autoLayout
+            autoLayout lr 100 100
         }
 
 
@@ -833,8 +656,9 @@ branding {
             include chrislyons_dev_flarelette_jwt__explicit__createhs512config
             include chrislyons_dev_flarelette_jwt__explicit__createeddsasignconfig
             include chrislyons_dev_flarelette_jwt__explicit__createeddsaverifyconfig
+            include chrislyons_dev_flarelette_jwt__explicit__createes512signconfig
             include chrislyons_dev_flarelette_jwt__explicit__createjwksurlverifyconfig
-            autoLayout
+            autoLayout lr 100 100
         }
 
 
@@ -849,7 +673,7 @@ branding {
             include chrislyons_dev_flarelette_jwt__util__parse
             include chrislyons_dev_flarelette_jwt__util__isexpiringsoon
             include chrislyons_dev_flarelette_jwt__util__mapscopestopermissions
-            autoLayout
+            autoLayout lr 100 100
         }
 
 
@@ -861,14 +685,14 @@ branding {
             include chrislyons_dev_flarelette_jwt__jwks__fetchjwksfromurl
             include chrislyons_dev_flarelette_jwt__jwks__getkeyfromjwks
             include chrislyons_dev_flarelette_jwt__jwks__allowedthumbprints
-            autoLayout
+            autoLayout lr 100 100
         }
 
 
         component chrislyons_dev_flarelette_jwt "Classes_chrislyons_dev_flarelette_jwt__verify" {
             include chrislyons_dev_flarelette_jwt__verify__resolveverificationkey
             include chrislyons_dev_flarelette_jwt__verify__verify
-            autoLayout
+            autoLayout lr 100 100
         }
 
 
@@ -876,13 +700,13 @@ branding {
             include chrislyons_dev_flarelette_jwt__adapters__bindenv
             include chrislyons_dev_flarelette_jwt__adapters__getservicebinding
             include chrislyons_dev_flarelette_jwt__adapters__makekit
-            autoLayout
+            autoLayout lr 100 100
         }
 
 
         component flarelette_jwt "Classes_flarelette_jwt__adapters" {
             include flarelette_jwt__adapters__apply_env_bindings
-            autoLayout
+            autoLayout lr 100 100
         }
 
 
@@ -933,7 +757,7 @@ branding {
             include flarelette_jwt__util__map_scopes_to_permissions
             include flarelette_jwt__util___b64url_decode
             include flarelette_jwt__util__verify
-            autoLayout
+            autoLayout lr 100 100
         }
 
 
@@ -956,8 +780,232 @@ branding {
             include flarelette_jwt__explicit__create_eddsa_verify_config
             include flarelette_jwt__explicit__signconfig
             include flarelette_jwt__explicit__verifyconfig
-            autoLayout
+            autoLayout lr 100 100
         }
+
+
+/**
+ * Default Structurizr theme for Archlette
+ * 
+ * This theme provides a modern, professional color scheme for architecture diagrams
+ * with clear visual hierarchy and accessibility considerations.
+ */
+
+theme default
+
+// Element styles
+styles {
+    // Person/Actor styles
+    element "Person" {
+        background #08427b
+        color #ffffff
+        shape Person
+        width 200
+        height 120
+        fontSize 14
+    }
+
+    // External System styles
+    element "External System" {
+        background #999999
+        color #ffffff
+        shape RoundedBox
+        width 240
+        height 140
+        fontSize 14
+    }
+
+    element "External" {
+        background #999999
+        color #ffffff
+        shape RoundedBox
+        width 240
+        height 140
+        fontSize 14
+    }
+
+    // System styles
+    element "Software System" {
+        background #1168bd
+        color #ffffff
+        shape RoundedBox
+        width 280
+        height 160
+        fontSize 16
+    }
+
+    // Container styles
+    element "Container" {
+        background #438dd5
+        color #ffffff
+        shape RoundedBox
+        width 260
+        height 150
+        fontSize 14
+    }
+
+    element "Database" {
+        background #438dd5
+        color #ffffff
+        shape Cylinder
+        width 200
+        height 140
+        fontSize 14
+    }
+
+    element "Web Browser" {
+        background #438dd5
+        color #ffffff
+        shape WebBrowser
+        width 240
+        height 150
+        fontSize 14
+    }
+
+    element "Mobile App" {
+        background #438dd5
+        color #ffffff
+        shape MobileDevicePortrait
+        width 180
+        height 200
+        fontSize 14
+    }
+
+    // Component styles
+    element "Component" {
+        background #85bbf0
+        color #000000
+        shape RoundedBox
+        width 220
+        height 130
+        fontSize 12
+    }
+
+    // Code element styles (classes, functions, etc.)
+    element "Code" {
+        background #d4e8fc
+        color #000000
+        shape RoundedBox
+        width 200
+        height 100
+        fontSize 11
+    }
+
+    // Technology-specific styles
+    element "Cloudflare Worker" {
+        background #f6821f
+        color #ffffff
+        shape RoundedBox
+        width 220
+        height 130
+        fontSize 12
+    }
+
+    element "Service" {
+        background #438dd5
+        color #ffffff
+        shape RoundedBox
+        width 220
+        height 130
+        fontSize 12
+    }
+
+    element "API" {
+        background #85bbf0
+        color #000000
+        shape Hexagon
+        width 180
+        height 120
+        fontSize 12
+    }
+
+    element "Queue" {
+        background #85bbf0
+        color #000000
+        shape Pipe
+        width 200
+        height 100
+        fontSize 12
+    }
+
+    // Tag-based styles
+    element "Internal System" {
+        background #1168bd
+        color #ffffff
+    }
+
+    element "Deprecated" {
+        background #cc0000
+        color #ffffff
+        opacity 60
+    }
+
+    element "Future" {
+        background #dddddd
+        color #000000
+        opacity 50
+        stroke #999999
+        strokeWidth 2
+    }
+
+    element "Auto Generated" {
+        stroke #999999
+        strokeWidth 1
+    }
+
+    // Infrastructure styles
+    element "Infrastructure" {
+        background #92278f
+        color #ffffff
+        shape RoundedBox
+        width 220
+        height 130
+        fontSize 12
+    }
+
+    element "Message Bus" {
+        background #85bbf0
+        color #000000
+        shape Pipe
+        width 200
+        height 100
+        fontSize 12
+    }
+
+    // Relationship styles
+    relationship "Relationship" {
+        color #707070
+        dashed false
+        routing Curved
+        fontSize 12
+        thickness 2
+    }
+
+    relationship "Async" {
+        dashed true
+        color #707070
+    }
+
+    relationship "Sync" {
+        dashed false
+        color #707070
+    }
+
+    relationship "Uses" {
+        color #707070
+        dashed false
+    }
+
+    relationship "Depends On" {
+        color #707070
+        dashed true
+    }
+}
+
+// Diagram customization
+branding {
+    font "Arial"
+}
 
     }
 

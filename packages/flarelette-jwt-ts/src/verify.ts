@@ -71,8 +71,7 @@ async function resolveVerificationKey(
     // SECURITY: Detect algorithm from JWK structure. If JWK has explicit alg field, jose will use it.
     // For EdDSA keys (kty=OKP, crv=Ed25519), explicitly specify 'EdDSA' for compatibility.
     // Algorithm whitelist in jwtVerify() provides defense-in-depth protection.
-    const isEdDSA = jwk.kty === 'OKP' && jwk.crv === 'Ed25519'
-    const key = isEdDSA ? await importJWK(jwk, 'EdDSA') : await importJWK(jwk)
+    const key = jwk.kty === 'OKP' ? await importJWK(jwk, 'EdDSA') : await importJWK(jwk)
 
     // Optional thumbprint pinning
     const pins = allowedThumbprints()
@@ -85,7 +84,7 @@ async function resolveVerificationKey(
 
     return {
       key,
-      algorithms: ['EdDSA', 'RS256', 'RS384', 'RS512'],
+      algorithms: ['EdDSA', 'ES256', 'ES384', 'ES512', 'RS256', 'RS384', 'RS512'],
     }
   }
 
@@ -97,7 +96,7 @@ async function resolveVerificationKey(
 
     return {
       key,
-      algorithms: ['EdDSA', 'RS256', 'RS384', 'RS512'],
+      algorithms: ['EdDSA', 'ES256', 'ES384', 'ES512', 'RS256', 'RS384', 'RS512'],
     }
   }
 
@@ -111,7 +110,7 @@ async function resolveVerificationKey(
 
     return {
       key,
-      algorithms: ['EdDSA', 'RS256', 'RS384', 'RS512'],
+      algorithms: ['EdDSA', 'ES256', 'ES384', 'ES512', 'RS256', 'RS384', 'RS512'],
     }
   }
 

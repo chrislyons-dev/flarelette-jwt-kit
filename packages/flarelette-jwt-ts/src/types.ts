@@ -56,8 +56,8 @@ export type ClaimsDict = Record<string, JwtValue>
  * EdDSA deployments with multiple active keys.
  */
 export interface JwtHeader {
-  /** Algorithm: HS512 or EdDSA */
-  alg: AlgType
+  /** Algorithm as reported in the JWT header (e.g. HS512, EdDSA, ES512, RS256) */
+  alg: string
   /** Token type, typically "JWT" */
   typ?: string
   /** Key ID for key rotation (optional) */
@@ -241,6 +241,7 @@ export interface WorkerEnv extends Record<string, unknown> {
 
   // HTTP JWKS (TypeScript only - Python support pending)
   JWT_JWKS_URL?: string
+  JWT_JWKS_URL_NAME?: string
   JWT_JWKS_CACHE_TTL_SECONDS?: string
 
   // Thumbprint pinning

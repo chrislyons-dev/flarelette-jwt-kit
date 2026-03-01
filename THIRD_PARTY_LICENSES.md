@@ -17,10 +17,9 @@ The TypeScript package depends on the following NPM packages:
 @flarelette/jwt-kit-env@1.8.1
 │ C:\Users\chris\git\flarelette-jwt-kit
 │
-└─┬ @chrislyons-dev/flarelette-jwt@1.12.0 -> .\packages\flarelette-jwt-ts
-  │ Environment-driven JWT authentication for Cloudflare Workers with secret-name indirection
+└─┬ @chrislyons-dev/flarelette-jwt@1.13.0 -> .\packages\flarelette-jwt-ts
+  │
   └── jose@6.1.3
-      JWA, JWS, JWE, JWT, JWK, JWKS for Node.js, Browser, Cloudflare Workers, Deno, Bun, and other Web-interoperable runtimes
 ```
 
 ---
@@ -77,4 +76,4 @@ This script:
 
 ---
 
-**Last generated**: 2025-12-09
+**Last generated**: 2026-03-01

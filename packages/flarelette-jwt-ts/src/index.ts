@@ -63,6 +63,7 @@ export {
   createHS512Config,
   createEdDSASignConfig,
   createEdDSAVerifyConfig,
+  createES512SignConfig,
   createJWKSUrlVerifyConfig,
 } from './explicit.js'
 
@@ -71,6 +72,7 @@ export type {
   HS512Config,
   EdDSASignConfig,
   EdDSAVerifyConfig,
+  ES512SignConfig,
   JWKSUrlVerifyConfig,
   SignConfig,
   VerifyConfig,

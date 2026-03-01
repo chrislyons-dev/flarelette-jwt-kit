@@ -13,10 +13,10 @@ Welcome to the Flarelette JWT Kit documentation! Below is a list of available gu
 ## Guides
 
 - [Setup Guide](./getting-started.md): Learn how to set up the development environment, install dependencies, and configure the project.
-- [Usage Guide](./usage-guide.md): Explore how to use Flarelette JWT Kit for signing, verifying, and managing JWTs.
+- [Usage Guide](./user-guide/usage-guide.md): Explore how to use Flarelette JWT Kit for signing, verifying, and managing JWTs.
 - [Security Guide](./security-guide.md): Learn about the security features and requirements of the project.
-- [Service Delegation](./service-delegation.md): Understand how to implement zero-trust delegation patterns.
-- [Core Concepts](./core-concepts.md): Dive into the architecture and key principles of the toolkit.
+- [Service Delegation](./user-guide/service-delegation.md): Understand how to implement zero-trust delegation patterns.
+- [Core Concepts](./user-guide/core-concepts.md): Dive into the architecture and key principles of the toolkit.
 
 ## References
 
@@ -30,7 +30,7 @@ For more information, visit the individual files linked above or explore the rep
 
 **Environment-driven JWT authentication for Cloudflare Workers. Like Starlette, but for the edge.**
 
-Cross-language JWT toolkit (TypeScript + Python) with identical APIs. Automatically selects HS512 or EdDSA based on environment configuration, loads secrets via Cloudflare bindings, and works across Workers, Node.js, and Python runtimes.
+Cross-language JWT toolkit (TypeScript + Python) with identical APIs. Automatically selects HS512 or EdDSA based on environment configuration, and supports ES512 and RSA for external OIDC verification. Loads secrets via Cloudflare bindings and works across Workers, Node.js, and Python runtimes.
 
 ## Part of the Flarelette Ecosystem
 
@@ -95,7 +95,7 @@ Flarelette JWT Kit provides the core cryptographic operations for the **Flarelet
 
 ## Key Features
 
-- **Algorithm auto-detection** — Chooses HS512 or EdDSA based on environment variables
+- **Algorithm auto-detection** — Chooses HS512 or EdDSA based on environment variables; ECDSA/RSA for external OIDC verification
 - **Secret-name indirection** — References Cloudflare secret bindings instead of raw values
 - **Identical TypeScript + Python APIs** — Same function names and behavior across languages
 - **Service bindings for JWKS** — Direct Worker-to-Worker RPC for key distribution
@@ -166,7 +166,7 @@ npx flarelette-jwt-keygen --kid=ed25519-2025-01
 
   Learn about algorithms, modes, and architecture patterns
 
-  [:octicons-arrow-right-24: Core concepts](core-concepts.md)
+  [:octicons-arrow-right-24: Core concepts](user-guide/core-concepts.md)
 
 - :material-api:{ .lg .middle } **Usage Guide**
 
@@ -174,7 +174,7 @@ npx flarelette-jwt-keygen --kid=ed25519-2025-01
 
   Complete API reference for TypeScript and Python
 
-  [:octicons-arrow-right-24: API reference](usage-guide.md)
+  [:octicons-arrow-right-24: API reference](user-guide/usage-guide.md)
 
 - :material-shield-lock:{ .lg .middle } **Security Guide**
 

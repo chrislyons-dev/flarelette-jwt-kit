@@ -146,7 +146,7 @@ Sign a JWT token with explicit configuration.
 **Parameters:**
 
 - `payload: JwtPayload` - Claims to include in token
-- `config: SignConfig` - HS512 or EdDSA sign configuration
+- `config: SignConfig` - HS512, EdDSA, or ES512 sign configuration
 - `overrides?: Partial<{ iss, aud, ttlSeconds }>` - Per-call overrides
 
 **Returns:** `Promise<string>` - Signed JWT token
@@ -158,7 +158,7 @@ Verify a JWT token with explicit configuration.
 **Parameters:**
 
 - `token: string` - JWT token to verify
-- `config: VerifyConfig` - HS512 or EdDSA verify configuration
+- `config: VerifyConfig` - HS512, EdDSA, ECDSA, or JWKS verify configuration
 - `overrides?: Partial<{ iss, aud, leeway }>` - Per-call overrides
 
 **Returns:** `Promise<JwtPayload | null>` - Payload if valid, null if invalid
@@ -455,7 +455,7 @@ function createJwtConfig(env: 'dev' | 'prod'): HS512Config {
 
 ## See Also
 
-- [Getting Started Guide](./getting-started.md) - Basic JWT usage
-- [Security Guide](./security-guide.md) - Cryptographic best practices
+- [Getting Started Guide](../getting-started.md) - Basic JWT usage
+- [Security Guide](../security-guide.md) - Cryptographic best practices
 - [Service Delegation](./service-delegation.md) - RFC 8693 patterns
-- [Cloudflare Workers](./cloudflare-workers.md) - Production deployment
+- [Cloudflare Workers](../cloudflare-workers.md) - Production deployment

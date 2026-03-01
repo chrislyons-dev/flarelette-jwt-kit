@@ -15,7 +15,7 @@ I’ll call out where I think you’re solid, and then a few small polish / hard
 - **HS512 secret strength:** 64-byte minimum with explicit enforcement.
 - **Single-mode requirement:** config error if HS + asym are both set.
 
-From a design perspective, this is _much_ safer than the majority of “roll your own JWT” setups in the wild.
+From a design perspective, this is _much_ safer than the majority of "roll your own JWT" setups in the wild.
 
 ---
 
@@ -50,9 +50,9 @@ Narrower is always safer.
 
 ---
 
-### 2. Make the “mode determined by config” super explicit
+### 2. Make the "mode determined by config" super explicit
 
-You describe it correctly, but I’d tighten the language so nobody later “simplifies” it back to trusting `alg`:
+You describe it correctly, but I’d tighten the language so nobody later "simplifies" it back to trusting `alg`:
 
 > **Mode selection**
 >
@@ -73,7 +73,7 @@ That’s great. I’d add one short line:
 
 > When importing JWKs, the expected algorithm (`'EdDSA'`, `'RS256'`, etc.) is provided explicitly, so keys cannot be repurposed for other algorithms even within the same key family.
 
-That signals that you’re not just whitelisting “any RS\*”, you’re actually pinning at import time too.
+That signals that you’re not just whitelisting "any RS\*", you’re actually pinning at import time too.
 
 ---
 
@@ -83,14 +83,14 @@ Returning `null` to callers is fine, but I’d explicitly say:
 
 > Internally, verification failures are **logged with structured metadata** (issuer, kid, reason category) and counted in metrics. Externally, all failures are returned as `null` to avoid leaking details.
 
-Otherwise someone might over-interpret “fail-silent” as “we don’t log anything,” which would be painful in prod.
+Otherwise someone might over-interpret "fail-silent" as "we don’t log anything," which would be painful in prod.
 
 ---
 
 ### 5. A couple of small wording / clarity tweaks
 
-- You sometimes say **“decrypt key”** – for JWT as you’re using it, it’s **sign/verify**, not encrypt/decrypt. I’d keep wording to “signing key” / “verification key” to avoid confusion with JWE.
-- In “Security Checklist,” maybe add:
+- You sometimes say **"decrypt key"** – for JWT as you’re using it, it’s **sign/verify**, not encrypt/decrypt. I’d keep wording to "signing key" / "verification key" to avoid confusion with JWE.
+- In "Security Checklist," maybe add:
   - `[ ] JWT_AUD is specific per service (no wildcard audiences)` – avoids token reuse between services.
 
 ---
@@ -107,4 +107,4 @@ From a security-model standpoint, this looks **strong and well-documented**:
 - EdDSA with JWKS + optional thumbprint pinning
 - Reasonable claim validation (`iss`, `aud`, `exp`, `nbf`, `iat`)
 
-If you clean up the minor consistency bits (RSA vs not, “decrypt” wording, explicit mention of logging), I’d feel very comfortable shipping this as the public “here’s why you can trust our JWT handling” story for flarelette.
+If you clean up the minor consistency bits (RSA vs not, "decrypt" wording, explicit mention of logging), I’d feel very comfortable shipping this as the public "here’s why you can trust our JWT handling" story for flarelette.

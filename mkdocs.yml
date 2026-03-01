@@ -7,7 +7,7 @@ repo_name: chrislyons-dev/flarelette-jwt-kit
 repo_url: https://github.com/chrislyons-dev/flarelette-jwt-kit
 edit_uri: edit/main/docs/
 
-copyright: Copyright &copy; 2025 Chris Lyons
+copyright: Copyright &copy; 2026 Chris Lyons
 
 theme:
   name: material
@@ -15,16 +15,16 @@ theme:
     # Light mode
     - media: '(prefers-color-scheme: light)'
       scheme: default
-      primary: deep purple
-      accent: amber
+      primary: custom
+      accent: custom
       toggle:
         icon: material/brightness-7
         name: Switch to dark mode
     # Dark mode
     - media: '(prefers-color-scheme: dark)'
       scheme: slate
-      primary: deep purple
-      accent: amber
+      primary: custom
+      accent: custom
       toggle:
         icon: material/brightness-4
         name: Switch to light mode
@@ -103,19 +103,18 @@ plugins:
       lang: en
   - minify:
       minify_html: true
-
-nav:
-  - Home: index.md
-  - Getting Started: getting-started.md
-  - User Guide:
-      - Core Concepts: core-concepts.md
-      - Usage Guide: usage-guide.md
-      - Service Delegation: service-delegation.md
-  - Deployment:
-      - Cloudflare Workers: cloudflare-workers.md
-  - Security:
-      - Security Guide: security-guide.md
-  - Architecture:
-      - Overview: architecture/README.md
-      - TypeScript Package: architecture/chrislyons_dev_flarelette_jwt.md
-      - Python Package: architecture/flarelette_jwt.md
+# nav:
+#   - Home: index.md
+#   - Getting Started: getting-started.md
+#   - User Guide:
+#       - Core Concepts: user-guide/core-concepts.md
+#       - Usage Guide: user-guide/usage-guide.md
+#       - Service Delegation: user-guide/service-delegation.md
+#   - Deployment:
+#       - Cloudflare Workers: cloudflare-workers.md
+#   - Security:
+#       - Security Guide: security-guide.md
+#   - Architecture:
+#       - Overview: architecture/README.md
+#       - TypeScript Package: architecture/chrislyons_dev_flarelette_jwt.md
+#       - Python Package: architecture/flarelette_jwt.md

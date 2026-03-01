@@ -67,11 +67,23 @@ export interface EdDSAVerifyConfig extends BaseJwtConfig {
 }
 
 /**
- * EdDSA/RSA asymmetric configuration for verification via HTTP JWKS
+ * ES512 (ECDSA P-521) asymmetric configuration for signing
+ * Uses a private EC key to sign tokens
+ */
+export interface ES512SignConfig extends BaseJwtConfig {
+  alg: 'ES512'
+  /** Private JWK for signing (P-521 EC key) */
+  privateJwk: JWK
+  /** Key ID to include in JWT header */
+  kid?: string
+}
+
+/**
+ * EdDSA/RSA/ECDSA asymmetric configuration for verification via HTTP JWKS
  * Uses a remote JWKS endpoint to fetch public keys (supports key rotation)
  */
 export interface JWKSUrlVerifyConfig extends BaseJwtConfig {
-  alg: 'EdDSA' | 'RS256' | 'RS384' | 'RS512'
+  alg: 'EdDSA' | 'ES256' | 'ES384' | 'ES512' | 'RS256' | 'RS384' | 'RS512'
   /** HTTP(S) URL to JWKS endpoint */
   jwksUrl: string
   /** Cache TTL in seconds (default: 300) */
@@ -81,7 +93,7 @@ export interface JWKSUrlVerifyConfig extends BaseJwtConfig {
 /**
  * Union type for signing configuration
  */
-export type SignConfig = HS512Config | EdDSASignConfig
+export type SignConfig = HS512Config | EdDSASignConfig | ES512SignConfig
 
 /**
  * Union type for verification configuration
@@ -143,6 +155,15 @@ export async function signWithConfig(
       )
     }
     return jwt.setProtectedHeader({ alg: 'HS512', typ: 'JWT' }).sign(config.secret)
+  } else if (config.alg === 'ES512') {
+    const key = await importJWK(config.privateJwk)
+    return jwt
+      .setProtectedHeader({
+        alg: 'ES512',
+        typ: 'JWT',
+        kid: (config as ES512SignConfig).kid,
+      })
+      .sign(key)
   } else {
     const key = await importJWK(config.privateJwk, 'EdDSA')
     return jwt
@@ -205,9 +226,13 @@ export async function verifyWithConfig(
         clockTolerance: leeway,
       })
     } else if ('publicJwk' in config) {
-      // Inline JWK verification
-      const key = await importJWK(config.publicJwk, 'EdDSA')
+      // Inline JWK verification — EdDSA needs explicit hint; EC/RSA auto-detected by jose
+      const key =
+        (config.publicJwk as JWK).kty === 'OKP'
+          ? await importJWK(config.publicJwk, 'EdDSA')
+          : await importJWK(config.publicJwk)
       result = await jwtVerify(token, key, {
+        algorithms: ['EdDSA', 'ES256', 'ES384', 'ES512', 'RS256', 'RS384', 'RS512'],
         issuer: iss,
         audience: aud,
         clockTolerance: leeway,
@@ -219,7 +244,7 @@ export async function verifyWithConfig(
       const key = await getKeyFromJwks(header.kid, jwks)
 
       result = await jwtVerify(token, key, {
-        algorithms: ['EdDSA', 'RS256', 'RS384', 'RS512'],
+        algorithms: ['EdDSA', 'ES256', 'ES384', 'ES512', 'RS256', 'RS384', 'RS512'],
         issuer: iss,
         audience: aud,
         clockTolerance: leeway,
@@ -482,6 +507,29 @@ export function createEdDSAVerifyConfig(
   return {
     alg: 'EdDSA',
     publicJwk: jwk,
+    ...baseConfig,
+  }
+}
+
+/**
+ * Helper function to create ES512 sign config from a P-521 EC private JWK
+ *
+ * @param privateJwk - Private JWK object or JSON string (EC P-521 key)
+ * @param baseConfig - Base JWT configuration
+ * @param kid - Optional key ID
+ * @returns ES512 sign configuration
+ */
+export function createES512SignConfig(
+  privateJwk: JWK | string,
+  baseConfig: Omit<BaseJwtConfig, 'ttlSeconds' | 'leeway'> &
+    Partial<Pick<BaseJwtConfig, 'ttlSeconds' | 'leeway'>>,
+  kid?: string
+): ES512SignConfig {
+  const jwk = typeof privateJwk === 'string' ? JSON.parse(privateJwk) : privateJwk
+  return {
+    alg: 'ES512',
+    privateJwk: jwk,
+    kid,
     ...baseConfig,
   }
 }
