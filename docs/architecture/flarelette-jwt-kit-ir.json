@@ -298,7 +298,7 @@
       "visibility": "public",
       "isAsync": true,
       "filePath": "C:/Users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/src/explicit.ts",
-      "lineNumber": 134
+      "lineNumber": 148
     },
     {
       "description": "Verify a JWT token with explicit configuration",
@@ -337,7 +337,7 @@
       "visibility": "public",
       "isAsync": true,
       "filePath": "C:/Users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/src/explicit.ts",
-      "lineNumber": 204
+      "lineNumber": 218
     },
     {
       "description": "Create a signed JWT token with explicit configuration\n\nHigher-level wrapper around signWithConfig for convenience.",
@@ -373,7 +373,7 @@
       "visibility": "public",
       "isAsync": true,
       "filePath": "C:/Users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/src/explicit.ts",
-      "lineNumber": 273
+      "lineNumber": 287
     },
     {
       "description": "Create a delegated JWT token with explicit configuration\n\nImplements RFC 8693 actor claim pattern for service-to-service delegation.",
@@ -418,7 +418,7 @@
       "visibility": "public",
       "isAsync": true,
       "filePath": "C:/Users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/src/explicit.ts",
-      "lineNumber": 310
+      "lineNumber": 324
     },
     {
       "description": "Verify and authorize a JWT token with explicit configuration",
@@ -463,7 +463,7 @@
       "visibility": "public",
       "isAsync": true,
       "filePath": "C:/Users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/src/explicit.ts",
-      "lineNumber": 396
+      "lineNumber": 410
     },
     {
       "description": "Helper function to create HS512 config from base64url-encoded secret",
@@ -493,7 +493,7 @@
       "visibility": "public",
       "isAsync": false,
       "filePath": "C:/Users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/src/explicit.ts",
-      "lineNumber": 450
+      "lineNumber": 464
     },
     {
       "description": "Helper function to create EdDSA sign config from JWK",
@@ -528,7 +528,7 @@
       "visibility": "public",
       "isAsync": false,
       "filePath": "C:/Users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/src/explicit.ts",
-      "lineNumber": 479
+      "lineNumber": 493
     },
     {
       "description": "Helper function to create EdDSA verify config from JWK",
@@ -557,7 +557,7 @@
       "visibility": "public",
       "isAsync": false,
       "filePath": "C:/Users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/src/explicit.ts",
-      "lineNumber": 501
+      "lineNumber": 515
     },
     {
       "description": "Helper function to create ES512 sign config from a P-521 EC private JWK",
@@ -592,7 +592,36 @@
       "visibility": "public",
       "isAsync": false,
       "filePath": "C:/Users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/src/explicit.ts",
-      "lineNumber": 522
+      "lineNumber": 536
+    },
+    {
+      "description": "Helper function to create ES512 verify config from a P-521 EC public JWK",
+      "id": "chrislyons_dev_flarelette_jwt__explicit__createes512verifyconfig",
+      "componentId": "chrislyons_dev_flarelette_jwt__explicit",
+      "name": "createES512VerifyConfig",
+      "type": "function",
+      "documentation": {
+        "summary": "Helper function to create ES512 verify config from a P-521 EC public JWK"
+      },
+      "returnType": "import(\"C:/Users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/src/explicit\").ES512VerifyConfig",
+      "returnDescription": "ES512 verify configuration",
+      "parameters": [
+        {
+          "name": "publicJwk",
+          "description": "- Public JWK object or JSON string (EC P-521 key)",
+          "optional": false
+        },
+        {
+          "name": "baseConfig",
+          "type": "Omit<import(\"C:/Users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/src/explicit\").BaseJwtConfig, \"ttlSeconds\" | \"leeway\"> & Partial<Pick<import(\"C:/Users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/src/explicit\").BaseJwtConfig, \"ttlSeconds\" | \"leeway\">>",
+          "description": "- Base JWT configuration",
+          "optional": false
+        }
+      ],
+      "visibility": "public",
+      "isAsync": false,
+      "filePath": "C:/Users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/src/explicit.ts",
+      "lineNumber": 558
     },
     {
       "description": "Helper function to create HTTP JWKS URL verification config\n\nEnables testing without environment variables by providing explicit configuration",
@@ -631,7 +660,7 @@
       "visibility": "public",
       "isAsync": false,
       "filePath": "C:/Users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/src/explicit.ts",
-      "lineNumber": 561
+      "lineNumber": 595
     },
     {
       "description": "Create a signed JWT token with optional claims",
@@ -661,7 +690,7 @@
       "visibility": "public",
       "isAsync": true,
       "filePath": "C:/Users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/src/high.ts",
-      "lineNumber": 18
+      "lineNumber": 19
     },
     {
       "description": "Create a delegated JWT token following RFC 8693 actor claim pattern\n\nMints a new short-lived token for use within service boundaries where a service\nacts on behalf of the original end user. This implements zero-trust delegation:\n- Preserves original user identity (sub) and permissions\n- Identifies the acting service via 'act' claim\n- Prevents permission escalation by copying original permissions\n\nPattern: \"I'm <actorService> doing work on behalf of <original user>\"",
@@ -704,7 +733,79 @@
       "visibility": "public",
       "isAsync": true,
       "filePath": "C:/Users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/src/high.ts",
-      "lineNumber": 61
+      "lineNumber": 62
+    },
+    {
+      "description": "Sign a JWT token bound to a specific HTTP request.\n\nAdds a `req` claim containing base64url(SHA-256(canonical request)) to prevent\nreplay of a captured token against a different endpoint within the TTL window.\n\nCanonical form: METHOD + \"\\n\" + pathname + search + \"\\n\" + body bytes",
+      "id": "chrislyons_dev_flarelette_jwt__util__signwithrequestbinding",
+      "componentId": "chrislyons_dev_flarelette_jwt__util",
+      "name": "signWithRequestBinding",
+      "type": "function",
+      "documentation": {
+        "summary": "Sign a JWT token bound to a specific HTTP request.\n\nAdds a `req` claim containing base64url(SHA-256(canonical request)) to prevent\nreplay of a captured token against a different endpoint within the TTL window.\n\nCanonical form: METHOD + \"\\n\" + pathname + search + \"\\n\" + body bytes"
+      },
+      "returnType": "Promise<string>",
+      "returnDescription": "Signed JWT token string with req claim",
+      "parameters": [
+        {
+          "name": "payload",
+          "type": "import(\"C:/Users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/src/types\").JwtPayload",
+          "description": "- Claims to include in the token",
+          "optional": false
+        },
+        {
+          "name": "request",
+          "type": "Request",
+          "description": "- The HTTP request this token is minted for",
+          "optional": false
+        },
+        {
+          "name": "opts",
+          "type": "Partial<{ iss: string; aud: string | string[]; ttlSeconds: number; }>",
+          "description": "- Optional overrides for iss, aud, ttlSeconds",
+          "optional": true
+        }
+      ],
+      "visibility": "public",
+      "isAsync": true,
+      "filePath": "C:/Users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/src/high.ts",
+      "lineNumber": 112
+    },
+    {
+      "description": "Verify a JWT token and validate its request binding.\n\nRe-computes the request hash and compares it with the `req` claim.\nReturns null on any mismatch (fail-silent, same as verify()).\nThe `req` claim is stripped from the returned payload — it's an implementation\ndetail that has already been validated.",
+      "id": "chrislyons_dev_flarelette_jwt__util__verifywithrequestbinding",
+      "componentId": "chrislyons_dev_flarelette_jwt__util",
+      "name": "verifyWithRequestBinding",
+      "type": "function",
+      "documentation": {
+        "summary": "Verify a JWT token and validate its request binding.\n\nRe-computes the request hash and compares it with the `req` claim.\nReturns null on any mismatch (fail-silent, same as verify()).\nThe `req` claim is stripped from the returned payload — it's an implementation\ndetail that has already been validated."
+      },
+      "returnType": "Promise<import(\"C:/Users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/src/types\").JwtPayload>",
+      "returnDescription": "Payload (without req claim) if valid and request matches, null otherwise",
+      "parameters": [
+        {
+          "name": "token",
+          "type": "string",
+          "description": "- JWT token string to verify",
+          "optional": false
+        },
+        {
+          "name": "request",
+          "type": "Request",
+          "description": "- The HTTP request to validate against",
+          "optional": false
+        },
+        {
+          "name": "opts",
+          "type": "Partial<{ iss: string; aud: string | string[]; leeway: number; jwksService: import(\"C:/Users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/src/types\").Fetcher; }>",
+          "description": "- Optional overrides for iss, aud, leeway",
+          "optional": true
+        }
+      ],
+      "visibility": "public",
+      "isAsync": true,
+      "filePath": "C:/Users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/src/high.ts",
+      "lineNumber": 134
     },
     {
       "description": "Verify and authorize a JWT token with policy enforcement",
@@ -734,7 +835,7 @@
       "visibility": "public",
       "isAsync": true,
       "filePath": "C:/Users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/src/high.ts",
-      "lineNumber": 142
+      "lineNumber": 199
     },
     {
       "description": "Fluent builder for creating authorization policies",
@@ -751,7 +852,7 @@
       "visibility": "public",
       "isAsync": false,
       "filePath": "C:/Users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/src/high.ts",
-      "lineNumber": 177
+      "lineNumber": 234
     },
     {
       "description": "Clear the JWKS cache (for testing purposes)",
@@ -1070,6 +1171,30 @@
       "isAsync": false,
       "filePath": "C:/Users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/src/util.ts",
       "lineNumber": 47
+    },
+    {
+      "description": "Compute a deterministic SHA-256 hash that binds a JWT to a specific HTTP request.\n\nCanonical form: UTF-8(METHOD + \"\\n\" + pathname + search + \"\\n\") || body_bytes\n- Method is uppercased\n- Binds to path and query string only (not host/scheme — internal Workers use different hostnames)\n- Body is consumed from a clone to preserve the original stream",
+      "id": "chrislyons_dev_flarelette_jwt__util__computerequesthash",
+      "componentId": "chrislyons_dev_flarelette_jwt__util",
+      "name": "computeRequestHash",
+      "type": "function",
+      "documentation": {
+        "summary": "Compute a deterministic SHA-256 hash that binds a JWT to a specific HTTP request.\n\nCanonical form: UTF-8(METHOD + \"\\n\" + pathname + search + \"\\n\") || body_bytes\n- Method is uppercased\n- Binds to path and query string only (not host/scheme — internal Workers use different hostnames)\n- Body is consumed from a clone to preserve the original stream"
+      },
+      "returnType": "Promise<string>",
+      "returnDescription": "base64url-encoded SHA-256 hash of the canonical request representation",
+      "parameters": [
+        {
+          "name": "request",
+          "type": "Request",
+          "description": "- Fetch API Request object",
+          "optional": false
+        }
+      ],
+      "visibility": "public",
+      "isAsync": true,
+      "filePath": "C:/Users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/src/util.ts",
+      "lineNumber": 62
     },
     {
       "description": "Resolve verification key from configured sources\n\nImplements key resolution strategy pattern:\n- Strategy 1: HS512 shared secret\n- Strategy 2: Inline public JWK\n- Strategy 3: Service binding JWKS\n- Strategy 4: HTTP JWKS URL",
@@ -3152,6 +3277,12 @@
       "stereotype": "import"
     },
     {
+      "description": "imports computeRequestHash",
+      "source": "chrislyons_dev_flarelette_jwt__util",
+      "destination": "./util.js",
+      "stereotype": "import"
+    },
+    {
       "description": "Fetcher | JwtPayload",
       "source": "chrislyons_dev_flarelette_jwt__util",
       "destination": "./types.js",
@@ -3439,6 +3570,12 @@
       "description": "imports verify",
       "source": "C:/Users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/src/high.ts",
       "destination": "./verify.js:verify",
+      "stereotype": "import"
+    },
+    {
+      "description": "imports computeRequestHash",
+      "source": "C:/Users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/src/high.ts",
+      "destination": "./util.js:computeRequestHash",
       "stereotype": "import"
     },
     {

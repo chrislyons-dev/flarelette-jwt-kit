@@ -149,6 +149,9 @@ skinparam rectangle<<flarelettejwtkit.flarelettejwt>> {
 }
 
 rectangle "flarelette-jwt\n<size:10>[Container: Service]</size>" <<flarelettejwtkit.flarelettejwt>> {
+  rectangle "==explicit.create_eddsa_verify_config\n<size:10>[Component: function]</size>\n\nHelper function to create EdDSA verify config from JWK." <<flarelettejwtkit.flarelettejwt.explicitcreate_eddsa_verify_config>> as flarelettejwtkit.flarelettejwt.explicitcreate_eddsa_verify_config
+  rectangle "==explicit.SignConfig\n<size:10>[Component: type]</size>" <<flarelettejwtkit.flarelettejwt.explicitSignConfig>> as flarelettejwtkit.flarelettejwt.explicitSignConfig
+  rectangle "==explicit.VerifyConfig\n<size:10>[Component: type]</size>" <<flarelettejwtkit.flarelettejwt.explicitVerifyConfig>> as flarelettejwtkit.flarelettejwt.explicitVerifyConfig
   rectangle "==explicit.BaseJwtConfig\n<size:10>[Component: class]</size>\n\nBase JWT configuration shared by HS512 and EdDSA modes." <<flarelettejwtkit.flarelettejwt.explicitBaseJwtConfig>> as flarelettejwtkit.flarelettejwt.explicitBaseJwtConfig
   rectangle "==explicit.HS512Config\n<size:10>[Component: class]</size>\n\nHS512 (HMAC-SHA512) symmetric configuration." <<flarelettejwtkit.flarelettejwt.explicitHS512Config>> as flarelettejwtkit.flarelettejwt.explicitHS512Config
   rectangle "==explicit.EdDSASignConfig\n<size:10>[Component: class]</size>\n\nEdDSA (Ed25519) asymmetric configuration for signing." <<flarelettejwtkit.flarelettejwt.explicitEdDSASignConfig>> as flarelettejwtkit.flarelettejwt.explicitEdDSASignConfig
@@ -164,9 +167,6 @@ rectangle "flarelette-jwt\n<size:10>[Container: Service]</size>" <<flarelettejwt
   rectangle "==explicit.check_auth_with_config\n<size:10>[Component: function]</size>\n\nVerify and authorize a JWT token with explicit configuration." <<flarelettejwtkit.flarelettejwt.explicitcheck_auth_with_config>> as flarelettejwtkit.flarelettejwt.explicitcheck_auth_with_config
   rectangle "==explicit.create_hs512_config\n<size:10>[Component: function]</size>\n\nHelper function to create HS512 config from base64url-encoded secret." <<flarelettejwtkit.flarelettejwt.explicitcreate_hs512_config>> as flarelettejwtkit.flarelettejwt.explicitcreate_hs512_config
   rectangle "==explicit.create_eddsa_sign_config\n<size:10>[Component: function]</size>\n\nHelper function to create EdDSA sign config from JWK." <<flarelettejwtkit.flarelettejwt.explicitcreate_eddsa_sign_config>> as flarelettejwtkit.flarelettejwt.explicitcreate_eddsa_sign_config
-  rectangle "==explicit.create_eddsa_verify_config\n<size:10>[Component: function]</size>\n\nHelper function to create EdDSA verify config from JWK." <<flarelettejwtkit.flarelettejwt.explicitcreate_eddsa_verify_config>> as flarelettejwtkit.flarelettejwt.explicitcreate_eddsa_verify_config
-  rectangle "==explicit.SignConfig\n<size:10>[Component: type]</size>" <<flarelettejwtkit.flarelettejwt.explicitSignConfig>> as flarelettejwtkit.flarelettejwt.explicitSignConfig
-  rectangle "==explicit.VerifyConfig\n<size:10>[Component: type]</size>" <<flarelettejwtkit.flarelettejwt.explicitVerifyConfig>> as flarelettejwtkit.flarelettejwt.explicitVerifyConfig
 }
 
 @enduml

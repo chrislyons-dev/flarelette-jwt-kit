@@ -345,6 +345,7 @@ skinparam rectangle<<flarelettejwtkit.flarelettejwt>> {
 }
 
 rectangle "flarelette-jwt\n<size:10>[Container: Service]</size>" <<flarelettejwtkit.flarelettejwt>> {
+  rectangle "==util.AuthUser\n<size:10>[Component: class]</size>\n\nAuthenticated user information returned by check_auth." <<flarelettejwtkit.flarelettejwt.utilAuthUser>> as flarelettejwtkit.flarelettejwt.utilAuthUser
   rectangle "==util.PolicyBuilder\n<size:10>[Component: class]</size>\n\nBuilder interface for creating JWT authorization policies." <<flarelettejwtkit.flarelettejwt.utilPolicyBuilder>> as flarelettejwtkit.flarelettejwt.utilPolicyBuilder
   rectangle "==util.PolicyBuilder.base\n<size:10>[Component: method]</size>" <<flarelettejwtkit.flarelettejwt.utilPolicyBuilderbase>> as flarelettejwtkit.flarelettejwt.utilPolicyBuilderbase
   rectangle "==util.PolicyBuilder.need_all\n<size:10>[Component: method]</size>" <<flarelettejwtkit.flarelettejwt.utilPolicyBuilderneed_all>> as flarelettejwtkit.flarelettejwt.utilPolicyBuilderneed_all
@@ -390,7 +391,6 @@ rectangle "flarelette-jwt\n<size:10>[Container: Service]</size>" <<flarelettejwt
   rectangle "==util.AlgType\n<size:10>[Component: type]</size>" <<flarelettejwtkit.flarelettejwt.utilAlgType>> as flarelettejwtkit.flarelettejwt.utilAlgType
   rectangle "==util.JwtValue\n<size:10>[Component: type]</size>" <<flarelettejwtkit.flarelettejwt.utilJwtValue>> as flarelettejwtkit.flarelettejwt.utilJwtValue
   rectangle "==util.ClaimsDict\n<size:10>[Component: type]</size>" <<flarelettejwtkit.flarelettejwt.utilClaimsDict>> as flarelettejwtkit.flarelettejwt.utilClaimsDict
-  rectangle "==util.AuthUser\n<size:10>[Component: class]</size>\n\nAuthenticated user information returned by check_auth." <<flarelettejwtkit.flarelettejwt.utilAuthUser>> as flarelettejwtkit.flarelettejwt.utilAuthUser
 }
 
 @enduml

@@ -136,6 +136,11 @@ workspace "flarelette-jwt-kit" "JWT authentication and authorization library" {
                     technology "function"
                     tags "Code"
                 }
+                chrislyons_dev_flarelette_jwt__explicit__createes512verifyconfig = component "explicit.createES512VerifyConfig" {
+                    description "Helper function to create ES512 verify config from a P-521 EC public JWK"
+                    technology "function"
+                    tags "Code"
+                }
                 chrislyons_dev_flarelette_jwt__explicit__createjwksurlverifyconfig = component "explicit.createJWKSUrlVerifyConfig" {
                     description "Helper function to create HTTP JWKS URL verification config Enables testing without environment variables by providing explicit configuration"
                     technology "function"
@@ -148,6 +153,16 @@ workspace "flarelette-jwt-kit" "JWT authentication and authorization library" {
                 }
                 chrislyons_dev_flarelette_jwt__util__createdelegatedtoken = component "util.createDelegatedToken" {
                     description "Create a delegated JWT token following RFC 8693 actor claim pattern Mints a new short-lived token for use within service boundaries where a service acts on behalf of the original end user. This implements zero-trust delegation: - Preserves original user identity (sub) and permissions - Identifies the acting service via 'act' claim - Prevents permission escalation by copying original permissions Pattern: \"I'm <actorService> doing work on behalf of <original user>\""
+                    technology "function"
+                    tags "Code"
+                }
+                chrislyons_dev_flarelette_jwt__util__signwithrequestbinding = component "util.signWithRequestBinding" {
+                    description "Sign a JWT token bound to a specific HTTP request. Adds a `req` claim containing base64url(SHA-256(canonical request)) to prevent replay of a captured token against a different endpoint within the TTL window. Canonical form: METHOD + \"\\n\" + pathname + search + \"\\n\" + body bytes"
+                    technology "function"
+                    tags "Code"
+                }
+                chrislyons_dev_flarelette_jwt__util__verifywithrequestbinding = component "util.verifyWithRequestBinding" {
+                    description "Verify a JWT token and validate its request binding. Re-computes the request hash and compares it with the `req` claim. Returns null on any mismatch (fail-silent, same as verify()). The `req` claim is stripped from the returned payload — it's an implementation detail that has already been validated."
                     technology "function"
                     tags "Code"
                 }
@@ -225,6 +240,11 @@ workspace "flarelette-jwt-kit" "JWT authentication and authorization library" {
                 }
                 chrislyons_dev_flarelette_jwt__util__mapscopestopermissions = component "util.mapScopesToPermissions" {
                     description "Map OAuth scopes to permission strings"
+                    technology "function"
+                    tags "Code"
+                }
+                chrislyons_dev_flarelette_jwt__util__computerequesthash = component "util.computeRequestHash" {
+                    description "Compute a deterministic SHA-256 hash that binds a JWT to a specific HTTP request. Canonical form: UTF-8(METHOD + \"\\n\" + pathname + search + \"\\n\") || body_bytes - Method is uppercased - Binds to path and query string only (not host/scheme — internal Workers use different hostnames) - Body is consumed from a clone to preserve the original stream"
                     technology "function"
                     tags "Code"
                 }
@@ -657,6 +677,7 @@ workspace "flarelette-jwt-kit" "JWT authentication and authorization library" {
             include chrislyons_dev_flarelette_jwt__explicit__createeddsasignconfig
             include chrislyons_dev_flarelette_jwt__explicit__createeddsaverifyconfig
             include chrislyons_dev_flarelette_jwt__explicit__createes512signconfig
+            include chrislyons_dev_flarelette_jwt__explicit__createes512verifyconfig
             include chrislyons_dev_flarelette_jwt__explicit__createjwksurlverifyconfig
             autoLayout lr 100 100
         }
@@ -665,6 +686,8 @@ workspace "flarelette-jwt-kit" "JWT authentication and authorization library" {
         component chrislyons_dev_flarelette_jwt "Classes_chrislyons_dev_flarelette_jwt__util" {
             include chrislyons_dev_flarelette_jwt__util__createtoken
             include chrislyons_dev_flarelette_jwt__util__createdelegatedtoken
+            include chrislyons_dev_flarelette_jwt__util__signwithrequestbinding
+            include chrislyons_dev_flarelette_jwt__util__verifywithrequestbinding
             include chrislyons_dev_flarelette_jwt__util__checkauth
             include chrislyons_dev_flarelette_jwt__util__policy
             include chrislyons_dev_flarelette_jwt__util__main
@@ -673,6 +696,7 @@ workspace "flarelette-jwt-kit" "JWT authentication and authorization library" {
             include chrislyons_dev_flarelette_jwt__util__parse
             include chrislyons_dev_flarelette_jwt__util__isexpiringsoon
             include chrislyons_dev_flarelette_jwt__util__mapscopestopermissions
+            include chrislyons_dev_flarelette_jwt__util__computerequesthash
             autoLayout lr 100 100
         }
 

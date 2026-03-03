@@ -1,7 +1,7 @@
 # <img src="../images/archlette-stainedglassA-light.png" alt="" height="28" width="28" style="vertical-align:middle"> flarelette-jwt-kit
 
 **Architecture Documentation**
-Generated 2026-03-01 16:22:56
+Generated 2026-03-02 19:13:34
 
 ## Overview
 

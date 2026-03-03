@@ -23,7 +23,7 @@
 ### Code Elements
 
 <details>
-<summary><strong>10 code element(s)</strong></summary>
+<summary><strong>11 code element(s)</strong></summary>
 
 
 
@@ -37,7 +37,7 @@ Sign a JWT token with explicit configuration
 | --- | --- |
 | **Type** | `function` |
 | **Visibility** | `public` |
-| **Async** | Yes || **Returns** | `Promise<string>` - Signed JWT token string || **Location** | `C:/Users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/src/explicit.ts:134` |
+| **Async** | Yes || **Returns** | `Promise<string>` - Signed JWT token string || **Location** | `C:/Users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/src/explicit.ts:148` |
 
 **Parameters:**
 
@@ -56,7 +56,7 @@ Verify a JWT token with explicit configuration
 | --- | --- |
 | **Type** | `function` |
 | **Visibility** | `public` |
-| **Async** | Yes || **Returns** | `Promise<import("C:/Users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/src/types").JwtPayload>` - Payload if valid, null if invalid || **Location** | `C:/Users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/src/explicit.ts:204` |
+| **Async** | Yes || **Returns** | `Promise<import("C:/Users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/src/types").JwtPayload>` - Payload if valid, null if invalid || **Location** | `C:/Users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/src/explicit.ts:218` |
 
 **Parameters:**
 
@@ -77,7 +77,7 @@ Higher-level wrapper around signWithConfig for convenience.
 | --- | --- |
 | **Type** | `function` |
 | **Visibility** | `public` |
-| **Async** | Yes || **Returns** | `Promise<string>` - Signed JWT token string || **Location** | `C:/Users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/src/explicit.ts:273` |
+| **Async** | Yes || **Returns** | `Promise<string>` - Signed JWT token string || **Location** | `C:/Users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/src/explicit.ts:287` |
 
 **Parameters:**
 
@@ -94,7 +94,7 @@ Implements RFC 8693 actor claim pattern for service-to-service delegation.
 | --- | --- |
 | **Type** | `function` |
 | **Visibility** | `public` |
-| **Async** | Yes || **Returns** | `Promise<string>` - Signed JWT token string with delegation claim || **Location** | `C:/Users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/src/explicit.ts:310` |
+| **Async** | Yes || **Returns** | `Promise<string>` - Signed JWT token string with delegation claim || **Location** | `C:/Users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/src/explicit.ts:324` |
 
 **Parameters:**
 
@@ -113,7 +113,7 @@ Verify and authorize a JWT token with explicit configuration
 | --- | --- |
 | **Type** | `function` |
 | **Visibility** | `public` |
-| **Async** | Yes || **Returns** | `Promise<import("C:/Users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/src/explicit").AuthUser>` - AuthUser if valid and authorized, null otherwise || **Location** | `C:/Users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/src/explicit.ts:396` |
+| **Async** | Yes || **Returns** | `Promise<import("C:/Users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/src/explicit").AuthUser>` - AuthUser if valid and authorized, null otherwise || **Location** | `C:/Users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/src/explicit.ts:410` |
 
 **Parameters:**
 
@@ -132,7 +132,7 @@ Helper function to create HS512 config from base64url-encoded secret
 | --- | --- |
 | **Type** | `function` |
 | **Visibility** | `public` |
-| **Returns** | `import("C:/Users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/src/explicit").HS512Config` - HS512 configuration || **Location** | `C:/Users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/src/explicit.ts:450` |
+| **Returns** | `import("C:/Users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/src/explicit").HS512Config` - HS512 configuration || **Location** | `C:/Users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/src/explicit.ts:464` |
 
 **Parameters:**
 
@@ -147,7 +147,7 @@ Helper function to create EdDSA sign config from JWK
 | --- | --- |
 | **Type** | `function` |
 | **Visibility** | `public` |
-| **Returns** | `import("C:/Users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/src/explicit").EdDSASignConfig` - EdDSA sign configuration || **Location** | `C:/Users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/src/explicit.ts:479` |
+| **Returns** | `import("C:/Users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/src/explicit").EdDSASignConfig` - EdDSA sign configuration || **Location** | `C:/Users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/src/explicit.ts:493` |
 
 **Parameters:**
 
@@ -162,7 +162,7 @@ Helper function to create EdDSA verify config from JWK
 | --- | --- |
 | **Type** | `function` |
 | **Visibility** | `public` |
-| **Returns** | `import("C:/Users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/src/explicit").EdDSAVerifyConfig` - EdDSA verify configuration || **Location** | `C:/Users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/src/explicit.ts:501` |
+| **Returns** | `import("C:/Users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/src/explicit").EdDSAVerifyConfig` - EdDSA verify configuration || **Location** | `C:/Users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/src/explicit.ts:515` |
 
 **Parameters:**
 
@@ -177,11 +177,26 @@ Helper function to create ES512 sign config from a P-521 EC private JWK
 | --- | --- |
 | **Type** | `function` |
 | **Visibility** | `public` |
-| **Returns** | `import("C:/Users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/src/explicit").ES512SignConfig` - ES512 sign configuration || **Location** | `C:/Users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/src/explicit.ts:522` |
+| **Returns** | `import("C:/Users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/src/explicit").ES512SignConfig` - ES512 sign configuration || **Location** | `C:/Users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/src/explicit.ts:536` |
 
 **Parameters:**
 
 - `privateJwk`: <code>any</code> — - Private JWK object or JSON string (EC P-521 key)- `baseConfig`: <code>Omit<import("C:/Users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/src/explicit").BaseJwtConfig, "ttlSeconds" | "leeway"> & Partial<Pick<import("C:/Users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/src/explicit").BaseJwtConfig, "ttlSeconds" | "leeway">></code> — - Base JWT configuration- `kid`: <code>string</code> — - Optional key ID
+
+---
+##### `createES512VerifyConfig()`
+
+Helper function to create ES512 verify config from a P-521 EC public JWK
+
+| Field | Value |
+| --- | --- |
+| **Type** | `function` |
+| **Visibility** | `public` |
+| **Returns** | `import("C:/Users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/src/explicit").ES512VerifyConfig` - ES512 verify configuration || **Location** | `C:/Users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/src/explicit.ts:558` |
+
+**Parameters:**
+
+- `publicJwk`: <code>any</code> — - Public JWK object or JSON string (EC P-521 key)- `baseConfig`: <code>Omit<import("C:/Users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/src/explicit").BaseJwtConfig, "ttlSeconds" | "leeway"> & Partial<Pick<import("C:/Users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/src/explicit").BaseJwtConfig, "ttlSeconds" | "leeway">></code> — - Base JWT configuration
 
 ---
 ##### `createJWKSUrlVerifyConfig()`
@@ -194,7 +209,7 @@ Enables testing without environment variables by providing explicit configuratio
 | --- | --- |
 | **Type** | `function` |
 | **Visibility** | `public` |
-| **Returns** | `import("C:/Users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/src/explicit").JWKSUrlVerifyConfig` - JWKS URL verification configuration || **Location** | `C:/Users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/src/explicit.ts:561` |
+| **Returns** | `import("C:/Users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/src/explicit").JWKSUrlVerifyConfig` - JWKS URL verification configuration || **Location** | `C:/Users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/src/explicit.ts:595` |
 
 **Parameters:**
 
