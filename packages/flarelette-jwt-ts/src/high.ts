@@ -6,6 +6,7 @@
  */
 import { sign } from './sign.js'
 import { verify } from './verify.js'
+import { computeRequestHash } from './util.js'
 import type { Fetcher, JwtPayload } from './types.js'
 
 /**
@@ -93,6 +94,62 @@ export async function createDelegatedToken(
     delegatedClaims.department = originalPayload.department
 
   return sign(delegatedClaims, opts)
+}
+
+/**
+ * Sign a JWT token bound to a specific HTTP request.
+ *
+ * Adds a `req` claim containing base64url(SHA-256(canonical request)) to prevent
+ * replay of a captured token against a different endpoint within the TTL window.
+ *
+ * Canonical form: METHOD + "\n" + pathname + search + "\n" + body bytes
+ *
+ * @param payload - Claims to include in the token
+ * @param request - The HTTP request this token is minted for
+ * @param opts - Optional overrides for iss, aud, ttlSeconds
+ * @returns Signed JWT token string with req claim
+ */
+export async function signWithRequestBinding(
+  payload: JwtPayload,
+  request: Request,
+  opts?: Partial<{ iss: string; aud: string | string[]; ttlSeconds: number }>
+): Promise<string> {
+  const req = await computeRequestHash(request)
+  return sign({ ...payload, req }, opts)
+}
+
+/**
+ * Verify a JWT token and validate its request binding.
+ *
+ * Re-computes the request hash and compares it with the `req` claim.
+ * Returns null on any mismatch (fail-silent, same as verify()).
+ * The `req` claim is stripped from the returned payload — it's an implementation
+ * detail that has already been validated.
+ *
+ * @param token - JWT token string to verify
+ * @param request - The HTTP request to validate against
+ * @param opts - Optional overrides for iss, aud, leeway
+ * @returns Payload (without req claim) if valid and request matches, null otherwise
+ */
+export async function verifyWithRequestBinding(
+  token: string,
+  request: Request,
+  opts?: Partial<{
+    iss: string
+    aud: string | string[]
+    leeway: number
+    jwksService: Fetcher
+  }>
+): Promise<JwtPayload | null> {
+  const payload = await verify(token, opts)
+  if (!payload) return null
+
+  const expected = await computeRequestHash(request)
+  if (payload.req !== expected) return null
+
+  // Strip req — it's validated, no need to expose it downstream
+  const { req: _req, ...rest } = payload
+  return rest as JwtPayload
 }
 
 /**

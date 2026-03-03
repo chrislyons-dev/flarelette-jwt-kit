@@ -5,7 +5,7 @@ import {
   getHSSecret,
   getJwksUrl,
   getJwksCacheTtl,
-} from '../src/config'
+} from '../src/config.js'
 
 describe('Config - envMode', () => {
   beforeEach(() => {
@@ -255,6 +255,7 @@ describe('Config - JWT_JWKS_URL Detection', () => {
     delete process.env.JWT_JWKS_SERVICE
     delete process.env.JWT_JWKS_SERVICE_NAME
     delete process.env.JWT_JWKS_URL
+    delete process.env.JWT_JWKS_URL_NAME
     delete process.env.JWT_SECRET
     delete process.env.JWT_SECRET_NAME
   })
@@ -310,15 +311,41 @@ describe('Config - JWT_JWKS_URL Detection', () => {
     expect(() => envMode('consumer')).not.toThrow()
     expect(envMode('consumer')).toBe('HS512')
   })
+
+  it('should detect EdDSA mode for consumer with JWT_JWKS_URL_NAME', () => {
+    process.env.JWT_JWKS_URL_NAME = 'MY_JWKS_URL'
+    expect(envMode('consumer')).toBe('EdDSA')
+  })
+
+  it('should detect EdDSA mode when JWT_JWKS_URL_NAME is set but JWT_JWKS_URL is absent', () => {
+    process.env.JWT_JWKS_URL_NAME = 'MY_JWKS_URL'
+    // JWT_JWKS_URL is not set — indirection name alone is enough for mode detection
+    expect(process.env.JWT_JWKS_URL).toBeUndefined()
+    expect(envMode('consumer')).toBe('EdDSA')
+  })
+
+  it('should throw error if JWT_SECRET and JWT_JWKS_URL_NAME both configured', () => {
+    process.env.JWT_SECRET = Buffer.from('a'.repeat(64)).toString('base64url')
+    process.env.JWT_JWKS_URL_NAME = 'MY_JWKS_URL'
+
+    expect(() => envMode('consumer')).toThrow(
+      'Configuration error: Both HS512 (JWT_SECRET) and asymmetric (JWT_PUBLIC_JWK/JWT_JWKS_*) secrets configured'
+    )
+  })
 })
 
 describe('Config - getJwksUrl', () => {
   beforeEach(() => {
     delete process.env.JWT_JWKS_URL
+    delete process.env.JWT_JWKS_URL_NAME
   })
 
   afterEach(() => {
     delete (globalThis as { __FLARELETTE_ENV?: unknown }).__FLARELETTE_ENV
+  })
+
+  it('should return null when neither JWT_JWKS_URL nor JWT_JWKS_URL_NAME is set', () => {
+    expect(getJwksUrl()).toBeNull()
   })
 
   it('should return null when JWT_JWKS_URL not set', () => {
@@ -343,6 +370,25 @@ describe('Config - getJwksUrl', () => {
       JWT_JWKS_URL: 'https://global.example.com/jwks.json',
     }
     expect(getJwksUrl()).toBe('https://global.example.com/jwks.json')
+  })
+
+  it('should read URL via JWT_JWKS_URL_NAME indirection', () => {
+    process.env.JWT_JWKS_URL_NAME = 'MY_JWKS_BINDING'
+    process.env.MY_JWKS_BINDING = 'https://indirected.example.com/.well-known/jwks.json'
+    expect(getJwksUrl()).toBe('https://indirected.example.com/.well-known/jwks.json')
+  })
+
+  it('should return null when JWT_JWKS_URL_NAME set but binding is unset', () => {
+    process.env.JWT_JWKS_URL_NAME = 'NONEXISTENT_JWKS_BINDING_12345'
+    delete process.env.NONEXISTENT_JWKS_BINDING_12345
+    // Binding name is set but the binding itself is undefined → falls back to JWT_JWKS_URL (also unset)
+    expect(getJwksUrl()).toBeNull()
+  })
+
+  it('JWT_JWKS_URL takes precedence when JWT_JWKS_URL_NAME is not set', () => {
+    process.env.JWT_JWKS_URL = 'https://direct.example.com/.well-known/jwks.json'
+    // JWT_JWKS_URL_NAME not set, so JWT_JWKS_URL is used
+    expect(getJwksUrl()).toBe('https://direct.example.com/.well-known/jwks.json')
   })
 })
 

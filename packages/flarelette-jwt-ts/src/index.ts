@@ -26,10 +26,17 @@ export { sign } from './sign.js'
 export { verify } from './verify.js'
 
 // Utilities
-export { parse, isExpiringSoon } from './util.js'
+export { parse, isExpiringSoon, computeRequestHash } from './util.js'
 
 // High-level API
-export { createToken, createDelegatedToken, checkAuth, policy } from './high.js'
+export {
+  createToken,
+  createDelegatedToken,
+  checkAuth,
+  policy,
+  signWithRequestBinding,
+  verifyWithRequestBinding,
+} from './high.js'
 export type { AuthzOpts, AuthUser } from './high.js'
 
 // Secret generation
@@ -64,6 +71,7 @@ export {
   createEdDSASignConfig,
   createEdDSAVerifyConfig,
   createES512SignConfig,
+  createES512VerifyConfig,
   createJWKSUrlVerifyConfig,
 } from './explicit.js'
 
@@ -73,6 +81,7 @@ export type {
   EdDSASignConfig,
   EdDSAVerifyConfig,
   ES512SignConfig,
+  ES512VerifyConfig,
   JWKSUrlVerifyConfig,
   SignConfig,
   VerifyConfig,

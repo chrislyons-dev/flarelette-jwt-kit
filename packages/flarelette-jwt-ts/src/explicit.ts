@@ -79,6 +79,16 @@ export interface ES512SignConfig extends BaseJwtConfig {
 }
 
 /**
+ * ES512 (ECDSA P-521) asymmetric configuration for verification
+ * Uses a public EC key to verify tokens
+ */
+export interface ES512VerifyConfig extends BaseJwtConfig {
+  alg: 'ES512'
+  /** Public JWK for verification (P-521 EC key) */
+  publicJwk: JWK
+}
+
+/**
  * EdDSA/RSA/ECDSA asymmetric configuration for verification via HTTP JWKS
  * Uses a remote JWKS endpoint to fetch public keys (supports key rotation)
  */
@@ -98,7 +108,11 @@ export type SignConfig = HS512Config | EdDSASignConfig | ES512SignConfig
 /**
  * Union type for verification configuration
  */
-export type VerifyConfig = HS512Config | EdDSAVerifyConfig | JWKSUrlVerifyConfig
+export type VerifyConfig =
+  | HS512Config
+  | EdDSAVerifyConfig
+  | ES512VerifyConfig
+  | JWKSUrlVerifyConfig
 
 /**
  * Sign a JWT token with explicit configuration
@@ -156,7 +170,7 @@ export async function signWithConfig(
     }
     return jwt.setProtectedHeader({ alg: 'HS512', typ: 'JWT' }).sign(config.secret)
   } else if (config.alg === 'ES512') {
-    const key = await importJWK(config.privateJwk)
+    const key = await importJWK(config.privateJwk, 'ES512')
     return jwt
       .setProtectedHeader({
         alg: 'ES512',
@@ -530,6 +544,26 @@ export function createES512SignConfig(
     alg: 'ES512',
     privateJwk: jwk,
     kid,
+    ...baseConfig,
+  }
+}
+
+/**
+ * Helper function to create ES512 verify config from a P-521 EC public JWK
+ *
+ * @param publicJwk - Public JWK object or JSON string (EC P-521 key)
+ * @param baseConfig - Base JWT configuration
+ * @returns ES512 verify configuration
+ */
+export function createES512VerifyConfig(
+  publicJwk: JWK | string,
+  baseConfig: Omit<BaseJwtConfig, 'ttlSeconds' | 'leeway'> &
+    Partial<Pick<BaseJwtConfig, 'ttlSeconds' | 'leeway'>>
+): ES512VerifyConfig {
+  const jwk = typeof publicJwk === 'string' ? JSON.parse(publicJwk) : publicJwk
+  return {
+    alg: 'ES512',
+    publicJwk: jwk,
     ...baseConfig,
   }
 }

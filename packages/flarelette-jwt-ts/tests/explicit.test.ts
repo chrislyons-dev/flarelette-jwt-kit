@@ -13,6 +13,8 @@ import {
   createDelegatedTokenWithConfig,
   checkAuthWithConfig,
   createHS512Config,
+  createES512SignConfig,
+  createES512VerifyConfig,
   type HS512Config,
 } from '../src/explicit.js'
 
@@ -399,6 +401,117 @@ describe('Explicit Configuration API', () => {
           aud: 'test',
         })
       }).toThrow('JWT secret too short')
+    })
+  })
+
+  describe('ES512 explicit API', () => {
+    it('createES512SignConfig() returns config with alg: ES512', async () => {
+      const keyPair = await crypto.subtle.generateKey(
+        { name: 'ECDSA', namedCurve: 'P-521' },
+        true,
+        ['sign', 'verify']
+      )
+      const privateJwk = await crypto.subtle.exportKey('jwk', keyPair.privateKey)
+
+      const config = createES512SignConfig(privateJwk, {
+        iss: 'test-issuer',
+        aud: 'test-audience',
+      })
+
+      expect(config.alg).toBe('ES512')
+      expect(config.iss).toBe('test-issuer')
+      expect(config.aud).toBe('test-audience')
+    })
+
+    it('sign+verify round-trip using createES512SignConfig + createES512VerifyConfig', async () => {
+      const keyPair = await crypto.subtle.generateKey(
+        { name: 'ECDSA', namedCurve: 'P-521' },
+        true,
+        ['sign', 'verify']
+      )
+      const privateJwk = await crypto.subtle.exportKey('jwk', keyPair.privateKey)
+      const publicJwk = {
+        ...(await crypto.subtle.exportKey('jwk', keyPair.publicKey)),
+        alg: 'ES512',
+      }
+
+      const signConfig = createES512SignConfig(privateJwk, {
+        iss: 'test-issuer',
+        aud: 'test-audience',
+      })
+      const verifyConfig = createES512VerifyConfig(publicJwk, {
+        iss: 'test-issuer',
+        aud: 'test-audience',
+      })
+
+      const token = await signWithConfig({ sub: 'user-es512' }, signConfig)
+      const payload = await verifyWithConfig(token, verifyConfig)
+
+      expect(payload).toBeDefined()
+      expect(payload?.sub).toBe('user-es512')
+      expect(payload?.iss).toBe('test-issuer')
+    })
+
+    it('ES512 token rejected by HS512 config', async () => {
+      const keyPair = await crypto.subtle.generateKey(
+        { name: 'ECDSA', namedCurve: 'P-521' },
+        true,
+        ['sign', 'verify']
+      )
+      const privateJwk = await crypto.subtle.exportKey('jwk', keyPair.privateKey)
+
+      const signConfig = createES512SignConfig(privateJwk, {
+        iss: 'test-issuer',
+        aud: 'test-audience',
+      })
+      const hs512Config: HS512Config = {
+        alg: 'HS512',
+        secret: new Uint8Array(64).fill(42),
+        iss: 'test-issuer',
+        aud: 'test-audience',
+      }
+
+      const token = await signWithConfig({ sub: 'user-es512' }, signConfig)
+      const payload = await verifyWithConfig(token, hs512Config)
+
+      expect(payload).toBeNull()
+    })
+
+    it('ES512 token accepted by JWKS URL verify config', async () => {
+      const keyPair = await crypto.subtle.generateKey(
+        { name: 'ECDSA', namedCurve: 'P-521' },
+        true,
+        ['sign', 'verify']
+      )
+      const privateJwk = await crypto.subtle.exportKey('jwk', keyPair.privateKey)
+      const publicJwk = await crypto.subtle.exportKey('jwk', keyPair.publicKey)
+      const kidPublicJwk = { ...publicJwk, kid: 'es512-test', alg: 'ES512', use: 'sig' }
+
+      const signConfig = createES512SignConfig(
+        privateJwk,
+        { iss: 'test-issuer', aud: 'test-audience' },
+        'es512-test'
+      )
+
+      const token = await signWithConfig({ sub: 'user-es512' }, signConfig)
+
+      globalThis.fetch = async () =>
+        ({
+          ok: true,
+          status: 200,
+          text: async () => JSON.stringify({ keys: [kidPublicJwk] }),
+        }) as Response
+
+      const { createJWKSUrlVerifyConfig } = await import('../src/explicit.js')
+      const jwksConfig = createJWKSUrlVerifyConfig(
+        'https://example.com/.well-known/jwks.json',
+        { iss: 'test-issuer', aud: 'test-audience' }
+      )
+
+      const payload = await verifyWithConfig(token, jwksConfig)
+
+      expect(payload).toBeDefined()
+      expect(payload?.sub).toBe('user-es512')
     })
   })
 
