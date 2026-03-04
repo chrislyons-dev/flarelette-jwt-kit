@@ -110,7 +110,7 @@ rectangle "@chrislyons-dev/flarelette-jwt\n<size:10>[Container: Service]</size>"
   rectangle "==explicit.createEdDSAVerifyConfig\n<size:10>[Component: function]</size>\n\nHelper function to create EdDSA verify config from JWK" <<flarelettejwtkit.chrislyonsdevflarelettejwt.explicitcreateEdDSAVerifyConfig>> as flarelettejwtkit.chrislyonsdevflarelettejwt.explicitcreateEdDSAVerifyConfig
   rectangle "==explicit.createES512SignConfig\n<size:10>[Component: function]</size>\n\nHelper function to create ES512 sign config from a P-521 EC private JWK" <<flarelettejwtkit.chrislyonsdevflarelettejwt.explicitcreateES512SignConfig>> as flarelettejwtkit.chrislyonsdevflarelettejwt.explicitcreateES512SignConfig
   rectangle "==explicit.createES512VerifyConfig\n<size:10>[Component: function]</size>\n\nHelper function to create ES512 verify config from a P-521 EC public JWK" <<flarelettejwtkit.chrislyonsdevflarelettejwt.explicitcreateES512VerifyConfig>> as flarelettejwtkit.chrislyonsdevflarelettejwt.explicitcreateES512VerifyConfig
-  rectangle "==explicit.createJWKSUrlVerifyConfig\n<size:10>[Component: function]</size>\n\nHelper function to create HTTP JWKS URL verification config Enables testing without environment variables by providing explicit configuration" <<flarelettejwtkit.chrislyonsdevflarelettejwt.explicitcreateJWKSUrlVerifyConfig>> as flarelettejwtkit.chrislyonsdevflarelettejwt.explicitcreateJWKSUrlVerifyConfig
+  rectangle "==explicit.createJWKSUrlVerifyConfig\n<size:10>[Component: function]</size>" <<flarelettejwtkit.chrislyonsdevflarelettejwt.explicitcreateJWKSUrlVerifyConfig>> as flarelettejwtkit.chrislyonsdevflarelettejwt.explicitcreateJWKSUrlVerifyConfig
 }
 
 @enduml

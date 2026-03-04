@@ -26,7 +26,11 @@ export async function sign(
   const mode: AlgType = envMode('producer')
   const { iss, aud, ttlSeconds } = { ...getCommon(), ...(opts || {}) }
   const now = Math.floor(Date.now() / 1000)
-  const jwt = new SignJWT(payload)
+  // Auto-generate jti if absent — required for JTI revocation and isDuress auto-revocation
+  const claims: JwtPayload = payload.jti
+    ? payload
+    : { ...payload, jti: crypto.randomUUID() }
+  const jwt = new SignJWT(claims)
     .setIssuer(iss)
     .setAudience(aud)
     .setIssuedAt(now)

@@ -24,7 +24,7 @@
 ### Code Elements
 
 <details>
-<summary><strong>46 code element(s)</strong></summary>
+<summary><strong>47 code element(s)</strong></summary>
 
 
 #### Classes
@@ -220,6 +220,18 @@ Get JWT profile from environment.
 
 
 ---
+##### `get_jwks_url()`
+
+
+| Field | Value |
+| --- | --- |
+| **Type** | `function` |
+| **Visibility** | `-` |
+| **Returns** | `str \| None` || **Location** | `C:\Users\chris\git\flarelette-jwt-kit\packages\flarelette-jwt-py\flarelette_jwt\env.py:258` |
+
+
+
+---
 ##### `create_token()`
 
 Create a signed JWT token with optional claims.
@@ -405,7 +417,7 @@ Map OAuth scopes to permission strings.
 | --- | --- |
 | **Type** | `function` |
 | **Visibility** | `-` |
-| **Returns** | `bytes` || **Location** | `C:\Users\chris\git\flarelette-jwt-kit\packages\flarelette-jwt-py\flarelette_jwt\verify.py:29` |
+| **Returns** | `bytes` || **Location** | `C:\Users\chris\git\flarelette-jwt-kit\packages\flarelette-jwt-py\flarelette_jwt\verify.py:35` |
 
 **Parameters:**
 
@@ -420,7 +432,7 @@ Verify a JWT token with HS512 or EdDSA algorithm.
 | --- | --- |
 | **Type** | `function` |
 | **Visibility** | `-` |
-| **Async** | Yes || **Returns** | `JwtPayload \| None` - Decoded payload if valid, None otherwise || **Location** | `C:\Users\chris\git\flarelette-jwt-kit\packages\flarelette-jwt-py\flarelette_jwt\verify.py:33` |
+| **Async** | Yes || **Returns** | `JwtPayload \| None` - Decoded payload if valid, None otherwise || **Location** | `C:\Users\chris\git\flarelette-jwt-kit\packages\flarelette-jwt-py\flarelette_jwt\verify.py:39` |
 
 **Parameters:**
 

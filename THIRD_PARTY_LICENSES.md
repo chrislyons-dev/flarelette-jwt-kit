@@ -17,7 +17,7 @@ The TypeScript package depends on the following NPM packages:
 @flarelette/jwt-kit-env@1.8.1
 │ C:\Users\chris\git\flarelette-jwt-kit
 │
-└─┬ @chrislyons-dev/flarelette-jwt@1.13.0 -> .\packages\flarelette-jwt-ts
+└─┬ @chrislyons-dev/flarelette-jwt@1.14.0 -> .\packages\flarelette-jwt-ts
   │
   └── jose@6.1.3
 ```
@@ -76,4 +76,4 @@ This script:
 
 ---
 
-**Last generated**: 2026-03-03
+**Last generated**: 2026-03-04

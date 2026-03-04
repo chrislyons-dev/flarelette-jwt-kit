@@ -24,7 +24,7 @@
 ### Code Elements
 
 <details>
-<summary><strong>18 code element(s)</strong></summary>
+<summary><strong>31 code element(s)</strong></summary>
 
 
 #### Classes
@@ -37,7 +37,7 @@ Base JWT configuration shared by HS512 and EdDSA modes.
 | --- | --- |
 | **Type** | `class` |
 | **Visibility** | `-` |
-| **Location** | `C:\Users\chris\git\flarelette-jwt-kit\packages\flarelette-jwt-py\flarelette_jwt\explicit.py:25` |
+| **Location** | `C:\Users\chris\git\flarelette-jwt-kit\packages\flarelette-jwt-py\flarelette_jwt\explicit.py:27` |
 
 
 ---
@@ -49,7 +49,7 @@ HS512 (HMAC-SHA512) symmetric configuration.
 | --- | --- |
 | **Type** | `class` |
 | **Visibility** | `-` |
-| **Location** | `C:\Users\chris\git\flarelette-jwt-kit\packages\flarelette-jwt-py\flarelette_jwt\explicit.py:41` |
+| **Location** | `C:\Users\chris\git\flarelette-jwt-kit\packages\flarelette-jwt-py\flarelette_jwt\explicit.py:43` |
 
 
 ---
@@ -61,7 +61,7 @@ EdDSA (Ed25519) asymmetric configuration for signing.
 | --- | --- |
 | **Type** | `class` |
 | **Visibility** | `-` |
-| **Location** | `C:\Users\chris\git\flarelette-jwt-kit\packages\flarelette-jwt-py\flarelette_jwt\explicit.py:55` |
+| **Location** | `C:\Users\chris\git\flarelette-jwt-kit\packages\flarelette-jwt-py\flarelette_jwt\explicit.py:57` |
 
 
 ---
@@ -73,7 +73,31 @@ EdDSA (Ed25519) asymmetric configuration for verification.
 | --- | --- |
 | **Type** | `class` |
 | **Visibility** | `-` |
-| **Location** | `C:\Users\chris\git\flarelette-jwt-kit\packages\flarelette-jwt-py\flarelette_jwt\explicit.py:71` |
+| **Location** | `C:\Users\chris\git\flarelette-jwt-kit\packages\flarelette-jwt-py\flarelette_jwt\explicit.py:73` |
+
+
+---
+##### `ES512VerifyConfig`
+
+ES512 (ECDSA P-521) asymmetric configuration for verification.
+
+| Field | Value |
+| --- | --- |
+| **Type** | `class` |
+| **Visibility** | `-` |
+| **Location** | `C:\Users\chris\git\flarelette-jwt-kit\packages\flarelette-jwt-py\flarelette_jwt\explicit.py:87` |
+
+
+---
+##### `JWKSUrlVerifyConfig`
+
+Asymmetric verification configuration backed by a remote JWKS URL.
+
+| Field | Value |
+| --- | --- |
+| **Type** | `class` |
+| **Visibility** | `-` |
+| **Location** | `C:\Users\chris\git\flarelette-jwt-kit\packages\flarelette-jwt-py\flarelette_jwt\explicit.py:94` |
 
 
 ---
@@ -85,7 +109,7 @@ Authorization options for check_auth_with_config.
 | --- | --- |
 | **Type** | `class` |
 | **Visibility** | `-` |
-| **Location** | `C:\Users\chris\git\flarelette-jwt-kit\packages\flarelette-jwt-py\flarelette_jwt\explicit.py:403` |
+| **Location** | `C:\Users\chris\git\flarelette-jwt-kit\packages\flarelette-jwt-py\flarelette_jwt\explicit.py:582` |
 
 
 ---
@@ -97,7 +121,7 @@ Authenticated user information.
 | --- | --- |
 | **Type** | `class` |
 | **Visibility** | `-` |
-| **Location** | `C:\Users\chris\git\flarelette-jwt-kit\packages\flarelette-jwt-py\flarelette_jwt\explicit.py:421` |
+| **Location** | `C:\Users\chris\git\flarelette-jwt-kit\packages\flarelette-jwt-py\flarelette_jwt\explicit.py:600` |
 
 
 ---
@@ -112,7 +136,7 @@ Encode bytes to base64url without padding.
 | --- | --- |
 | **Type** | `function` |
 | **Visibility** | `-` |
-| **Returns** | `str` || **Location** | `C:\Users\chris\git\flarelette-jwt-kit\packages\flarelette-jwt-py\flarelette_jwt\explicit.py:90` |
+| **Returns** | `str` || **Location** | `C:\Users\chris\git\flarelette-jwt-kit\packages\flarelette-jwt-py\flarelette_jwt\explicit.py:117` |
 
 **Parameters:**
 
@@ -127,11 +151,137 @@ Decode base64url string (with or without padding).
 | --- | --- |
 | **Type** | `function` |
 | **Visibility** | `-` |
-| **Returns** | `bytes` || **Location** | `C:\Users\chris\git\flarelette-jwt-kit\packages\flarelette-jwt-py\flarelette_jwt\explicit.py:95` |
+| **Returns** | `bytes` || **Location** | `C:\Users\chris\git\flarelette-jwt-kit\packages\flarelette-jwt-py\flarelette_jwt\explicit.py:122` |
 
 **Parameters:**
 
 - `s`: <code>str</code>
+
+---
+##### `_validate_jwks_url()`
+
+
+| Field | Value |
+| --- | --- |
+| **Type** | `function` |
+| **Visibility** | `-` |
+| **Returns** | `None` || **Location** | `C:\Users\chris\git\flarelette-jwt-kit\packages\flarelette-jwt-py\flarelette_jwt\explicit.py:127` |
+
+**Parameters:**
+
+- `url`: <code>str</code>
+
+---
+##### `_ecdsa_curve_name()`
+
+
+| Field | Value |
+| --- | --- |
+| **Type** | `function` |
+| **Visibility** | `-` |
+| **Returns** | `str` || **Location** | `C:\Users\chris\git\flarelette-jwt-kit\packages\flarelette-jwt-py\flarelette_jwt\explicit.py:138` |
+
+**Parameters:**
+
+- `alg`: <code>str</code>
+
+---
+##### `_hash_name()`
+
+
+| Field | Value |
+| --- | --- |
+| **Type** | `function` |
+| **Visibility** | `-` |
+| **Returns** | `str` || **Location** | `C:\Users\chris\git\flarelette-jwt-kit\packages\flarelette-jwt-py\flarelette_jwt\explicit.py:147` |
+
+**Parameters:**
+
+- `alg`: <code>str</code>
+
+---
+##### `_fetch_jwks_from_url()`
+
+
+| Field | Value |
+| --- | --- |
+| **Type** | `function` |
+| **Visibility** | `-` |
+| **Async** | Yes || **Returns** | `list[dict[str, Any]]` || **Location** | `C:\Users\chris\git\flarelette-jwt-kit\packages\flarelette-jwt-py\flarelette_jwt\explicit.py:159` |
+
+**Parameters:**
+
+- `url`: <code>str</code>
+
+---
+##### `_find_jwk_by_kid()`
+
+
+| Field | Value |
+| --- | --- |
+| **Type** | `function` |
+| **Visibility** | `-` |
+| **Returns** | `dict[str, Any] \| None` || **Location** | `C:\Users\chris\git\flarelette-jwt-kit\packages\flarelette-jwt-py\flarelette_jwt\explicit.py:189` |
+
+**Parameters:**
+
+- `kid`: <code>str | None</code>- `jwks`: <code>list[dict[str, Any]]</code>
+
+---
+##### `_import_verify_key()`
+
+
+| Field | Value |
+| --- | --- |
+| **Type** | `function` |
+| **Visibility** | `-` |
+| **Async** | Yes || **Returns** | `tuple[Any, dict[str, str]]` || **Location** | `C:\Users\chris\git\flarelette-jwt-kit\packages\flarelette-jwt-py\flarelette_jwt\explicit.py:200` |
+
+**Parameters:**
+
+- `alg`: <code>str</code>- `jwk`: <code>dict[str, Any]</code>
+
+---
+##### `_has_public_jwk()`
+
+
+| Field | Value |
+| --- | --- |
+| **Type** | `function` |
+| **Visibility** | `-` |
+| **Returns** | `TypeGuard[EdDSAVerifyConfig \| ES512VerifyConfig]` || **Location** | `C:\Users\chris\git\flarelette-jwt-kit\packages\flarelette-jwt-py\flarelette_jwt\explicit.py:244` |
+
+**Parameters:**
+
+- `config`: <code>VerifyConfig</code>
+
+---
+##### `_has_jwks_url()`
+
+
+| Field | Value |
+| --- | --- |
+| **Type** | `function` |
+| **Visibility** | `-` |
+| **Returns** | `TypeGuard[JWKSUrlVerifyConfig]` || **Location** | `C:\Users\chris\git\flarelette-jwt-kit\packages\flarelette-jwt-py\flarelette_jwt\explicit.py:250` |
+
+**Parameters:**
+
+- `config`: <code>VerifyConfig</code>
+
+---
+##### `_verify_asymmetric_signature()`
+
+
+| Field | Value |
+| --- | --- |
+| **Type** | `function` |
+| **Visibility** | `-` |
+| **Async** | Yes || **Returns** | `bool` || **Location** | `C:\Users\chris\git\flarelette-jwt-kit\packages\flarelette-jwt-py\flarelette_jwt\explicit.py:254` |
+
+**Parameters:**
+
+- `header`: <code>JwtHeader</code>- `signing_input`: <code>bytes</code>- `sig`: <code>bytes</code>- `jwk`: <code>dict[str, Any]</code>
 
 ---
 ##### `sign_with_config()`
@@ -142,7 +292,7 @@ Sign a JWT token with explicit configuration.
 | --- | --- |
 | **Type** | `function` |
 | **Visibility** | `-` |
-| **Async** | Yes || **Returns** | `str` - Signed JWT token string || **Location** | `C:\Users\chris\git\flarelette-jwt-kit\packages\flarelette-jwt-py\flarelette_jwt\explicit.py:100` |
+| **Async** | Yes || **Returns** | `str` - Signed JWT token string || **Location** | `C:\Users\chris\git\flarelette-jwt-kit\packages\flarelette-jwt-py\flarelette_jwt\explicit.py:274` |
 
 **Parameters:**
 
@@ -161,7 +311,7 @@ Verify a JWT token with explicit configuration.
 | --- | --- |
 | **Type** | `function` |
 | **Visibility** | `-` |
-| **Async** | Yes || **Returns** | `JwtPayload \| None` - Payload if valid, None if invalid || **Location** | `C:\Users\chris\git\flarelette-jwt-kit\packages\flarelette-jwt-py\flarelette_jwt\explicit.py:190` |
+| **Async** | Yes || **Returns** | `JwtPayload \| None` - Payload if valid, None if invalid || **Location** | `C:\Users\chris\git\flarelette-jwt-kit\packages\flarelette-jwt-py\flarelette_jwt\explicit.py:364` |
 
 **Parameters:**
 
@@ -180,7 +330,7 @@ Create a signed JWT token with explicit configuration.
 | --- | --- |
 | **Type** | `function` |
 | **Visibility** | `-` |
-| **Async** | Yes || **Returns** | `str` - Signed JWT token string || **Location** | `C:\Users\chris\git\flarelette-jwt-kit\packages\flarelette-jwt-py\flarelette_jwt\explicit.py:300` |
+| **Async** | Yes || **Returns** | `str` - Signed JWT token string || **Location** | `C:\Users\chris\git\flarelette-jwt-kit\packages\flarelette-jwt-py\flarelette_jwt\explicit.py:479` |
 
 **Parameters:**
 
@@ -195,7 +345,7 @@ Create a delegated JWT token with explicit configuration.
 | --- | --- |
 | **Type** | `function` |
 | **Visibility** | `-` |
-| **Async** | Yes || **Returns** | `str` - Signed JWT token string with delegation claim || **Location** | `C:\Users\chris\git\flarelette-jwt-kit\packages\flarelette-jwt-py\flarelette_jwt\explicit.py:327` |
+| **Async** | Yes || **Returns** | `str` - Signed JWT token string with delegation claim || **Location** | `C:\Users\chris\git\flarelette-jwt-kit\packages\flarelette-jwt-py\flarelette_jwt\explicit.py:506` |
 
 **Parameters:**
 
@@ -214,7 +364,7 @@ Verify and authorize a JWT token with explicit configuration.
 | --- | --- |
 | **Type** | `function` |
 | **Visibility** | `-` |
-| **Async** | Yes || **Returns** | `AuthUser \| None` - AuthUser if valid and authorized, None otherwise || **Location** | `C:\Users\chris\git\flarelette-jwt-kit\packages\flarelette-jwt-py\flarelette_jwt\explicit.py:441` |
+| **Async** | Yes || **Returns** | `AuthUser \| None` - AuthUser if valid and authorized, None otherwise || **Location** | `C:\Users\chris\git\flarelette-jwt-kit\packages\flarelette-jwt-py\flarelette_jwt\explicit.py:620` |
 
 **Parameters:**
 
@@ -233,7 +383,7 @@ Helper function to create HS512 config from base64url-encoded secret.
 | --- | --- |
 | **Type** | `function` |
 | **Visibility** | `-` |
-| **Returns** | `HS512Config` - HS512Config || **Location** | `C:\Users\chris\git\flarelette-jwt-kit\packages\flarelette-jwt-py\flarelette_jwt\explicit.py:523` |
+| **Returns** | `HS512Config` - HS512Config || **Location** | `C:\Users\chris\git\flarelette-jwt-kit\packages\flarelette-jwt-py\flarelette_jwt\explicit.py:702` |
 
 **Parameters:**
 
@@ -248,7 +398,7 @@ Helper function to create EdDSA sign config from JWK.
 | --- | --- |
 | **Type** | `function` |
 | **Visibility** | `-` |
-| **Returns** | `EdDSASignConfig` - EdDSASignConfig || **Location** | `C:\Users\chris\git\flarelette-jwt-kit\packages\flarelette-jwt-py\flarelette_jwt\explicit.py:568` |
+| **Returns** | `EdDSASignConfig` - EdDSASignConfig || **Location** | `C:\Users\chris\git\flarelette-jwt-kit\packages\flarelette-jwt-py\flarelette_jwt\explicit.py:747` |
 
 **Parameters:**
 
@@ -263,11 +413,41 @@ Helper function to create EdDSA verify config from JWK.
 | --- | --- |
 | **Type** | `function` |
 | **Visibility** | `-` |
-| **Returns** | `EdDSAVerifyConfig` - EdDSAVerifyConfig || **Location** | `C:\Users\chris\git\flarelette-jwt-kit\packages\flarelette-jwt-py\flarelette_jwt\explicit.py:603` |
+| **Returns** | `EdDSAVerifyConfig` - EdDSAVerifyConfig || **Location** | `C:\Users\chris\git\flarelette-jwt-kit\packages\flarelette-jwt-py\flarelette_jwt\explicit.py:782` |
 
 **Parameters:**
 
 - `public_jwk`: <code>dict[str, Any] | str</code> — Public JWK dictionary or JSON string
+
+---
+##### `create_es512_verify_config()`
+
+Helper function to create ES512 verify config from a public JWK.
+
+| Field | Value |
+| --- | --- |
+| **Type** | `function` |
+| **Visibility** | `-` |
+| **Returns** | `ES512VerifyConfig` || **Location** | `C:\Users\chris\git\flarelette-jwt-kit\packages\flarelette-jwt-py\flarelette_jwt\explicit.py:814` |
+
+**Parameters:**
+
+- `public_jwk`: <code>dict[str, Any] | str</code>
+
+---
+##### `create_jwks_url_verify_config()`
+
+Helper function to create JWKS URL verification config.
+
+| Field | Value |
+| --- | --- |
+| **Type** | `function` |
+| **Visibility** | `-` |
+| **Returns** | `JWKSUrlVerifyConfig` || **Location** | `C:\Users\chris\git\flarelette-jwt-kit\packages\flarelette-jwt-py\flarelette_jwt\explicit.py:835` |
+
+**Parameters:**
+
+- `jwks_url`: <code>str</code>
 
 ---
 

@@ -114,6 +114,8 @@ export type VerifyConfig =
   | ES512VerifyConfig
   | JWKSUrlVerifyConfig
 
+type JWKSUrlVerifyAlg = JWKSUrlVerifyConfig['alg']
+
 /**
  * Sign a JWT token with explicit configuration
  *
@@ -155,7 +157,11 @@ export async function signWithConfig(
   const ttlSeconds = overrides?.ttlSeconds ?? config.ttlSeconds ?? 900
 
   const now = Math.floor(Date.now() / 1000)
-  const jwt = new SignJWT(payload)
+  // Auto-generate jti if absent — required for JTI revocation and isDuress auto-revocation
+  const claims: JwtPayload = payload.jti
+    ? payload
+    : { ...payload, jti: crypto.randomUUID() }
+  const jwt = new SignJWT(claims)
     .setIssuer(iss)
     .setAudience(aud)
     .setIssuedAt(now)
@@ -597,9 +603,39 @@ export function createJWKSUrlVerifyConfig(
   baseConfig: Omit<BaseJwtConfig, 'ttlSeconds' | 'leeway'> &
     Partial<Pick<BaseJwtConfig, 'ttlSeconds' | 'leeway'>>,
   cacheTtl?: number
+): JWKSUrlVerifyConfig
+export function createJWKSUrlVerifyConfig(
+  jwksUrl: string,
+  alg: JWKSUrlVerifyAlg,
+  baseConfig: Omit<BaseJwtConfig, 'ttlSeconds' | 'leeway'> &
+    Partial<Pick<BaseJwtConfig, 'ttlSeconds' | 'leeway'>>,
+  cacheTtl?: number
+): JWKSUrlVerifyConfig
+export function createJWKSUrlVerifyConfig(
+  jwksUrl: string,
+  algOrBaseConfig:
+    | JWKSUrlVerifyAlg
+    | (Omit<BaseJwtConfig, 'ttlSeconds' | 'leeway'> &
+        Partial<Pick<BaseJwtConfig, 'ttlSeconds' | 'leeway'>>),
+  baseConfigOrCacheTtl?:
+    | (Omit<BaseJwtConfig, 'ttlSeconds' | 'leeway'> &
+        Partial<Pick<BaseJwtConfig, 'ttlSeconds' | 'leeway'>>)
+    | number,
+  maybeCacheTtl?: number
 ): JWKSUrlVerifyConfig {
+  const alg = typeof algOrBaseConfig === 'string' ? algOrBaseConfig : 'EdDSA'
+  const baseConfig =
+    typeof algOrBaseConfig === 'string'
+      ? (baseConfigOrCacheTtl as Omit<BaseJwtConfig, 'ttlSeconds' | 'leeway'> &
+          Partial<Pick<BaseJwtConfig, 'ttlSeconds' | 'leeway'>>)
+      : algOrBaseConfig
+  const cacheTtl =
+    typeof algOrBaseConfig === 'string'
+      ? maybeCacheTtl
+      : (baseConfigOrCacheTtl as number | undefined)
+
   return {
-    alg: 'EdDSA', // Default, will support RSA via JWKS
+    alg,
     jwksUrl,
     cacheTtl,
     ...baseConfig,

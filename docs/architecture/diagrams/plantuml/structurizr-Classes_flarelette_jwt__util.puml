@@ -261,6 +261,13 @@ skinparam rectangle<<flarelettejwtkit.flarelettejwt.utilget_hs_secret_bytes>> {
   roundCorner 20
   shadowing false
 }
+skinparam rectangle<<flarelettejwtkit.flarelettejwt.utilget_jwks_url>> {
+  BackgroundColor #d4e8fc
+  FontColor #000000
+  BorderColor #94a2b0
+  roundCorner 20
+  shadowing false
+}
 skinparam rectangle<<flarelettejwtkit.flarelettejwt.utilget_public_jwk_string>> {
   BackgroundColor #d4e8fc
   FontColor #000000
@@ -388,6 +395,7 @@ rectangle "flarelette-jwt\n<size:10>[Container: Service]</size>" <<flarelettejwt
   rectangle "==util._get_indirect\n<size:10>[Component: function]</size>" <<flarelettejwtkit.flarelettejwt.util_get_indirect>> as flarelettejwtkit.flarelettejwt.util_get_indirect
   rectangle "==util.get_hs_secret_bytes\n<size:10>[Component: function]</size>" <<flarelettejwtkit.flarelettejwt.utilget_hs_secret_bytes>> as flarelettejwtkit.flarelettejwt.utilget_hs_secret_bytes
   rectangle "==util.get_public_jwk_string\n<size:10>[Component: function]</size>" <<flarelettejwtkit.flarelettejwt.utilget_public_jwk_string>> as flarelettejwtkit.flarelettejwt.utilget_public_jwk_string
+  rectangle "==util.get_jwks_url\n<size:10>[Component: function]</size>" <<flarelettejwtkit.flarelettejwt.utilget_jwks_url>> as flarelettejwtkit.flarelettejwt.utilget_jwks_url
   rectangle "==util.AlgType\n<size:10>[Component: type]</size>" <<flarelettejwtkit.flarelettejwt.utilAlgType>> as flarelettejwtkit.flarelettejwt.utilAlgType
   rectangle "==util.JwtValue\n<size:10>[Component: type]</size>" <<flarelettejwtkit.flarelettejwt.utilJwtValue>> as flarelettejwtkit.flarelettejwt.utilJwtValue
   rectangle "==util.ClaimsDict\n<size:10>[Component: type]</size>" <<flarelettejwtkit.flarelettejwt.utilClaimsDict>> as flarelettejwtkit.flarelettejwt.utilClaimsDict

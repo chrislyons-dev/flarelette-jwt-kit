@@ -142,7 +142,6 @@ workspace "flarelette-jwt-kit" "JWT authentication and authorization library" {
                     tags "Code"
                 }
                 chrislyons_dev_flarelette_jwt__explicit__createjwksurlverifyconfig = component "explicit.createJWKSUrlVerifyConfig" {
-                    description "Helper function to create HTTP JWKS URL verification config Enables testing without environment variables by providing explicit configuration"
                     technology "function"
                     tags "Code"
                 }
@@ -369,6 +368,10 @@ workspace "flarelette-jwt-kit" "JWT authentication and authorization library" {
                     technology "function"
                     tags "Code,Code"
                 }
+                flarelette_jwt__util__get_jwks_url = component "util.get_jwks_url" {
+                    technology "function"
+                    tags "Code,Code"
+                }
                 flarelette_jwt__util__algtype = component "util.AlgType" {
                     technology "type"
                     tags "Code,Code,Type"
@@ -401,6 +404,16 @@ workspace "flarelette-jwt-kit" "JWT authentication and authorization library" {
                     technology "class"
                     tags "Code,Code"
                 }
+                flarelette_jwt__explicit__es512verifyconfig = component "explicit.ES512VerifyConfig" {
+                    description "ES512 (ECDSA P-521) asymmetric configuration for verification."
+                    technology "class"
+                    tags "Code,Code"
+                }
+                flarelette_jwt__explicit__jwksurlverifyconfig = component "explicit.JWKSUrlVerifyConfig" {
+                    description "Asymmetric verification configuration backed by a remote JWKS URL."
+                    technology "class"
+                    tags "Code,Code"
+                }
                 flarelette_jwt__explicit__authzoptswithconfig = component "explicit.AuthzOptsWithConfig" {
                     description "Authorization options for check_auth_with_config."
                     technology "class"
@@ -418,6 +431,42 @@ workspace "flarelette-jwt-kit" "JWT authentication and authorization library" {
                 }
                 flarelette_jwt__explicit___b64url_decode = component "explicit._b64url_decode" {
                     description "Decode base64url string (with or without padding)."
+                    technology "function"
+                    tags "Code,Code"
+                }
+                flarelette_jwt__explicit___validate_jwks_url = component "explicit._validate_jwks_url" {
+                    technology "function"
+                    tags "Code,Code"
+                }
+                flarelette_jwt__explicit___ecdsa_curve_name = component "explicit._ecdsa_curve_name" {
+                    technology "function"
+                    tags "Code,Code"
+                }
+                flarelette_jwt__explicit___hash_name = component "explicit._hash_name" {
+                    technology "function"
+                    tags "Code,Code"
+                }
+                flarelette_jwt__explicit___fetch_jwks_from_url = component "explicit._fetch_jwks_from_url" {
+                    technology "function"
+                    tags "Code,Code"
+                }
+                flarelette_jwt__explicit___find_jwk_by_kid = component "explicit._find_jwk_by_kid" {
+                    technology "function"
+                    tags "Code,Code"
+                }
+                flarelette_jwt__explicit___import_verify_key = component "explicit._import_verify_key" {
+                    technology "function"
+                    tags "Code,Code"
+                }
+                flarelette_jwt__explicit___has_public_jwk = component "explicit._has_public_jwk" {
+                    technology "function"
+                    tags "Code,Code"
+                }
+                flarelette_jwt__explicit___has_jwks_url = component "explicit._has_jwks_url" {
+                    technology "function"
+                    tags "Code,Code"
+                }
+                flarelette_jwt__explicit___verify_asymmetric_signature = component "explicit._verify_asymmetric_signature" {
                     technology "function"
                     tags "Code,Code"
                 }
@@ -458,6 +507,16 @@ workspace "flarelette-jwt-kit" "JWT authentication and authorization library" {
                 }
                 flarelette_jwt__explicit__create_eddsa_verify_config = component "explicit.create_eddsa_verify_config" {
                     description "Helper function to create EdDSA verify config from JWK."
+                    technology "function"
+                    tags "Code,Code"
+                }
+                flarelette_jwt__explicit__create_es512_verify_config = component "explicit.create_es512_verify_config" {
+                    description "Helper function to create ES512 verify config from a public JWK."
+                    technology "function"
+                    tags "Code,Code"
+                }
+                flarelette_jwt__explicit__create_jwks_url_verify_config = component "explicit.create_jwks_url_verify_config" {
+                    description "Helper function to create JWKS URL verification config."
                     technology "function"
                     tags "Code,Code"
                 }
@@ -746,6 +805,7 @@ workspace "flarelette-jwt-kit" "JWT authentication and authorization library" {
             include flarelette_jwt__util___get_indirect
             include flarelette_jwt__util__get_hs_secret_bytes
             include flarelette_jwt__util__get_public_jwk_string
+            include flarelette_jwt__util__get_jwks_url
             include flarelette_jwt__util__algtype
             include flarelette_jwt__util__jwtvalue
             include flarelette_jwt__util__claimsdict
@@ -790,10 +850,21 @@ workspace "flarelette-jwt-kit" "JWT authentication and authorization library" {
             include flarelette_jwt__explicit__hs512config
             include flarelette_jwt__explicit__eddsasignconfig
             include flarelette_jwt__explicit__eddsaverifyconfig
+            include flarelette_jwt__explicit__es512verifyconfig
+            include flarelette_jwt__explicit__jwksurlverifyconfig
             include flarelette_jwt__explicit__authzoptswithconfig
             include flarelette_jwt__explicit__authuser
             include flarelette_jwt__explicit___b64url
             include flarelette_jwt__explicit___b64url_decode
+            include flarelette_jwt__explicit___validate_jwks_url
+            include flarelette_jwt__explicit___ecdsa_curve_name
+            include flarelette_jwt__explicit___hash_name
+            include flarelette_jwt__explicit___fetch_jwks_from_url
+            include flarelette_jwt__explicit___find_jwk_by_kid
+            include flarelette_jwt__explicit___import_verify_key
+            include flarelette_jwt__explicit___has_public_jwk
+            include flarelette_jwt__explicit___has_jwks_url
+            include flarelette_jwt__explicit___verify_asymmetric_signature
             include flarelette_jwt__explicit__sign_with_config
             include flarelette_jwt__explicit__verify_with_config
             include flarelette_jwt__explicit__create_token_with_config
@@ -802,6 +873,8 @@ workspace "flarelette-jwt-kit" "JWT authentication and authorization library" {
             include flarelette_jwt__explicit__create_hs512_config
             include flarelette_jwt__explicit__create_eddsa_sign_config
             include flarelette_jwt__explicit__create_eddsa_verify_config
+            include flarelette_jwt__explicit__create_es512_verify_config
+            include flarelette_jwt__explicit__create_jwks_url_verify_config
             include flarelette_jwt__explicit__signconfig
             include flarelette_jwt__explicit__verifyconfig
             autoLayout lr 100 100

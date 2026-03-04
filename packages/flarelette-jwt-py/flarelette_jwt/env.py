@@ -253,3 +253,7 @@ def get_hs_secret_bytes() -> bytes:
 
 def get_public_jwk_string() -> str | None:
     return _get_indirect("JWT_PUBLIC_JWK_NAME", "JWT_PUBLIC_JWK")
+
+
+def get_jwks_url() -> str | None:
+    return _get_indirect("JWT_JWKS_URL_NAME", "JWT_JWKS_URL")

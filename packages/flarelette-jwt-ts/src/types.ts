@@ -142,6 +142,16 @@ export interface JwtPayload {
   /** Service acting on behalf of subject */
   act?: ActorClaim
 
+  // Duress credential
+  /**
+   * Set server-side when a duress passkey assertion is detected.
+   * The OIDC Worker sets this based on which credentialId asserted; the Gateway
+   * copies it into the internal JWT. Downstream Workers must not deny access or
+   * fail closed when true — a duress session must look like success to the user.
+   * Never set by clients.
+   */
+  isDuress?: boolean
+
   /** Additional custom claims */
   [key: string]: unknown
 }
