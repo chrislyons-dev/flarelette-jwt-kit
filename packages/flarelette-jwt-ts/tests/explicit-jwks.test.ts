@@ -41,6 +41,19 @@ describe('explicit-jwks.test.ts - Explicit Configuration API', () => {
       })
     })
 
+    test('should allow explicit RSA algorithm selection', () => {
+      const config = createJWKSUrlVerifyConfig(
+        'https://tenant.auth0.com/.well-known/jwks.json',
+        'RS256',
+        {
+          iss: 'https://tenant.auth0.com/',
+          aud: 'my-app-client-id',
+        }
+      )
+
+      expect(config.alg).toBe('RS256')
+    })
+
     test('should accept custom cache TTL', () => {
       const config = createJWKSUrlVerifyConfig(
         'https://tenant.auth0.com/.well-known/jwks.json',
@@ -351,6 +364,7 @@ describe('explicit-jwks.test.ts - Explicit Configuration API', () => {
 
       const config = createJWKSUrlVerifyConfig(
         'https://auth0.example.com/.well-known/jwks.json',
+        'RS256',
         {
           iss: 'https://auth0.example.com/',
           aud: 'api-client-id',
@@ -386,6 +400,7 @@ describe('explicit-jwks.test.ts - Explicit Configuration API', () => {
 
       const config = createJWKSUrlVerifyConfig(
         'https://example.com/.well-known/jwks.json',
+        'RS384',
         {
           iss: 'https://example.com/',
           aud: 'my-app',
@@ -419,6 +434,7 @@ describe('explicit-jwks.test.ts - Explicit Configuration API', () => {
 
       const config = createJWKSUrlVerifyConfig(
         'https://example.com/.well-known/jwks.json',
+        'RS512',
         {
           iss: 'https://example.com/',
           aud: 'my-app',
@@ -459,6 +475,7 @@ describe('explicit-jwks.test.ts - Explicit Configuration API', () => {
 
       const config = createJWKSUrlVerifyConfig(
         'https://example.com/.well-known/jwks.json',
+        'RS256',
         {
           iss: 'https://example.com/',
           aud: 'my-app',
@@ -501,6 +518,7 @@ describe('explicit-jwks.test.ts - Explicit Configuration API', () => {
 
       const config = createJWKSUrlVerifyConfig(
         'https://example.com/.well-known/jwks.json',
+        'RS256',
         {
           iss: 'https://example.com/',
           aud: 'my-app',
@@ -723,6 +741,7 @@ describe('explicit-jwks.test.ts - Explicit Configuration API', () => {
 
       const config = createJWKSUrlVerifyConfig(
         'https://tenant.auth0.com/.well-known/jwks.json',
+        'RS256',
         {
           iss: 'https://tenant.auth0.com/',
           aud: 'my-api-client-id',
@@ -761,6 +780,7 @@ describe('explicit-jwks.test.ts - Explicit Configuration API', () => {
 
       const config = createJWKSUrlVerifyConfig(
         'https://company.okta.com/oauth2/default/v1/keys',
+        'RS256',
         {
           iss: 'https://company.okta.com/oauth2/default',
           aud: 'api://default',
@@ -800,6 +820,7 @@ describe('explicit-jwks.test.ts - Explicit Configuration API', () => {
 
       const config = createJWKSUrlVerifyConfig(
         'https://www.googleapis.com/oauth2/v3/certs',
+        'RS256',
         {
           iss: 'https://accounts.google.com',
           aud: '123456-abcdefg.apps.googleusercontent.com',

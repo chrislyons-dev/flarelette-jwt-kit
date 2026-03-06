@@ -14,12 +14,14 @@ from __future__ import annotations
 import base64
 import json
 import time
-from typing import TYPE_CHECKING, Any, Literal, TypedDict
+from typing import TYPE_CHECKING, Any, Literal, TypedDict, TypeGuard
+from urllib.parse import urlparse
+from urllib.request import urlopen
 
 if TYPE_CHECKING:
     from collections.abc import Callable
 
-    from .env import JwtPayload
+    from .env import JwtHeader, JwtPayload
 
 
 class BaseJwtConfig(TypedDict, total=False):
@@ -82,9 +84,34 @@ class EdDSAVerifyConfig(BaseJwtConfig):
     public_jwk: dict[str, Any]
 
 
+class ES512VerifyConfig(BaseJwtConfig):
+    """ES512 (ECDSA P-521) asymmetric configuration for verification."""
+
+    alg: Literal["ES512"]
+    public_jwk: dict[str, Any]
+
+
+class JWKSUrlVerifyConfig(BaseJwtConfig):
+    """Asymmetric verification configuration backed by a remote JWKS URL."""
+
+    alg: Literal["EdDSA", "ES256", "ES384", "ES512", "RS256", "RS384", "RS512"]
+    jwks_url: str
+    cache_ttl: int | None
+
+
 # Union types for convenience
 SignConfig = HS512Config | EdDSASignConfig
-VerifyConfig = HS512Config | EdDSAVerifyConfig
+VerifyConfig = HS512Config | EdDSAVerifyConfig | ES512VerifyConfig | JWKSUrlVerifyConfig
+
+ASYMMETRIC_VERIFY_ALGS = {
+    "EdDSA",
+    "ES256",
+    "ES384",
+    "ES512",
+    "RS256",
+    "RS384",
+    "RS512",
+}
 
 
 def _b64url(b: bytes) -> str:
@@ -95,6 +122,153 @@ def _b64url(b: bytes) -> str:
 def _b64url_decode(s: str) -> bytes:
     """Decode base64url string (with or without padding)."""
     return base64.urlsafe_b64decode(s + "=" * (-len(s) % 4))
+
+
+def _validate_jwks_url(url: str) -> None:
+    parsed = urlparse(url)
+    if not parsed.scheme or not parsed.netloc:
+        raise ValueError("JWT_JWKS_URL must be a valid URL")
+    if parsed.scheme == "https":
+        return
+    if parsed.scheme == "http" and parsed.hostname in {"localhost", "127.0.0.1", "::1"}:
+        return
+    raise ValueError("JWT_JWKS_URL must use HTTPS (except localhost for testing)")
+
+
+def _ecdsa_curve_name(alg: str) -> str:
+    curves = {
+        "ES256": "P-256",
+        "ES384": "P-384",
+        "ES512": "P-521",
+    }
+    return curves[alg]
+
+
+def _hash_name(alg: str) -> str:
+    hashes = {
+        "RS256": "SHA-256",
+        "RS384": "SHA-384",
+        "RS512": "SHA-512",
+        "ES256": "SHA-256",
+        "ES384": "SHA-384",
+        "ES512": "SHA-512",
+    }
+    return hashes[alg]
+
+
+async def _fetch_jwks_from_url(url: str) -> list[dict[str, Any]]:
+    _validate_jwks_url(url)
+
+    text: str
+    try:
+        from js import fetch as js_fetch  # noqa: PLC0415
+    except ImportError:
+        js_fetch = None
+
+    if js_fetch is not None:
+        response = await js_fetch(url)
+        if not response.ok:
+            raise ValueError(
+                f"JWKS HTTP fetch returned {response.status}: {response.statusText}"
+            )
+        text = await response.text()
+    else:
+        with urlopen(url) as response:  # noqa: S310
+            status = getattr(response, "status", response.getcode())
+            if status < 200 or status >= 300:
+                raise ValueError(f"JWKS HTTP fetch returned {status}")
+            text = response.read().decode("utf-8")
+
+    data = json.loads(text)
+    keys = data.get("keys")
+    if not isinstance(keys, list):
+        raise ValueError("Invalid JWKS response: missing keys array")
+    return keys
+
+
+def _find_jwk_by_kid(
+    kid: str | None, jwks: list[dict[str, Any]]
+) -> dict[str, Any] | None:
+    if not kid:
+        return None
+    for jwk in jwks:
+        if jwk.get("kid") == kid:
+            return jwk
+    return None
+
+
+async def _import_verify_key(
+    alg: str, jwk: dict[str, Any]
+) -> tuple[Any, dict[str, str]]:
+    from js import crypto  # noqa: PLC0415
+
+    try:
+        from pyodide.ffi import to_js  # noqa: PLC0415
+    except ImportError:
+
+        def to_js(value: Any) -> Any:
+            return value
+
+    if alg == "EdDSA":
+        x_b64 = jwk.get("x")
+        if not x_b64:
+            raise ValueError("EdDSA public JWK must include x")
+        key = await crypto.subtle.importKey(
+            "raw", _b64url_decode(x_b64), {"name": "Ed25519"}, False, ["verify"]
+        )
+        return key, {"name": "Ed25519"}
+
+    if alg.startswith("RS"):
+        key = await crypto.subtle.importKey(
+            "jwk",
+            to_js(jwk),
+            {"name": "RSASSA-PKCS1-v1_5", "hash": _hash_name(alg)},
+            False,
+            ["verify"],
+        )
+        return key, {"name": "RSASSA-PKCS1-v1_5"}
+
+    if alg.startswith("ES"):
+        key = await crypto.subtle.importKey(
+            "jwk",
+            to_js(jwk),
+            {"name": "ECDSA", "namedCurve": _ecdsa_curve_name(alg)},
+            False,
+            ["verify"],
+        )
+        return key, {"name": "ECDSA", "hash": _hash_name(alg)}
+
+    raise ValueError(f"Unsupported verification algorithm: {alg}")
+
+
+def _has_public_jwk(
+    config: VerifyConfig,
+) -> TypeGuard[EdDSAVerifyConfig | ES512VerifyConfig]:
+    return "public_jwk" in config
+
+
+def _has_jwks_url(config: VerifyConfig) -> TypeGuard[JWKSUrlVerifyConfig]:
+    return "jwks_url" in config
+
+
+async def _verify_asymmetric_signature(
+    header: JwtHeader,
+    signing_input: bytes,
+    sig: bytes,
+    jwk: dict[str, Any],
+    *,
+    expected_alg: str | None = None,
+) -> bool:
+    alg = header.get("alg")
+    if alg not in ASYMMETRIC_VERIFY_ALGS:
+        return False
+    if expected_alg is not None and alg != expected_alg:
+        return False
+
+    from js import crypto  # noqa: PLC0415
+
+    key, verify_algorithm = await _import_verify_key(alg, jwk)
+    return bool(await crypto.subtle.verify(verify_algorithm, key, sig, signing_input))
 
 
 async def sign_with_config(
@@ -139,7 +313,7 @@ async def sign_with_config(
         Signed JWT token string
 
     Raises:
-        ValueError: If secret is too short (< 32 bytes)
+        ValueError: If secret is too short (< 64 bytes)
         RuntimeError: If EdDSA signing is attempted (not supported in Python Workers)
     """
     iss_val = iss or config.get("iss", "")
@@ -155,8 +329,11 @@ async def sign_with_config(
 
     if config["alg"] == "HS512":
         secret = config["secret"]
-        if len(secret) < 32:
-            raise ValueError(f"JWT secret too short: {len(secret)} bytes, need >= 32")
+        # SECURITY: HS512 requires 64-byte minimum (SHA-512 digest size)
+        if len(secret) < 64:
+            raise ValueError(
+                f"JWT secret too short: {len(secret)} bytes, need >= 64 for HS512"
+            )
 
         # Lazy import - only available in Cloudflare Workers/Pyodide runtime
         from js import crypto  # noqa: PLC0415
@@ -235,15 +412,16 @@ async def verify_with_config(
     except Exception:
         return None
 
-    # Lazy import - only available in Cloudflare Workers/Pyodide runtime
-    from js import crypto  # noqa: PLC0415
-
     if config["alg"] == "HS512":
         if header.get("alg") != "HS512":
             return None
 
+        # Lazy import - only available in Cloudflare Workers/Pyodide runtime
+        from js import crypto  # noqa: PLC0415
+
         secret = config["secret"]
-        if len(secret) < 32:
+        # SECURITY: HS512 requires 64-byte minimum (SHA-512 digest size)
+        if len(secret) < 64:
             return None
 
         key = await crypto.subtle.importKey(
@@ -259,23 +437,28 @@ async def verify_with_config(
         if not ok:
             return None
     else:
-        # EdDSA mode
-        if header.get("alg") != "EdDSA":
-            return None
+        signing_input = (h_b64 + "." + p_b64).encode()
 
-        jwk = config["public_jwk"]
-        x_b64 = jwk.get("x")
-        if not x_b64:
-            return None
-
-        x = _b64url_decode(x_b64)
-        key = await crypto.subtle.importKey(
-            "raw", x, {"name": "Ed25519"}, False, ["verify"]
-        )
-        ok = await crypto.subtle.verify(
-            {"name": "Ed25519"}, key, sig, (h_b64 + "." + p_b64).encode()
-        )
-        if not ok:
+        if _has_public_jwk(config):
+            if not await _verify_asymmetric_signature(
+                header,
+                signing_input,
+                sig,
+                config["public_jwk"],
+                expected_alg=config["alg"],
+            ):
+                return None
+        elif _has_jwks_url(config):
+            jwk = _find_jwk_by_kid(
+                header.get("kid"), await _fetch_jwks_from_url(config["jwks_url"])
+            )
+            if not jwk:
+                return None
+            if not await _verify_asymmetric_signature(
+                header, signing_input, sig, jwk, expected_alg=config["alg"]
+            ):
+                return None
+        else:
             return None
 
     # Validate claims
@@ -527,7 +710,7 @@ def create_hs512_config(
     """Helper function to create HS512 config from base64url-encoded secret.
 
     Args:
-        secret: Base64url-encoded secret string or raw bytes (minimum 32 bytes)
+        secret: Base64url-encoded secret string or raw bytes (minimum 64 bytes)
         iss: Token issuer
         aud: Token audience (string or list)
         ttl_seconds: Token lifetime in seconds (default: 900 = 15 minutes)
@@ -537,7 +720,7 @@ def create_hs512_config(
         HS512Config
 
     Raises:
-        ValueError: If secret is too short (< 32 bytes)
+        ValueError: If secret is too short (< 64 bytes)
     """
     if isinstance(secret, str):
         # Decode base64url
@@ -545,8 +728,11 @@ def create_hs512_config(
     else:
         secret_bytes = secret
 
-    if len(secret_bytes) < 32:
-        raise ValueError(f"JWT secret too short: {len(secret_bytes)} bytes, need >= 32")
+    # SECURITY: HS512 requires 64-byte minimum (SHA-512 digest size)
+    if len(secret_bytes) < 64:
+        raise ValueError(
+            f"JWT secret too short: {len(secret_bytes)} bytes, need >= 64 for HS512"
+        )
 
     return {
         "alg": "HS512",
@@ -618,6 +804,51 @@ def create_eddsa_verify_config(
     return {
         "alg": "EdDSA",
         "public_jwk": jwk,
+        "iss": iss,
+        "aud": aud,
+        "ttl_seconds": ttl_seconds,
+        "leeway": leeway,
+    }
+
+
+def create_es512_verify_config(
+    public_jwk: dict[str, Any] | str,
+    *,
+    iss: str,
+    aud: str | list[str],
+    ttl_seconds: int = 900,
+    leeway: int = 90,
+) -> ES512VerifyConfig:
+    """Helper function to create ES512 verify config from a public JWK."""
+    jwk = json.loads(public_jwk) if isinstance(public_jwk, str) else public_jwk
+
+    return {
+        "alg": "ES512",
+        "public_jwk": jwk,
+        "iss": iss,
+        "aud": aud,
+        "ttl_seconds": ttl_seconds,
+        "leeway": leeway,
+    }
+
+
+def create_jwks_url_verify_config(
+    jwks_url: str,
+    *,
+    iss: str,
+    aud: str | list[str],
+    alg: Literal[
+        "EdDSA", "ES256", "ES384", "ES512", "RS256", "RS384", "RS512"
+    ] = "EdDSA",
+    ttl_seconds: int = 900,
+    leeway: int = 90,
+    cache_ttl: int | None = None,
+) -> JWKSUrlVerifyConfig:
+    """Helper function to create JWKS URL verification config."""
+    return {
+        "alg": alg,
+        "jwks_url": jwks_url,
+        "cache_ttl": cache_ttl,
         "iss": iss,
         "aud": aud,
         "ttl_seconds": ttl_seconds,

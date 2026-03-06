@@ -1,10 +1,10 @@
-graph TB
+graph LR
   linkStyle default fill:#ffffff
 
-  subgraph diagram ["flarelette-jwt-kit - @chrislyons-dev/flarelette-jwt - Components"]
+  subgraph diagram [" "]
     style diagram fill:#ffffff,stroke:#ffffff
 
-    subgraph 2 ["@chrislyons-dev/flarelette-jwt"]
+    subgraph 2 [" "]
       style 2 fill:#ffffff,stroke:#2e6295,color:#2e6295
 
       10("<div style='font-weight: bold'>adapters</div><div style='font-size: 70%; margin-top: 0px'>[Component: module]</div><div style='font-size: 80%; margin-top:10px'>Component inferred from<br />directory: adapters</div>")
@@ -13,7 +13,7 @@ graph TB
       style 3 fill:#85bbf0,stroke:#5d82a8,color:#000000
       4("<div style='font-weight: bold'>explicit</div><div style='font-size: 70%; margin-top: 0px'>[Component: module]</div><div style='font-size: 80%; margin-top:10px'>Explicit configuration API<br />for JWT operations. This<br />module provides functions<br />that accept explicit<br />configuration objects instead<br />of relying on environment<br />variables or global state.<br />Use this API when you need<br />full control over<br />configuration, especially in<br />development environments or<br />when working with multiple<br />JWT configurations.</div>")
       style 4 fill:#85bbf0,stroke:#5d82a8,color:#000000
-      5("<div style='font-weight: bold'>util</div><div style='font-size: 70%; margin-top: 0px'>[Component: module]</div><div style='font-size: 80%; margin-top:10px'>High-level JWT utilities for<br />creating, delegating,<br />verifying, and authorizing<br />JWT tokens | Key generation<br />utility for EdDSA keys. This<br />script generates EdDSA key<br />pairs and exports them in JWK<br />format. It is designed to be<br />executed as a standalone<br />Node.js script. | Secret<br />generation and validation<br />utilities. This module<br />provides functions to<br />generate secure secrets and<br />validate base64url-encoded<br />secrets. It ensures<br />compatibility with JWT<br />signing requirements. |<br />Utility functions for JWT<br />operations. This module<br />provides helper functions for<br />parsing JWTs, checking<br />expiration, and mapping OAuth<br />scopes. It is designed to<br />support core JWT<br />functionalities.</div>")
+      5("<div style='font-weight: bold'>util</div><div style='font-size: 70%; margin-top: 0px'>[Component: module]</div><div style='font-size: 80%; margin-top:10px'>High-level JWT utilities for<br />creating, delegating,<br />verifying, and authorizing<br />JWT tokens | Key generation<br />utility for EdDSA and ECDSA<br />keys. Generates asymmetric<br />key pairs and exports them in<br />JWK format. Designed to be<br />executed as a standalone<br />Node.js script. | Secret<br />generation and validation<br />utilities. This module<br />provides functions to<br />generate secure secrets and<br />validate base64url-encoded<br />secrets. It ensures<br />compatibility with JWT<br />signing requirements. |<br />Utility functions for JWT<br />operations. This module<br />provides helper functions for<br />parsing JWTs, checking<br />expiration, and mapping OAuth<br />scopes. It is designed to<br />support core JWT<br />functionalities.</div>")
       style 5 fill:#85bbf0,stroke:#5d82a8,color:#000000
       6("<div style='font-weight: bold'>main</div><div style='font-size: 70%; margin-top: 0px'>[Component: module]</div><div style='font-size: 80%; margin-top:10px'>Entry point for the<br />flarelette-jwt library. This<br />module re-exports core<br />functionalities, including<br />signing, verification,<br />utilities, and type<br />definitions. It serves as the<br />main interface for library<br />consumers.</div>")
       style 6 fill:#85bbf0,stroke:#5d82a8,color:#000000

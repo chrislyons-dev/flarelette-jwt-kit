@@ -6,6 +6,7 @@ to test the actual sign/verify logic without requiring Pyodide.
 
 from __future__ import annotations
 
+import base64
 import os
 from typing import TYPE_CHECKING, cast
 
@@ -31,9 +32,9 @@ class TestSignVerifyWithMock:
     @pytest.fixture(autouse=True)
     def setup_env(self) -> Generator[None, None, None]:
         """Setup environment for each test."""
-        # Set up HS512 mode with mock secret
+        # Set up HS512 mode with a valid 64-byte base64url secret
         os.environ["JWT_SECRET"] = (
-            "dGVzdC1zZWNyZXQtdGhhdC1pcy1sb25nLWVub3VnaC1mb3ItaG1hYy1zaGE1MTI"
+            base64.urlsafe_b64encode(b"a" * 64).rstrip(b"=").decode()
         )
         os.environ["JWT_ISS"] = "test-issuer"
         os.environ["JWT_AUD"] = "test-audience"

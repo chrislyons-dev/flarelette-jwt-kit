@@ -67,11 +67,33 @@ export interface EdDSAVerifyConfig extends BaseJwtConfig {
 }
 
 /**
- * EdDSA/RSA asymmetric configuration for verification via HTTP JWKS
+ * ES512 (ECDSA P-521) asymmetric configuration for signing
+ * Uses a private EC key to sign tokens
+ */
+export interface ES512SignConfig extends BaseJwtConfig {
+  alg: 'ES512'
+  /** Private JWK for signing (P-521 EC key) */
+  privateJwk: JWK
+  /** Key ID to include in JWT header */
+  kid?: string
+}
+
+/**
+ * ES512 (ECDSA P-521) asymmetric configuration for verification
+ * Uses a public EC key to verify tokens
+ */
+export interface ES512VerifyConfig extends BaseJwtConfig {
+  alg: 'ES512'
+  /** Public JWK for verification (P-521 EC key) */
+  publicJwk: JWK
+}
+
+/**
+ * EdDSA/RSA/ECDSA asymmetric configuration for verification via HTTP JWKS
  * Uses a remote JWKS endpoint to fetch public keys (supports key rotation)
  */
 export interface JWKSUrlVerifyConfig extends BaseJwtConfig {
-  alg: 'EdDSA' | 'RS256' | 'RS384' | 'RS512'
+  alg: 'EdDSA' | 'ES256' | 'ES384' | 'ES512' | 'RS256' | 'RS384' | 'RS512'
   /** HTTP(S) URL to JWKS endpoint */
   jwksUrl: string
   /** Cache TTL in seconds (default: 300) */
@@ -81,12 +103,18 @@ export interface JWKSUrlVerifyConfig extends BaseJwtConfig {
 /**
  * Union type for signing configuration
  */
-export type SignConfig = HS512Config | EdDSASignConfig
+export type SignConfig = HS512Config | EdDSASignConfig | ES512SignConfig
 
 /**
  * Union type for verification configuration
  */
-export type VerifyConfig = HS512Config | EdDSAVerifyConfig | JWKSUrlVerifyConfig
+export type VerifyConfig =
+  | HS512Config
+  | EdDSAVerifyConfig
+  | ES512VerifyConfig
+  | JWKSUrlVerifyConfig
+
+type JWKSUrlVerifyAlg = JWKSUrlVerifyConfig['alg']
 
 /**
  * Sign a JWT token with explicit configuration
@@ -129,7 +157,11 @@ export async function signWithConfig(
   const ttlSeconds = overrides?.ttlSeconds ?? config.ttlSeconds ?? 900
 
   const now = Math.floor(Date.now() / 1000)
-  const jwt = new SignJWT(payload)
+  // Auto-generate jti if absent — required for JTI revocation and isDuress auto-revocation
+  const claims: JwtPayload = payload.jti
+    ? payload
+    : { ...payload, jti: crypto.randomUUID() }
+  const jwt = new SignJWT(claims)
     .setIssuer(iss)
     .setAudience(aud)
     .setIssuedAt(now)
@@ -143,6 +175,15 @@ export async function signWithConfig(
       )
     }
     return jwt.setProtectedHeader({ alg: 'HS512', typ: 'JWT' }).sign(config.secret)
+  } else if (config.alg === 'ES512') {
+    const key = await importJWK(config.privateJwk, 'ES512')
+    return jwt
+      .setProtectedHeader({
+        alg: 'ES512',
+        typ: 'JWT',
+        kid: (config as ES512SignConfig).kid,
+      })
+      .sign(key)
   } else {
     const key = await importJWK(config.privateJwk, 'EdDSA')
     return jwt
@@ -205,9 +246,13 @@ export async function verifyWithConfig(
         clockTolerance: leeway,
       })
     } else if ('publicJwk' in config) {
-      // Inline JWK verification
-      const key = await importJWK(config.publicJwk, 'EdDSA')
+      // Inline JWK verification — EdDSA needs explicit hint; EC/RSA auto-detected by jose
+      const key =
+        (config.publicJwk as JWK).kty === 'OKP'
+          ? await importJWK(config.publicJwk, 'EdDSA')
+          : await importJWK(config.publicJwk)
       result = await jwtVerify(token, key, {
+        algorithms: ['EdDSA', 'ES256', 'ES384', 'ES512', 'RS256', 'RS384', 'RS512'],
         issuer: iss,
         audience: aud,
         clockTolerance: leeway,
@@ -219,7 +264,7 @@ export async function verifyWithConfig(
       const key = await getKeyFromJwks(header.kid, jwks)
 
       result = await jwtVerify(token, key, {
-        algorithms: ['EdDSA', 'RS256', 'RS384', 'RS512'],
+        algorithms: ['EdDSA', 'ES256', 'ES384', 'ES512', 'RS256', 'RS384', 'RS512'],
         issuer: iss,
         audience: aud,
         clockTolerance: leeway,
@@ -487,6 +532,49 @@ export function createEdDSAVerifyConfig(
 }
 
 /**
+ * Helper function to create ES512 sign config from a P-521 EC private JWK
+ *
+ * @param privateJwk - Private JWK object or JSON string (EC P-521 key)
+ * @param baseConfig - Base JWT configuration
+ * @param kid - Optional key ID
+ * @returns ES512 sign configuration
+ */
+export function createES512SignConfig(
+  privateJwk: JWK | string,
+  baseConfig: Omit<BaseJwtConfig, 'ttlSeconds' | 'leeway'> &
+    Partial<Pick<BaseJwtConfig, 'ttlSeconds' | 'leeway'>>,
+  kid?: string
+): ES512SignConfig {
+  const jwk = typeof privateJwk === 'string' ? JSON.parse(privateJwk) : privateJwk
+  return {
+    alg: 'ES512',
+    privateJwk: jwk,
+    kid,
+    ...baseConfig,
+  }
+}
+
+/**
+ * Helper function to create ES512 verify config from a P-521 EC public JWK
+ *
+ * @param publicJwk - Public JWK object or JSON string (EC P-521 key)
+ * @param baseConfig - Base JWT configuration
+ * @returns ES512 verify configuration
+ */
+export function createES512VerifyConfig(
+  publicJwk: JWK | string,
+  baseConfig: Omit<BaseJwtConfig, 'ttlSeconds' | 'leeway'> &
+    Partial<Pick<BaseJwtConfig, 'ttlSeconds' | 'leeway'>>
+): ES512VerifyConfig {
+  const jwk = typeof publicJwk === 'string' ? JSON.parse(publicJwk) : publicJwk
+  return {
+    alg: 'ES512',
+    publicJwk: jwk,
+    ...baseConfig,
+  }
+}
+
+/**
  * Helper function to create HTTP JWKS URL verification config
  *
  * Enables testing without environment variables by providing explicit configuration
@@ -515,9 +603,39 @@ export function createJWKSUrlVerifyConfig(
   baseConfig: Omit<BaseJwtConfig, 'ttlSeconds' | 'leeway'> &
     Partial<Pick<BaseJwtConfig, 'ttlSeconds' | 'leeway'>>,
   cacheTtl?: number
+): JWKSUrlVerifyConfig
+export function createJWKSUrlVerifyConfig(
+  jwksUrl: string,
+  alg: JWKSUrlVerifyAlg,
+  baseConfig: Omit<BaseJwtConfig, 'ttlSeconds' | 'leeway'> &
+    Partial<Pick<BaseJwtConfig, 'ttlSeconds' | 'leeway'>>,
+  cacheTtl?: number
+): JWKSUrlVerifyConfig
+export function createJWKSUrlVerifyConfig(
+  jwksUrl: string,
+  algOrBaseConfig:
+    | JWKSUrlVerifyAlg
+    | (Omit<BaseJwtConfig, 'ttlSeconds' | 'leeway'> &
+        Partial<Pick<BaseJwtConfig, 'ttlSeconds' | 'leeway'>>),
+  baseConfigOrCacheTtl?:
+    | (Omit<BaseJwtConfig, 'ttlSeconds' | 'leeway'> &
+        Partial<Pick<BaseJwtConfig, 'ttlSeconds' | 'leeway'>>)
+    | number,
+  maybeCacheTtl?: number
 ): JWKSUrlVerifyConfig {
+  const alg = typeof algOrBaseConfig === 'string' ? algOrBaseConfig : 'EdDSA'
+  const baseConfig =
+    typeof algOrBaseConfig === 'string'
+      ? (baseConfigOrCacheTtl as Omit<BaseJwtConfig, 'ttlSeconds' | 'leeway'> &
+          Partial<Pick<BaseJwtConfig, 'ttlSeconds' | 'leeway'>>)
+      : algOrBaseConfig
+  const cacheTtl =
+    typeof algOrBaseConfig === 'string'
+      ? maybeCacheTtl
+      : (baseConfigOrCacheTtl as number | undefined)
+
   return {
-    alg: 'EdDSA', // Default, will support RSA via JWKS
+    alg,
     jwksUrl,
     cacheTtl,
     ...baseConfig,

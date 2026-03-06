@@ -21,8 +21,14 @@ from .env import (
     JwtPayload,
     common,
     get_hs_secret_bytes,
+    get_jwks_url,
     get_public_jwk_string,
     mode,
+)
+from .explicit import (
+    _fetch_jwks_from_url,
+    _find_jwk_by_kid,
+    _verify_asymmetric_signature,
 )
 
 
@@ -62,12 +68,12 @@ async def verify(
     except Exception:
         return None
 
-    # Lazy import - only available in Cloudflare Workers/Pyodide runtime
-    from js import crypto  # noqa: PLC0415
-
     if m == "HS512":
         if header.get("alg") != "HS512":
             return None
+        # Lazy import - only available in Cloudflare Workers/Pyodide runtime
+        from js import crypto  # noqa: PLC0415
+
         key = await crypto.subtle.importKey(
             "raw",
             get_hs_secret_bytes(),
@@ -81,23 +87,20 @@ async def verify(
         if not ok:
             return None
     else:
-        if header.get("alg") != "EdDSA":
-            return None
+        signing_input = (h_b64 + "." + p_b64).encode()
         jwk_str = get_public_jwk_string()
-        if not jwk_str:
+        if jwk_str:
+            jwk = json.loads(jwk_str)
+        else:
+            jwks_url = get_jwks_url()
+            if not jwks_url:
+                return None
+            jwk = _find_jwk_by_kid(
+                header.get("kid"), await _fetch_jwks_from_url(jwks_url)
+            )
+        if not jwk:
             return None
-        jwk = json.loads(jwk_str)
-        x_b64 = jwk.get("x")
-        if not x_b64:
-            return None
-        x = _b64url_decode(x_b64)
-        key = await crypto.subtle.importKey(
-            "raw", x, {"name": "Ed25519"}, False, ["verify"]
-        )
-        ok = await crypto.subtle.verify(
-            {"name": "Ed25519"}, key, sig, (h_b64 + "." + p_b64).encode()
-        )
-        if not ok:
+        if not await _verify_asymmetric_signature(header, signing_input, sig, jwk):
             return None
 
     now = int(time.time())

@@ -6,33 +6,17 @@
 
 ## Container Context
 
-![Container Diagram](./diagrams/structurizr-Containers.png)
+<img src="./diagrams/structurizr-Containers.png" alt="Container Diagram" style="max-width: 100%; height: auto;">
 
 ---
 
 ## Container Information
 
-<table>
-<tbody>
-<tr>
-<td><strong>Name</strong></td>
-<td>flarelette-jwt</td>
-</tr>
-<tr>
-<td><strong>Type</strong></td>
-<td><code>Service</code></td>
-</tr>
-<tr>
-<td><strong>Description</strong></td>
-<td>Environment-driven JWT authentication for Cloudflare Workers Python with secret-name indirection</td>
-</tr>
-<tr>
-<td><strong>Tags</strong></td>
-<td><code>Auto-generated</code></td>
-</tr>
-</tbody>
-</table>
-
+| Field | Value |
+| --- | --- |
+| **Name** | flarelette-jwt |
+| **Type** | `Service` |
+| **Description** | Python implementation of the Flarelette JWT Kit: An environment-driven JWT authentication package for Cloudflare Workers || **Tags** | `Auto-generated` |
 ---
 
 ## Components
@@ -40,58 +24,17 @@
 
 ### Component View
 
-![Component Diagram](./diagrams/structurizr-Components_flarelette_jwt.png)
-![Component Diagram](./diagrams/structurizr-Components__chrislyons_dev_flarelette_jwt.png)
+<img src="./diagrams/structurizr-Components_flarelette_jwt.png" alt="Component Diagram" style="max-width: 100%; height: auto;">
+<img src="./diagrams/structurizr-Components__chrislyons_dev_flarelette_jwt.png" alt="Component Diagram" style="max-width: 100%; height: auto;">
 
 ### Component Details
 
-<table>
-<thead>
-<tr>
-<th>Component</th>
-<th>Type</th>
-<th>Description</th>
-<th>Code</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>adapters</strong></td>
-<td><code>module</code></td>
-<td>Adapters for Cloudflare Workers Environment
-
-This module provides utilities to adapt Cloudflare Workers environment variables
-for use with the Flarelette JWT library.</td>
-<td><a href="./flarelette_jwt__adapters.md">View →</a></td>
-</tr>
-<tr>
-<td><strong>util</strong></td>
-<td><code>module</code></td>
-<td>Environment Configuration for JWT Operations
-
-This module provides functions to read environment variables and derive JWT-related configurations.
-It supports both symmetric (HS512) and asymmetric (EdDSA) algorithms.</td>
-<td><a href="./flarelette_jwt__util.md">View →</a></td>
-</tr>
-<tr>
-<td><strong>explicit</strong></td>
-<td><code>module</code></td>
-<td>Explicit Configuration API for JWT Operations
-
-This module provides functions that accept explicit configuration objects
-instead of relying on environment variables or global state. Use this API
-when you need full control over configuration, especially in development
-environments or when working with multiple JWT configurations.</td>
-<td><a href="./flarelette_jwt__explicit.md">View →</a></td>
-</tr>
-<tr>
-<td><strong>flarelette_jwt</strong></td>
-<td><code>module</code></td>
-<td>Component derived from directory: flarelette_jwt</td>
-<td><a href="./flarelette_jwt__flarelette_jwt.md">View →</a></td>
-</tr>
-</tbody>
-</table>
+| Component | Type | Description | Code |
+| --- | --- | --- | --- |
+| **adapters** | `module` | Adapters for Cloudflare Workers Environment<br><br>This module provides utilities to adapt Cloudflare Workers environment variables<br>for use with the Flarelette JWT library. | [View](./flarelette_jwt__adapters.md) |
+| **util** | `module` | Environment Configuration for JWT Operations<br><br>This module provides functions to read environment variables and derive JWT-related configurations.<br>It supports both symmetric (HS512) and asymmetric (EdDSA) algorithms. | [View](./flarelette_jwt__util.md) |
+| **explicit** | `module` | Explicit Configuration API for JWT Operations<br><br>This module provides functions that accept explicit configuration objects<br>instead of relying on environment variables or global state. Use this API<br>when you need full control over configuration, especially in development<br>environments or when working with multiple JWT configurations. | [View](./flarelette_jwt__explicit.md) |
+| **flarelette_jwt** | `module` | Component derived from directory: flarelette_jwt | [View](./flarelette_jwt__flarelette_jwt.md) |
 
 
 ---
@@ -99,3 +42,4 @@ environments or when working with multiple JWT configurations.</td>
 <div align="center">
 <sub><a href="./README.md">← Back to System Overview</a> | Generated with <a href="https://github.com/chrislyons-dev/archlette">Archlette</a></sub>
 </div>
+

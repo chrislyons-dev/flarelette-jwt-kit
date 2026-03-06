@@ -6,36 +6,12 @@
 
 ## Component Information
 
-<table>
-<tbody>
-<tr>
-<td><strong>Component</strong></td>
-<td>core</td>
-</tr>
-<tr>
-<td><strong>Container</strong></td>
-<td>@chrislyons-dev/flarelette-jwt</td>
-</tr>
-<tr>
-<td><strong>Type</strong></td>
-<td><code>module</code></td>
-</tr>
-<tr>
-<td><strong>Description</strong></td>
-<td>CLI utility for generating JWT secrets.
-
-This script provides options to generate secrets in various formats, including JSON and dotenv.
-It is designed to be executed as a standalone Node.js script. | Configuration utilities for JWT operations.
-
-This module provides functions to read environment variables and derive JWT-related configurations.
-It includes support for both symmetric (HS512) and asymmetric (EdDSA) algorithms. | JWT signing utilities.
-
-This module provides functions to sign JWT tokens using either HS512 or EdDSA algorithms.
-It supports custom claims and configuration overrides.</td>
-</tr>
-</tbody>
-</table>
-
+| Field | Value |
+| --- | --- |
+| **Component** | core |
+| **Container** | @chrislyons-dev/flarelette-jwt |
+| **Type** | `module` |
+| **Description** | CLI utility for generating JWT secrets.<br><br>This script provides options to generate secrets in various formats, including JSON and dotenv.<br>It is designed to be executed as a standalone Node.js script. \| Configuration utilities for JWT operations.<br><br>This module provides functions to read environment variables and derive JWT-related configurations.<br>It includes support for both symmetric (HS512) and asymmetric (EdDSA) algorithms. \| JWT signing utilities.<br><br>This module provides functions to sign JWT tokens using either HS512 or EdDSA algorithms.<br>It supports custom claims and configuration overrides. |
 ---
 
 ## Code Structure
@@ -56,26 +32,11 @@ It supports custom claims and configuration overrides.</td>
 ##### `envRead()`
 
 
-<table>
-<tbody>
-<tr>
-<td><strong>Type</strong></td>
-<td><code>function</code></td>
-</tr>
-<tr>
-<td><strong>Visibility</strong></td>
-<td><code>private</code></td>
-</tr>
-<tr>
-<td><strong>Returns</strong></td>
-<td><code>string</code></td>
-</tr>
-<tr>
-<td><strong>Location</strong></td>
-<td><code>C:/Users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/src/config.ts:13</code></td>
-</tr>
-</tbody>
-</table>
+| Field | Value |
+| --- | --- |
+| **Type** | `function` |
+| **Visibility** | `private` |
+| **Returns** | `string` || **Location** | `C:/Users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/src/config.ts:13` |
 
 **Parameters:**
 
@@ -85,26 +46,11 @@ It supports custom claims and configuration overrides.</td>
 ##### `envMode()`
 
 
-<table>
-<tbody>
-<tr>
-<td><strong>Type</strong></td>
-<td><code>function</code></td>
-</tr>
-<tr>
-<td><strong>Visibility</strong></td>
-<td><code>public</code></td>
-</tr>
-<tr>
-<td><strong>Returns</strong></td>
-<td><code>import("C:/Users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/src/types").AlgType</code></td>
-</tr>
-<tr>
-<td><strong>Location</strong></td>
-<td><code>C:/Users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/src/config.ts:23</code></td>
-</tr>
-</tbody>
-</table>
+| Field | Value |
+| --- | --- |
+| **Type** | `function` |
+| **Visibility** | `public` |
+| **Returns** | `import("C:/Users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/src/types").AlgType` || **Location** | `C:/Users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/src/config.ts:23` |
 
 **Parameters:**
 
@@ -116,26 +62,11 @@ It supports custom claims and configuration overrides.</td>
 Get common JWT configuration from environment
 Returns partial JwtProfile-compatible configuration
 
-<table>
-<tbody>
-<tr>
-<td><strong>Type</strong></td>
-<td><code>function</code></td>
-</tr>
-<tr>
-<td><strong>Visibility</strong></td>
-<td><code>public</code></td>
-</tr>
-<tr>
-<td><strong>Returns</strong></td>
-<td><code>{ iss: string; aud: string; leeway: number; ttlSeconds: number; }</code></td>
-</tr>
-<tr>
-<td><strong>Location</strong></td>
-<td><code>C:/Users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/src/config.ts:65</code></td>
-</tr>
-</tbody>
-</table>
+| Field | Value |
+| --- | --- |
+| **Type** | `function` |
+| **Visibility** | `public` |
+| **Returns** | `{ iss: string; aud: string; leeway: number; ttlSeconds: number; }` || **Location** | `C:/Users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/src/config.ts:66` |
 
 
 
@@ -145,26 +76,11 @@ Returns partial JwtProfile-compatible configuration
 Get JWT profile from environment
 Returns complete JwtProfile with detected algorithm
 
-<table>
-<tbody>
-<tr>
-<td><strong>Type</strong></td>
-<td><code>function</code></td>
-</tr>
-<tr>
-<td><strong>Visibility</strong></td>
-<td><code>public</code></td>
-</tr>
-<tr>
-<td><strong>Returns</strong></td>
-<td><code>Partial<import("C:/Users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/src/types").JwtProfile> & { ttlSeconds: number; }</code></td>
-</tr>
-<tr>
-<td><strong>Location</strong></td>
-<td><code>C:/Users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/src/config.ts:78</code></td>
-</tr>
-</tbody>
-</table>
+| Field | Value |
+| --- | --- |
+| **Type** | `function` |
+| **Visibility** | `public` |
+| **Returns** | `Partial<import("C:/Users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/src/types").JwtProfile> & { ttlSeconds: number; }` || **Location** | `C:/Users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/src/config.ts:79` |
 
 **Parameters:**
 
@@ -174,26 +90,11 @@ Returns complete JwtProfile with detected algorithm
 ##### `getHSSecret()`
 
 
-<table>
-<tbody>
-<tr>
-<td><strong>Type</strong></td>
-<td><code>function</code></td>
-</tr>
-<tr>
-<td><strong>Visibility</strong></td>
-<td><code>public</code></td>
-</tr>
-<tr>
-<td><strong>Returns</strong></td>
-<td><code>Uint8Array<ArrayBufferLike></code></td>
-</tr>
-<tr>
-<td><strong>Location</strong></td>
-<td><code>C:/Users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/src/config.ts:93</code></td>
-</tr>
-</tbody>
-</table>
+| Field | Value |
+| --- | --- |
+| **Type** | `function` |
+| **Visibility** | `public` |
+| **Returns** | `Uint8Array<ArrayBufferLike>` || **Location** | `C:/Users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/src/config.ts:94` |
 
 
 
@@ -201,26 +102,11 @@ Returns complete JwtProfile with detected algorithm
 ##### `getPrivateJwkString()`
 
 
-<table>
-<tbody>
-<tr>
-<td><strong>Type</strong></td>
-<td><code>function</code></td>
-</tr>
-<tr>
-<td><strong>Visibility</strong></td>
-<td><code>public</code></td>
-</tr>
-<tr>
-<td><strong>Returns</strong></td>
-<td><code>string</code></td>
-</tr>
-<tr>
-<td><strong>Location</strong></td>
-<td><code>C:/Users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/src/config.ts:126</code></td>
-</tr>
-</tbody>
-</table>
+| Field | Value |
+| --- | --- |
+| **Type** | `function` |
+| **Visibility** | `public` |
+| **Returns** | `string` || **Location** | `C:/Users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/src/config.ts:127` |
 
 
 
@@ -228,26 +114,11 @@ Returns complete JwtProfile with detected algorithm
 ##### `getPublicJwkString()`
 
 
-<table>
-<tbody>
-<tr>
-<td><strong>Type</strong></td>
-<td><code>function</code></td>
-</tr>
-<tr>
-<td><strong>Visibility</strong></td>
-<td><code>public</code></td>
-</tr>
-<tr>
-<td><strong>Returns</strong></td>
-<td><code>string</code></td>
-</tr>
-<tr>
-<td><strong>Location</strong></td>
-<td><code>C:/Users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/src/config.ts:132</code></td>
-</tr>
-</tbody>
-</table>
+| Field | Value |
+| --- | --- |
+| **Type** | `function` |
+| **Visibility** | `public` |
+| **Returns** | `string` || **Location** | `C:/Users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/src/config.ts:133` |
 
 
 
@@ -255,26 +126,11 @@ Returns complete JwtProfile with detected algorithm
 ##### `getJwksServiceName()`
 
 
-<table>
-<tbody>
-<tr>
-<td><strong>Type</strong></td>
-<td><code>function</code></td>
-</tr>
-<tr>
-<td><strong>Visibility</strong></td>
-<td><code>public</code></td>
-</tr>
-<tr>
-<td><strong>Returns</strong></td>
-<td><code>string</code></td>
-</tr>
-<tr>
-<td><strong>Location</strong></td>
-<td><code>C:/Users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/src/config.ts:138</code></td>
-</tr>
-</tbody>
-</table>
+| Field | Value |
+| --- | --- |
+| **Type** | `function` |
+| **Visibility** | `public` |
+| **Returns** | `string` || **Location** | `C:/Users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/src/config.ts:139` |
 
 
 
@@ -282,26 +138,11 @@ Returns complete JwtProfile with detected algorithm
 ##### `getJwksUrl()`
 
 
-<table>
-<tbody>
-<tr>
-<td><strong>Type</strong></td>
-<td><code>function</code></td>
-</tr>
-<tr>
-<td><strong>Visibility</strong></td>
-<td><code>public</code></td>
-</tr>
-<tr>
-<td><strong>Returns</strong></td>
-<td><code>string</code></td>
-</tr>
-<tr>
-<td><strong>Location</strong></td>
-<td><code>C:/Users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/src/config.ts:144</code></td>
-</tr>
-</tbody>
-</table>
+| Field | Value |
+| --- | --- |
+| **Type** | `function` |
+| **Visibility** | `public` |
+| **Returns** | `string` || **Location** | `C:/Users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/src/config.ts:145` |
 
 
 
@@ -309,26 +150,11 @@ Returns complete JwtProfile with detected algorithm
 ##### `getJwksCacheTtl()`
 
 
-<table>
-<tbody>
-<tr>
-<td><strong>Type</strong></td>
-<td><code>function</code></td>
-</tr>
-<tr>
-<td><strong>Visibility</strong></td>
-<td><code>public</code></td>
-</tr>
-<tr>
-<td><strong>Returns</strong></td>
-<td><code>number</code></td>
-</tr>
-<tr>
-<td><strong>Location</strong></td>
-<td><code>C:/Users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/src/config.ts:148</code></td>
-</tr>
-</tbody>
-</table>
+| Field | Value |
+| --- | --- |
+| **Type** | `function` |
+| **Visibility** | `public` |
+| **Returns** | `number` || **Location** | `C:/Users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/src/config.ts:151` |
 
 
 
@@ -337,30 +163,11 @@ Returns complete JwtProfile with detected algorithm
 
 Sign a JWT token with HS512 or EdDSA algorithm
 
-<table>
-<tbody>
-<tr>
-<td><strong>Type</strong></td>
-<td><code>function</code></td>
-</tr>
-<tr>
-<td><strong>Visibility</strong></td>
-<td><code>public</code></td>
-</tr>
-<tr>
-<td><strong>Async</strong></td>
-<td>Yes</td>
-</tr>
-<tr>
-<td><strong>Returns</strong></td>
-<td><code>Promise<string></code> — Signed JWT token string</td>
-</tr>
-<tr>
-<td><strong>Location</strong></td>
-<td><code>C:/Users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/src/sign.ts:22</code></td>
-</tr>
-</tbody>
-</table>
+| Field | Value |
+| --- | --- |
+| **Type** | `function` |
+| **Visibility** | `public` |
+| **Async** | Yes || **Returns** | `Promise<string>` - Signed JWT token string || **Location** | `C:/Users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/src/sign.ts:22` |
 
 **Parameters:**
 
@@ -375,3 +182,4 @@ Sign a JWT token with HS512 or EdDSA algorithm
 <div align="center">
 <sub><a href="./chrislyons_dev_flarelette_jwt.md">← Back to Container</a> | <a href="./README.md">← Back to System</a> | Generated with <a href="https://github.com/chrislyons-dev/archlette">Archlette</a></sub>
 </div>
+

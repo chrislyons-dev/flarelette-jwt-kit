@@ -6,36 +6,12 @@
 
 ## Component Information
 
-<table>
-<tbody>
-<tr>
-<td><strong>Component</strong></td>
-<td>util</td>
-</tr>
-<tr>
-<td><strong>Container</strong></td>
-<td>@chrislyons-dev/flarelette-jwt</td>
-</tr>
-<tr>
-<td><strong>Type</strong></td>
-<td><code>module</code></td>
-</tr>
-<tr>
-<td><strong>Description</strong></td>
-<td>High-level JWT utilities for creating, delegating, verifying, and authorizing JWT tokens | Key generation utility for EdDSA keys.
-
-This script generates EdDSA key pairs and exports them in JWK format.
-It is designed to be executed as a standalone Node.js script. | Secret generation and validation utilities.
-
-This module provides functions to generate secure secrets and validate base64url-encoded secrets.
-It ensures compatibility with JWT signing requirements. | Utility functions for JWT operations.
-
-This module provides helper functions for parsing JWTs, checking expiration, and mapping OAuth scopes.
-It is designed to support core JWT functionalities.</td>
-</tr>
-</tbody>
-</table>
-
+| Field | Value |
+| --- | --- |
+| **Component** | util |
+| **Container** | @chrislyons-dev/flarelette-jwt |
+| **Type** | `module` |
+| **Description** | High-level JWT utilities for creating, delegating, verifying, and authorizing JWT tokens \| Key generation utility for EdDSA and ECDSA keys.<br><br>Generates asymmetric key pairs and exports them in JWK format.<br>Designed to be executed as a standalone Node.js script. \| Secret generation and validation utilities.<br><br>This module provides functions to generate secure secrets and validate base64url-encoded secrets.<br>It ensures compatibility with JWT signing requirements. \| Utility functions for JWT operations.<br><br>This module provides helper functions for parsing JWTs, checking expiration, and mapping OAuth scopes.<br>It is designed to support core JWT functionalities. |
 ---
 
 ## Code Structure
@@ -47,7 +23,7 @@ It is designed to support core JWT functionalities.</td>
 ### Code Elements
 
 <details>
-<summary><strong>10 code element(s)</strong></summary>
+<summary><strong>13 code element(s)</strong></summary>
 
 
 
@@ -57,30 +33,11 @@ It is designed to support core JWT functionalities.</td>
 
 Create a signed JWT token with optional claims
 
-<table>
-<tbody>
-<tr>
-<td><strong>Type</strong></td>
-<td><code>function</code></td>
-</tr>
-<tr>
-<td><strong>Visibility</strong></td>
-<td><code>public</code></td>
-</tr>
-<tr>
-<td><strong>Async</strong></td>
-<td>Yes</td>
-</tr>
-<tr>
-<td><strong>Returns</strong></td>
-<td><code>Promise<string></code> — Signed JWT token string</td>
-</tr>
-<tr>
-<td><strong>Location</strong></td>
-<td><code>C:/Users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/src/high.ts:18</code></td>
-</tr>
-</tbody>
-</table>
+| Field | Value |
+| --- | --- |
+| **Type** | `function` |
+| **Visibility** | `public` |
+| **Async** | Yes || **Returns** | `Promise<string>` - Signed JWT token string || **Location** | `C:/Users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/src/high.ts:19` |
 
 **Parameters:**
 
@@ -99,30 +56,11 @@ acts on behalf of the original end user. This implements zero-trust delegation:
 
 Pattern: "I'm <actorService> doing work on behalf of <original user>"
 
-<table>
-<tbody>
-<tr>
-<td><strong>Type</strong></td>
-<td><code>function</code></td>
-</tr>
-<tr>
-<td><strong>Visibility</strong></td>
-<td><code>public</code></td>
-</tr>
-<tr>
-<td><strong>Async</strong></td>
-<td>Yes</td>
-</tr>
-<tr>
-<td><strong>Returns</strong></td>
-<td><code>Promise<string></code> — Signed JWT token string with delegation claim</td>
-</tr>
-<tr>
-<td><strong>Location</strong></td>
-<td><code>C:/Users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/src/high.ts:61</code></td>
-</tr>
-</tbody>
-</table>
+| Field | Value |
+| --- | --- |
+| **Type** | `function` |
+| **Visibility** | `public` |
+| **Async** | Yes || **Returns** | `Promise<string>` - Signed JWT token string with delegation claim || **Location** | `C:/Users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/src/high.ts:62` |
 
 **Parameters:**
 
@@ -133,34 +71,55 @@ Pattern: "I'm <actorService> doing work on behalf of <original user>"
 ```
 
 ---
+##### `signWithRequestBinding()`
+
+Sign a JWT token bound to a specific HTTP request.
+
+Adds a `req` claim containing base64url(SHA-256(canonical request)) to prevent
+replay of a captured token against a different endpoint within the TTL window.
+
+Canonical form: METHOD + "\n" + pathname + search + "\n" + body bytes
+
+| Field | Value |
+| --- | --- |
+| **Type** | `function` |
+| **Visibility** | `public` |
+| **Async** | Yes || **Returns** | `Promise<string>` - Signed JWT token string with req claim || **Location** | `C:/Users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/src/high.ts:112` |
+
+**Parameters:**
+
+- `payload`: <code>import("C:/Users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/src/types").JwtPayload</code> — - Claims to include in the token- `request`: <code>Request</code> — - The HTTP request this token is minted for- `opts`: <code>Partial<{ iss: string; aud: string | string[]; ttlSeconds: number; }></code> — - Optional overrides for iss, aud, ttlSeconds
+
+---
+##### `verifyWithRequestBinding()`
+
+Verify a JWT token and validate its request binding.
+
+Re-computes the request hash and compares it with the `req` claim.
+Returns null on any mismatch (fail-silent, same as verify()).
+The `req` claim is stripped from the returned payload — it's an implementation
+detail that has already been validated.
+
+| Field | Value |
+| --- | --- |
+| **Type** | `function` |
+| **Visibility** | `public` |
+| **Async** | Yes || **Returns** | `Promise<import("C:/Users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/src/types").JwtPayload>` - Payload (without req claim) if valid and request matches, null otherwise || **Location** | `C:/Users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/src/high.ts:134` |
+
+**Parameters:**
+
+- `token`: <code>string</code> — - JWT token string to verify- `request`: <code>Request</code> — - The HTTP request to validate against- `opts`: <code>Partial<{ iss: string; aud: string | string[]; leeway: number; jwksService: import("C:/Users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/src/types").Fetcher; }></code> — - Optional overrides for iss, aud, leeway
+
+---
 ##### `checkAuth()`
 
 Verify and authorize a JWT token with policy enforcement
 
-<table>
-<tbody>
-<tr>
-<td><strong>Type</strong></td>
-<td><code>function</code></td>
-</tr>
-<tr>
-<td><strong>Visibility</strong></td>
-<td><code>public</code></td>
-</tr>
-<tr>
-<td><strong>Async</strong></td>
-<td>Yes</td>
-</tr>
-<tr>
-<td><strong>Returns</strong></td>
-<td><code>Promise<import("C:/Users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/src/high").AuthUser></code> — AuthUser if valid and authorized, null otherwise</td>
-</tr>
-<tr>
-<td><strong>Location</strong></td>
-<td><code>C:/Users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/src/high.ts:142</code></td>
-</tr>
-</tbody>
-</table>
+| Field | Value |
+| --- | --- |
+| **Type** | `function` |
+| **Visibility** | `public` |
+| **Async** | Yes || **Returns** | `Promise<import("C:/Users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/src/high").AuthUser>` - AuthUser if valid and authorized, null otherwise || **Location** | `C:/Users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/src/high.ts:199` |
 
 **Parameters:**
 
@@ -171,26 +130,11 @@ Verify and authorize a JWT token with policy enforcement
 
 Fluent builder for creating authorization policies
 
-<table>
-<tbody>
-<tr>
-<td><strong>Type</strong></td>
-<td><code>function</code></td>
-</tr>
-<tr>
-<td><strong>Visibility</strong></td>
-<td><code>public</code></td>
-</tr>
-<tr>
-<td><strong>Returns</strong></td>
-<td><code>{ base(b: Partial<{ iss: string; aud: string | string[]; leeway: number; }>): any; needAll(...perms: string[]): any; needAny(...perms: string[]): any; rolesAll(...roles: string[]): any; rolesAny(...roles: string[]): any; where(fn: (payload: import("C:/Users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/src/types").JwtPayload) => boolean): any; build(): import("C:/Users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/src/high").AuthzOpts; }</code> — Policy builder with chainable methods</td>
-</tr>
-<tr>
-<td><strong>Location</strong></td>
-<td><code>C:/Users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/src/high.ts:177</code></td>
-</tr>
-</tbody>
-</table>
+| Field | Value |
+| --- | --- |
+| **Type** | `function` |
+| **Visibility** | `public` |
+| **Returns** | `{ base(b: Partial<{ iss: string; aud: string \| string[]; leeway: number; }>): any; needAll(...perms: string[]): any; needAny(...perms: string[]): any; rolesAll(...roles: string[]): any; rolesAny(...roles: string[]): any; where(fn: (payload: import("C:/Users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/src/types").JwtPayload) => boolean): any; build(): import("C:/Users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/src/high").AuthzOpts; }` - Policy builder with chainable methods || **Location** | `C:/Users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/src/high.ts:234` |
 
 
 
@@ -198,30 +142,11 @@ Fluent builder for creating authorization policies
 ##### `main()`
 
 
-<table>
-<tbody>
-<tr>
-<td><strong>Type</strong></td>
-<td><code>function</code></td>
-</tr>
-<tr>
-<td><strong>Visibility</strong></td>
-<td><code>private</code></td>
-</tr>
-<tr>
-<td><strong>Async</strong></td>
-<td>Yes</td>
-</tr>
-<tr>
-<td><strong>Returns</strong></td>
-<td><code>Promise<void></code></td>
-</tr>
-<tr>
-<td><strong>Location</strong></td>
-<td><code>C:/Users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/src/keygen.ts:15</code></td>
-</tr>
-</tbody>
-</table>
+| Field | Value |
+| --- | --- |
+| **Type** | `function` |
+| **Visibility** | `private` |
+| **Async** | Yes || **Returns** | `Promise<void>` || **Location** | `C:/Users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/src/keygen.ts:16` |
 
 
 
@@ -229,26 +154,11 @@ Fluent builder for creating authorization policies
 ##### `generateSecret()`
 
 
-<table>
-<tbody>
-<tr>
-<td><strong>Type</strong></td>
-<td><code>function</code></td>
-</tr>
-<tr>
-<td><strong>Visibility</strong></td>
-<td><code>public</code></td>
-</tr>
-<tr>
-<td><strong>Returns</strong></td>
-<td><code>string</code></td>
-</tr>
-<tr>
-<td><strong>Location</strong></td>
-<td><code>C:/Users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/src/secret.ts:13</code></td>
-</tr>
-</tbody>
-</table>
+| Field | Value |
+| --- | --- |
+| **Type** | `function` |
+| **Visibility** | `public` |
+| **Returns** | `string` || **Location** | `C:/Users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/src/secret.ts:13` |
 
 **Parameters:**
 
@@ -258,26 +168,11 @@ Fluent builder for creating authorization policies
 ##### `isValidBase64UrlSecret()`
 
 
-<table>
-<tbody>
-<tr>
-<td><strong>Type</strong></td>
-<td><code>function</code></td>
-</tr>
-<tr>
-<td><strong>Visibility</strong></td>
-<td><code>public</code></td>
-</tr>
-<tr>
-<td><strong>Returns</strong></td>
-<td><code>boolean</code></td>
-</tr>
-<tr>
-<td><strong>Location</strong></td>
-<td><code>C:/Users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/src/secret.ts:25</code></td>
-</tr>
-</tbody>
-</table>
+| Field | Value |
+| --- | --- |
+| **Type** | `function` |
+| **Visibility** | `public` |
+| **Returns** | `boolean` || **Location** | `C:/Users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/src/secret.ts:25` |
 
 **Parameters:**
 
@@ -288,26 +183,11 @@ Fluent builder for creating authorization policies
 
 Parse a JWT token into header and payload without verification
 
-<table>
-<tbody>
-<tr>
-<td><strong>Type</strong></td>
-<td><code>function</code></td>
-</tr>
-<tr>
-<td><strong>Visibility</strong></td>
-<td><code>public</code></td>
-</tr>
-<tr>
-<td><strong>Returns</strong></td>
-<td><code>import("C:/Users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/src/types").ParsedJwt</code> — Parsed header and payload</td>
-</tr>
-<tr>
-<td><strong>Location</strong></td>
-<td><code>C:/Users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/src/util.ts:19</code></td>
-</tr>
-</tbody>
-</table>
+| Field | Value |
+| --- | --- |
+| **Type** | `function` |
+| **Visibility** | `public` |
+| **Returns** | `import("C:/Users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/src/types").ParsedJwt` - Parsed header and payload || **Location** | `C:/Users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/src/util.ts:19` |
 
 **Parameters:**
 
@@ -318,26 +198,11 @@ Parse a JWT token into header and payload without verification
 
 Check if JWT payload will expire within specified seconds
 
-<table>
-<tbody>
-<tr>
-<td><strong>Type</strong></td>
-<td><code>function</code></td>
-</tr>
-<tr>
-<td><strong>Visibility</strong></td>
-<td><code>public</code></td>
-</tr>
-<tr>
-<td><strong>Returns</strong></td>
-<td><code>boolean</code> — True if token expires within the threshold</td>
-</tr>
-<tr>
-<td><strong>Location</strong></td>
-<td><code>C:/Users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/src/util.ts:35</code></td>
-</tr>
-</tbody>
-</table>
+| Field | Value |
+| --- | --- |
+| **Type** | `function` |
+| **Visibility** | `public` |
+| **Returns** | `boolean` - True if token expires within the threshold || **Location** | `C:/Users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/src/util.ts:35` |
 
 **Parameters:**
 
@@ -348,30 +213,35 @@ Check if JWT payload will expire within specified seconds
 
 Map OAuth scopes to permission strings
 
-<table>
-<tbody>
-<tr>
-<td><strong>Type</strong></td>
-<td><code>function</code></td>
-</tr>
-<tr>
-<td><strong>Visibility</strong></td>
-<td><code>public</code></td>
-</tr>
-<tr>
-<td><strong>Returns</strong></td>
-<td><code>string[]</code> — List of permission strings (currently identity mapping)</td>
-</tr>
-<tr>
-<td><strong>Location</strong></td>
-<td><code>C:/Users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/src/util.ts:47</code></td>
-</tr>
-</tbody>
-</table>
+| Field | Value |
+| --- | --- |
+| **Type** | `function` |
+| **Visibility** | `public` |
+| **Returns** | `string[]` - List of permission strings (currently identity mapping) || **Location** | `C:/Users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/src/util.ts:47` |
 
 **Parameters:**
 
 - `scopes`: <code>string[]</code> — - List of OAuth scope strings
+
+---
+##### `computeRequestHash()`
+
+Compute a deterministic SHA-256 hash that binds a JWT to a specific HTTP request.
+
+Canonical form: UTF-8(METHOD + "\n" + pathname + search + "\n") || body_bytes
+- Method is uppercased
+- Binds to path and query string only (not host/scheme — internal Workers use different hostnames)
+- Body is consumed from a clone to preserve the original stream
+
+| Field | Value |
+| --- | --- |
+| **Type** | `function` |
+| **Visibility** | `public` |
+| **Async** | Yes || **Returns** | `Promise<string>` - base64url-encoded SHA-256 hash of the canonical request representation || **Location** | `C:/Users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/src/util.ts:62` |
+
+**Parameters:**
+
+- `request`: <code>Request</code> — - Fetch API Request object
 
 ---
 
@@ -382,3 +252,4 @@ Map OAuth scopes to permission strings
 <div align="center">
 <sub><a href="./chrislyons_dev_flarelette_jwt.md">← Back to Container</a> | <a href="./README.md">← Back to System</a> | Generated with <a href="https://github.com/chrislyons-dev/archlette">Archlette</a></sub>
 </div>
+

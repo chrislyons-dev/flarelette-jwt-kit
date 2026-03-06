@@ -6,30 +6,12 @@
 
 ## Component Information
 
-<table>
-<tbody>
-<tr>
-<td><strong>Component</strong></td>
-<td>verify</td>
-</tr>
-<tr>
-<td><strong>Container</strong></td>
-<td>@chrislyons-dev/flarelette-jwt</td>
-</tr>
-<tr>
-<td><strong>Type</strong></td>
-<td><code>module</code></td>
-</tr>
-<tr>
-<td><strong>Description</strong></td>
-<td>JWT verification utilities.
-
-This module provides functions to verify JWT tokens using either HS512 or EdDSA algorithms.
-It supports integration with JWKS services and thumbprint pinning.</td>
-</tr>
-</tbody>
-</table>
-
+| Field | Value |
+| --- | --- |
+| **Component** | verify |
+| **Container** | @chrislyons-dev/flarelette-jwt |
+| **Type** | `module` |
+| **Description** | JWT verification utilities.<br><br>This module provides functions to verify JWT tokens using either HS512 or EdDSA algorithms.<br>It supports integration with JWKS services and thumbprint pinning. |
 ---
 
 ## Code Structure
@@ -57,30 +39,11 @@ Implements key resolution strategy pattern:
 - Strategy 3: Service binding JWKS
 - Strategy 4: HTTP JWKS URL
 
-<table>
-<tbody>
-<tr>
-<td><strong>Type</strong></td>
-<td><code>function</code></td>
-</tr>
-<tr>
-<td><strong>Visibility</strong></td>
-<td><code>private</code></td>
-</tr>
-<tr>
-<td><strong>Async</strong></td>
-<td>Yes</td>
-</tr>
-<tr>
-<td><strong>Returns</strong></td>
-<td><code>Promise<{ key: Uint8Array<ArrayBufferLike> | CryptoKey; algorithms: string[]; }></code> — Key and allowed algorithms</td>
-</tr>
-<tr>
-<td><strong>Location</strong></td>
-<td><code>C:/Users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/src/verify.ts:47</code></td>
-</tr>
-</tbody>
-</table>
+| Field | Value |
+| --- | --- |
+| **Type** | `function` |
+| **Visibility** | `private` |
+| **Async** | Yes || **Returns** | `Promise<{ key: Uint8Array<ArrayBufferLike> \| CryptoKey; algorithms: string[]; }>` - Key and allowed algorithms || **Location** | `C:/Users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/src/verify.ts:47` |
 
 **Parameters:**
 
@@ -93,30 +56,11 @@ Verify a JWT token with HS512, EdDSA, or RSA algorithms
 
 Supports multiple key resolution strategies with automatic algorithm detection
 
-<table>
-<tbody>
-<tr>
-<td><strong>Type</strong></td>
-<td><code>function</code></td>
-</tr>
-<tr>
-<td><strong>Visibility</strong></td>
-<td><code>public</code></td>
-</tr>
-<tr>
-<td><strong>Async</strong></td>
-<td>Yes</td>
-</tr>
-<tr>
-<td><strong>Returns</strong></td>
-<td><code>Promise<import("C:/Users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/src/types").JwtPayload></code> — Decoded payload if valid, null otherwise</td>
-</tr>
-<tr>
-<td><strong>Location</strong></td>
-<td><code>C:/Users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/src/verify.ts:132</code></td>
-</tr>
-</tbody>
-</table>
+| Field | Value |
+| --- | --- |
+| **Type** | `function` |
+| **Visibility** | `public` |
+| **Async** | Yes || **Returns** | `Promise<import("C:/Users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/src/types").JwtPayload>` - Decoded payload if valid, null otherwise || **Location** | `C:/Users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/src/verify.ts:131` |
 
 **Parameters:**
 
@@ -131,3 +75,4 @@ Supports multiple key resolution strategies with automatic algorithm detection
 <div align="center">
 <sub><a href="./chrislyons_dev_flarelette_jwt.md">← Back to Container</a> | <a href="./README.md">← Back to System</a> | Generated with <a href="https://github.com/chrislyons-dev/archlette">Archlette</a></sub>
 </div>
+

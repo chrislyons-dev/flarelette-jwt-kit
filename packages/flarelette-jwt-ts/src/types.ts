@@ -56,8 +56,8 @@ export type ClaimsDict = Record<string, JwtValue>
  * EdDSA deployments with multiple active keys.
  */
 export interface JwtHeader {
-  /** Algorithm: HS512 or EdDSA */
-  alg: AlgType
+  /** Algorithm as reported in the JWT header (e.g. HS512, EdDSA, ES512, RS256) */
+  alg: string
   /** Token type, typically "JWT" */
   typ?: string
   /** Key ID for key rotation (optional) */
@@ -141,6 +141,16 @@ export interface JwtPayload {
   // Delegation claims (RFC 8693)
   /** Service acting on behalf of subject */
   act?: ActorClaim
+
+  // Duress credential
+  /**
+   * Set server-side when a duress passkey assertion is detected.
+   * The OIDC Worker sets this based on which credentialId asserted; the Gateway
+   * copies it into the internal JWT. Downstream Workers must not deny access or
+   * fail closed when true — a duress session must look like success to the user.
+   * Never set by clients.
+   */
+  isDuress?: boolean
 
   /** Additional custom claims */
   [key: string]: unknown
@@ -241,6 +251,7 @@ export interface WorkerEnv extends Record<string, unknown> {
 
   // HTTP JWKS (TypeScript only - Python support pending)
   JWT_JWKS_URL?: string
+  JWT_JWKS_URL_NAME?: string
   JWT_JWKS_CACHE_TTL_SECONDS?: string
 
   // Thumbprint pinning

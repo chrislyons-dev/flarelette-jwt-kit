@@ -41,7 +41,8 @@ export function envMode(role: 'producer' | 'consumer'): AlgType {
       env.JWT_PUBLIC_JWK_NAME ||
       env.JWT_JWKS_SERVICE ||
       env.JWT_JWKS_SERVICE_NAME ||
-      env.JWT_JWKS_URL
+      env.JWT_JWKS_URL ||
+      env.JWT_JWKS_URL_NAME
     )
 
     if (hasHS512 && hasAsymmetric) {
@@ -142,6 +143,8 @@ export function getJwksServiceName(): string | null {
 }
 
 export function getJwksUrl(): string | null {
+  const name = envRead('JWT_JWKS_URL_NAME') as string | undefined
+  if (name && envRead(name)) return envRead(name)!
   return envRead('JWT_JWKS_URL') || null
 }
 

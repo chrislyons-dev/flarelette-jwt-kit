@@ -1,7 +1,7 @@
-# 🏗️ flarelette-jwt-kit
+# <img src="../images/archlette-stainedglassA-light.png" alt="" height="28" width="28" style="vertical-align:middle"> flarelette-jwt-kit
 
 **Architecture Documentation**
-Generated 2025-12-08 19:38:11
+Generated 2026-03-05 17:59:12
 
 ## Overview
 
@@ -13,7 +13,7 @@ JWT authentication and authorization library
 
 The system context diagram shows how flarelette-jwt-kit fits into its environment, including external systems and users.
 
-![System Context Diagram](./diagrams/structurizr-SystemContext.png)
+<img src="./diagrams/structurizr-SystemContext.png" alt="System Context Diagram" style="max-width: 100%; height: auto;">
 
 ---
 
@@ -21,32 +21,12 @@ The system context diagram shows how flarelette-jwt-kit fits into its environmen
 
 The container diagram shows the high-level technology choices and how containers communicate.
 
-![Container Diagram](./diagrams/structurizr-Containers.png)
+<img src="./diagrams/structurizr-Containers.png" alt="Container Diagram" style="max-width: 100%; height: auto;">
 
-<table>
-<thead>
-<tr>
-<th>Container</th>
-<th>Type</th>
-<th>Description</th>
-<th>Details</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>@chrislyons-dev/flarelette-jwt</strong></td>
-<td><code>Service</code></td>
-<td>Environment-driven JWT authentication for Cloudflare Workers with secret-name indirection</td>
-<td><a href="./chrislyons_dev_flarelette_jwt.md">View →</a></td>
-</tr>
-<tr>
-<td><strong>flarelette-jwt</strong></td>
-<td><code>Service</code></td>
-<td>Environment-driven JWT authentication for Cloudflare Workers Python with secret-name indirection</td>
-<td><a href="./flarelette_jwt.md">View →</a></td>
-</tr>
-</tbody>
-</table>
+| Container | Type | Description | Details |
+| --- | --- | --- | --- |
+| **@chrislyons-dev/flarelette-jwt** | `Service` | TypeScript implementation of the Flarelette JWT Kit: An environment-driven JWT authentication package for Cloudflare Workers | [View](./chrislyons_dev_flarelette_jwt.md) |
+| **flarelette-jwt** | `Service` | Python implementation of the Flarelette JWT Kit: An environment-driven JWT authentication package for Cloudflare Workers | [View](./flarelette_jwt.md) |
 
 
 ---
@@ -54,3 +34,4 @@ The container diagram shows the high-level technology choices and how containers
 <div align="center">
 <sub>Generated with <a href="https://github.com/chrislyons-dev/archlette">Archlette</a> Architecture-as-Code toolkit</sub>
 </div>
+

@@ -1,4 +1,23 @@
 /* Custom styles for Flarelette JWT Kit documentation */
+:root {
+  --md-primary-fg-color: #0f2b45;
+  --md-primary-fg-color--light: #1f3f5c;
+  --md-primary-fg-color--dark: #0b1e30;
+  --md-accent-fg-color: #ff7a00;
+  --md-accent-fg-color--transparent: rgba(255, 122, 0, 0.15);
+}
+
+[data-md-color-scheme='slate'] {
+  --md-primary-fg-color: #0f2b45;
+  --md-primary-fg-color--light: #1f3f5c;
+  --md-primary-fg-color--dark: #0b1e30;
+  --md-accent-fg-color: #ff7a00;
+  --md-accent-fg-color--transparent: rgba(255, 122, 0, 0.18);
+  --md-default-bg-color: #0b0f12;
+  --md-default-fg-color: #f8fafc;
+  --md-default-fg-color--light: rgba(248, 250, 252, 0.7);
+  --md-default-fg-color--lighter: rgba(248, 250, 252, 0.5);
+}
 
 /* Tighten up spacing for code blocks */
 .highlight {
@@ -9,6 +28,17 @@
 .admonition.warning,
 .admonition.danger {
   border-left-width: 4px;
+}
+
+/* Success emphasis */
+.admonition.success,
+.admonition.tip {
+  border-left-color: #00c2a8;
+}
+
+.admonition.success .admonition-title,
+.admonition.tip .admonition-title {
+  background-color: rgba(0, 194, 168, 0.12);
 }
 
 /* Style the grid cards on homepage */

@@ -4,11 +4,11 @@ Understanding how Flarelette JWT Kit makes cryptographic and architectural decis
 
 ## Algorithm Selection
 
-The kit supports **two signing algorithms** (HS512, EdDSA) and **three verification profiles** (HS512, EdDSA, RSA). No configuration required — the mode is detected automatically from your environment.
+The kit supports **HS512** (symmetric) and **EdDSA** (asymmetric) as its two primary signing algorithms, plus **ES512** (ECDSA P-521) for TypeScript explicit-API signing. Verification supports **EdDSA, ECDSA (ES256/ES384/ES512), and RSA** for external OIDC tokens. Mode is detected automatically from your environment.
 
-**Signing:** HS512 for symmetric trust, EdDSA for asymmetric trust.
+**Signing:** HS512 for symmetric trust, EdDSA for asymmetric trust. ES512 available via TypeScript explicit API.
 
-**Verification:** HS512 and EdDSA for internal tokens, RSA for external OIDC providers.
+**Verification:** HS512 and EdDSA for internal tokens; ECDSA and RSA for external OIDC providers.
 
 ### HS512 (Symmetric)
 
@@ -71,6 +71,8 @@ JWT_JWKS_SERVICE_NAME=GATEWAY_BINDING
 
 # Option 3: HTTP JWKS URL for external OIDC providers (TypeScript only)
 JWT_JWKS_URL=https://tenant.auth0.com/.well-known/jwks.json
+# Or with name indirection (useful in multi-env wrangler setups):
+JWT_JWKS_URL_NAME=MY_JWKS_URL_VAR
 ```
 
 ### RSA (External OIDC Verification)
@@ -109,7 +111,7 @@ JWT_JWKS_CACHE_TTL_SECONDS=300  # Optional: default 5 minutes
 
 **Reduced attack surface:** Fewer algorithms means less code to audit and fewer potential vulnerabilities.
 
-**Simplified key management:** HS512 for simple deployments, EdDSA for complex ones. No need to choose between RSA key sizes, ECDSA curves, or other variants.
+**Simplified key management:** HS512 for simple deployments, EdDSA for asymmetric trust. ECDSA (ES256/ES384/ES512) and RSA supported for external OIDC verification and ES512 explicit signing.
 
 **Clear trade-offs:** Each algorithm has an obvious use case. No analysis paralysis.
 
@@ -129,7 +131,7 @@ Consumer (verification):
   Otherwise → HS512 mode
 ```
 
-**Note:** EdDSA/RSA mode supports both EdDSA (Ed25519) and RSA (RS256/384/512) verification. The actual algorithm is auto-detected from the JWK structure or token header.
+**Note:** Asymmetric mode supports EdDSA (Ed25519), ECDSA (ES256/ES384/ES512), and RSA (RS256/384/512) verification. The actual algorithm is auto-detected from the JWK structure or token header.
 
 **Verification in code:**
 
@@ -293,6 +295,7 @@ wrangler secret put MY_JWT_SECRET
 - `JWT_PRIVATE_JWK_NAME` → `JWT_PRIVATE_JWK`
 - `JWT_PUBLIC_JWK_NAME` → `JWT_PUBLIC_JWK`
 - `JWT_JWKS_SERVICE_NAME` → `JWT_JWKS_SERVICE`
+- `JWT_JWKS_URL_NAME` → `JWT_JWKS_URL` (public URL — direct form is usually fine; `_NAME` useful in multi-env wrangler setups)
 
 **Benefits:**
 
@@ -419,18 +422,20 @@ When you call `verify()` or `checkAuth()`, the kit performs these checks in orde
 
 TypeScript and Python implementations are kept in sync:
 
-| Feature                 | TypeScript | Python                |
-| ----------------------- | ---------- | --------------------- |
-| HS512 signing           | ✅         | ✅                    |
-| HS512 verification      | ✅         | ✅                    |
-| EdDSA signing           | ✅         | ❌ (use Node gateway) |
-| EdDSA verification      | ✅         | ✅ (inline JWK only)  |
-| RSA verification        | ✅         | ❌                    |
-| JWKS fetch              | ✅         | ❌ (inline JWK only)  |
-| Service bindings        | ✅         | ❌                    |
-| Secret-name indirection | ✅         | ✅                    |
-| Policy builder          | ✅         | ✅                    |
-| CLI tools               | ✅         | ✅                    |
+| Feature                      | TypeScript | Python                |
+| ---------------------------- | ---------- | --------------------- |
+| HS512 signing                | ✅         | ✅                    |
+| HS512 verification           | ✅         | ✅                    |
+| EdDSA signing                | ✅         | ❌ (use Node gateway) |
+| EdDSA verification           | ✅         | ✅ (inline JWK only)  |
+| ES512 signing (explicit API) | ✅         | ❌                    |
+| ECDSA verification           | ✅         | ❌                    |
+| RSA verification             | ✅         | ❌                    |
+| JWKS fetch                   | ✅         | ❌ (inline JWK only)  |
+| Service bindings             | ✅         | ❌                    |
+| Secret-name indirection      | ✅         | ✅                    |
+| Policy builder               | ✅         | ✅                    |
+| CLI tools                    | ✅         | ✅                    |
 
 **Why Python limitations?**
 
@@ -510,5 +515,5 @@ TypeScript and Python implementations are kept in sync:
 
 - **[Usage Guide](./usage-guide.md)** — Complete API reference
 - **[Service Delegation](./service-delegation.md)** — RFC 8693 actor claims
-- **[Cloudflare Workers](./cloudflare-workers.md)** — Workers deployment guide
-- **[Security Guide](./security-guide.md)** — Cryptographic profiles and best practices
+- **[Cloudflare Workers](../cloudflare-workers.md)** — Workers deployment guide
+- **[Security Guide](../security-guide.md)** — Cryptographic profiles and best practices

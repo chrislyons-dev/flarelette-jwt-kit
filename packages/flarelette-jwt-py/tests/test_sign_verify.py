@@ -83,19 +83,11 @@ class TestConfigurationLogic:
 
     def test_mode_defaults_to_hs512(self) -> None:
         """Should default to HS512 mode when no keys configured."""
-        import importlib.util
+        env = _load_env_module()
+        mode = env.mode
 
-        spec = importlib.util.spec_from_file_location(
-            "env", "packages/flarelette-jwt-py/flarelette_jwt/env.py"
-        )
-        if spec and spec.loader:
-            env_module = importlib.util.module_from_spec(spec)
-            spec.loader.exec_module(env_module)
-
-            mode = env_module.mode
-
-            assert mode("producer") == "HS512"
-            assert mode("consumer") == "HS512"
+        assert mode("producer") == "HS512"
+        assert mode("consumer") == "HS512"
 
     def test_mode_detects_eddsa_for_producer_with_private_key(self) -> None:
         """Should detect EdDSA mode for producer with private key."""
@@ -181,3 +173,63 @@ class TestConfigurationLogic:
 
         os.environ["JWT_PUBLIC_JWK_NAME"] = "MY_PUBLIC_KEY"
         assert mode("consumer") == "EdDSA"
+
+    def test_jwks_url_name_indirection_detection(self) -> None:
+        """Should detect EdDSA with JWT_JWKS_URL_NAME."""
+        env = _load_env_module()
+        mode = env.mode
+
+        os.environ["JWT_JWKS_URL_NAME"] = "MY_JWKS_URL"
+        assert mode("consumer") == "EdDSA"
+
+    def test_mode_conflict_raises_for_consumer(self) -> None:
+        """Should raise RuntimeError when both HS512 and asymmetric keys configured."""
+        import pytest
+
+        env = _load_env_module()
+        mode = env.mode
+
+        os.environ["JWT_SECRET"] = "some-secret"
+        os.environ["JWT_PUBLIC_JWK"] = "some-public-key"
+
+        with pytest.raises(RuntimeError, match="algorithm confusion"):
+            mode("consumer")
+
+    def test_mode_conflict_does_not_raise_for_producer(self) -> None:
+        """Mode conflict check only applies to consumer role."""
+        env = _load_env_module()
+        mode = env.mode
+
+        # Producer ignores public keys entirely — no conflict error
+        os.environ["JWT_SECRET"] = "some-secret"
+        os.environ["JWT_PUBLIC_JWK"] = "some-public-key"
+
+        # Should not raise; producer checks only for private key
+        assert mode("producer") == "HS512"
+
+    def test_hs512_secret_minimum_64_bytes(self) -> None:
+        """get_hs_secret_bytes should reject secrets shorter than 64 bytes."""
+        import base64
+
+        import pytest
+
+        env = _load_env_module()
+
+        # 32-byte secret — previously accepted, now rejected
+        short_secret = base64.urlsafe_b64encode(b"a" * 32).rstrip(b"=").decode()
+        os.environ["JWT_SECRET"] = short_secret
+
+        with pytest.raises(RuntimeError, match="too short"):
+            env.get_hs_secret_bytes()
+
+    def test_hs512_secret_accepts_64_bytes(self) -> None:
+        """get_hs_secret_bytes should accept secrets of exactly 64 bytes."""
+        import base64
+
+        env = _load_env_module()
+
+        valid_secret = base64.urlsafe_b64encode(b"a" * 64).rstrip(b"=").decode()
+        os.environ["JWT_SECRET"] = valid_secret
+
+        result = env.get_hs_secret_bytes()
+        assert len(result) == 64

@@ -6,30 +6,12 @@
 
 ## Component Information
 
-<table>
-<tbody>
-<tr>
-<td><strong>Component</strong></td>
-<td>util</td>
-</tr>
-<tr>
-<td><strong>Container</strong></td>
-<td>flarelette-jwt</td>
-</tr>
-<tr>
-<td><strong>Type</strong></td>
-<td><code>module</code></td>
-</tr>
-<tr>
-<td><strong>Description</strong></td>
-<td>Environment Configuration for JWT Operations
-
-This module provides functions to read environment variables and derive JWT-related configurations.
-It supports both symmetric (HS512) and asymmetric (EdDSA) algorithms.</td>
-</tr>
-</tbody>
-</table>
-
+| Field | Value |
+| --- | --- |
+| **Component** | util |
+| **Container** | flarelette-jwt |
+| **Type** | `module` |
+| **Description** | Environment Configuration for JWT Operations<br><br>This module provides functions to read environment variables and derive JWT-related configurations.<br>It supports both symmetric (HS512) and asymmetric (EdDSA) algorithms. |
 ---
 
 ## Code Structure
@@ -42,7 +24,7 @@ It supports both symmetric (HS512) and asymmetric (EdDSA) algorithms.</td>
 ### Code Elements
 
 <details>
-<summary><strong>46 code element(s)</strong></summary>
+<summary><strong>47 code element(s)</strong></summary>
 
 
 #### Classes
@@ -51,22 +33,11 @@ It supports both symmetric (HS512) and asymmetric (EdDSA) algorithms.</td>
 
 JWT token header structure.
 
-<table>
-<tbody>
-<tr>
-<td><strong>Type</strong></td>
-<td><code>class</code></td>
-</tr>
-<tr>
-<td><strong>Visibility</strong></td>
-<td><code></code></td>
-</tr>
-<tr>
-<td><strong>Location</strong></td>
-<td><code>C:\Users\chris\git\flarelette-jwt-kit\packages\flarelette-jwt-py\flarelette_jwt\env.py:35</code></td>
-</tr>
-</tbody>
-</table>
+| Field | Value |
+| --- | --- |
+| **Type** | `class` |
+| **Visibility** | `-` |
+| **Location** | `C:\Users\chris\git\flarelette-jwt-kit\packages\flarelette-jwt-py\flarelette_jwt\env.py:35` |
 
 
 ---
@@ -74,22 +45,11 @@ JWT token header structure.
 
 Actor claim for service delegation (RFC 8693).
 
-<table>
-<tbody>
-<tr>
-<td><strong>Type</strong></td>
-<td><code>class</code></td>
-</tr>
-<tr>
-<td><strong>Visibility</strong></td>
-<td><code></code></td>
-</tr>
-<tr>
-<td><strong>Location</strong></td>
-<td><code>C:\Users\chris\git\flarelette-jwt-kit\packages\flarelette-jwt-py\flarelette_jwt\env.py:49</code></td>
-</tr>
-</tbody>
-</table>
+| Field | Value |
+| --- | --- |
+| **Type** | `class` |
+| **Visibility** | `-` |
+| **Location** | `C:\Users\chris\git\flarelette-jwt-kit\packages\flarelette-jwt-py\flarelette_jwt\env.py:51` |
 
 
 ---
@@ -97,22 +57,11 @@ Actor claim for service delegation (RFC 8693).
 
 JWT token payload/claims structure.
 
-<table>
-<tbody>
-<tr>
-<td><strong>Type</strong></td>
-<td><code>class</code></td>
-</tr>
-<tr>
-<td><strong>Visibility</strong></td>
-<td><code></code></td>
-</tr>
-<tr>
-<td><strong>Location</strong></td>
-<td><code>C:\Users\chris\git\flarelette-jwt-kit\packages\flarelette-jwt-py\flarelette_jwt\env.py:68</code></td>
-</tr>
-</tbody>
-</table>
+| Field | Value |
+| --- | --- |
+| **Type** | `class` |
+| **Visibility** | `-` |
+| **Location** | `C:\Users\chris\git\flarelette-jwt-kit\packages\flarelette-jwt-py\flarelette_jwt\env.py:70` |
 
 
 ---
@@ -120,22 +69,11 @@ JWT token payload/claims structure.
 
 JWT Profile structure matching flarelette-jwt.profile.schema.json.
 
-<table>
-<tbody>
-<tr>
-<td><strong>Type</strong></td>
-<td><code>class</code></td>
-</tr>
-<tr>
-<td><strong>Visibility</strong></td>
-<td><code></code></td>
-</tr>
-<tr>
-<td><strong>Location</strong></td>
-<td><code>C:\Users\chris\git\flarelette-jwt-kit\packages\flarelette-jwt-py\flarelette_jwt\env.py:110</code></td>
-</tr>
-</tbody>
-</table>
+| Field | Value |
+| --- | --- |
+| **Type** | `class` |
+| **Visibility** | `-` |
+| **Location** | `C:\Users\chris\git\flarelette-jwt-kit\packages\flarelette-jwt-py\flarelette_jwt\env.py:112` |
 
 
 ---
@@ -143,22 +81,11 @@ JWT Profile structure matching flarelette-jwt.profile.schema.json.
 
 Common JWT configuration from environment variables.
 
-<table>
-<tbody>
-<tr>
-<td><strong>Type</strong></td>
-<td><code>class</code></td>
-</tr>
-<tr>
-<td><strong>Visibility</strong></td>
-<td><code></code></td>
-</tr>
-<tr>
-<td><strong>Location</strong></td>
-<td><code>C:\Users\chris\git\flarelette-jwt-kit\packages\flarelette-jwt-py\flarelette_jwt\env.py:125</code></td>
-</tr>
-</tbody>
-</table>
+| Field | Value |
+| --- | --- |
+| **Type** | `class` |
+| **Visibility** | `-` |
+| **Location** | `C:\Users\chris\git\flarelette-jwt-kit\packages\flarelette-jwt-py\flarelette_jwt\env.py:127` |
 
 
 ---
@@ -166,22 +93,11 @@ Common JWT configuration from environment variables.
 
 Authenticated user information returned by check_auth.
 
-<table>
-<tbody>
-<tr>
-<td><strong>Type</strong></td>
-<td><code>class</code></td>
-</tr>
-<tr>
-<td><strong>Visibility</strong></td>
-<td><code></code></td>
-</tr>
-<tr>
-<td><strong>Location</strong></td>
-<td><code>C:\Users\chris\git\flarelette-jwt-kit\packages\flarelette-jwt-py\flarelette_jwt\high.py:24</code></td>
-</tr>
-</tbody>
-</table>
+| Field | Value |
+| --- | --- |
+| **Type** | `class` |
+| **Visibility** | `-` |
+| **Location** | `C:\Users\chris\git\flarelette-jwt-kit\packages\flarelette-jwt-py\flarelette_jwt\high.py:24` |
 
 
 ---
@@ -189,44 +105,22 @@ Authenticated user information returned by check_auth.
 
 Builder interface for creating JWT authorization policies.
 
-<table>
-<tbody>
-<tr>
-<td><strong>Type</strong></td>
-<td><code>class</code></td>
-</tr>
-<tr>
-<td><strong>Visibility</strong></td>
-<td><code></code></td>
-</tr>
-<tr>
-<td><strong>Location</strong></td>
-<td><code>C:\Users\chris\git\flarelette-jwt-kit\packages\flarelette-jwt-py\flarelette_jwt\high.py:40</code></td>
-</tr>
-</tbody>
-</table>
+| Field | Value |
+| --- | --- |
+| **Type** | `class` |
+| **Visibility** | `-` |
+| **Location** | `C:\Users\chris\git\flarelette-jwt-kit\packages\flarelette-jwt-py\flarelette_jwt\high.py:40` |
 
 
 ---
 ##### `Builder`
 
 
-<table>
-<tbody>
-<tr>
-<td><strong>Type</strong></td>
-<td><code>class</code></td>
-</tr>
-<tr>
-<td><strong>Visibility</strong></td>
-<td><code></code></td>
-</tr>
-<tr>
-<td><strong>Location</strong></td>
-<td><code>C:\Users\chris\git\flarelette-jwt-kit\packages\flarelette-jwt-py\flarelette_jwt\high.py:227</code></td>
-</tr>
-</tbody>
-</table>
+| Field | Value |
+| --- | --- |
+| **Type** | `class` |
+| **Visibility** | `-` |
+| **Location** | `C:\Users\chris\git\flarelette-jwt-kit\packages\flarelette-jwt-py\flarelette_jwt\high.py:227` |
 
 
 ---
@@ -234,22 +128,11 @@ Builder interface for creating JWT authorization policies.
 
 Parsed JWT token structure.
 
-<table>
-<tbody>
-<tr>
-<td><strong>Type</strong></td>
-<td><code>class</code></td>
-</tr>
-<tr>
-<td><strong>Visibility</strong></td>
-<td><code></code></td>
-</tr>
-<tr>
-<td><strong>Location</strong></td>
-<td><code>C:\Users\chris\git\flarelette-jwt-kit\packages\flarelette-jwt-py\flarelette_jwt\util.py:19</code></td>
-</tr>
-</tbody>
-</table>
+| Field | Value |
+| --- | --- |
+| **Type** | `class` |
+| **Visibility** | `-` |
+| **Location** | `C:\Users\chris\git\flarelette-jwt-kit\packages\flarelette-jwt-py\flarelette_jwt\util.py:19` |
 
 
 ---
@@ -260,26 +143,11 @@ Parsed JWT token structure.
 
 Detect JWT algorithm mode from environment variables based on role.
 
-<table>
-<tbody>
-<tr>
-<td><strong>Type</strong></td>
-<td><code>function</code></td>
-</tr>
-<tr>
-<td><strong>Visibility</strong></td>
-<td><code></code></td>
-</tr>
-<tr>
-<td><strong>Returns</strong></td>
-<td><code>AlgType</code> — Either "HS512" or "EdDSA"</td>
-</tr>
-<tr>
-<td><strong>Location</strong></td>
-<td><code>C:\Users\chris\git\flarelette-jwt-kit\packages\flarelette-jwt-py\flarelette_jwt\env.py:139</code></td>
-</tr>
-</tbody>
-</table>
+| Field | Value |
+| --- | --- |
+| **Type** | `function` |
+| **Visibility** | `-` |
+| **Returns** | `AlgType` - Either "HS512" or "EdDSA" || **Location** | `C:\Users\chris\git\flarelette-jwt-kit\packages\flarelette-jwt-py\flarelette_jwt\env.py:141` |
 
 **Parameters:**
 
@@ -290,26 +158,11 @@ Detect JWT algorithm mode from environment variables based on role.
 
 Get common JWT configuration from environment.
 
-<table>
-<tbody>
-<tr>
-<td><strong>Type</strong></td>
-<td><code>function</code></td>
-</tr>
-<tr>
-<td><strong>Visibility</strong></td>
-<td><code></code></td>
-</tr>
-<tr>
-<td><strong>Returns</strong></td>
-<td><code>JwtCommonConfig</code> — Configuration with iss, aud, leeway, ttl_seconds</td>
-</tr>
-<tr>
-<td><strong>Location</strong></td>
-<td><code>C:\Users\chris\git\flarelette-jwt-kit\packages\flarelette-jwt-py\flarelette_jwt\env.py:169</code></td>
-</tr>
-</tbody>
-</table>
+| Field | Value |
+| --- | --- |
+| **Type** | `function` |
+| **Visibility** | `-` |
+| **Returns** | `JwtCommonConfig` - Configuration with iss, aud, leeway, ttl_seconds || **Location** | `C:\Users\chris\git\flarelette-jwt-kit\packages\flarelette-jwt-py\flarelette_jwt\env.py:182` |
 
 
 
@@ -318,26 +171,11 @@ Get common JWT configuration from environment.
 
 Get JWT profile from environment.
 
-<table>
-<tbody>
-<tr>
-<td><strong>Type</strong></td>
-<td><code>function</code></td>
-</tr>
-<tr>
-<td><strong>Visibility</strong></td>
-<td><code></code></td>
-</tr>
-<tr>
-<td><strong>Returns</strong></td>
-<td><code>dict[str, Any]</code> — dict containing alg, iss, aud, leeway_seconds, and ttl_seconds</td>
-</tr>
-<tr>
-<td><strong>Location</strong></td>
-<td><code>C:\Users\chris\git\flarelette-jwt-kit\packages\flarelette-jwt-py\flarelette_jwt\env.py:183</code></td>
-</tr>
-</tbody>
-</table>
+| Field | Value |
+| --- | --- |
+| **Type** | `function` |
+| **Visibility** | `-` |
+| **Returns** | `dict[str, Any]` - dict containing alg, iss, aud, leeway_seconds, and ttl_seconds || **Location** | `C:\Users\chris\git\flarelette-jwt-kit\packages\flarelette-jwt-py\flarelette_jwt\env.py:196` |
 
 **Parameters:**
 
@@ -347,26 +185,11 @@ Get JWT profile from environment.
 ##### `_get_indirect()`
 
 
-<table>
-<tbody>
-<tr>
-<td><strong>Type</strong></td>
-<td><code>function</code></td>
-</tr>
-<tr>
-<td><strong>Visibility</strong></td>
-<td><code></code></td>
-</tr>
-<tr>
-<td><strong>Returns</strong></td>
-<td><code>str | None</code></td>
-</tr>
-<tr>
-<td><strong>Location</strong></td>
-<td><code>C:\Users\chris\git\flarelette-jwt-kit\packages\flarelette-jwt-py\flarelette_jwt\env.py:206</code></td>
-</tr>
-</tbody>
-</table>
+| Field | Value |
+| --- | --- |
+| **Type** | `function` |
+| **Visibility** | `-` |
+| **Returns** | `str \| None` || **Location** | `C:\Users\chris\git\flarelette-jwt-kit\packages\flarelette-jwt-py\flarelette_jwt\env.py:219` |
 
 **Parameters:**
 
@@ -376,26 +199,11 @@ Get JWT profile from environment.
 ##### `get_hs_secret_bytes()`
 
 
-<table>
-<tbody>
-<tr>
-<td><strong>Type</strong></td>
-<td><code>function</code></td>
-</tr>
-<tr>
-<td><strong>Visibility</strong></td>
-<td><code></code></td>
-</tr>
-<tr>
-<td><strong>Returns</strong></td>
-<td><code>bytes</code></td>
-</tr>
-<tr>
-<td><strong>Location</strong></td>
-<td><code>C:\Users\chris\git\flarelette-jwt-kit\packages\flarelette-jwt-py\flarelette_jwt\env.py:213</code></td>
-</tr>
-</tbody>
-</table>
+| Field | Value |
+| --- | --- |
+| **Type** | `function` |
+| **Visibility** | `-` |
+| **Returns** | `bytes` || **Location** | `C:\Users\chris\git\flarelette-jwt-kit\packages\flarelette-jwt-py\flarelette_jwt\env.py:226` |
 
 
 
@@ -403,26 +211,23 @@ Get JWT profile from environment.
 ##### `get_public_jwk_string()`
 
 
-<table>
-<tbody>
-<tr>
-<td><strong>Type</strong></td>
-<td><code>function</code></td>
-</tr>
-<tr>
-<td><strong>Visibility</strong></td>
-<td><code></code></td>
-</tr>
-<tr>
-<td><strong>Returns</strong></td>
-<td><code>str | None</code></td>
-</tr>
-<tr>
-<td><strong>Location</strong></td>
-<td><code>C:\Users\chris\git\flarelette-jwt-kit\packages\flarelette-jwt-py\flarelette_jwt\env.py:228</code></td>
-</tr>
-</tbody>
-</table>
+| Field | Value |
+| --- | --- |
+| **Type** | `function` |
+| **Visibility** | `-` |
+| **Returns** | `str \| None` || **Location** | `C:\Users\chris\git\flarelette-jwt-kit\packages\flarelette-jwt-py\flarelette_jwt\env.py:254` |
+
+
+
+---
+##### `get_jwks_url()`
+
+
+| Field | Value |
+| --- | --- |
+| **Type** | `function` |
+| **Visibility** | `-` |
+| **Returns** | `str \| None` || **Location** | `C:\Users\chris\git\flarelette-jwt-kit\packages\flarelette-jwt-py\flarelette_jwt\env.py:258` |
 
 
 
@@ -431,30 +236,11 @@ Get JWT profile from environment.
 
 Create a signed JWT token with optional claims.
 
-<table>
-<tbody>
-<tr>
-<td><strong>Type</strong></td>
-<td><code>function</code></td>
-</tr>
-<tr>
-<td><strong>Visibility</strong></td>
-<td><code></code></td>
-</tr>
-<tr>
-<td><strong>Async</strong></td>
-<td>Yes</td>
-</tr>
-<tr>
-<td><strong>Returns</strong></td>
-<td><code>str</code> — Signed JWT token string</td>
-</tr>
-<tr>
-<td><strong>Location</strong></td>
-<td><code>C:\Users\chris\git\flarelette-jwt-kit\packages\flarelette-jwt-py\flarelette_jwt\high.py:58</code></td>
-</tr>
-</tbody>
-</table>
+| Field | Value |
+| --- | --- |
+| **Type** | `function` |
+| **Visibility** | `-` |
+| **Async** | Yes || **Returns** | `str` - Signed JWT token string || **Location** | `C:\Users\chris\git\flarelette-jwt-kit\packages\flarelette-jwt-py\flarelette_jwt\high.py:58` |
 
 **Parameters:**
 
@@ -465,34 +251,11 @@ Create a signed JWT token with optional claims.
 
 Create a delegated JWT token following RFC 8693 actor claim pattern.
 
-<table>
-<tbody>
-<tr>
-<td><strong>Type</strong></td>
-<td><code>function</code></td>
-</tr>
-<tr>
-<td><strong>Visibility</strong></td>
-<td><code></code></td>
-</tr>
-<tr>
-<td><strong>Async</strong></td>
-<td>Yes</td>
-</tr>
-<tr>
-<td><strong>Returns</strong></td>
-<td><code>str</code> — Signed JWT token string with delegation claim
-
-See Also:
-    - RFC 8693: OAuth 2.0 Token Exchange
-    - security.md: Service Delegation Pattern section</td>
-</tr>
-<tr>
-<td><strong>Location</strong></td>
-<td><code>C:\Users\chris\git\flarelette-jwt-kit\packages\flarelette-jwt-py\flarelette_jwt\high.py:79</code></td>
-</tr>
-</tbody>
-</table>
+| Field | Value |
+| --- | --- |
+| **Type** | `function` |
+| **Visibility** | `-` |
+| **Async** | Yes || **Returns** | `str` - Signed JWT token string with delegation claim<br><br>See Also:<br>    - RFC 8693: OAuth 2.0 Token Exchange<br>    - security.md: Service Delegation Pattern section || **Location** | `C:\Users\chris\git\flarelette-jwt-kit\packages\flarelette-jwt-py\flarelette_jwt\high.py:79` |
 
 **Parameters:**
 
@@ -507,30 +270,11 @@ See Also:
 
 Verify and authorize a JWT token with policy enforcement.
 
-<table>
-<tbody>
-<tr>
-<td><strong>Type</strong></td>
-<td><code>function</code></td>
-</tr>
-<tr>
-<td><strong>Visibility</strong></td>
-<td><code></code></td>
-</tr>
-<tr>
-<td><strong>Async</strong></td>
-<td>Yes</td>
-</tr>
-<tr>
-<td><strong>Returns</strong></td>
-<td><code>AuthUser | None</code> — AuthUser if valid and authorized, None otherwise</td>
-</tr>
-<tr>
-<td><strong>Location</strong></td>
-<td><code>C:\Users\chris\git\flarelette-jwt-kit\packages\flarelette-jwt-py\flarelette_jwt\high.py:166</code></td>
-</tr>
-</tbody>
-</table>
+| Field | Value |
+| --- | --- |
+| **Type** | `function` |
+| **Visibility** | `-` |
+| **Async** | Yes || **Returns** | `AuthUser \| None` - AuthUser if valid and authorized, None otherwise || **Location** | `C:\Users\chris\git\flarelette-jwt-kit\packages\flarelette-jwt-py\flarelette_jwt\high.py:166` |
 
 **Parameters:**
 
@@ -541,26 +285,11 @@ Verify and authorize a JWT token with policy enforcement.
 
 Fluent builder for creating authorization policies.
 
-<table>
-<tbody>
-<tr>
-<td><strong>Type</strong></td>
-<td><code>function</code></td>
-</tr>
-<tr>
-<td><strong>Visibility</strong></td>
-<td><code></code></td>
-</tr>
-<tr>
-<td><strong>Returns</strong></td>
-<td><code>PolicyBuilder</code> — PolicyBuilder with chainable methods</td>
-</tr>
-<tr>
-<td><strong>Location</strong></td>
-<td><code>C:\Users\chris\git\flarelette-jwt-kit\packages\flarelette-jwt-py\flarelette_jwt\high.py:219</code></td>
-</tr>
-</tbody>
-</table>
+| Field | Value |
+| --- | --- |
+| **Type** | `function` |
+| **Visibility** | `-` |
+| **Returns** | `PolicyBuilder` - PolicyBuilder with chainable methods || **Location** | `C:\Users\chris\git\flarelette-jwt-kit\packages\flarelette-jwt-py\flarelette_jwt\high.py:219` |
 
 
 
@@ -568,26 +297,11 @@ Fluent builder for creating authorization policies.
 ##### `generate_secret()`
 
 
-<table>
-<tbody>
-<tr>
-<td><strong>Type</strong></td>
-<td><code>function</code></td>
-</tr>
-<tr>
-<td><strong>Visibility</strong></td>
-<td><code></code></td>
-</tr>
-<tr>
-<td><strong>Returns</strong></td>
-<td><code>str</code></td>
-</tr>
-<tr>
-<td><strong>Location</strong></td>
-<td><code>C:\Users\chris\git\flarelette-jwt-kit\packages\flarelette-jwt-py\flarelette_jwt\secret.py:18</code></td>
-</tr>
-</tbody>
-</table>
+| Field | Value |
+| --- | --- |
+| **Type** | `function` |
+| **Visibility** | `-` |
+| **Returns** | `str` || **Location** | `C:\Users\chris\git\flarelette-jwt-kit\packages\flarelette-jwt-py\flarelette_jwt\secret.py:18` |
 
 **Parameters:**
 
@@ -597,26 +311,11 @@ Fluent builder for creating authorization policies.
 ##### `is_valid_base64url_secret()`
 
 
-<table>
-<tbody>
-<tr>
-<td><strong>Type</strong></td>
-<td><code>function</code></td>
-</tr>
-<tr>
-<td><strong>Visibility</strong></td>
-<td><code></code></td>
-</tr>
-<tr>
-<td><strong>Returns</strong></td>
-<td><code>bool</code></td>
-</tr>
-<tr>
-<td><strong>Location</strong></td>
-<td><code>C:\Users\chris\git\flarelette-jwt-kit\packages\flarelette-jwt-py\flarelette_jwt\secret.py:23</code></td>
-</tr>
-</tbody>
-</table>
+| Field | Value |
+| --- | --- |
+| **Type** | `function` |
+| **Visibility** | `-` |
+| **Returns** | `bool` || **Location** | `C:\Users\chris\git\flarelette-jwt-kit\packages\flarelette-jwt-py\flarelette_jwt\secret.py:23` |
 
 **Parameters:**
 
@@ -626,26 +325,11 @@ Fluent builder for creating authorization policies.
 ##### `main()`
 
 
-<table>
-<tbody>
-<tr>
-<td><strong>Type</strong></td>
-<td><code>function</code></td>
-</tr>
-<tr>
-<td><strong>Visibility</strong></td>
-<td><code></code></td>
-</tr>
-<tr>
-<td><strong>Returns</strong></td>
-<td><code>int</code></td>
-</tr>
-<tr>
-<td><strong>Location</strong></td>
-<td><code>C:\Users\chris\git\flarelette-jwt-kit\packages\flarelette-jwt-py\flarelette_jwt\secret.py:32</code></td>
-</tr>
-</tbody>
-</table>
+| Field | Value |
+| --- | --- |
+| **Type** | `function` |
+| **Visibility** | `-` |
+| **Returns** | `int` || **Location** | `C:\Users\chris\git\flarelette-jwt-kit\packages\flarelette-jwt-py\flarelette_jwt\secret.py:32` |
 
 **Parameters:**
 
@@ -655,26 +339,11 @@ Fluent builder for creating authorization policies.
 ##### `_b64url()`
 
 
-<table>
-<tbody>
-<tr>
-<td><strong>Type</strong></td>
-<td><code>function</code></td>
-</tr>
-<tr>
-<td><strong>Visibility</strong></td>
-<td><code></code></td>
-</tr>
-<tr>
-<td><strong>Returns</strong></td>
-<td><code>str</code></td>
-</tr>
-<tr>
-<td><strong>Location</strong></td>
-<td><code>C:\Users\chris\git\flarelette-jwt-kit\packages\flarelette-jwt-py\flarelette_jwt\sign.py:21</code></td>
-</tr>
-</tbody>
-</table>
+| Field | Value |
+| --- | --- |
+| **Type** | `function` |
+| **Visibility** | `-` |
+| **Returns** | `str` || **Location** | `C:\Users\chris\git\flarelette-jwt-kit\packages\flarelette-jwt-py\flarelette_jwt\sign.py:21` |
 
 **Parameters:**
 
@@ -685,30 +354,11 @@ Fluent builder for creating authorization policies.
 
 Sign a JWT token with HS512 or EdDSA algorithm.
 
-<table>
-<tbody>
-<tr>
-<td><strong>Type</strong></td>
-<td><code>function</code></td>
-</tr>
-<tr>
-<td><strong>Visibility</strong></td>
-<td><code></code></td>
-</tr>
-<tr>
-<td><strong>Async</strong></td>
-<td>Yes</td>
-</tr>
-<tr>
-<td><strong>Returns</strong></td>
-<td><code>str</code> — Signed JWT token string</td>
-</tr>
-<tr>
-<td><strong>Location</strong></td>
-<td><code>C:\Users\chris\git\flarelette-jwt-kit\packages\flarelette-jwt-py\flarelette_jwt\sign.py:25</code></td>
-</tr>
-</tbody>
-</table>
+| Field | Value |
+| --- | --- |
+| **Type** | `function` |
+| **Visibility** | `-` |
+| **Async** | Yes || **Returns** | `str` - Signed JWT token string || **Location** | `C:\Users\chris\git\flarelette-jwt-kit\packages\flarelette-jwt-py\flarelette_jwt\sign.py:25` |
 
 **Parameters:**
 
@@ -719,26 +369,11 @@ Sign a JWT token with HS512 or EdDSA algorithm.
 
 Parse a JWT token into header and payload without verification.
 
-<table>
-<tbody>
-<tr>
-<td><strong>Type</strong></td>
-<td><code>function</code></td>
-</tr>
-<tr>
-<td><strong>Visibility</strong></td>
-<td><code></code></td>
-</tr>
-<tr>
-<td><strong>Returns</strong></td>
-<td><code>ParsedJwt</code> — Dictionary with 'header' and 'payload' keys</td>
-</tr>
-<tr>
-<td><strong>Location</strong></td>
-<td><code>C:\Users\chris\git\flarelette-jwt-kit\packages\flarelette-jwt-py\flarelette_jwt\util.py:31</code></td>
-</tr>
-</tbody>
-</table>
+| Field | Value |
+| --- | --- |
+| **Type** | `function` |
+| **Visibility** | `-` |
+| **Returns** | `ParsedJwt` - Dictionary with 'header' and 'payload' keys || **Location** | `C:\Users\chris\git\flarelette-jwt-kit\packages\flarelette-jwt-py\flarelette_jwt\util.py:31` |
 
 **Parameters:**
 
@@ -749,26 +384,11 @@ Parse a JWT token into header and payload without verification.
 
 Check if JWT payload will expire within specified seconds.
 
-<table>
-<tbody>
-<tr>
-<td><strong>Type</strong></td>
-<td><code>function</code></td>
-</tr>
-<tr>
-<td><strong>Visibility</strong></td>
-<td><code></code></td>
-</tr>
-<tr>
-<td><strong>Returns</strong></td>
-<td><code>bool</code> — True if token expires within the threshold</td>
-</tr>
-<tr>
-<td><strong>Location</strong></td>
-<td><code>C:\Users\chris\git\flarelette-jwt-kit\packages\flarelette-jwt-py\flarelette_jwt\util.py:49</code></td>
-</tr>
-</tbody>
-</table>
+| Field | Value |
+| --- | --- |
+| **Type** | `function` |
+| **Visibility** | `-` |
+| **Returns** | `bool` - True if token expires within the threshold || **Location** | `C:\Users\chris\git\flarelette-jwt-kit\packages\flarelette-jwt-py\flarelette_jwt\util.py:49` |
 
 **Parameters:**
 
@@ -779,26 +399,11 @@ Check if JWT payload will expire within specified seconds.
 
 Map OAuth scopes to permission strings.
 
-<table>
-<tbody>
-<tr>
-<td><strong>Type</strong></td>
-<td><code>function</code></td>
-</tr>
-<tr>
-<td><strong>Visibility</strong></td>
-<td><code></code></td>
-</tr>
-<tr>
-<td><strong>Returns</strong></td>
-<td><code>list[str]</code> — List of permission strings (currently identity mapping)</td>
-</tr>
-<tr>
-<td><strong>Location</strong></td>
-<td><code>C:\Users\chris\git\flarelette-jwt-kit\packages\flarelette-jwt-py\flarelette_jwt\util.py:63</code></td>
-</tr>
-</tbody>
-</table>
+| Field | Value |
+| --- | --- |
+| **Type** | `function` |
+| **Visibility** | `-` |
+| **Returns** | `list[str]` - List of permission strings (currently identity mapping) || **Location** | `C:\Users\chris\git\flarelette-jwt-kit\packages\flarelette-jwt-py\flarelette_jwt\util.py:63` |
 
 **Parameters:**
 
@@ -808,26 +413,11 @@ Map OAuth scopes to permission strings.
 ##### `_b64url_decode()`
 
 
-<table>
-<tbody>
-<tr>
-<td><strong>Type</strong></td>
-<td><code>function</code></td>
-</tr>
-<tr>
-<td><strong>Visibility</strong></td>
-<td><code></code></td>
-</tr>
-<tr>
-<td><strong>Returns</strong></td>
-<td><code>bytes</code></td>
-</tr>
-<tr>
-<td><strong>Location</strong></td>
-<td><code>C:\Users\chris\git\flarelette-jwt-kit\packages\flarelette-jwt-py\flarelette_jwt\verify.py:29</code></td>
-</tr>
-</tbody>
-</table>
+| Field | Value |
+| --- | --- |
+| **Type** | `function` |
+| **Visibility** | `-` |
+| **Returns** | `bytes` || **Location** | `C:\Users\chris\git\flarelette-jwt-kit\packages\flarelette-jwt-py\flarelette_jwt\verify.py:35` |
 
 **Parameters:**
 
@@ -838,30 +428,11 @@ Map OAuth scopes to permission strings.
 
 Verify a JWT token with HS512 or EdDSA algorithm.
 
-<table>
-<tbody>
-<tr>
-<td><strong>Type</strong></td>
-<td><code>function</code></td>
-</tr>
-<tr>
-<td><strong>Visibility</strong></td>
-<td><code></code></td>
-</tr>
-<tr>
-<td><strong>Async</strong></td>
-<td>Yes</td>
-</tr>
-<tr>
-<td><strong>Returns</strong></td>
-<td><code>JwtPayload | None</code> — Decoded payload if valid, None otherwise</td>
-</tr>
-<tr>
-<td><strong>Location</strong></td>
-<td><code>C:\Users\chris\git\flarelette-jwt-kit\packages\flarelette-jwt-py\flarelette_jwt\verify.py:33</code></td>
-</tr>
-</tbody>
-</table>
+| Field | Value |
+| --- | --- |
+| **Type** | `function` |
+| **Visibility** | `-` |
+| **Async** | Yes || **Returns** | `JwtPayload \| None` - Decoded payload if valid, None otherwise || **Location** | `C:\Users\chris\git\flarelette-jwt-kit\packages\flarelette-jwt-py\flarelette_jwt\verify.py:39` |
 
 **Parameters:**
 
@@ -876,3 +447,4 @@ Verify a JWT token with HS512 or EdDSA algorithm.
 <div align="center">
 <sub><a href="./flarelette_jwt.md">← Back to Container</a> | <a href="./README.md">← Back to System</a> | Generated with <a href="https://github.com/chrislyons-dev/archlette">Archlette</a></sub>
 </div>
+

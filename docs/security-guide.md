@@ -1,6 +1,6 @@
 # Security Guide
 
-Comprehensive security baseline for Flarelette JWT Kit across HS512, EdDSA, and RSA profiles.
+Comprehensive security baseline for Flarelette JWT Kit across HS512, EdDSA, ECDSA, and RSA profiles.
 
 ## Trust Model: Why This Library Is Secure
 
@@ -17,7 +17,7 @@ Flarelette JWT Kit is designed from the ground up to prevent the most common JWT
 - **Mode determined by server configuration only** — Verification mode (HS512 vs EdDSA/RSA) is chosen exclusively from server environment variables, never from the token header
 - **Strict algorithm whitelists** — Each mode has an explicit whitelist of allowed algorithms:
   - HS512 mode: `['HS512']` only
-  - EdDSA/RSA mode: `['EdDSA', 'RS256', 'RS384', 'RS512']` only
+  - EdDSA/ECDSA/RSA mode: `['EdDSA', 'ES256', 'ES384', 'ES512', 'RS256', 'RS384', 'RS512']` only
 - **No `none` algorithm support** — The `none` algorithm is never included in any whitelist
 - **Token `alg` treated as untrusted input** — The `alg` header must match the allowed algorithms for the selected mode. Mismatches are rejected.
 
@@ -108,13 +108,16 @@ if (buf.length < 64) {
 When importing JWKs, the expected algorithm is provided explicitly to the `jose` library:
 
 ```typescript
-// Inline JWK import with explicit algorithm
-const key = await importJWK(jwk, 'EdDSA') // Algorithm pinned at import time
+// Inline JWK import — EdDSA requires explicit algorithm hint; EC/RSA auto-detected
+const key =
+  jwk.kty === 'OKP'
+    ? await importJWK(jwk, 'EdDSA') // OKP keys need explicit algorithm
+    : await importJWK(jwk) // EC/RSA keys: jose auto-detects from kty+crv
 ```
 
-This ensures keys cannot be repurposed for other algorithms, even within the same key family (e.g., cannot use Ed25519 key for RS256).
+The algorithm whitelist in `jwtVerify()` provides the primary protection (only whitelisted algorithms accepted). Explicit algorithm specification at import time adds a second layer of defense.
 
-**Code location:** `src/verify.ts:73`
+**Code location:** `src/verify.ts:71-73`
 
 ### Fail-Silent Pattern with Observability
 
@@ -146,7 +149,7 @@ if (!payload) {
 
 ## Cryptographic Profiles
 
-The kit supports three JWT algorithm profiles by design. Each has specific security properties and use cases.
+The kit supports four JWT algorithm profiles by design. Each has specific security properties and use cases.
 
 ### HS512 (Symmetric)
 
@@ -195,6 +198,31 @@ The kit supports three JWT algorithm profiles by design. Each has specific secur
 - Zero-trust architecture with distributed services
 - Public verification needed (consumers don't need signing capability)
 
+### ECDSA (ES256/ES384/ES512) — TypeScript Only
+
+| Property         | Value                                                        |
+| ---------------- | ------------------------------------------------------------ |
+| Algorithm        | ECDSA with P-256, P-384, or P-521 curves                     |
+| Key material     | EC private/public key pair (JSON Web Keys)                   |
+| Security level   | 128–256-bit depending on curve                               |
+| Key distribution | Public key distributed via JWKS or inline                    |
+| Use case         | Self-hosted OIDC gateway (ES512); external OIDC verification |
+
+**Security properties:**
+
+- Asymmetric: private key signs, public key verifies
+- ES512 (P-521) signing available via TypeScript explicit API (`createES512SignConfig`)
+- Verification supports tokens from OIDC providers using any ECDSA curve
+- jose auto-detects EC algorithm from JWK `kty`/`crv` fields at import
+
+**When to use:**
+
+- Verifying tokens from OIDC providers that use ECDSA (ES256 is common; ES512 is FIPS-preferred)
+- Self-hosted OIDC gateway that must sign with P-521 for compliance
+- When standards requirements mandate ECDSA over EdDSA
+
+**Note:** ECDSA signing is TypeScript explicit API only. Environment-driven mode detection (`JWT_PRIVATE_JWK*`) triggers EdDSA, not ECDSA.
+
 ## Key Generation
 
 ### HS512 Secrets
@@ -237,24 +265,52 @@ secret = generate_secret(64)
 print(f"JWT_SECRET={secret}")
 ```
 
-### EdDSA Keypairs
+### Asymmetric Keypairs (EdDSA and ECDSA)
 
-**Generate with CLI:**
+The `flarelette-jwt-keygen` CLI generates EdDSA (Ed25519) or ECDSA (P-256/P-384/P-521) keypairs. EdDSA is the default.
+
+**Flags:**
+
+| Flag          | Description                                   | Default             |
+| ------------- | --------------------------------------------- | ------------------- |
+| `--alg=<alg>` | Algorithm: `EdDSA`, `ES256`, `ES384`, `ES512` | `EdDSA`             |
+| `--kid=<id>`  | Key ID to embed in JWK                        | `<alg>-<timestamp>` |
+| `--dotenv`    | Output as `.env` `JWT_*` variable assignments | JSON object         |
+
+**Generate EdDSA keypair (default — recommended for new deployments):**
 
 ```bash
+# Ed25519: fast, compact signatures, strong security. Preferred for new internal services.
 npx flarelette-jwt-keygen --kid=ed25519-2025-01
 ```
 
-**Output:**
+**Generate ES512 keypair (ECDSA P-521 — use when FIPS or ECDSA compatibility is required):**
+
+```bash
+# ES512: FIPS-compliant ECDSA P-521. Use when standards mandate ECDSA over EdDSA.
+npx flarelette-jwt-keygen --alg=ES512 --kid=es512-2025-01
+```
+
+**Generate as `.env` assignments for direct use:**
+
+```bash
+npx flarelette-jwt-keygen --alg=EdDSA --dotenv
+# Outputs:
+# JWT_PUBLIC_JWK='{"kty":"OKP","crv":"Ed25519",...}'
+# JWT_PRIVATE_JWK='{"kty":"OKP","crv":"Ed25519","d":"...",...}'
+```
+
+**JSON output format:**
 
 ```json
 {
-  "kid": "ed25519-2025-01",
   "publicJwk": {
     "kty": "OKP",
     "crv": "Ed25519",
     "x": "<base64url-public-key>",
-    "kid": "ed25519-2025-01"
+    "kid": "ed25519-2025-01",
+    "alg": "EdDSA",
+    "use": "sig"
   },
   "privateJwk": {
     "kty": "OKP",
@@ -713,7 +769,7 @@ regex = '''JWT_(SECRET|PRIVATE_JWK|PUBLIC_JWK|JWKS_URL)\s*=\s*["']?[A-Za-z0-9_\-
 
 Before deploying to production:
 
-- [ ] HS512 or EdDSA explicitly enforced (not both in same environment)
+- [ ] Single algorithm mode enforced: HS512 **or** asymmetric (EdDSA/ECDSA/RSA) — not both in same environment
 - [ ] Secrets stored as Cloudflare bindings (`*_NAME` pattern)
 - [ ] TTL ≤ 15 minutes; leeway ≤ 90 seconds
 - [ ] `JWT_AUD` is specific per service (no wildcard audiences) — prevents token reuse between services

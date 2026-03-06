@@ -1,4 +1,4 @@
-# Cloudflare Workers
+# Deployment
 
 Deploy Flarelette JWT Kit to Cloudflare Workers with proper secret management and service bindings.
 
@@ -354,6 +354,126 @@ export default app
 wrangler deploy --config wrangler.consumer.toml
 ```
 
+## Internal JWKS via Service Binding
+
+Service bindings are the right way to distribute keys inside a Cloudflare mesh — not public HTTPS endpoints.
+
+### Why not a public JWKS endpoint?
+
+Exposing JWKS over HTTPS creates unnecessary public surface:
+
+- Any client on the internet can discover your key material
+- You need TLS termination, DNS, and public routing just for internal key distribution
+- It invites SSRF probes and unsolicited JWKS abuse
+
+Service bindings keep the JWKS exchange internal: Worker-to-Worker RPC, no internet route, no DNS round-trip.
+
+### How it works
+
+`makeKit(env)` automatically detects a service binding when `JWT_JWKS_SERVICE_NAME` is set. It reads the binding name from the env, fetches `/.well-known/jwks.json` from the gateway Worker via RPC, caches the result for 5 minutes, and uses the matching key to verify the token.
+
+### Gateway setup
+
+Expose the JWKS on an internal-only route (no public `[[routes]]` entry):
+
+**`src/gateway.ts` (relevant excerpt):**
+
+```typescript
+import { Hono } from 'hono'
+import { makeKit } from '@chrislyons-dev/flarelette-jwt/adapters/hono'
+
+const app = new Hono()
+
+app.use('*', async (c, next) => {
+  c.set('jwt', makeKit(c.env))
+  await next()
+})
+
+// Internal JWKS — only reachable via service binding, not public internet
+app.get('/.well-known/jwks.json', async c => {
+  const publicJwk = JSON.parse(c.env.GATEWAY_PUBLIC)
+  return c.json({ keys: [publicJwk] })
+})
+
+export default app
+```
+
+**`wrangler.gateway.toml`:**
+
+```toml
+name = "jwt-gateway"
+main = "src/gateway.ts"
+
+[vars]
+JWT_PRIVATE_JWK_NAME = "GATEWAY_PRIVATE"
+JWT_PUBLIC_JWK_NAME  = "GATEWAY_PUBLIC"
+JWT_KID              = "ed25519-2025-01"
+JWT_ISS              = "https://gateway.internal"
+JWT_AUD              = "internal-api"
+```
+
+```bash
+npx flarelette-jwt-keygen --kid=ed25519-2025-01 > keys.json
+wrangler secret put GATEWAY_PRIVATE --config wrangler.gateway.toml  # paste privateJwk
+wrangler secret put GATEWAY_PUBLIC  --config wrangler.gateway.toml  # paste publicJwk
+wrangler deploy --config wrangler.gateway.toml
+```
+
+### Consumer setup
+
+Declare the service binding and point `JWT_JWKS_SERVICE_NAME` at its binding name:
+
+**`wrangler.consumer.toml`:**
+
+```toml
+name = "consumer-api"
+main = "src/consumer.ts"
+
+[vars]
+JWT_JWKS_SERVICE_NAME = "GATEWAY_BINDING"
+JWT_ISS               = "https://gateway.internal"
+JWT_AUD               = "internal-api"
+
+[[services]]
+binding = "GATEWAY_BINDING"
+service = "jwt-gateway"
+environment = "production"
+```
+
+**`src/consumer.ts`:**
+
+```typescript
+import { Hono } from 'hono'
+import { makeKit } from '@chrislyons-dev/flarelette-jwt/adapters/hono'
+
+const app = new Hono()
+
+app.use('*', async (c, next) => {
+  c.set('jwt', makeKit(c.env)) // Detects GATEWAY_BINDING automatically
+  await next()
+})
+
+app.get('/secure', async c => {
+  const jwt = c.get('jwt')
+  const token = c.req.header('Authorization')?.replace('Bearer ', '')
+  const auth = await jwt.checkAuth(token, jwt.policy().build())
+  if (!auth) return c.json({ error: 'Unauthorized' }, 401)
+  return c.json({ data: 'secure', user: auth.sub })
+})
+
+export default app
+```
+
+```bash
+wrangler deploy --config wrangler.consumer.toml
+```
+
+### JWKS caching
+
+Keys are cached in-memory for 5 minutes. On first verification, the consumer fetches `/.well-known/jwks.json` from the gateway via RPC. Subsequent requests within the TTL window hit the cache. After 5 minutes, the next verification triggers a refresh.
+
+No configuration required — the 5-minute TTL is fixed to match jose's `cooldownDuration`.
+
 ## Testing Locally
 
 **With Wrangler:**
@@ -462,5 +582,5 @@ console.log({
 - **[Wrangler CLI](https://developers.cloudflare.com/workers/wrangler/)**
 - **[Service Bindings](https://developers.cloudflare.com/workers/runtime-apis/bindings/service-bindings/)**
 - **[Secrets Management](https://developers.cloudflare.com/workers/configuration/secrets/)**
-- **[Core Concepts](./core-concepts.md)** — Algorithm selection and architecture
+- **[Core Concepts](./user-guide/core-concepts.md)** — Algorithm selection and architecture
 - **[Security Guide](./security-guide.md)** — Best practices and threat model

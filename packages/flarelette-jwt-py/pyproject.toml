@@ -5,7 +5,7 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "flarelette-jwt"
 version = "1.12.0"
-description = "Environment-driven JWT authentication for Cloudflare Workers Python with secret-name indirection"
+description = "Python implementation of the Flarelette JWT Kit: An environment-driven JWT authentication package for Cloudflare Workers"
 readme = "README.md"
 requires-python = ">=3.11"
 license = { text = "MIT" }

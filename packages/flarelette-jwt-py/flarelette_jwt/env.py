@@ -41,7 +41,9 @@ class JwtHeader(TypedDict, total=False):
     EdDSA deployments with multiple active keys.
     """
 
-    alg: AlgType  # Algorithm: HS512 or EdDSA
+    alg: (
+        str  # Algorithm as reported in the JWT header (e.g. HS512, EdDSA, ES512, RS256)
+    )
     typ: str  # Token type, typically "JWT"
     kid: str  # Key ID for key rotation (optional)
 
@@ -155,13 +157,24 @@ def mode(role: str) -> AlgType:
         return "EdDSA"
 
     # Consumers use public keys or JWKS to verify
-    if role == "consumer" and (
-        os.getenv("JWT_PUBLIC_JWK")
-        or os.getenv("JWT_PUBLIC_JWK_NAME")
-        or os.getenv("JWT_JWKS_URL")
-        or os.getenv("JWT_JWKS_URL_NAME")
-    ):
-        return "EdDSA"
+    if role == "consumer":
+        has_hs512 = bool(os.getenv("JWT_SECRET") or os.getenv("JWT_SECRET_NAME"))
+        has_asymmetric = bool(
+            os.getenv("JWT_PUBLIC_JWK")
+            or os.getenv("JWT_PUBLIC_JWK_NAME")
+            or os.getenv("JWT_JWKS_URL")
+            or os.getenv("JWT_JWKS_URL_NAME")
+        )
+
+        if has_hs512 and has_asymmetric:
+            raise RuntimeError(
+                "Configuration error: Both HS512 (JWT_SECRET) and asymmetric "
+                "(JWT_PUBLIC_JWK/JWT_JWKS_*) secrets configured. "
+                "Choose one to prevent algorithm confusion attacks."
+            )
+
+        if has_asymmetric:
+            return "EdDSA"
 
     return "HS512"
 
@@ -218,12 +231,29 @@ def get_hs_secret_bytes() -> bytes:
         )
     try:
         b = base64.urlsafe_b64decode(s + "=" * (-len(s) % 4))
-        if len(b) >= 32:
+        # SECURITY: HS512 uses SHA-512 (512 bits = 64 bytes). Enforce minimum 64-byte secret.
+        if len(b) >= 64:
             return b
+        raise RuntimeError(
+            f"JWT secret too short: {len(b)} bytes, need >= 64 for HS512 "
+            "(use 'python -m flarelette_jwt.secret --len=64')"
+        )
+    except RuntimeError:
+        raise
     except Exception:
         pass
-    return s.encode("utf-8")
+    b = s.encode("utf-8")
+    if len(b) < 64:
+        raise RuntimeError(
+            f"JWT secret too short: {len(b)} bytes, need >= 64 for HS512 "
+            "(use 'python -m flarelette_jwt.secret --len=64')"
+        )
+    return b
 
 
 def get_public_jwk_string() -> str | None:
     return _get_indirect("JWT_PUBLIC_JWK_NAME", "JWT_PUBLIC_JWK")
+
+
+def get_jwks_url() -> str | None:
+    return _get_indirect("JWT_JWKS_URL_NAME", "JWT_JWKS_URL")
