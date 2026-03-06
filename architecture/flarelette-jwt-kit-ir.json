@@ -8,7 +8,7 @@
   "actors": [],
   "containers": [
     {
-      "description": "Environment-driven JWT authentication for Cloudflare Workers with secret-name indirection",
+      "description": "TypeScript implementation of the Flarelette JWT Kit: An environment-driven JWT authentication package for Cloudflare Workers",
       "tags": [
         "Auto-generated"
       ],
@@ -18,7 +18,7 @@
       "layer": "Application"
     },
     {
-      "description": "Environment-driven JWT authentication for Cloudflare Workers Python with secret-name indirection",
+      "description": "Python implementation of the Flarelette JWT Kit: An environment-driven JWT authentication package for Cloudflare Workers",
       "tags": [
         "Auto-generated"
       ],
@@ -37,21 +37,21 @@
       "type": "module"
     },
     {
-      "description": "Explicit configuration API for JWT operations.\r\n\r\nThis module provides functions that accept explicit configuration objects\r\ninstead of relying on environment variables or global state. Use this API\r\nwhen you need full control over configuration, especially in development\r\nenvironments or when working with multiple JWT configurations.",
+      "description": "Explicit configuration API for JWT operations.\n\nThis module provides functions that accept explicit configuration objects\ninstead of relying on environment variables or global state. Use this API\nwhen you need full control over configuration, especially in development\nenvironments or when working with multiple JWT configurations.",
       "id": "chrislyons_dev_flarelette_jwt__explicit",
       "containerId": "chrislyons_dev_flarelette_jwt",
       "name": "explicit",
       "type": "module"
     },
     {
-      "description": "High-level JWT utilities for creating, delegating, verifying, and authorizing JWT tokens | Key generation utility for EdDSA keys.\n\nThis script generates EdDSA key pairs and exports them in JWK format.\nIt is designed to be executed as a standalone Node.js script. | Secret generation and validation utilities.\n\nThis module provides functions to generate secure secrets and validate base64url-encoded secrets.\nIt ensures compatibility with JWT signing requirements. | Utility functions for JWT operations.\n\nThis module provides helper functions for parsing JWTs, checking expiration, and mapping OAuth scopes.\nIt is designed to support core JWT functionalities.",
+      "description": "High-level JWT utilities for creating, delegating, verifying, and authorizing JWT tokens | Key generation utility for EdDSA and ECDSA keys.\n\nGenerates asymmetric key pairs and exports them in JWK format.\nDesigned to be executed as a standalone Node.js script. | Secret generation and validation utilities.\n\nThis module provides functions to generate secure secrets and validate base64url-encoded secrets.\nIt ensures compatibility with JWT signing requirements. | Utility functions for JWT operations.\n\nThis module provides helper functions for parsing JWTs, checking expiration, and mapping OAuth scopes.\nIt is designed to support core JWT functionalities.",
       "id": "chrislyons_dev_flarelette_jwt__util",
       "containerId": "chrislyons_dev_flarelette_jwt",
       "name": "util",
       "type": "module"
     },
     {
-      "description": "Entry point for the flarelette-jwt library.\r\n\r\nThis module re-exports core functionalities, including signing, verification, utilities, and type definitions.\r\nIt serves as the main interface for library consumers.",
+      "description": "Entry point for the flarelette-jwt library.\n\nThis module re-exports core functionalities, including signing, verification, utilities, and type definitions.\nIt serves as the main interface for library consumers.",
       "id": "chrislyons_dev_flarelette_jwt__main",
       "containerId": "chrislyons_dev_flarelette_jwt",
       "name": "main",
@@ -165,7 +165,7 @@
       "visibility": "public",
       "isAsync": false,
       "filePath": "C:/Users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/src/config.ts",
-      "lineNumber": 65
+      "lineNumber": 66
     },
     {
       "description": "Get JWT profile from environment\nReturns complete JwtProfile with detected algorithm",
@@ -187,7 +187,7 @@
       "visibility": "public",
       "isAsync": false,
       "filePath": "C:/Users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/src/config.ts",
-      "lineNumber": 78
+      "lineNumber": 79
     },
     {
       "id": "chrislyons_dev_flarelette_jwt__core__gethssecret",
@@ -199,7 +199,7 @@
       "visibility": "public",
       "isAsync": false,
       "filePath": "C:/Users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/src/config.ts",
-      "lineNumber": 93
+      "lineNumber": 94
     },
     {
       "id": "chrislyons_dev_flarelette_jwt__core__getprivatejwkstring",
@@ -211,7 +211,7 @@
       "visibility": "public",
       "isAsync": false,
       "filePath": "C:/Users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/src/config.ts",
-      "lineNumber": 126
+      "lineNumber": 127
     },
     {
       "id": "chrislyons_dev_flarelette_jwt__core__getpublicjwkstring",
@@ -223,7 +223,7 @@
       "visibility": "public",
       "isAsync": false,
       "filePath": "C:/Users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/src/config.ts",
-      "lineNumber": 132
+      "lineNumber": 133
     },
     {
       "id": "chrislyons_dev_flarelette_jwt__core__getjwksservicename",
@@ -235,7 +235,7 @@
       "visibility": "public",
       "isAsync": false,
       "filePath": "C:/Users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/src/config.ts",
-      "lineNumber": 138
+      "lineNumber": 139
     },
     {
       "id": "chrislyons_dev_flarelette_jwt__core__getjwksurl",
@@ -247,7 +247,7 @@
       "visibility": "public",
       "isAsync": false,
       "filePath": "C:/Users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/src/config.ts",
-      "lineNumber": 144
+      "lineNumber": 145
     },
     {
       "id": "chrislyons_dev_flarelette_jwt__core__getjwkscachettl",
@@ -259,7 +259,7 @@
       "visibility": "public",
       "isAsync": false,
       "filePath": "C:/Users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/src/config.ts",
-      "lineNumber": 148
+      "lineNumber": 151
     },
     {
       "description": "Sign a JWT token with explicit configuration",
@@ -270,7 +270,7 @@
       "documentation": {
         "summary": "Sign a JWT token with explicit configuration",
         "examples": [
-          "```typescript\r\n// HS512 mode\r\nconst config: HS512Config = {\r\n  alg: 'HS512',\r\n  secret: new Uint8Array(32), // Your secret\r\n  iss: 'https://gateway.example.com',\r\n  aud: 'api.example.com',\r\n  ttlSeconds: 900\r\n}\r\nconst token = await signWithConfig({ sub: 'user123' }, config)\r\n\r\n// EdDSA mode\r\nconst config: EdDSASignConfig = {\r\n  alg: 'EdDSA',\r\n  privateJwk: { kty: 'OKP', crv: 'Ed25519', d: '...', x: '...' },\r\n  kid: 'ed25519-2025-01',\r\n  iss: 'https://gateway.example.com',\r\n  aud: 'api.example.com'\r\n}\r\nconst token = await signWithConfig({ sub: 'user123' }, config)\r\n```"
+          "```typescript\n// HS512 mode\nconst config: HS512Config = {\n  alg: 'HS512',\n  secret: new Uint8Array(32), // Your secret\n  iss: 'https://gateway.example.com',\n  aud: 'api.example.com',\n  ttlSeconds: 900\n}\nconst token = await signWithConfig({ sub: 'user123' }, config)\n\n// EdDSA mode\nconst config: EdDSASignConfig = {\n  alg: 'EdDSA',\n  privateJwk: { kty: 'OKP', crv: 'Ed25519', d: '...', x: '...' },\n  kid: 'ed25519-2025-01',\n  iss: 'https://gateway.example.com',\n  aud: 'api.example.com'\n}\nconst token = await signWithConfig({ sub: 'user123' }, config)\n```"
         ]
       },
       "returnType": "Promise<string>",
@@ -298,7 +298,7 @@
       "visibility": "public",
       "isAsync": true,
       "filePath": "C:/Users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/src/explicit.ts",
-      "lineNumber": 122
+      "lineNumber": 150
     },
     {
       "description": "Verify a JWT token with explicit configuration",
@@ -309,7 +309,7 @@
       "documentation": {
         "summary": "Verify a JWT token with explicit configuration",
         "examples": [
-          "```typescript\r\n// HS512 mode\r\nconst config: HS512Config = {\r\n  alg: 'HS512',\r\n  secret: new Uint8Array(32), // Same secret used for signing\r\n  iss: 'https://gateway.example.com',\r\n  aud: 'api.example.com'\r\n}\r\nconst payload = await verifyWithConfig(token, config)\r\n\r\n// EdDSA mode\r\nconst config: EdDSAVerifyConfig = {\r\n  alg: 'EdDSA',\r\n  publicJwk: { kty: 'OKP', crv: 'Ed25519', x: '...' },\r\n  iss: 'https://gateway.example.com',\r\n  aud: 'api.example.com'\r\n}\r\nconst payload = await verifyWithConfig(token, config)\r\n```"
+          "```typescript\n// HS512 mode\nconst config: HS512Config = {\n  alg: 'HS512',\n  secret: new Uint8Array(32), // Same secret used for signing\n  iss: 'https://gateway.example.com',\n  aud: 'api.example.com'\n}\nconst payload = await verifyWithConfig(token, config)\n\n// EdDSA mode\nconst config: EdDSAVerifyConfig = {\n  alg: 'EdDSA',\n  publicJwk: { kty: 'OKP', crv: 'Ed25519', x: '...' },\n  iss: 'https://gateway.example.com',\n  aud: 'api.example.com'\n}\nconst payload = await verifyWithConfig(token, config)\n```"
         ]
       },
       "returnType": "Promise<import(\"C:/Users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/src/types\").JwtPayload>",
@@ -337,16 +337,16 @@
       "visibility": "public",
       "isAsync": true,
       "filePath": "C:/Users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/src/explicit.ts",
-      "lineNumber": 181
+      "lineNumber": 224
     },
     {
-      "description": "Create a signed JWT token with explicit configuration\r\n\r\nHigher-level wrapper around signWithConfig for convenience.",
+      "description": "Create a signed JWT token with explicit configuration\n\nHigher-level wrapper around signWithConfig for convenience.",
       "id": "chrislyons_dev_flarelette_jwt__explicit__createtokenwithconfig",
       "componentId": "chrislyons_dev_flarelette_jwt__explicit",
       "name": "createTokenWithConfig",
       "type": "function",
       "documentation": {
-        "summary": "Create a signed JWT token with explicit configuration\r\n\r\nHigher-level wrapper around signWithConfig for convenience."
+        "summary": "Create a signed JWT token with explicit configuration\n\nHigher-level wrapper around signWithConfig for convenience."
       },
       "returnType": "Promise<string>",
       "returnDescription": "Signed JWT token string",
@@ -373,18 +373,18 @@
       "visibility": "public",
       "isAsync": true,
       "filePath": "C:/Users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/src/explicit.ts",
-      "lineNumber": 246
+      "lineNumber": 293
     },
     {
-      "description": "Create a delegated JWT token with explicit configuration\r\n\r\nImplements RFC 8693 actor claim pattern for service-to-service delegation.",
+      "description": "Create a delegated JWT token with explicit configuration\n\nImplements RFC 8693 actor claim pattern for service-to-service delegation.",
       "id": "chrislyons_dev_flarelette_jwt__explicit__createdelegatedtokenwithconfig",
       "componentId": "chrislyons_dev_flarelette_jwt__explicit",
       "name": "createDelegatedTokenWithConfig",
       "type": "function",
       "documentation": {
-        "summary": "Create a delegated JWT token with explicit configuration\r\n\r\nImplements RFC 8693 actor claim pattern for service-to-service delegation.",
+        "summary": "Create a delegated JWT token with explicit configuration\n\nImplements RFC 8693 actor claim pattern for service-to-service delegation.",
         "examples": [
-          "```typescript\r\nconst config: HS512Config = {\r\n  alg: 'HS512',\r\n  secret: mySecret,\r\n  iss: 'https://gateway.example.com',\r\n  aud: 'internal-api'\r\n}\r\n\r\n// Gateway receives Auth0 token and creates delegated token\r\nconst auth0Payload = await verifyAuth0Token(externalToken)\r\nconst internalToken = await createDelegatedTokenWithConfig(\r\n  auth0Payload,\r\n  'gateway-service',\r\n  config\r\n)\r\n```"
+          "```typescript\nconst config: HS512Config = {\n  alg: 'HS512',\n  secret: mySecret,\n  iss: 'https://gateway.example.com',\n  aud: 'internal-api'\n}\n\n// Gateway receives Auth0 token and creates delegated token\nconst auth0Payload = await verifyAuth0Token(externalToken)\nconst internalToken = await createDelegatedTokenWithConfig(\n  auth0Payload,\n  'gateway-service',\n  config\n)\n```"
         ]
       },
       "returnType": "Promise<string>",
@@ -418,7 +418,7 @@
       "visibility": "public",
       "isAsync": true,
       "filePath": "C:/Users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/src/explicit.ts",
-      "lineNumber": 283
+      "lineNumber": 330
     },
     {
       "description": "Verify and authorize a JWT token with explicit configuration",
@@ -429,7 +429,7 @@
       "documentation": {
         "summary": "Verify and authorize a JWT token with explicit configuration",
         "examples": [
-          "```typescript\r\nconst config: HS512Config = {\r\n  alg: 'HS512',\r\n  secret: mySecret,\r\n  iss: 'https://gateway.example.com',\r\n  aud: 'api.example.com'\r\n}\r\n\r\nconst user = await checkAuthWithConfig(token, config, {\r\n  require_all_permissions: ['read:data'],\r\n  require_any_permission: ['admin', 'editor']\r\n})\r\n\r\nif (user) {\r\n  console.log('Authorized user:', user.sub)\r\n}\r\n```"
+          "```typescript\nconst config: HS512Config = {\n  alg: 'HS512',\n  secret: mySecret,\n  iss: 'https://gateway.example.com',\n  aud: 'api.example.com'\n}\n\nconst user = await checkAuthWithConfig(token, config, {\n  require_all_permissions: ['read:data'],\n  require_any_permission: ['admin', 'editor']\n})\n\nif (user) {\n  console.log('Authorized user:', user.sub)\n}\n```"
         ]
       },
       "returnType": "Promise<import(\"C:/Users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/src/explicit\").AuthUser>",
@@ -463,7 +463,7 @@
       "visibility": "public",
       "isAsync": true,
       "filePath": "C:/Users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/src/explicit.ts",
-      "lineNumber": 369
+      "lineNumber": 416
     },
     {
       "description": "Helper function to create HS512 config from base64url-encoded secret",
@@ -493,7 +493,7 @@
       "visibility": "public",
       "isAsync": false,
       "filePath": "C:/Users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/src/explicit.ts",
-      "lineNumber": 423
+      "lineNumber": 470
     },
     {
       "description": "Helper function to create EdDSA sign config from JWK",
@@ -528,7 +528,7 @@
       "visibility": "public",
       "isAsync": false,
       "filePath": "C:/Users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/src/explicit.ts",
-      "lineNumber": 452
+      "lineNumber": 499
     },
     {
       "description": "Helper function to create EdDSA verify config from JWK",
@@ -557,27 +557,23 @@
       "visibility": "public",
       "isAsync": false,
       "filePath": "C:/Users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/src/explicit.ts",
-      "lineNumber": 474
+      "lineNumber": 521
     },
     {
-      "description": "Helper function to create HTTP JWKS URL verification config\r\n\r\nEnables testing without environment variables by providing explicit configuration",
-      "id": "chrislyons_dev_flarelette_jwt__explicit__createjwksurlverifyconfig",
+      "description": "Helper function to create ES512 sign config from a P-521 EC private JWK",
+      "id": "chrislyons_dev_flarelette_jwt__explicit__createes512signconfig",
       "componentId": "chrislyons_dev_flarelette_jwt__explicit",
-      "name": "createJWKSUrlVerifyConfig",
+      "name": "createES512SignConfig",
       "type": "function",
       "documentation": {
-        "summary": "Helper function to create HTTP JWKS URL verification config\r\n\r\nEnables testing without environment variables by providing explicit configuration",
-        "examples": [
-          "```typescript\r\n// Auth0 configuration\r\nconst config = createJWKSUrlVerifyConfig(\r\n  'https://tenant.auth0.com/.well-known/jwks.json',\r\n  {\r\n    iss: 'https://tenant.auth0.com/',\r\n    aud: 'my-client-id'\r\n  }\r\n)\r\n\r\nconst payload = await verifyWithConfig(token, config)\r\n```"
-        ]
+        "summary": "Helper function to create ES512 sign config from a P-521 EC private JWK"
       },
-      "returnType": "import(\"C:/Users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/src/explicit\").JWKSUrlVerifyConfig",
-      "returnDescription": "JWKS URL verification configuration",
+      "returnType": "import(\"C:/Users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/src/explicit\").ES512SignConfig",
+      "returnDescription": "ES512 sign configuration",
       "parameters": [
         {
-          "name": "jwksUrl",
-          "type": "string",
-          "description": "- HTTP(S) URL to JWKS endpoint",
+          "name": "privateJwk",
+          "description": "- Private JWK object or JSON string (EC P-521 key)",
           "optional": false
         },
         {
@@ -587,16 +583,78 @@
           "optional": false
         },
         {
-          "name": "cacheTtl",
-          "type": "number",
-          "description": "- Optional cache TTL in seconds (default: 300)",
+          "name": "kid",
+          "type": "string",
+          "description": "- Optional key ID",
           "optional": true
         }
       ],
       "visibility": "public",
       "isAsync": false,
       "filePath": "C:/Users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/src/explicit.ts",
-      "lineNumber": 511
+      "lineNumber": 542
+    },
+    {
+      "description": "Helper function to create ES512 verify config from a P-521 EC public JWK",
+      "id": "chrislyons_dev_flarelette_jwt__explicit__createes512verifyconfig",
+      "componentId": "chrislyons_dev_flarelette_jwt__explicit",
+      "name": "createES512VerifyConfig",
+      "type": "function",
+      "documentation": {
+        "summary": "Helper function to create ES512 verify config from a P-521 EC public JWK"
+      },
+      "returnType": "import(\"C:/Users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/src/explicit\").ES512VerifyConfig",
+      "returnDescription": "ES512 verify configuration",
+      "parameters": [
+        {
+          "name": "publicJwk",
+          "description": "- Public JWK object or JSON string (EC P-521 key)",
+          "optional": false
+        },
+        {
+          "name": "baseConfig",
+          "type": "Omit<import(\"C:/Users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/src/explicit\").BaseJwtConfig, \"ttlSeconds\" | \"leeway\"> & Partial<Pick<import(\"C:/Users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/src/explicit\").BaseJwtConfig, \"ttlSeconds\" | \"leeway\">>",
+          "description": "- Base JWT configuration",
+          "optional": false
+        }
+      ],
+      "visibility": "public",
+      "isAsync": false,
+      "filePath": "C:/Users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/src/explicit.ts",
+      "lineNumber": 564
+    },
+    {
+      "id": "chrislyons_dev_flarelette_jwt__explicit__createjwksurlverifyconfig",
+      "componentId": "chrislyons_dev_flarelette_jwt__explicit",
+      "name": "createJWKSUrlVerifyConfig",
+      "type": "function",
+      "returnType": "import(\"C:/Users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/src/explicit\").JWKSUrlVerifyConfig",
+      "parameters": [
+        {
+          "name": "jwksUrl",
+          "type": "string",
+          "optional": false
+        },
+        {
+          "name": "algOrBaseConfig",
+          "type": "\"EdDSA\" | (Omit<import(\"C:/Users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/src/explicit\").BaseJwtConfig, \"ttlSeconds\" | \"leeway\"> & Partial<Pick<import(\"C:/Users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/src/explicit\").BaseJwtConfig, \"ttlSeconds\" | \"leeway\">>) | \"ES256\" | \"ES384\" | \"ES512\" | \"RS256\" | \"RS384\" | \"RS512\"",
+          "optional": false
+        },
+        {
+          "name": "baseConfigOrCacheTtl",
+          "type": "number | (Omit<import(\"C:/Users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/src/explicit\").BaseJwtConfig, \"ttlSeconds\" | \"leeway\"> & Partial<Pick<import(\"C:/Users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/src/explicit\").BaseJwtConfig, \"ttlSeconds\" | \"leeway\">>)",
+          "optional": true
+        },
+        {
+          "name": "maybeCacheTtl",
+          "type": "number",
+          "optional": true
+        }
+      ],
+      "visibility": "public",
+      "isAsync": false,
+      "filePath": "C:/Users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/src/explicit.ts",
+      "lineNumber": 614
     },
     {
       "description": "Create a signed JWT token with optional claims",
@@ -626,7 +684,7 @@
       "visibility": "public",
       "isAsync": true,
       "filePath": "C:/Users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/src/high.ts",
-      "lineNumber": 18
+      "lineNumber": 19
     },
     {
       "description": "Create a delegated JWT token following RFC 8693 actor claim pattern\n\nMints a new short-lived token for use within service boundaries where a service\nacts on behalf of the original end user. This implements zero-trust delegation:\n- Preserves original user identity (sub) and permissions\n- Identifies the acting service via 'act' claim\n- Prevents permission escalation by copying original permissions\n\nPattern: \"I'm <actorService> doing work on behalf of <original user>\"",
@@ -669,7 +727,79 @@
       "visibility": "public",
       "isAsync": true,
       "filePath": "C:/Users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/src/high.ts",
-      "lineNumber": 61
+      "lineNumber": 62
+    },
+    {
+      "description": "Sign a JWT token bound to a specific HTTP request.\n\nAdds a `req` claim containing base64url(SHA-256(canonical request)) to prevent\nreplay of a captured token against a different endpoint within the TTL window.\n\nCanonical form: METHOD + \"\\n\" + pathname + search + \"\\n\" + body bytes",
+      "id": "chrislyons_dev_flarelette_jwt__util__signwithrequestbinding",
+      "componentId": "chrislyons_dev_flarelette_jwt__util",
+      "name": "signWithRequestBinding",
+      "type": "function",
+      "documentation": {
+        "summary": "Sign a JWT token bound to a specific HTTP request.\n\nAdds a `req` claim containing base64url(SHA-256(canonical request)) to prevent\nreplay of a captured token against a different endpoint within the TTL window.\n\nCanonical form: METHOD + \"\\n\" + pathname + search + \"\\n\" + body bytes"
+      },
+      "returnType": "Promise<string>",
+      "returnDescription": "Signed JWT token string with req claim",
+      "parameters": [
+        {
+          "name": "payload",
+          "type": "import(\"C:/Users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/src/types\").JwtPayload",
+          "description": "- Claims to include in the token",
+          "optional": false
+        },
+        {
+          "name": "request",
+          "type": "Request",
+          "description": "- The HTTP request this token is minted for",
+          "optional": false
+        },
+        {
+          "name": "opts",
+          "type": "Partial<{ iss: string; aud: string | string[]; ttlSeconds: number; }>",
+          "description": "- Optional overrides for iss, aud, ttlSeconds",
+          "optional": true
+        }
+      ],
+      "visibility": "public",
+      "isAsync": true,
+      "filePath": "C:/Users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/src/high.ts",
+      "lineNumber": 112
+    },
+    {
+      "description": "Verify a JWT token and validate its request binding.\n\nRe-computes the request hash and compares it with the `req` claim.\nReturns null on any mismatch (fail-silent, same as verify()).\nThe `req` claim is stripped from the returned payload — it's an implementation\ndetail that has already been validated.",
+      "id": "chrislyons_dev_flarelette_jwt__util__verifywithrequestbinding",
+      "componentId": "chrislyons_dev_flarelette_jwt__util",
+      "name": "verifyWithRequestBinding",
+      "type": "function",
+      "documentation": {
+        "summary": "Verify a JWT token and validate its request binding.\n\nRe-computes the request hash and compares it with the `req` claim.\nReturns null on any mismatch (fail-silent, same as verify()).\nThe `req` claim is stripped from the returned payload — it's an implementation\ndetail that has already been validated."
+      },
+      "returnType": "Promise<import(\"C:/Users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/src/types\").JwtPayload>",
+      "returnDescription": "Payload (without req claim) if valid and request matches, null otherwise",
+      "parameters": [
+        {
+          "name": "token",
+          "type": "string",
+          "description": "- JWT token string to verify",
+          "optional": false
+        },
+        {
+          "name": "request",
+          "type": "Request",
+          "description": "- The HTTP request to validate against",
+          "optional": false
+        },
+        {
+          "name": "opts",
+          "type": "Partial<{ iss: string; aud: string | string[]; leeway: number; jwksService: import(\"C:/Users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/src/types\").Fetcher; }>",
+          "description": "- Optional overrides for iss, aud, leeway",
+          "optional": true
+        }
+      ],
+      "visibility": "public",
+      "isAsync": true,
+      "filePath": "C:/Users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/src/high.ts",
+      "lineNumber": 134
     },
     {
       "description": "Verify and authorize a JWT token with policy enforcement",
@@ -699,7 +829,7 @@
       "visibility": "public",
       "isAsync": true,
       "filePath": "C:/Users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/src/high.ts",
-      "lineNumber": 142
+      "lineNumber": 199
     },
     {
       "description": "Fluent builder for creating authorization policies",
@@ -716,7 +846,7 @@
       "visibility": "public",
       "isAsync": false,
       "filePath": "C:/Users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/src/high.ts",
-      "lineNumber": 177
+      "lineNumber": 234
     },
     {
       "description": "Clear the JWKS cache (for testing purposes)",
@@ -855,7 +985,7 @@
       "visibility": "public",
       "isAsync": true,
       "filePath": "C:/Users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/src/jwks.ts",
-      "lineNumber": 209
+      "lineNumber": 211
     },
     {
       "description": "Get allowed thumbprints for key pinning (optional security measure)",
@@ -871,7 +1001,7 @@
       "visibility": "public",
       "isAsync": false,
       "filePath": "C:/Users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/src/jwks.ts",
-      "lineNumber": 242
+      "lineNumber": 244
     },
     {
       "id": "chrislyons_dev_flarelette_jwt__util__main",
@@ -883,7 +1013,7 @@
       "visibility": "private",
       "isAsync": true,
       "filePath": "C:/Users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/src/keygen.ts",
-      "lineNumber": 15
+      "lineNumber": 16
     },
     {
       "id": "chrislyons_dev_flarelette_jwt__util__generatesecret",
@@ -1037,6 +1167,30 @@
       "lineNumber": 47
     },
     {
+      "description": "Compute a deterministic SHA-256 hash that binds a JWT to a specific HTTP request.\n\nCanonical form: UTF-8(METHOD + \"\\n\" + pathname + search + \"\\n\") || body_bytes\n- Method is uppercased\n- Binds to path and query string only (not host/scheme — internal Workers use different hostnames)\n- Body is consumed from a clone to preserve the original stream",
+      "id": "chrislyons_dev_flarelette_jwt__util__computerequesthash",
+      "componentId": "chrislyons_dev_flarelette_jwt__util",
+      "name": "computeRequestHash",
+      "type": "function",
+      "documentation": {
+        "summary": "Compute a deterministic SHA-256 hash that binds a JWT to a specific HTTP request.\n\nCanonical form: UTF-8(METHOD + \"\\n\" + pathname + search + \"\\n\") || body_bytes\n- Method is uppercased\n- Binds to path and query string only (not host/scheme — internal Workers use different hostnames)\n- Body is consumed from a clone to preserve the original stream"
+      },
+      "returnType": "Promise<string>",
+      "returnDescription": "base64url-encoded SHA-256 hash of the canonical request representation",
+      "parameters": [
+        {
+          "name": "request",
+          "type": "Request",
+          "description": "- Fetch API Request object",
+          "optional": false
+        }
+      ],
+      "visibility": "public",
+      "isAsync": true,
+      "filePath": "C:/Users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/src/util.ts",
+      "lineNumber": 62
+    },
+    {
       "description": "Resolve verification key from configured sources\n\nImplements key resolution strategy pattern:\n- Strategy 1: HS512 shared secret\n- Strategy 2: Inline public JWK\n- Strategy 3: Service binding JWKS\n- Strategy 4: HTTP JWKS URL",
       "id": "chrislyons_dev_flarelette_jwt__verify__resolveverificationkey",
       "componentId": "chrislyons_dev_flarelette_jwt__verify",
@@ -1094,7 +1248,7 @@
       "visibility": "public",
       "isAsync": true,
       "filePath": "C:/Users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/src/verify.ts",
-      "lineNumber": 132
+      "lineNumber": 131
     },
     {
       "description": "Store both environment variables and service bindings globally",
@@ -1232,7 +1386,7 @@
         "details": "Identifies a service acting on behalf of another principal.\nCan be nested for delegation chains.\n\nStructure:\n    sub: Service identifier acting on behalf of original subject\n    iss: The issuer of the actor token.\n    act: Nested ActorClaim with same structure (recursive delegation chain)"
       },
       "filePath": "C:\\Users\\chris\\git\\flarelette-jwt-kit\\packages\\flarelette-jwt-py\\flarelette_jwt\\env.py",
-      "lineNumber": 49,
+      "lineNumber": 51,
       "metadata": {
         "language": "python",
         "baseClasses": [
@@ -1257,7 +1411,7 @@
         "details": "Includes standard JWT claims, OIDC claims, and common custom claims.\nNote: At runtime, can contain any string key with JwtValue-compatible values,\nbut only defined fields get type checking."
       },
       "filePath": "C:\\Users\\chris\\git\\flarelette-jwt-kit\\packages\\flarelette-jwt-py\\flarelette_jwt\\env.py",
-      "lineNumber": 68,
+      "lineNumber": 70,
       "metadata": {
         "language": "python",
         "baseClasses": [
@@ -1282,7 +1436,7 @@
         "details": "Represents the complete configuration profile for JWT operations.\nEnvironment-driven: populated from JWT_* environment variables via profile() function.\nValidates against the JSON Schema at project root for consistency across languages."
       },
       "filePath": "C:\\Users\\chris\\git\\flarelette-jwt-kit\\packages\\flarelette-jwt-py\\flarelette_jwt\\env.py",
-      "lineNumber": 110,
+      "lineNumber": 112,
       "metadata": {
         "language": "python",
         "baseClasses": [
@@ -1307,7 +1461,7 @@
         "details": "Subset of JwtProfile containing the fields shared across all operations\n(signing, verification, policy checks). Extracted by common() function\nand merged with algorithm-specific configuration in profile()."
       },
       "filePath": "C:\\Users\\chris\\git\\flarelette-jwt-kit\\packages\\flarelette-jwt-py\\flarelette_jwt\\env.py",
-      "lineNumber": 125,
+      "lineNumber": 127,
       "metadata": {
         "language": "python",
         "baseClasses": [
@@ -1343,7 +1497,7 @@
       ],
       "isAsync": false,
       "filePath": "C:\\Users\\chris\\git\\flarelette-jwt-kit\\packages\\flarelette-jwt-py\\flarelette_jwt\\env.py",
-      "lineNumber": 139,
+      "lineNumber": 141,
       "metadata": {
         "language": "python",
         "decorators": [],
@@ -1369,7 +1523,7 @@
       "parameters": [],
       "isAsync": false,
       "filePath": "C:\\Users\\chris\\git\\flarelette-jwt-kit\\packages\\flarelette-jwt-py\\flarelette_jwt\\env.py",
-      "lineNumber": 169,
+      "lineNumber": 182,
       "metadata": {
         "language": "python",
         "decorators": [],
@@ -1402,7 +1556,7 @@
       ],
       "isAsync": false,
       "filePath": "C:\\Users\\chris\\git\\flarelette-jwt-kit\\packages\\flarelette-jwt-py\\flarelette_jwt\\env.py",
-      "lineNumber": 183,
+      "lineNumber": 196,
       "metadata": {
         "language": "python",
         "decorators": [],
@@ -1434,7 +1588,7 @@
       ],
       "isAsync": false,
       "filePath": "C:\\Users\\chris\\git\\flarelette-jwt-kit\\packages\\flarelette-jwt-py\\flarelette_jwt\\env.py",
-      "lineNumber": 206,
+      "lineNumber": 219,
       "metadata": {
         "language": "python",
         "decorators": [],
@@ -1455,7 +1609,7 @@
       "parameters": [],
       "isAsync": false,
       "filePath": "C:\\Users\\chris\\git\\flarelette-jwt-kit\\packages\\flarelette-jwt-py\\flarelette_jwt\\env.py",
-      "lineNumber": 213,
+      "lineNumber": 226,
       "metadata": {
         "language": "python",
         "decorators": [],
@@ -1476,7 +1630,28 @@
       "parameters": [],
       "isAsync": false,
       "filePath": "C:\\Users\\chris\\git\\flarelette-jwt-kit\\packages\\flarelette-jwt-py\\flarelette_jwt\\env.py",
-      "lineNumber": 228,
+      "lineNumber": 254,
+      "metadata": {
+        "language": "python",
+        "decorators": [],
+        "decoratorDetails": [],
+        "isExported": true
+      }
+    },
+    {
+      "tags": [
+        "Code"
+      ],
+      "id": "flarelette_jwt__util__get_jwks_url",
+      "componentId": "flarelette_jwt__util",
+      "name": "get_jwks_url",
+      "type": "function",
+      "documentation": {},
+      "returnType": "str | None",
+      "parameters": [],
+      "isAsync": false,
+      "filePath": "C:\\Users\\chris\\git\\flarelette-jwt-kit\\packages\\flarelette-jwt-py\\flarelette_jwt\\env.py",
+      "lineNumber": 258,
       "metadata": {
         "language": "python",
         "decorators": [],
@@ -1552,7 +1727,7 @@
         "details": "Attributes:\n    iss: Token issuer (iss claim)\n    aud: Token audience (aud claim) - can be string or list\n    ttl_seconds: Token lifetime in seconds (default: 900 = 15 minutes)\n    leeway: Clock skew tolerance in seconds for verification (default: 90)"
       },
       "filePath": "C:\\Users\\chris\\git\\flarelette-jwt-kit\\packages\\flarelette-jwt-py\\flarelette_jwt\\explicit.py",
-      "lineNumber": 25,
+      "lineNumber": 27,
       "metadata": {
         "language": "python",
         "baseClasses": [
@@ -1577,7 +1752,7 @@
         "details": "Uses a shared secret for both signing and verification.\n\nAttributes:\n    alg: Must be 'HS512'\n    secret: Shared secret key as bytes (minimum 32 bytes)"
       },
       "filePath": "C:\\Users\\chris\\git\\flarelette-jwt-kit\\packages\\flarelette-jwt-py\\flarelette_jwt\\explicit.py",
-      "lineNumber": 41,
+      "lineNumber": 43,
       "metadata": {
         "language": "python",
         "baseClasses": [
@@ -1602,7 +1777,7 @@
         "details": "Uses a private key to sign tokens.\n\nAttributes:\n    alg: Must be 'EdDSA'\n    private_jwk: Private JWK dictionary for signing\n    kid: Key ID to include in JWT header (optional)"
       },
       "filePath": "C:\\Users\\chris\\git\\flarelette-jwt-kit\\packages\\flarelette-jwt-py\\flarelette_jwt\\explicit.py",
-      "lineNumber": 55,
+      "lineNumber": 57,
       "metadata": {
         "language": "python",
         "baseClasses": [
@@ -1627,7 +1802,55 @@
         "details": "Uses a public key to verify tokens.\n\nAttributes:\n    alg: Must be 'EdDSA'\n    public_jwk: Public JWK dictionary for verification"
       },
       "filePath": "C:\\Users\\chris\\git\\flarelette-jwt-kit\\packages\\flarelette-jwt-py\\flarelette_jwt\\explicit.py",
-      "lineNumber": 71,
+      "lineNumber": 73,
+      "metadata": {
+        "language": "python",
+        "baseClasses": [
+          "BaseJwtConfig"
+        ],
+        "decorators": [],
+        "decoratorDetails": [],
+        "isExported": true
+      }
+    },
+    {
+      "description": "ES512 (ECDSA P-521) asymmetric configuration for verification.",
+      "tags": [
+        "Code"
+      ],
+      "id": "flarelette_jwt__explicit__es512verifyconfig",
+      "componentId": "flarelette_jwt__explicit",
+      "name": "ES512VerifyConfig",
+      "type": "class",
+      "documentation": {
+        "summary": "ES512 (ECDSA P-521) asymmetric configuration for verification."
+      },
+      "filePath": "C:\\Users\\chris\\git\\flarelette-jwt-kit\\packages\\flarelette-jwt-py\\flarelette_jwt\\explicit.py",
+      "lineNumber": 87,
+      "metadata": {
+        "language": "python",
+        "baseClasses": [
+          "BaseJwtConfig"
+        ],
+        "decorators": [],
+        "decoratorDetails": [],
+        "isExported": true
+      }
+    },
+    {
+      "description": "Asymmetric verification configuration backed by a remote JWKS URL.",
+      "tags": [
+        "Code"
+      ],
+      "id": "flarelette_jwt__explicit__jwksurlverifyconfig",
+      "componentId": "flarelette_jwt__explicit",
+      "name": "JWKSUrlVerifyConfig",
+      "type": "class",
+      "documentation": {
+        "summary": "Asymmetric verification configuration backed by a remote JWKS URL."
+      },
+      "filePath": "C:\\Users\\chris\\git\\flarelette-jwt-kit\\packages\\flarelette-jwt-py\\flarelette_jwt\\explicit.py",
+      "lineNumber": 94,
       "metadata": {
         "language": "python",
         "baseClasses": [
@@ -1652,7 +1875,7 @@
         "details": "Attributes:\n    require_all_permissions: All permissions must be present\n    require_any_permission: At least one permission must be present\n    require_roles_all: All roles must be present\n    require_roles_any: At least one role must be present\n    predicates: Custom predicate functions that must all return True"
       },
       "filePath": "C:\\Users\\chris\\git\\flarelette-jwt-kit\\packages\\flarelette-jwt-py\\flarelette_jwt\\explicit.py",
-      "lineNumber": 399,
+      "lineNumber": 582,
       "metadata": {
         "language": "python",
         "baseClasses": [
@@ -1677,7 +1900,7 @@
         "details": "Returned when a token passes both verification and authorization.\n\nAttributes:\n    sub: Subject identifier\n    permissions: List of permission strings\n    roles: List of role strings\n    jti: JWT ID\n    payload: Complete JWT payload"
       },
       "filePath": "C:\\Users\\chris\\git\\flarelette-jwt-kit\\packages\\flarelette-jwt-py\\flarelette_jwt\\explicit.py",
-      "lineNumber": 417,
+      "lineNumber": 600,
       "metadata": {
         "language": "python",
         "baseClasses": [
@@ -1710,7 +1933,7 @@
       ],
       "isAsync": false,
       "filePath": "C:\\Users\\chris\\git\\flarelette-jwt-kit\\packages\\flarelette-jwt-py\\flarelette_jwt\\explicit.py",
-      "lineNumber": 90,
+      "lineNumber": 117,
       "metadata": {
         "language": "python",
         "decorators": [],
@@ -1740,7 +1963,275 @@
       ],
       "isAsync": false,
       "filePath": "C:\\Users\\chris\\git\\flarelette-jwt-kit\\packages\\flarelette-jwt-py\\flarelette_jwt\\explicit.py",
-      "lineNumber": 95,
+      "lineNumber": 122,
+      "metadata": {
+        "language": "python",
+        "decorators": [],
+        "decoratorDetails": [],
+        "isExported": false
+      }
+    },
+    {
+      "tags": [
+        "Code"
+      ],
+      "id": "flarelette_jwt__explicit___validate_jwks_url",
+      "componentId": "flarelette_jwt__explicit",
+      "name": "_validate_jwks_url",
+      "type": "function",
+      "documentation": {},
+      "returnType": "None",
+      "parameters": [
+        {
+          "name": "url",
+          "type": "str",
+          "optional": false
+        }
+      ],
+      "isAsync": false,
+      "filePath": "C:\\Users\\chris\\git\\flarelette-jwt-kit\\packages\\flarelette-jwt-py\\flarelette_jwt\\explicit.py",
+      "lineNumber": 127,
+      "metadata": {
+        "language": "python",
+        "decorators": [],
+        "decoratorDetails": [],
+        "isExported": false
+      }
+    },
+    {
+      "tags": [
+        "Code"
+      ],
+      "id": "flarelette_jwt__explicit___ecdsa_curve_name",
+      "componentId": "flarelette_jwt__explicit",
+      "name": "_ecdsa_curve_name",
+      "type": "function",
+      "documentation": {},
+      "returnType": "str",
+      "parameters": [
+        {
+          "name": "alg",
+          "type": "str",
+          "optional": false
+        }
+      ],
+      "isAsync": false,
+      "filePath": "C:\\Users\\chris\\git\\flarelette-jwt-kit\\packages\\flarelette-jwt-py\\flarelette_jwt\\explicit.py",
+      "lineNumber": 138,
+      "metadata": {
+        "language": "python",
+        "decorators": [],
+        "decoratorDetails": [],
+        "isExported": false
+      }
+    },
+    {
+      "tags": [
+        "Code"
+      ],
+      "id": "flarelette_jwt__explicit___hash_name",
+      "componentId": "flarelette_jwt__explicit",
+      "name": "_hash_name",
+      "type": "function",
+      "documentation": {},
+      "returnType": "str",
+      "parameters": [
+        {
+          "name": "alg",
+          "type": "str",
+          "optional": false
+        }
+      ],
+      "isAsync": false,
+      "filePath": "C:\\Users\\chris\\git\\flarelette-jwt-kit\\packages\\flarelette-jwt-py\\flarelette_jwt\\explicit.py",
+      "lineNumber": 147,
+      "metadata": {
+        "language": "python",
+        "decorators": [],
+        "decoratorDetails": [],
+        "isExported": false
+      }
+    },
+    {
+      "tags": [
+        "Code"
+      ],
+      "id": "flarelette_jwt__explicit___fetch_jwks_from_url",
+      "componentId": "flarelette_jwt__explicit",
+      "name": "_fetch_jwks_from_url",
+      "type": "function",
+      "documentation": {},
+      "returnType": "list[dict[str, Any]]",
+      "parameters": [
+        {
+          "name": "url",
+          "type": "str",
+          "optional": false
+        }
+      ],
+      "isAsync": true,
+      "filePath": "C:\\Users\\chris\\git\\flarelette-jwt-kit\\packages\\flarelette-jwt-py\\flarelette_jwt\\explicit.py",
+      "lineNumber": 159,
+      "metadata": {
+        "language": "python",
+        "decorators": [],
+        "decoratorDetails": [],
+        "isExported": false
+      }
+    },
+    {
+      "tags": [
+        "Code"
+      ],
+      "id": "flarelette_jwt__explicit___find_jwk_by_kid",
+      "componentId": "flarelette_jwt__explicit",
+      "name": "_find_jwk_by_kid",
+      "type": "function",
+      "documentation": {},
+      "returnType": "dict[str, Any] | None",
+      "parameters": [
+        {
+          "name": "kid",
+          "type": "str | None",
+          "optional": false
+        },
+        {
+          "name": "jwks",
+          "type": "list[dict[str, Any]]",
+          "optional": false
+        }
+      ],
+      "isAsync": false,
+      "filePath": "C:\\Users\\chris\\git\\flarelette-jwt-kit\\packages\\flarelette-jwt-py\\flarelette_jwt\\explicit.py",
+      "lineNumber": 189,
+      "metadata": {
+        "language": "python",
+        "decorators": [],
+        "decoratorDetails": [],
+        "isExported": false
+      }
+    },
+    {
+      "tags": [
+        "Code"
+      ],
+      "id": "flarelette_jwt__explicit___import_verify_key",
+      "componentId": "flarelette_jwt__explicit",
+      "name": "_import_verify_key",
+      "type": "function",
+      "documentation": {},
+      "returnType": "tuple[Any, dict[str, str]]",
+      "parameters": [
+        {
+          "name": "alg",
+          "type": "str",
+          "optional": false
+        },
+        {
+          "name": "jwk",
+          "type": "dict[str, Any]",
+          "optional": false
+        }
+      ],
+      "isAsync": true,
+      "filePath": "C:\\Users\\chris\\git\\flarelette-jwt-kit\\packages\\flarelette-jwt-py\\flarelette_jwt\\explicit.py",
+      "lineNumber": 200,
+      "metadata": {
+        "language": "python",
+        "decorators": [],
+        "decoratorDetails": [],
+        "isExported": false
+      }
+    },
+    {
+      "tags": [
+        "Code"
+      ],
+      "id": "flarelette_jwt__explicit___has_public_jwk",
+      "componentId": "flarelette_jwt__explicit",
+      "name": "_has_public_jwk",
+      "type": "function",
+      "documentation": {},
+      "returnType": "TypeGuard[EdDSAVerifyConfig | ES512VerifyConfig]",
+      "parameters": [
+        {
+          "name": "config",
+          "type": "VerifyConfig",
+          "optional": false
+        }
+      ],
+      "isAsync": false,
+      "filePath": "C:\\Users\\chris\\git\\flarelette-jwt-kit\\packages\\flarelette-jwt-py\\flarelette_jwt\\explicit.py",
+      "lineNumber": 244,
+      "metadata": {
+        "language": "python",
+        "decorators": [],
+        "decoratorDetails": [],
+        "isExported": false
+      }
+    },
+    {
+      "tags": [
+        "Code"
+      ],
+      "id": "flarelette_jwt__explicit___has_jwks_url",
+      "componentId": "flarelette_jwt__explicit",
+      "name": "_has_jwks_url",
+      "type": "function",
+      "documentation": {},
+      "returnType": "TypeGuard[JWKSUrlVerifyConfig]",
+      "parameters": [
+        {
+          "name": "config",
+          "type": "VerifyConfig",
+          "optional": false
+        }
+      ],
+      "isAsync": false,
+      "filePath": "C:\\Users\\chris\\git\\flarelette-jwt-kit\\packages\\flarelette-jwt-py\\flarelette_jwt\\explicit.py",
+      "lineNumber": 250,
+      "metadata": {
+        "language": "python",
+        "decorators": [],
+        "decoratorDetails": [],
+        "isExported": false
+      }
+    },
+    {
+      "tags": [
+        "Code"
+      ],
+      "id": "flarelette_jwt__explicit___verify_asymmetric_signature",
+      "componentId": "flarelette_jwt__explicit",
+      "name": "_verify_asymmetric_signature",
+      "type": "function",
+      "documentation": {},
+      "returnType": "bool",
+      "parameters": [
+        {
+          "name": "header",
+          "type": "JwtHeader",
+          "optional": false
+        },
+        {
+          "name": "signing_input",
+          "type": "bytes",
+          "optional": false
+        },
+        {
+          "name": "sig",
+          "type": "bytes",
+          "optional": false
+        },
+        {
+          "name": "jwk",
+          "type": "dict[str, Any]",
+          "optional": false
+        }
+      ],
+      "isAsync": true,
+      "filePath": "C:\\Users\\chris\\git\\flarelette-jwt-kit\\packages\\flarelette-jwt-py\\flarelette_jwt\\explicit.py",
+      "lineNumber": 254,
       "metadata": {
         "language": "python",
         "decorators": [],
@@ -1782,7 +2273,7 @@
       ],
       "isAsync": true,
       "filePath": "C:\\Users\\chris\\git\\flarelette-jwt-kit\\packages\\flarelette-jwt-py\\flarelette_jwt\\explicit.py",
-      "lineNumber": 100,
+      "lineNumber": 274,
       "metadata": {
         "language": "python",
         "decorators": [],
@@ -1824,7 +2315,7 @@
       ],
       "isAsync": true,
       "filePath": "C:\\Users\\chris\\git\\flarelette-jwt-kit\\packages\\flarelette-jwt-py\\flarelette_jwt\\explicit.py",
-      "lineNumber": 187,
+      "lineNumber": 364,
       "metadata": {
         "language": "python",
         "decorators": [],
@@ -1863,7 +2354,7 @@
       ],
       "isAsync": true,
       "filePath": "C:\\Users\\chris\\git\\flarelette-jwt-kit\\packages\\flarelette-jwt-py\\flarelette_jwt\\explicit.py",
-      "lineNumber": 296,
+      "lineNumber": 479,
       "metadata": {
         "language": "python",
         "decorators": [],
@@ -1911,7 +2402,7 @@
       ],
       "isAsync": true,
       "filePath": "C:\\Users\\chris\\git\\flarelette-jwt-kit\\packages\\flarelette-jwt-py\\flarelette_jwt\\explicit.py",
-      "lineNumber": 323,
+      "lineNumber": 506,
       "metadata": {
         "language": "python",
         "decorators": [],
@@ -1960,7 +2451,7 @@
       ],
       "isAsync": true,
       "filePath": "C:\\Users\\chris\\git\\flarelette-jwt-kit\\packages\\flarelette-jwt-py\\flarelette_jwt\\explicit.py",
-      "lineNumber": 437,
+      "lineNumber": 620,
       "metadata": {
         "language": "python",
         "decorators": [],
@@ -1987,13 +2478,13 @@
         {
           "name": "secret",
           "type": "str | bytes",
-          "description": "Base64url-encoded secret string or raw bytes (minimum 32 bytes)",
+          "description": "Base64url-encoded secret string or raw bytes (minimum 64 bytes)",
           "optional": false
         }
       ],
       "isAsync": false,
       "filePath": "C:\\Users\\chris\\git\\flarelette-jwt-kit\\packages\\flarelette-jwt-py\\flarelette_jwt\\explicit.py",
-      "lineNumber": 519,
+      "lineNumber": 702,
       "metadata": {
         "language": "python",
         "decorators": [],
@@ -2026,7 +2517,7 @@
       ],
       "isAsync": false,
       "filePath": "C:\\Users\\chris\\git\\flarelette-jwt-kit\\packages\\flarelette-jwt-py\\flarelette_jwt\\explicit.py",
-      "lineNumber": 561,
+      "lineNumber": 747,
       "metadata": {
         "language": "python",
         "decorators": [],
@@ -2059,7 +2550,67 @@
       ],
       "isAsync": false,
       "filePath": "C:\\Users\\chris\\git\\flarelette-jwt-kit\\packages\\flarelette-jwt-py\\flarelette_jwt\\explicit.py",
-      "lineNumber": 596,
+      "lineNumber": 782,
+      "metadata": {
+        "language": "python",
+        "decorators": [],
+        "decoratorDetails": [],
+        "isExported": true
+      }
+    },
+    {
+      "description": "Helper function to create ES512 verify config from a public JWK.",
+      "tags": [
+        "Code"
+      ],
+      "id": "flarelette_jwt__explicit__create_es512_verify_config",
+      "componentId": "flarelette_jwt__explicit",
+      "name": "create_es512_verify_config",
+      "type": "function",
+      "documentation": {
+        "summary": "Helper function to create ES512 verify config from a public JWK."
+      },
+      "returnType": "ES512VerifyConfig",
+      "parameters": [
+        {
+          "name": "public_jwk",
+          "type": "dict[str, Any] | str",
+          "optional": false
+        }
+      ],
+      "isAsync": false,
+      "filePath": "C:\\Users\\chris\\git\\flarelette-jwt-kit\\packages\\flarelette-jwt-py\\flarelette_jwt\\explicit.py",
+      "lineNumber": 814,
+      "metadata": {
+        "language": "python",
+        "decorators": [],
+        "decoratorDetails": [],
+        "isExported": true
+      }
+    },
+    {
+      "description": "Helper function to create JWKS URL verification config.",
+      "tags": [
+        "Code"
+      ],
+      "id": "flarelette_jwt__explicit__create_jwks_url_verify_config",
+      "componentId": "flarelette_jwt__explicit",
+      "name": "create_jwks_url_verify_config",
+      "type": "function",
+      "documentation": {
+        "summary": "Helper function to create JWKS URL verification config."
+      },
+      "returnType": "JWKSUrlVerifyConfig",
+      "parameters": [
+        {
+          "name": "jwks_url",
+          "type": "str",
+          "optional": false
+        }
+      ],
+      "isAsync": false,
+      "filePath": "C:\\Users\\chris\\git\\flarelette-jwt-kit\\packages\\flarelette-jwt-py\\flarelette_jwt\\explicit.py",
+      "lineNumber": 835,
       "metadata": {
         "language": "python",
         "decorators": [],
@@ -2077,7 +2628,7 @@
       "name": "SignConfig",
       "type": "type",
       "filePath": "C:\\Users\\chris\\git\\flarelette-jwt-kit\\packages\\flarelette-jwt-py\\flarelette_jwt\\explicit.py",
-      "lineNumber": 86,
+      "lineNumber": 103,
       "metadata": {
         "language": "python",
         "typeCategory": "TypeAlias",
@@ -2095,11 +2646,11 @@
       "name": "VerifyConfig",
       "type": "type",
       "filePath": "C:\\Users\\chris\\git\\flarelette-jwt-kit\\packages\\flarelette-jwt-py\\flarelette_jwt\\explicit.py",
-      "lineNumber": 87,
+      "lineNumber": 104,
       "metadata": {
         "language": "python",
         "typeCategory": "TypeAlias",
-        "typeDefinition": "HS512Config | EdDSAVerifyConfig",
+        "typeDefinition": "HS512Config | EdDSAVerifyConfig | ES512VerifyConfig | JWKSUrlVerifyConfig",
         "isExported": true
       }
     },
@@ -3011,7 +3562,7 @@
       ],
       "isAsync": false,
       "filePath": "C:\\Users\\chris\\git\\flarelette-jwt-kit\\packages\\flarelette-jwt-py\\flarelette_jwt\\verify.py",
-      "lineNumber": 29,
+      "lineNumber": 35,
       "metadata": {
         "language": "python",
         "decorators": [],
@@ -3044,7 +3595,7 @@
       ],
       "isAsync": true,
       "filePath": "C:\\Users\\chris\\git\\flarelette-jwt-kit\\packages\\flarelette-jwt-py\\flarelette_jwt\\verify.py",
-      "lineNumber": 33,
+      "lineNumber": 39,
       "metadata": {
         "language": "python",
         "decorators": [],
@@ -3114,6 +3665,12 @@
       "description": "imports verify",
       "source": "chrislyons_dev_flarelette_jwt__util",
       "destination": "./verify.js",
+      "stereotype": "import"
+    },
+    {
+      "description": "imports computeRequestHash",
+      "source": "chrislyons_dev_flarelette_jwt__util",
+      "destination": "./util.js",
       "stereotype": "import"
     },
     {
@@ -3255,9 +3812,21 @@
       "stereotype": "import"
     },
     {
-      "description": "TYPE_CHECKING | Any | Literal | TypedDict",
+      "description": "TYPE_CHECKING | Any | Literal | TypedDict | TypeGuard",
       "source": "flarelette_jwt__explicit",
       "destination": "typing",
+      "stereotype": "import"
+    },
+    {
+      "description": "urlparse",
+      "source": "flarelette_jwt__explicit",
+      "destination": "urllib.parse",
+      "stereotype": "import"
+    },
+    {
+      "description": "urlopen",
+      "source": "flarelette_jwt__explicit",
+      "destination": "urllib.request",
       "stereotype": "import"
     },
     {
@@ -3404,6 +3973,12 @@
       "description": "imports verify",
       "source": "C:/Users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/src/high.ts",
       "destination": "./verify.js:verify",
+      "stereotype": "import"
+    },
+    {
+      "description": "imports computeRequestHash",
+      "source": "C:/Users/chris/git/flarelette-jwt-kit/packages/flarelette-jwt-ts/src/high.ts",
+      "destination": "./util.js:computeRequestHash",
       "stereotype": "import"
     },
     {

@@ -2,9 +2,9 @@
 set separator none
 title flarelette-jwt-kit - flarelette-jwt - Components
 
-top to bottom direction
-skinparam ranksep 60
-skinparam nodesep 30
+left to right direction
+skinparam ranksep 20
+skinparam nodesep 10
 
 skinparam {
   arrowFontSize 10
@@ -17,128 +17,219 @@ skinparam {
 hide stereotype
 
 skinparam rectangle<<flarelettejwtkit.flarelettejwt.explicitAuthUser>> {
-  BackgroundColor #85bbf0
+  BackgroundColor #d4e8fc
   FontColor #000000
-  BorderColor #5d82a8
+  BorderColor #94a2b0
   roundCorner 20
   shadowing false
 }
 skinparam rectangle<<flarelettejwtkit.flarelettejwt.explicitAuthzOptsWithConfig>> {
-  BackgroundColor #85bbf0
+  BackgroundColor #d4e8fc
   FontColor #000000
-  BorderColor #5d82a8
+  BorderColor #94a2b0
   roundCorner 20
   shadowing false
 }
 skinparam rectangle<<flarelettejwtkit.flarelettejwt.explicitBaseJwtConfig>> {
-  BackgroundColor #85bbf0
+  BackgroundColor #d4e8fc
   FontColor #000000
-  BorderColor #5d82a8
+  BorderColor #94a2b0
+  roundCorner 20
+  shadowing false
+}
+skinparam rectangle<<flarelettejwtkit.flarelettejwt.explicitES512VerifyConfig>> {
+  BackgroundColor #d4e8fc
+  FontColor #000000
+  BorderColor #94a2b0
   roundCorner 20
   shadowing false
 }
 skinparam rectangle<<flarelettejwtkit.flarelettejwt.explicitEdDSASignConfig>> {
-  BackgroundColor #85bbf0
+  BackgroundColor #d4e8fc
   FontColor #000000
-  BorderColor #5d82a8
+  BorderColor #94a2b0
   roundCorner 20
   shadowing false
 }
 skinparam rectangle<<flarelettejwtkit.flarelettejwt.explicitEdDSAVerifyConfig>> {
-  BackgroundColor #85bbf0
+  BackgroundColor #d4e8fc
   FontColor #000000
-  BorderColor #5d82a8
+  BorderColor #94a2b0
   roundCorner 20
   shadowing false
 }
 skinparam rectangle<<flarelettejwtkit.flarelettejwt.explicitHS512Config>> {
-  BackgroundColor #85bbf0
+  BackgroundColor #d4e8fc
   FontColor #000000
-  BorderColor #5d82a8
+  BorderColor #94a2b0
+  roundCorner 20
+  shadowing false
+}
+skinparam rectangle<<flarelettejwtkit.flarelettejwt.explicitJWKSUrlVerifyConfig>> {
+  BackgroundColor #d4e8fc
+  FontColor #000000
+  BorderColor #94a2b0
   roundCorner 20
   shadowing false
 }
 skinparam rectangle<<flarelettejwtkit.flarelettejwt.explicitSignConfig>> {
-  BackgroundColor #85bbf0
+  BackgroundColor #d4e8fc
   FontColor #000000
-  BorderColor #5d82a8
+  BorderColor #94a2b0
   roundCorner 20
   shadowing false
 }
 skinparam rectangle<<flarelettejwtkit.flarelettejwt.explicitVerifyConfig>> {
-  BackgroundColor #85bbf0
+  BackgroundColor #d4e8fc
   FontColor #000000
-  BorderColor #5d82a8
+  BorderColor #94a2b0
   roundCorner 20
   shadowing false
 }
 skinparam rectangle<<flarelettejwtkit.flarelettejwt.explicit_b64url>> {
-  BackgroundColor #85bbf0
+  BackgroundColor #d4e8fc
   FontColor #000000
-  BorderColor #5d82a8
+  BorderColor #94a2b0
   roundCorner 20
   shadowing false
 }
 skinparam rectangle<<flarelettejwtkit.flarelettejwt.explicit_b64url_decode>> {
-  BackgroundColor #85bbf0
+  BackgroundColor #d4e8fc
   FontColor #000000
-  BorderColor #5d82a8
+  BorderColor #94a2b0
+  roundCorner 20
+  shadowing false
+}
+skinparam rectangle<<flarelettejwtkit.flarelettejwt.explicit_ecdsa_curve_name>> {
+  BackgroundColor #d4e8fc
+  FontColor #000000
+  BorderColor #94a2b0
+  roundCorner 20
+  shadowing false
+}
+skinparam rectangle<<flarelettejwtkit.flarelettejwt.explicit_fetch_jwks_from_url>> {
+  BackgroundColor #d4e8fc
+  FontColor #000000
+  BorderColor #94a2b0
+  roundCorner 20
+  shadowing false
+}
+skinparam rectangle<<flarelettejwtkit.flarelettejwt.explicit_find_jwk_by_kid>> {
+  BackgroundColor #d4e8fc
+  FontColor #000000
+  BorderColor #94a2b0
+  roundCorner 20
+  shadowing false
+}
+skinparam rectangle<<flarelettejwtkit.flarelettejwt.explicit_has_jwks_url>> {
+  BackgroundColor #d4e8fc
+  FontColor #000000
+  BorderColor #94a2b0
+  roundCorner 20
+  shadowing false
+}
+skinparam rectangle<<flarelettejwtkit.flarelettejwt.explicit_has_public_jwk>> {
+  BackgroundColor #d4e8fc
+  FontColor #000000
+  BorderColor #94a2b0
+  roundCorner 20
+  shadowing false
+}
+skinparam rectangle<<flarelettejwtkit.flarelettejwt.explicit_hash_name>> {
+  BackgroundColor #d4e8fc
+  FontColor #000000
+  BorderColor #94a2b0
+  roundCorner 20
+  shadowing false
+}
+skinparam rectangle<<flarelettejwtkit.flarelettejwt.explicit_import_verify_key>> {
+  BackgroundColor #d4e8fc
+  FontColor #000000
+  BorderColor #94a2b0
+  roundCorner 20
+  shadowing false
+}
+skinparam rectangle<<flarelettejwtkit.flarelettejwt.explicit_validate_jwks_url>> {
+  BackgroundColor #d4e8fc
+  FontColor #000000
+  BorderColor #94a2b0
+  roundCorner 20
+  shadowing false
+}
+skinparam rectangle<<flarelettejwtkit.flarelettejwt.explicit_verify_asymmetric_signature>> {
+  BackgroundColor #d4e8fc
+  FontColor #000000
+  BorderColor #94a2b0
   roundCorner 20
   shadowing false
 }
 skinparam rectangle<<flarelettejwtkit.flarelettejwt.explicitcheck_auth_with_config>> {
-  BackgroundColor #85bbf0
+  BackgroundColor #d4e8fc
   FontColor #000000
-  BorderColor #5d82a8
+  BorderColor #94a2b0
   roundCorner 20
   shadowing false
 }
 skinparam rectangle<<flarelettejwtkit.flarelettejwt.explicitcreate_delegated_token_with_config>> {
-  BackgroundColor #85bbf0
+  BackgroundColor #d4e8fc
   FontColor #000000
-  BorderColor #5d82a8
+  BorderColor #94a2b0
   roundCorner 20
   shadowing false
 }
 skinparam rectangle<<flarelettejwtkit.flarelettejwt.explicitcreate_eddsa_sign_config>> {
-  BackgroundColor #85bbf0
+  BackgroundColor #d4e8fc
   FontColor #000000
-  BorderColor #5d82a8
+  BorderColor #94a2b0
   roundCorner 20
   shadowing false
 }
 skinparam rectangle<<flarelettejwtkit.flarelettejwt.explicitcreate_eddsa_verify_config>> {
-  BackgroundColor #85bbf0
+  BackgroundColor #d4e8fc
   FontColor #000000
-  BorderColor #5d82a8
+  BorderColor #94a2b0
+  roundCorner 20
+  shadowing false
+}
+skinparam rectangle<<flarelettejwtkit.flarelettejwt.explicitcreate_es512_verify_config>> {
+  BackgroundColor #d4e8fc
+  FontColor #000000
+  BorderColor #94a2b0
   roundCorner 20
   shadowing false
 }
 skinparam rectangle<<flarelettejwtkit.flarelettejwt.explicitcreate_hs512_config>> {
-  BackgroundColor #85bbf0
+  BackgroundColor #d4e8fc
   FontColor #000000
-  BorderColor #5d82a8
+  BorderColor #94a2b0
+  roundCorner 20
+  shadowing false
+}
+skinparam rectangle<<flarelettejwtkit.flarelettejwt.explicitcreate_jwks_url_verify_config>> {
+  BackgroundColor #d4e8fc
+  FontColor #000000
+  BorderColor #94a2b0
   roundCorner 20
   shadowing false
 }
 skinparam rectangle<<flarelettejwtkit.flarelettejwt.explicitcreate_token_with_config>> {
-  BackgroundColor #85bbf0
+  BackgroundColor #d4e8fc
   FontColor #000000
-  BorderColor #5d82a8
+  BorderColor #94a2b0
   roundCorner 20
   shadowing false
 }
 skinparam rectangle<<flarelettejwtkit.flarelettejwt.explicitsign_with_config>> {
-  BackgroundColor #85bbf0
+  BackgroundColor #d4e8fc
   FontColor #000000
-  BorderColor #5d82a8
+  BorderColor #94a2b0
   roundCorner 20
   shadowing false
 }
 skinparam rectangle<<flarelettejwtkit.flarelettejwt.explicitverify_with_config>> {
-  BackgroundColor #85bbf0
+  BackgroundColor #d4e8fc
   FontColor #000000
-  BorderColor #5d82a8
+  BorderColor #94a2b0
   roundCorner 20
   shadowing false
 }
@@ -149,14 +240,11 @@ skinparam rectangle<<flarelettejwtkit.flarelettejwt>> {
 }
 
 rectangle "flarelette-jwt\n<size:10>[Container: Service]</size>" <<flarelettejwtkit.flarelettejwt>> {
-  rectangle "==explicit.BaseJwtConfig\n<size:10>[Component: class]</size>\n\nBase JWT configuration shared by HS512 and EdDSA modes." <<flarelettejwtkit.flarelettejwt.explicitBaseJwtConfig>> as flarelettejwtkit.flarelettejwt.explicitBaseJwtConfig
-  rectangle "==explicit.HS512Config\n<size:10>[Component: class]</size>\n\nHS512 (HMAC-SHA512) symmetric configuration." <<flarelettejwtkit.flarelettejwt.explicitHS512Config>> as flarelettejwtkit.flarelettejwt.explicitHS512Config
-  rectangle "==explicit.EdDSASignConfig\n<size:10>[Component: class]</size>\n\nEdDSA (Ed25519) asymmetric configuration for signing." <<flarelettejwtkit.flarelettejwt.explicitEdDSASignConfig>> as flarelettejwtkit.flarelettejwt.explicitEdDSASignConfig
-  rectangle "==explicit.EdDSAVerifyConfig\n<size:10>[Component: class]</size>\n\nEdDSA (Ed25519) asymmetric configuration for verification." <<flarelettejwtkit.flarelettejwt.explicitEdDSAVerifyConfig>> as flarelettejwtkit.flarelettejwt.explicitEdDSAVerifyConfig
-  rectangle "==explicit.AuthzOptsWithConfig\n<size:10>[Component: class]</size>\n\nAuthorization options for check_auth_with_config." <<flarelettejwtkit.flarelettejwt.explicitAuthzOptsWithConfig>> as flarelettejwtkit.flarelettejwt.explicitAuthzOptsWithConfig
-  rectangle "==explicit.AuthUser\n<size:10>[Component: class]</size>\n\nAuthenticated user information." <<flarelettejwtkit.flarelettejwt.explicitAuthUser>> as flarelettejwtkit.flarelettejwt.explicitAuthUser
-  rectangle "==explicit._b64url\n<size:10>[Component: function]</size>\n\nEncode bytes to base64url without padding." <<flarelettejwtkit.flarelettejwt.explicit_b64url>> as flarelettejwtkit.flarelettejwt.explicit_b64url
-  rectangle "==explicit._b64url_decode\n<size:10>[Component: function]</size>\n\nDecode base64url string (with or without padding)." <<flarelettejwtkit.flarelettejwt.explicit_b64url_decode>> as flarelettejwtkit.flarelettejwt.explicit_b64url_decode
+  rectangle "==explicit._find_jwk_by_kid\n<size:10>[Component: function]</size>" <<flarelettejwtkit.flarelettejwt.explicit_find_jwk_by_kid>> as flarelettejwtkit.flarelettejwt.explicit_find_jwk_by_kid
+  rectangle "==explicit._import_verify_key\n<size:10>[Component: function]</size>" <<flarelettejwtkit.flarelettejwt.explicit_import_verify_key>> as flarelettejwtkit.flarelettejwt.explicit_import_verify_key
+  rectangle "==explicit._has_public_jwk\n<size:10>[Component: function]</size>" <<flarelettejwtkit.flarelettejwt.explicit_has_public_jwk>> as flarelettejwtkit.flarelettejwt.explicit_has_public_jwk
+  rectangle "==explicit._has_jwks_url\n<size:10>[Component: function]</size>" <<flarelettejwtkit.flarelettejwt.explicit_has_jwks_url>> as flarelettejwtkit.flarelettejwt.explicit_has_jwks_url
+  rectangle "==explicit._verify_asymmetric_signature\n<size:10>[Component: function]</size>" <<flarelettejwtkit.flarelettejwt.explicit_verify_asymmetric_signature>> as flarelettejwtkit.flarelettejwt.explicit_verify_asymmetric_signature
   rectangle "==explicit.sign_with_config\n<size:10>[Component: function]</size>\n\nSign a JWT token with explicit configuration." <<flarelettejwtkit.flarelettejwt.explicitsign_with_config>> as flarelettejwtkit.flarelettejwt.explicitsign_with_config
   rectangle "==explicit.verify_with_config\n<size:10>[Component: function]</size>\n\nVerify a JWT token with explicit configuration." <<flarelettejwtkit.flarelettejwt.explicitverify_with_config>> as flarelettejwtkit.flarelettejwt.explicitverify_with_config
   rectangle "==explicit.create_token_with_config\n<size:10>[Component: function]</size>\n\nCreate a signed JWT token with explicit configuration." <<flarelettejwtkit.flarelettejwt.explicitcreate_token_with_config>> as flarelettejwtkit.flarelettejwt.explicitcreate_token_with_config
@@ -165,8 +253,24 @@ rectangle "flarelette-jwt\n<size:10>[Container: Service]</size>" <<flarelettejwt
   rectangle "==explicit.create_hs512_config\n<size:10>[Component: function]</size>\n\nHelper function to create HS512 config from base64url-encoded secret." <<flarelettejwtkit.flarelettejwt.explicitcreate_hs512_config>> as flarelettejwtkit.flarelettejwt.explicitcreate_hs512_config
   rectangle "==explicit.create_eddsa_sign_config\n<size:10>[Component: function]</size>\n\nHelper function to create EdDSA sign config from JWK." <<flarelettejwtkit.flarelettejwt.explicitcreate_eddsa_sign_config>> as flarelettejwtkit.flarelettejwt.explicitcreate_eddsa_sign_config
   rectangle "==explicit.create_eddsa_verify_config\n<size:10>[Component: function]</size>\n\nHelper function to create EdDSA verify config from JWK." <<flarelettejwtkit.flarelettejwt.explicitcreate_eddsa_verify_config>> as flarelettejwtkit.flarelettejwt.explicitcreate_eddsa_verify_config
+  rectangle "==explicit.create_es512_verify_config\n<size:10>[Component: function]</size>\n\nHelper function to create ES512 verify config from a public JWK." <<flarelettejwtkit.flarelettejwt.explicitcreate_es512_verify_config>> as flarelettejwtkit.flarelettejwt.explicitcreate_es512_verify_config
+  rectangle "==explicit.create_jwks_url_verify_config\n<size:10>[Component: function]</size>\n\nHelper function to create JWKS URL verification config." <<flarelettejwtkit.flarelettejwt.explicitcreate_jwks_url_verify_config>> as flarelettejwtkit.flarelettejwt.explicitcreate_jwks_url_verify_config
   rectangle "==explicit.SignConfig\n<size:10>[Component: type]</size>" <<flarelettejwtkit.flarelettejwt.explicitSignConfig>> as flarelettejwtkit.flarelettejwt.explicitSignConfig
   rectangle "==explicit.VerifyConfig\n<size:10>[Component: type]</size>" <<flarelettejwtkit.flarelettejwt.explicitVerifyConfig>> as flarelettejwtkit.flarelettejwt.explicitVerifyConfig
+  rectangle "==explicit.BaseJwtConfig\n<size:10>[Component: class]</size>\n\nBase JWT configuration shared by HS512 and EdDSA modes." <<flarelettejwtkit.flarelettejwt.explicitBaseJwtConfig>> as flarelettejwtkit.flarelettejwt.explicitBaseJwtConfig
+  rectangle "==explicit.HS512Config\n<size:10>[Component: class]</size>\n\nHS512 (HMAC-SHA512) symmetric configuration." <<flarelettejwtkit.flarelettejwt.explicitHS512Config>> as flarelettejwtkit.flarelettejwt.explicitHS512Config
+  rectangle "==explicit.EdDSASignConfig\n<size:10>[Component: class]</size>\n\nEdDSA (Ed25519) asymmetric configuration for signing." <<flarelettejwtkit.flarelettejwt.explicitEdDSASignConfig>> as flarelettejwtkit.flarelettejwt.explicitEdDSASignConfig
+  rectangle "==explicit.EdDSAVerifyConfig\n<size:10>[Component: class]</size>\n\nEdDSA (Ed25519) asymmetric configuration for verification." <<flarelettejwtkit.flarelettejwt.explicitEdDSAVerifyConfig>> as flarelettejwtkit.flarelettejwt.explicitEdDSAVerifyConfig
+  rectangle "==explicit.ES512VerifyConfig\n<size:10>[Component: class]</size>\n\nES512 (ECDSA P-521) asymmetric configuration for verification." <<flarelettejwtkit.flarelettejwt.explicitES512VerifyConfig>> as flarelettejwtkit.flarelettejwt.explicitES512VerifyConfig
+  rectangle "==explicit.JWKSUrlVerifyConfig\n<size:10>[Component: class]</size>\n\nAsymmetric verification configuration backed by a remote JWKS URL." <<flarelettejwtkit.flarelettejwt.explicitJWKSUrlVerifyConfig>> as flarelettejwtkit.flarelettejwt.explicitJWKSUrlVerifyConfig
+  rectangle "==explicit.AuthzOptsWithConfig\n<size:10>[Component: class]</size>\n\nAuthorization options for check_auth_with_config." <<flarelettejwtkit.flarelettejwt.explicitAuthzOptsWithConfig>> as flarelettejwtkit.flarelettejwt.explicitAuthzOptsWithConfig
+  rectangle "==explicit.AuthUser\n<size:10>[Component: class]</size>\n\nAuthenticated user information." <<flarelettejwtkit.flarelettejwt.explicitAuthUser>> as flarelettejwtkit.flarelettejwt.explicitAuthUser
+  rectangle "==explicit._b64url\n<size:10>[Component: function]</size>\n\nEncode bytes to base64url without padding." <<flarelettejwtkit.flarelettejwt.explicit_b64url>> as flarelettejwtkit.flarelettejwt.explicit_b64url
+  rectangle "==explicit._b64url_decode\n<size:10>[Component: function]</size>\n\nDecode base64url string (with or without padding)." <<flarelettejwtkit.flarelettejwt.explicit_b64url_decode>> as flarelettejwtkit.flarelettejwt.explicit_b64url_decode
+  rectangle "==explicit._validate_jwks_url\n<size:10>[Component: function]</size>" <<flarelettejwtkit.flarelettejwt.explicit_validate_jwks_url>> as flarelettejwtkit.flarelettejwt.explicit_validate_jwks_url
+  rectangle "==explicit._ecdsa_curve_name\n<size:10>[Component: function]</size>" <<flarelettejwtkit.flarelettejwt.explicit_ecdsa_curve_name>> as flarelettejwtkit.flarelettejwt.explicit_ecdsa_curve_name
+  rectangle "==explicit._hash_name\n<size:10>[Component: function]</size>" <<flarelettejwtkit.flarelettejwt.explicit_hash_name>> as flarelettejwtkit.flarelettejwt.explicit_hash_name
+  rectangle "==explicit._fetch_jwks_from_url\n<size:10>[Component: function]</size>" <<flarelettejwtkit.flarelettejwt.explicit_fetch_jwks_from_url>> as flarelettejwtkit.flarelettejwt.explicit_fetch_jwks_from_url
 }
 
 @enduml

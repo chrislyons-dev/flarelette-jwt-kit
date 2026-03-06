@@ -10,7 +10,7 @@ workspace "flarelette-jwt-kit" "JWT authentication and authorization library" {
 
 
             chrislyons_dev_flarelette_jwt = container "@chrislyons-dev/flarelette-jwt" {
-                description "Environment-driven JWT authentication for Cloudflare Workers with secret-name indirection"
+                description "TypeScript implementation of the Flarelette JWT Kit: An environment-driven JWT authentication package for Cloudflare Workers"
                 technology "Service"
                 tags "Service,Auto-generated"
 
@@ -24,7 +24,7 @@ workspace "flarelette-jwt-kit" "JWT authentication and authorization library" {
                     technology "module"
                 }
                 chrislyons_dev_flarelette_jwt__util = component "util" {
-                    description "High-level JWT utilities for creating, delegating, verifying, and authorizing JWT tokens | Key generation utility for EdDSA keys. This script generates EdDSA key pairs and exports them in JWK format. It is designed to be executed as a standalone Node.js script. | Secret generation and validation utilities. This module provides functions to generate secure secrets and validate base64url-encoded secrets. It ensures compatibility with JWT signing requirements. | Utility functions for JWT operations. This module provides helper functions for parsing JWTs, checking expiration, and mapping OAuth scopes. It is designed to support core JWT functionalities."
+                    description "High-level JWT utilities for creating, delegating, verifying, and authorizing JWT tokens | Key generation utility for EdDSA and ECDSA keys. Generates asymmetric key pairs and exports them in JWK format. Designed to be executed as a standalone Node.js script. | Secret generation and validation utilities. This module provides functions to generate secure secrets and validate base64url-encoded secrets. It ensures compatibility with JWT signing requirements. | Utility functions for JWT operations. This module provides helper functions for parsing JWTs, checking expiration, and mapping OAuth scopes. It is designed to support core JWT functionalities."
                     technology "module"
                 }
                 chrislyons_dev_flarelette_jwt__main = component "main" {
@@ -131,8 +131,17 @@ workspace "flarelette-jwt-kit" "JWT authentication and authorization library" {
                     technology "function"
                     tags "Code"
                 }
+                chrislyons_dev_flarelette_jwt__explicit__createes512signconfig = component "explicit.createES512SignConfig" {
+                    description "Helper function to create ES512 sign config from a P-521 EC private JWK"
+                    technology "function"
+                    tags "Code"
+                }
+                chrislyons_dev_flarelette_jwt__explicit__createes512verifyconfig = component "explicit.createES512VerifyConfig" {
+                    description "Helper function to create ES512 verify config from a P-521 EC public JWK"
+                    technology "function"
+                    tags "Code"
+                }
                 chrislyons_dev_flarelette_jwt__explicit__createjwksurlverifyconfig = component "explicit.createJWKSUrlVerifyConfig" {
-                    description "Helper function to create HTTP JWKS URL verification config Enables testing without environment variables by providing explicit configuration"
                     technology "function"
                     tags "Code"
                 }
@@ -143,6 +152,16 @@ workspace "flarelette-jwt-kit" "JWT authentication and authorization library" {
                 }
                 chrislyons_dev_flarelette_jwt__util__createdelegatedtoken = component "util.createDelegatedToken" {
                     description "Create a delegated JWT token following RFC 8693 actor claim pattern Mints a new short-lived token for use within service boundaries where a service acts on behalf of the original end user. This implements zero-trust delegation: - Preserves original user identity (sub) and permissions - Identifies the acting service via 'act' claim - Prevents permission escalation by copying original permissions Pattern: \"I'm <actorService> doing work on behalf of <original user>\""
+                    technology "function"
+                    tags "Code"
+                }
+                chrislyons_dev_flarelette_jwt__util__signwithrequestbinding = component "util.signWithRequestBinding" {
+                    description "Sign a JWT token bound to a specific HTTP request. Adds a `req` claim containing base64url(SHA-256(canonical request)) to prevent replay of a captured token against a different endpoint within the TTL window. Canonical form: METHOD + \"\\n\" + pathname + search + \"\\n\" + body bytes"
+                    technology "function"
+                    tags "Code"
+                }
+                chrislyons_dev_flarelette_jwt__util__verifywithrequestbinding = component "util.verifyWithRequestBinding" {
+                    description "Verify a JWT token and validate its request binding. Re-computes the request hash and compares it with the `req` claim. Returns null on any mismatch (fail-silent, same as verify()). The `req` claim is stripped from the returned payload — it's an implementation detail that has already been validated."
                     technology "function"
                     tags "Code"
                 }
@@ -223,6 +242,11 @@ workspace "flarelette-jwt-kit" "JWT authentication and authorization library" {
                     technology "function"
                     tags "Code"
                 }
+                chrislyons_dev_flarelette_jwt__util__computerequesthash = component "util.computeRequestHash" {
+                    description "Compute a deterministic SHA-256 hash that binds a JWT to a specific HTTP request. Canonical form: UTF-8(METHOD + \"\\n\" + pathname + search + \"\\n\") || body_bytes - Method is uppercased - Binds to path and query string only (not host/scheme — internal Workers use different hostnames) - Body is consumed from a clone to preserve the original stream"
+                    technology "function"
+                    tags "Code"
+                }
                 chrislyons_dev_flarelette_jwt__verify__resolveverificationkey = component "verify.resolveVerificationKey" {
                     description "Resolve verification key from configured sources Implements key resolution strategy pattern: - Strategy 1: HS512 shared secret - Strategy 2: Inline public JWK - Strategy 3: Service binding JWKS - Strategy 4: HTTP JWKS URL"
                     technology "function"
@@ -264,7 +288,7 @@ workspace "flarelette-jwt-kit" "JWT authentication and authorization library" {
 
 
             flarelette_jwt = container "flarelette-jwt" {
-                description "Environment-driven JWT authentication for Cloudflare Workers Python with secret-name indirection"
+                description "Python implementation of the Flarelette JWT Kit: An environment-driven JWT authentication package for Cloudflare Workers"
                 technology "Service"
                 tags "Service,Auto-generated"
 
@@ -344,6 +368,10 @@ workspace "flarelette-jwt-kit" "JWT authentication and authorization library" {
                     technology "function"
                     tags "Code,Code"
                 }
+                flarelette_jwt__util__get_jwks_url = component "util.get_jwks_url" {
+                    technology "function"
+                    tags "Code,Code"
+                }
                 flarelette_jwt__util__algtype = component "util.AlgType" {
                     technology "type"
                     tags "Code,Code,Type"
@@ -376,6 +404,16 @@ workspace "flarelette-jwt-kit" "JWT authentication and authorization library" {
                     technology "class"
                     tags "Code,Code"
                 }
+                flarelette_jwt__explicit__es512verifyconfig = component "explicit.ES512VerifyConfig" {
+                    description "ES512 (ECDSA P-521) asymmetric configuration for verification."
+                    technology "class"
+                    tags "Code,Code"
+                }
+                flarelette_jwt__explicit__jwksurlverifyconfig = component "explicit.JWKSUrlVerifyConfig" {
+                    description "Asymmetric verification configuration backed by a remote JWKS URL."
+                    technology "class"
+                    tags "Code,Code"
+                }
                 flarelette_jwt__explicit__authzoptswithconfig = component "explicit.AuthzOptsWithConfig" {
                     description "Authorization options for check_auth_with_config."
                     technology "class"
@@ -393,6 +431,42 @@ workspace "flarelette-jwt-kit" "JWT authentication and authorization library" {
                 }
                 flarelette_jwt__explicit___b64url_decode = component "explicit._b64url_decode" {
                     description "Decode base64url string (with or without padding)."
+                    technology "function"
+                    tags "Code,Code"
+                }
+                flarelette_jwt__explicit___validate_jwks_url = component "explicit._validate_jwks_url" {
+                    technology "function"
+                    tags "Code,Code"
+                }
+                flarelette_jwt__explicit___ecdsa_curve_name = component "explicit._ecdsa_curve_name" {
+                    technology "function"
+                    tags "Code,Code"
+                }
+                flarelette_jwt__explicit___hash_name = component "explicit._hash_name" {
+                    technology "function"
+                    tags "Code,Code"
+                }
+                flarelette_jwt__explicit___fetch_jwks_from_url = component "explicit._fetch_jwks_from_url" {
+                    technology "function"
+                    tags "Code,Code"
+                }
+                flarelette_jwt__explicit___find_jwk_by_kid = component "explicit._find_jwk_by_kid" {
+                    technology "function"
+                    tags "Code,Code"
+                }
+                flarelette_jwt__explicit___import_verify_key = component "explicit._import_verify_key" {
+                    technology "function"
+                    tags "Code,Code"
+                }
+                flarelette_jwt__explicit___has_public_jwk = component "explicit._has_public_jwk" {
+                    technology "function"
+                    tags "Code,Code"
+                }
+                flarelette_jwt__explicit___has_jwks_url = component "explicit._has_jwks_url" {
+                    technology "function"
+                    tags "Code,Code"
+                }
+                flarelette_jwt__explicit___verify_asymmetric_signature = component "explicit._verify_asymmetric_signature" {
                     technology "function"
                     tags "Code,Code"
                 }
@@ -433,6 +507,16 @@ workspace "flarelette-jwt-kit" "JWT authentication and authorization library" {
                 }
                 flarelette_jwt__explicit__create_eddsa_verify_config = component "explicit.create_eddsa_verify_config" {
                     description "Helper function to create EdDSA verify config from JWK."
+                    technology "function"
+                    tags "Code,Code"
+                }
+                flarelette_jwt__explicit__create_es512_verify_config = component "explicit.create_es512_verify_config" {
+                    description "Helper function to create ES512 verify config from a public JWK."
+                    technology "function"
+                    tags "Code,Code"
+                }
+                flarelette_jwt__explicit__create_jwks_url_verify_config = component "explicit.create_jwks_url_verify_config" {
+                    description "Helper function to create JWKS URL verification config."
                     technology "function"
                     tags "Code,Code"
                 }
@@ -590,6 +674,213 @@ workspace "flarelette-jwt-kit" "JWT authentication and authorization library" {
     }
 
     views {
+        systemContext flarelette_jwt_kit "SystemContext" {
+            include flarelette_jwt_kit
+            autoLayout lr 100 100
+        }
+
+        container flarelette_jwt_kit "Containers" {
+            include chrislyons_dev_flarelette_jwt
+            include flarelette_jwt
+            autoLayout lr 100 100
+        }
+
+
+        component chrislyons_dev_flarelette_jwt "Components__chrislyons_dev_flarelette_jwt" {
+            include chrislyons_dev_flarelette_jwt__core
+            include chrislyons_dev_flarelette_jwt__explicit
+            include chrislyons_dev_flarelette_jwt__util
+            include chrislyons_dev_flarelette_jwt__main
+            include chrislyons_dev_flarelette_jwt__jwks
+            include chrislyons_dev_flarelette_jwt__types
+            include chrislyons_dev_flarelette_jwt__verify
+            include chrislyons_dev_flarelette_jwt__adapters
+            exclude "element.tag==Code"
+            autoLayout lr 100 100
+        }
+
+
+        component flarelette_jwt "Components_flarelette_jwt" {
+            include flarelette_jwt__adapters
+            include flarelette_jwt__util
+            include flarelette_jwt__explicit
+            include flarelette_jwt__flarelette_jwt
+            exclude "element.tag==Code"
+            autoLayout lr 100 100
+        }
+
+
+        component chrislyons_dev_flarelette_jwt "Classes_chrislyons_dev_flarelette_jwt__core" {
+            include chrislyons_dev_flarelette_jwt__core__envread
+            include chrislyons_dev_flarelette_jwt__core__envmode
+            include chrislyons_dev_flarelette_jwt__core__getcommon
+            include chrislyons_dev_flarelette_jwt__core__getprofile
+            include chrislyons_dev_flarelette_jwt__core__gethssecret
+            include chrislyons_dev_flarelette_jwt__core__getprivatejwkstring
+            include chrislyons_dev_flarelette_jwt__core__getpublicjwkstring
+            include chrislyons_dev_flarelette_jwt__core__getjwksservicename
+            include chrislyons_dev_flarelette_jwt__core__getjwksurl
+            include chrislyons_dev_flarelette_jwt__core__getjwkscachettl
+            include chrislyons_dev_flarelette_jwt__core__sign
+            autoLayout lr 100 100
+        }
+
+
+        component chrislyons_dev_flarelette_jwt "Classes_chrislyons_dev_flarelette_jwt__explicit" {
+            include chrislyons_dev_flarelette_jwt__explicit__signwithconfig
+            include chrislyons_dev_flarelette_jwt__explicit__verifywithconfig
+            include chrislyons_dev_flarelette_jwt__explicit__createtokenwithconfig
+            include chrislyons_dev_flarelette_jwt__explicit__createdelegatedtokenwithconfig
+            include chrislyons_dev_flarelette_jwt__explicit__checkauthwithconfig
+            include chrislyons_dev_flarelette_jwt__explicit__createhs512config
+            include chrislyons_dev_flarelette_jwt__explicit__createeddsasignconfig
+            include chrislyons_dev_flarelette_jwt__explicit__createeddsaverifyconfig
+            include chrislyons_dev_flarelette_jwt__explicit__createes512signconfig
+            include chrislyons_dev_flarelette_jwt__explicit__createes512verifyconfig
+            include chrislyons_dev_flarelette_jwt__explicit__createjwksurlverifyconfig
+            autoLayout lr 100 100
+        }
+
+
+        component chrislyons_dev_flarelette_jwt "Classes_chrislyons_dev_flarelette_jwt__util" {
+            include chrislyons_dev_flarelette_jwt__util__createtoken
+            include chrislyons_dev_flarelette_jwt__util__createdelegatedtoken
+            include chrislyons_dev_flarelette_jwt__util__signwithrequestbinding
+            include chrislyons_dev_flarelette_jwt__util__verifywithrequestbinding
+            include chrislyons_dev_flarelette_jwt__util__checkauth
+            include chrislyons_dev_flarelette_jwt__util__policy
+            include chrislyons_dev_flarelette_jwt__util__main
+            include chrislyons_dev_flarelette_jwt__util__generatesecret
+            include chrislyons_dev_flarelette_jwt__util__isvalidbase64urlsecret
+            include chrislyons_dev_flarelette_jwt__util__parse
+            include chrislyons_dev_flarelette_jwt__util__isexpiringsoon
+            include chrislyons_dev_flarelette_jwt__util__mapscopestopermissions
+            include chrislyons_dev_flarelette_jwt__util__computerequesthash
+            autoLayout lr 100 100
+        }
+
+
+        component chrislyons_dev_flarelette_jwt "Classes_chrislyons_dev_flarelette_jwt__jwks" {
+            include chrislyons_dev_flarelette_jwt__jwks__clearjwkscache
+            include chrislyons_dev_flarelette_jwt__jwks__clearhttpjwkscache
+            include chrislyons_dev_flarelette_jwt__jwks__fetchjwksfromservice
+            include chrislyons_dev_flarelette_jwt__jwks__validatejwksurl
+            include chrislyons_dev_flarelette_jwt__jwks__fetchjwksfromurl
+            include chrislyons_dev_flarelette_jwt__jwks__getkeyfromjwks
+            include chrislyons_dev_flarelette_jwt__jwks__allowedthumbprints
+            autoLayout lr 100 100
+        }
+
+
+        component chrislyons_dev_flarelette_jwt "Classes_chrislyons_dev_flarelette_jwt__verify" {
+            include chrislyons_dev_flarelette_jwt__verify__resolveverificationkey
+            include chrislyons_dev_flarelette_jwt__verify__verify
+            autoLayout lr 100 100
+        }
+
+
+        component chrislyons_dev_flarelette_jwt "Classes_chrislyons_dev_flarelette_jwt__adapters" {
+            include chrislyons_dev_flarelette_jwt__adapters__bindenv
+            include chrislyons_dev_flarelette_jwt__adapters__getservicebinding
+            include chrislyons_dev_flarelette_jwt__adapters__makekit
+            autoLayout lr 100 100
+        }
+
+
+        component flarelette_jwt "Classes_flarelette_jwt__adapters" {
+            include flarelette_jwt__adapters__apply_env_bindings
+            autoLayout lr 100 100
+        }
+
+
+        component flarelette_jwt "Classes_flarelette_jwt__util" {
+            include flarelette_jwt__util__jwtheader
+            include flarelette_jwt__util__actorclaim
+            include flarelette_jwt__util__jwtpayload
+            include flarelette_jwt__util__jwtprofile
+            include flarelette_jwt__util__jwtcommonconfig
+            include flarelette_jwt__util__mode
+            include flarelette_jwt__util__common
+            include flarelette_jwt__util__profile
+            include flarelette_jwt__util___get_indirect
+            include flarelette_jwt__util__get_hs_secret_bytes
+            include flarelette_jwt__util__get_public_jwk_string
+            include flarelette_jwt__util__get_jwks_url
+            include flarelette_jwt__util__algtype
+            include flarelette_jwt__util__jwtvalue
+            include flarelette_jwt__util__claimsdict
+            include flarelette_jwt__util__authuser
+            include flarelette_jwt__util__policybuilder
+            include flarelette_jwt__util__policybuilder_base
+            include flarelette_jwt__util__policybuilder_need_all
+            include flarelette_jwt__util__policybuilder_need_any
+            include flarelette_jwt__util__policybuilder_roles_all
+            include flarelette_jwt__util__policybuilder_roles_any
+            include flarelette_jwt__util__policybuilder_where
+            include flarelette_jwt__util__policybuilder_build
+            include flarelette_jwt__util__builder
+            include flarelette_jwt__util__builder_base
+            include flarelette_jwt__util__builder_need_all
+            include flarelette_jwt__util__builder_need_any
+            include flarelette_jwt__util__builder_roles_all
+            include flarelette_jwt__util__builder_roles_any
+            include flarelette_jwt__util__builder_where
+            include flarelette_jwt__util__builder_build
+            include flarelette_jwt__util__create_token
+            include flarelette_jwt__util__create_delegated_token
+            include flarelette_jwt__util__check_auth
+            include flarelette_jwt__util__policy
+            include flarelette_jwt__util__generate_secret
+            include flarelette_jwt__util__is_valid_base64url_secret
+            include flarelette_jwt__util__main
+            include flarelette_jwt__util___b64url
+            include flarelette_jwt__util__sign
+            include flarelette_jwt__util__parsedjwt
+            include flarelette_jwt__util__parse
+            include flarelette_jwt__util__is_expiring_soon
+            include flarelette_jwt__util__map_scopes_to_permissions
+            include flarelette_jwt__util___b64url_decode
+            include flarelette_jwt__util__verify
+            autoLayout lr 100 100
+        }
+
+
+        component flarelette_jwt "Classes_flarelette_jwt__explicit" {
+            include flarelette_jwt__explicit__basejwtconfig
+            include flarelette_jwt__explicit__hs512config
+            include flarelette_jwt__explicit__eddsasignconfig
+            include flarelette_jwt__explicit__eddsaverifyconfig
+            include flarelette_jwt__explicit__es512verifyconfig
+            include flarelette_jwt__explicit__jwksurlverifyconfig
+            include flarelette_jwt__explicit__authzoptswithconfig
+            include flarelette_jwt__explicit__authuser
+            include flarelette_jwt__explicit___b64url
+            include flarelette_jwt__explicit___b64url_decode
+            include flarelette_jwt__explicit___validate_jwks_url
+            include flarelette_jwt__explicit___ecdsa_curve_name
+            include flarelette_jwt__explicit___hash_name
+            include flarelette_jwt__explicit___fetch_jwks_from_url
+            include flarelette_jwt__explicit___find_jwk_by_kid
+            include flarelette_jwt__explicit___import_verify_key
+            include flarelette_jwt__explicit___has_public_jwk
+            include flarelette_jwt__explicit___has_jwks_url
+            include flarelette_jwt__explicit___verify_asymmetric_signature
+            include flarelette_jwt__explicit__sign_with_config
+            include flarelette_jwt__explicit__verify_with_config
+            include flarelette_jwt__explicit__create_token_with_config
+            include flarelette_jwt__explicit__create_delegated_token_with_config
+            include flarelette_jwt__explicit__check_auth_with_config
+            include flarelette_jwt__explicit__create_hs512_config
+            include flarelette_jwt__explicit__create_eddsa_sign_config
+            include flarelette_jwt__explicit__create_eddsa_verify_config
+            include flarelette_jwt__explicit__create_es512_verify_config
+            include flarelette_jwt__explicit__create_jwks_url_verify_config
+            include flarelette_jwt__explicit__signconfig
+            include flarelette_jwt__explicit__verifyconfig
+            autoLayout lr 100 100
+        }
+
+
 /**
  * Default Structurizr theme for Archlette
  * 
@@ -606,7 +897,9 @@ styles {
         background #08427b
         color #ffffff
         shape Person
-        fontSize 22
+        width 200
+        height 120
+        fontSize 14
     }
 
     // External System styles
@@ -614,14 +907,18 @@ styles {
         background #999999
         color #ffffff
         shape RoundedBox
-        fontSize 22
+        width 240
+        height 140
+        fontSize 14
     }
 
     element "External" {
         background #999999
         color #ffffff
         shape RoundedBox
-        fontSize 22
+        width 240
+        height 140
+        fontSize 14
     }
 
     // System styles
@@ -629,7 +926,9 @@ styles {
         background #1168bd
         color #ffffff
         shape RoundedBox
-        fontSize 24
+        width 280
+        height 160
+        fontSize 16
     }
 
     // Container styles
@@ -637,28 +936,36 @@ styles {
         background #438dd5
         color #ffffff
         shape RoundedBox
-        fontSize 20
+        width 260
+        height 150
+        fontSize 14
     }
 
     element "Database" {
         background #438dd5
         color #ffffff
         shape Cylinder
-        fontSize 20
+        width 200
+        height 140
+        fontSize 14
     }
 
     element "Web Browser" {
         background #438dd5
         color #ffffff
         shape WebBrowser
-        fontSize 20
+        width 240
+        height 150
+        fontSize 14
     }
 
     element "Mobile App" {
         background #438dd5
         color #ffffff
         shape MobileDevicePortrait
-        fontSize 20
+        width 180
+        height 200
+        fontSize 14
     }
 
     // Component styles
@@ -666,7 +973,19 @@ styles {
         background #85bbf0
         color #000000
         shape RoundedBox
-        fontSize 18
+        width 220
+        height 130
+        fontSize 12
+    }
+
+    // Code element styles (classes, functions, etc.)
+    element "Code" {
+        background #d4e8fc
+        color #000000
+        shape RoundedBox
+        width 200
+        height 100
+        fontSize 11
     }
 
     // Technology-specific styles
@@ -674,28 +993,36 @@ styles {
         background #f6821f
         color #ffffff
         shape RoundedBox
-        fontSize 18
+        width 220
+        height 130
+        fontSize 12
     }
 
     element "Service" {
         background #438dd5
         color #ffffff
         shape RoundedBox
-        fontSize 18
+        width 220
+        height 130
+        fontSize 12
     }
 
     element "API" {
         background #85bbf0
         color #000000
         shape Hexagon
-        fontSize 18
+        width 180
+        height 120
+        fontSize 12
     }
 
     element "Queue" {
         background #85bbf0
         color #000000
         shape Pipe
-        fontSize 18
+        width 200
+        height 100
+        fontSize 12
     }
 
     // Tag-based styles
@@ -728,12 +1055,18 @@ styles {
         background #92278f
         color #ffffff
         shape RoundedBox
+        width 220
+        height 130
+        fontSize 12
     }
 
     element "Message Bus" {
         background #85bbf0
         color #000000
         shape Pipe
+        width 200
+        height 100
+        fontSize 12
     }
 
     // Relationship styles
@@ -770,194 +1103,6 @@ styles {
 branding {
     font "Arial"
 }
-
-
-        systemContext flarelette_jwt_kit "SystemContext" {
-            include flarelette_jwt_kit
-            autoLayout
-        }
-
-        container flarelette_jwt_kit "Containers" {
-            include chrislyons_dev_flarelette_jwt
-            include flarelette_jwt
-            autoLayout
-        }
-
-
-        component chrislyons_dev_flarelette_jwt "Components__chrislyons_dev_flarelette_jwt" {
-            include chrislyons_dev_flarelette_jwt__core
-            include chrislyons_dev_flarelette_jwt__explicit
-            include chrislyons_dev_flarelette_jwt__util
-            include chrislyons_dev_flarelette_jwt__main
-            include chrislyons_dev_flarelette_jwt__jwks
-            include chrislyons_dev_flarelette_jwt__types
-            include chrislyons_dev_flarelette_jwt__verify
-            include chrislyons_dev_flarelette_jwt__adapters
-            exclude "element.tag==Code"
-            autoLayout
-        }
-
-
-        component flarelette_jwt "Components_flarelette_jwt" {
-            include flarelette_jwt__adapters
-            include flarelette_jwt__util
-            include flarelette_jwt__explicit
-            include flarelette_jwt__flarelette_jwt
-            exclude "element.tag==Code"
-            autoLayout
-        }
-
-
-        component chrislyons_dev_flarelette_jwt "Classes_chrislyons_dev_flarelette_jwt__core" {
-            include chrislyons_dev_flarelette_jwt__core__envread
-            include chrislyons_dev_flarelette_jwt__core__envmode
-            include chrislyons_dev_flarelette_jwt__core__getcommon
-            include chrislyons_dev_flarelette_jwt__core__getprofile
-            include chrislyons_dev_flarelette_jwt__core__gethssecret
-            include chrislyons_dev_flarelette_jwt__core__getprivatejwkstring
-            include chrislyons_dev_flarelette_jwt__core__getpublicjwkstring
-            include chrislyons_dev_flarelette_jwt__core__getjwksservicename
-            include chrislyons_dev_flarelette_jwt__core__getjwksurl
-            include chrislyons_dev_flarelette_jwt__core__getjwkscachettl
-            include chrislyons_dev_flarelette_jwt__core__sign
-            autoLayout
-        }
-
-
-        component chrislyons_dev_flarelette_jwt "Classes_chrislyons_dev_flarelette_jwt__explicit" {
-            include chrislyons_dev_flarelette_jwt__explicit__signwithconfig
-            include chrislyons_dev_flarelette_jwt__explicit__verifywithconfig
-            include chrislyons_dev_flarelette_jwt__explicit__createtokenwithconfig
-            include chrislyons_dev_flarelette_jwt__explicit__createdelegatedtokenwithconfig
-            include chrislyons_dev_flarelette_jwt__explicit__checkauthwithconfig
-            include chrislyons_dev_flarelette_jwt__explicit__createhs512config
-            include chrislyons_dev_flarelette_jwt__explicit__createeddsasignconfig
-            include chrislyons_dev_flarelette_jwt__explicit__createeddsaverifyconfig
-            include chrislyons_dev_flarelette_jwt__explicit__createjwksurlverifyconfig
-            autoLayout
-        }
-
-
-        component chrislyons_dev_flarelette_jwt "Classes_chrislyons_dev_flarelette_jwt__util" {
-            include chrislyons_dev_flarelette_jwt__util__createtoken
-            include chrislyons_dev_flarelette_jwt__util__createdelegatedtoken
-            include chrislyons_dev_flarelette_jwt__util__checkauth
-            include chrislyons_dev_flarelette_jwt__util__policy
-            include chrislyons_dev_flarelette_jwt__util__main
-            include chrislyons_dev_flarelette_jwt__util__generatesecret
-            include chrislyons_dev_flarelette_jwt__util__isvalidbase64urlsecret
-            include chrislyons_dev_flarelette_jwt__util__parse
-            include chrislyons_dev_flarelette_jwt__util__isexpiringsoon
-            include chrislyons_dev_flarelette_jwt__util__mapscopestopermissions
-            autoLayout
-        }
-
-
-        component chrislyons_dev_flarelette_jwt "Classes_chrislyons_dev_flarelette_jwt__jwks" {
-            include chrislyons_dev_flarelette_jwt__jwks__clearjwkscache
-            include chrislyons_dev_flarelette_jwt__jwks__clearhttpjwkscache
-            include chrislyons_dev_flarelette_jwt__jwks__fetchjwksfromservice
-            include chrislyons_dev_flarelette_jwt__jwks__validatejwksurl
-            include chrislyons_dev_flarelette_jwt__jwks__fetchjwksfromurl
-            include chrislyons_dev_flarelette_jwt__jwks__getkeyfromjwks
-            include chrislyons_dev_flarelette_jwt__jwks__allowedthumbprints
-            autoLayout
-        }
-
-
-        component chrislyons_dev_flarelette_jwt "Classes_chrislyons_dev_flarelette_jwt__verify" {
-            include chrislyons_dev_flarelette_jwt__verify__resolveverificationkey
-            include chrislyons_dev_flarelette_jwt__verify__verify
-            autoLayout
-        }
-
-
-        component chrislyons_dev_flarelette_jwt "Classes_chrislyons_dev_flarelette_jwt__adapters" {
-            include chrislyons_dev_flarelette_jwt__adapters__bindenv
-            include chrislyons_dev_flarelette_jwt__adapters__getservicebinding
-            include chrislyons_dev_flarelette_jwt__adapters__makekit
-            autoLayout
-        }
-
-
-        component flarelette_jwt "Classes_flarelette_jwt__adapters" {
-            include flarelette_jwt__adapters__apply_env_bindings
-            autoLayout
-        }
-
-
-        component flarelette_jwt "Classes_flarelette_jwt__util" {
-            include flarelette_jwt__util__jwtheader
-            include flarelette_jwt__util__actorclaim
-            include flarelette_jwt__util__jwtpayload
-            include flarelette_jwt__util__jwtprofile
-            include flarelette_jwt__util__jwtcommonconfig
-            include flarelette_jwt__util__mode
-            include flarelette_jwt__util__common
-            include flarelette_jwt__util__profile
-            include flarelette_jwt__util___get_indirect
-            include flarelette_jwt__util__get_hs_secret_bytes
-            include flarelette_jwt__util__get_public_jwk_string
-            include flarelette_jwt__util__algtype
-            include flarelette_jwt__util__jwtvalue
-            include flarelette_jwt__util__claimsdict
-            include flarelette_jwt__util__authuser
-            include flarelette_jwt__util__policybuilder
-            include flarelette_jwt__util__policybuilder_base
-            include flarelette_jwt__util__policybuilder_need_all
-            include flarelette_jwt__util__policybuilder_need_any
-            include flarelette_jwt__util__policybuilder_roles_all
-            include flarelette_jwt__util__policybuilder_roles_any
-            include flarelette_jwt__util__policybuilder_where
-            include flarelette_jwt__util__policybuilder_build
-            include flarelette_jwt__util__builder
-            include flarelette_jwt__util__builder_base
-            include flarelette_jwt__util__builder_need_all
-            include flarelette_jwt__util__builder_need_any
-            include flarelette_jwt__util__builder_roles_all
-            include flarelette_jwt__util__builder_roles_any
-            include flarelette_jwt__util__builder_where
-            include flarelette_jwt__util__builder_build
-            include flarelette_jwt__util__create_token
-            include flarelette_jwt__util__create_delegated_token
-            include flarelette_jwt__util__check_auth
-            include flarelette_jwt__util__policy
-            include flarelette_jwt__util__generate_secret
-            include flarelette_jwt__util__is_valid_base64url_secret
-            include flarelette_jwt__util__main
-            include flarelette_jwt__util___b64url
-            include flarelette_jwt__util__sign
-            include flarelette_jwt__util__parsedjwt
-            include flarelette_jwt__util__parse
-            include flarelette_jwt__util__is_expiring_soon
-            include flarelette_jwt__util__map_scopes_to_permissions
-            include flarelette_jwt__util___b64url_decode
-            include flarelette_jwt__util__verify
-            autoLayout
-        }
-
-
-        component flarelette_jwt "Classes_flarelette_jwt__explicit" {
-            include flarelette_jwt__explicit__basejwtconfig
-            include flarelette_jwt__explicit__hs512config
-            include flarelette_jwt__explicit__eddsasignconfig
-            include flarelette_jwt__explicit__eddsaverifyconfig
-            include flarelette_jwt__explicit__authzoptswithconfig
-            include flarelette_jwt__explicit__authuser
-            include flarelette_jwt__explicit___b64url
-            include flarelette_jwt__explicit___b64url_decode
-            include flarelette_jwt__explicit__sign_with_config
-            include flarelette_jwt__explicit__verify_with_config
-            include flarelette_jwt__explicit__create_token_with_config
-            include flarelette_jwt__explicit__create_delegated_token_with_config
-            include flarelette_jwt__explicit__check_auth_with_config
-            include flarelette_jwt__explicit__create_hs512_config
-            include flarelette_jwt__explicit__create_eddsa_sign_config
-            include flarelette_jwt__explicit__create_eddsa_verify_config
-            include flarelette_jwt__explicit__signconfig
-            include flarelette_jwt__explicit__verifyconfig
-            autoLayout
-        }
 
     }
 
