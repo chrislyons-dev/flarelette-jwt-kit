@@ -4,11 +4,20 @@ Understanding how Flarelette JWT Kit makes cryptographic and architectural decis
 
 ## Algorithm Selection
 
-The kit supports **HS512** (symmetric) and **EdDSA** (asymmetric) as its two primary signing algorithms, plus **ES512** (ECDSA P-521) for TypeScript explicit-API signing. Verification supports **EdDSA, ECDSA (ES256/ES384/ES512), and RSA** for external OIDC tokens. Mode is detected automatically from your environment.
+The kit supports **HS512** (symmetric) and **EdDSA** (asymmetric) via environment-driven mode detection, plus **ES512** (ECDSA P-521) via explicit API. Verification supports **EdDSA, ECDSA (ES256/ES384/ES512), and RSA** for external OIDC tokens.
 
-**Signing:** HS512 for symmetric trust, EdDSA for asymmetric trust. ES512 available via TypeScript explicit API.
+**Signing:** HS512 for simple symmetric trust, EdDSA for asymmetric trust, ES512 for explicit internal mesh profiles.
 
-**Verification:** HS512 and EdDSA for internal tokens; ECDSA and RSA for external OIDC providers.
+**Verification:** Internal tokens can use HS512, EdDSA, or ES512; external OIDC providers may use EdDSA, ECDSA, or RSA.
+
+## Configuration Sources
+
+Algorithm selection comes from one of two configuration sources:
+
+- **Environment variables** for auto-detected HS512/EdDSA flows (`envMode`).
+- **Explicit config objects** for deterministic algorithm selection across supported algorithms (including ES512 internal mesh profiles and external OIDC verification profiles).
+
+In practice: your deployment chooses the source (env or config object), and that source determines which algorithm is used.
 
 ### HS512 (Symmetric)
 
@@ -25,7 +34,7 @@ The kit supports **HS512** (symmetric) and **EdDSA** (asymmetric) as its two pri
 - ~256-bit security with 64-byte keys
 - Symmetric: same secret signs and verifies
 - Fast signing and verification
-- No key rotation complexity
+- Secret rotation requires coordinated rollout across producers and consumers
 
 **Environment detection:**
 
@@ -117,7 +126,7 @@ JWT_JWKS_CACHE_TTL_SECONDS=300  # Optional: default 5 minutes
 
 ## Mode Detection
 
-The kit automatically detects which algorithm to use based on environment variables. No manual configuration needed.
+The kit automatically detects which algorithm to use based on environment variables for HS512/EdDSA flows.
 
 **Detection logic:**
 
@@ -132,6 +141,8 @@ Consumer (verification):
 ```
 
 **Note:** Asymmetric mode supports EdDSA (Ed25519), ECDSA (ES256/ES384/ES512), and RSA (RS256/384/512) verification. The actual algorithm is auto-detected from the JWK structure or token header.
+
+**Important:** ES512 signing is explicit-API driven, not env auto-detected.
 
 **Verification in code:**
 
