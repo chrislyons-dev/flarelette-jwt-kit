@@ -19,6 +19,7 @@ Algorithm selection comes from one of two configuration sources:
 
 In practice: your deployment chooses the source (env or config object), and that source determines which algorithm is used.
 
+
 ### HS512 (Symmetric)
 
 **HMAC-SHA-512** with 64-byte shared secrets.
@@ -35,6 +36,7 @@ In practice: your deployment chooses the source (env or config object), and that
 - Symmetric: same secret signs and verifies
 - Fast signing and verification
 - Secret rotation requires coordinated rollout across producers and consumers
+
 
 **Environment detection:**
 
@@ -128,6 +130,7 @@ JWT_JWKS_CACHE_TTL_SECONDS=300  # Optional: default 5 minutes
 
 The kit automatically detects which algorithm to use based on environment variables for HS512/EdDSA flows.
 
+
 **Detection logic:**
 
 ```
@@ -141,8 +144,6 @@ Consumer (verification):
 ```
 
 **Note:** Asymmetric mode supports EdDSA (Ed25519), ECDSA (ES256/ES384/ES512), and RSA (RS256/384/512) verification. The actual algorithm is auto-detected from the JWK structure or token header.
-
-**Important:** ES512 signing is explicit-API driven, not env auto-detected.
 
 **Verification in code:**
 
