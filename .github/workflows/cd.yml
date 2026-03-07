@@ -95,8 +95,8 @@ jobs:
           test -f README.md || (echo "❌ Missing README.md" && exit 1)
           test -f CONTRIBUTING.md || (echo "❌ Missing CONTRIBUTING.md" && exit 1)
           test -f docs/getting-started.md || (echo "❌ Missing getting-started.md" && exit 1)
-          test -f docs/core-concepts.md || (echo "❌ Missing core-concepts.md" && exit 1)
-          test -f docs/usage-guide.md || (echo "❌ Missing usage-guide.md" && exit 1)
+          test -f docs/user-guide/core-concepts.md || (echo "❌ Missing user-guide/core-concepts.md" && exit 1)
+          test -f docs/user-guide/usage-guide.md || (echo "❌ Missing user-guide/usage-guide.md" && exit 1)
           test -f docs/security-guide.md || (echo "❌ Missing security-guide.md" && exit 1)
           echo "✓ All required documentation exists"
 
