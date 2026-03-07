@@ -288,7 +288,7 @@ The project uses automated releases via [release-please](https://github.com/goog
 
 See **[RELEASING.md](RELEASING.md)** for detailed release process and **[RELEASE_CHECKLIST.md](RELEASE_CHECKLIST.md)** for setup.
 
-**For maintainers:** Ensure `NPM_TOKEN` and `PYPI_TOKEN` secrets are configured in repository settings.
+**For maintainers:** Configure npm and PyPI trusted publishing for this repository/workflow (GitHub OIDC). `NPM_TOKEN` and `PYPI_TOKEN` secrets are not required.
 
 ## Questions?
 

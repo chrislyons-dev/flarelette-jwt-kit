@@ -116,6 +116,9 @@ jobs:
     needs: validate
     if: github.event_name == 'workflow_dispatch' && github.event.inputs.publish-prerelease == 'true'
     environment: prerelease
+    permissions:
+      contents: read
+      id-token: write
 
     steps:
       - name: Checkout code
@@ -138,7 +141,7 @@ jobs:
       - name: Install Python build tools
         run: |
           python -m pip install --upgrade pip
-          pip install build twine
+          pip install build
 
       - name: Get version and create pre-release tag
         id: version
@@ -163,16 +166,12 @@ jobs:
 
       - name: Publish TypeScript to npm (next tag)
         working-directory: packages/flarelette-jwt-ts
-        run: npm publish --tag next --access public
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: npm publish --provenance --tag next --access public
 
       - name: Publish Python to PyPI (with pre-release classifier)
-        working-directory: packages/flarelette-jwt-py
-        run: python -m twine upload dist/*
-        env:
-          TWINE_USERNAME: __token__
-          TWINE_PASSWORD: ${{ secrets.PYPI_TOKEN }}
+        uses: pypa/gh-action-pypi-publish@release/v1
+        with:
+          packages-dir: packages/flarelette-jwt-py/dist/
 
       - name: Summary
         run: |

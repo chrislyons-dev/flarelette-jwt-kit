@@ -31,6 +31,9 @@ jobs:
     needs: release-please
     runs-on: ubuntu-latest
     if: ${{ needs.release-please.outputs.ts_release_created }}
+    permissions:
+      contents: read
+      id-token: write
 
     steps:
       - name: Checkout code
@@ -50,14 +53,15 @@ jobs:
 
       - name: Publish to npm
         working-directory: packages/flarelette-jwt-ts
-        run: npm publish --access public
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: npm publish --provenance --access public
 
   publish-pypi:
     needs: release-please
     runs-on: ubuntu-latest
     if: ${{ needs.release-please.outputs.py_release_created }}
+    permissions:
+      contents: read
+      id-token: write
 
     steps:
       - name: Checkout code
@@ -71,7 +75,7 @@ jobs:
       - name: Install build tools
         run: |
           python -m pip install --upgrade pip
-          pip install build twine
+          pip install build
 
       - name: Build Python package
         working-directory: packages/flarelette-jwt-py
@@ -80,8 +84,6 @@ jobs:
           python -m build
 
       - name: Publish to PyPI
-        working-directory: packages/flarelette-jwt-py
-        run: python -m twine upload dist/*
-        env:
-          TWINE_USERNAME: __token__
-          TWINE_PASSWORD: ${{ secrets.PYPI_TOKEN }}
+        uses: pypa/gh-action-pypi-publish@release/v1
+        with:
+          packages-dir: packages/flarelette-jwt-py/dist/
