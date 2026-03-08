@@ -36,7 +36,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '22'
+          node-version: '20'
           registry-url: 'https://registry.npmjs.org'
 
       - name: Install dependencies
@@ -45,11 +45,29 @@ jobs:
       - name: Build TypeScript package
         run: npm run build
 
+      - name: Preflight OIDC and npm registry
+        working-directory: packages/flarelette-jwt-ts
+        run: |
+          if [ -z "${ACTIONS_ID_TOKEN_REQUEST_URL:-}" ]; then
+            echo "OIDC token request URL is missing (check id-token: write permissions)."
+            exit 1
+          fi
+          echo "OIDC environment is available."
+          npm config get registry
+
+      - name: OIDC token check
+        run: |
+          if [ -z "${ACTIONS_ID_TOKEN_REQUEST_TOKEN:-}" ]; then
+            echo "OIDC request token is missing (check id-token: write permissions)."
+            exit 1
+          fi
+          curl -fsS -H "Authorization: bearer ${ACTIONS_ID_TOKEN_REQUEST_TOKEN}" \
+            "${ACTIONS_ID_TOKEN_REQUEST_URL}&audience=npm:registry.npmjs.org" > /tmp/oidc.json
+          echo "OIDC token fetch OK"
+
       - name: Publish to npm
         id: npm_publish
         working-directory: packages/flarelette-jwt-ts
-        env:
-          NODE_AUTH_TOKEN: ''
         run: npm publish --provenance --access public
 
       - name: Upload npm debug logs (on failure)
