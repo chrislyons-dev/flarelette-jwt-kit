@@ -67,12 +67,7 @@ jobs:
       - name: Publish to npm
         id: npm_publish
         working-directory: packages/flarelette-jwt-ts
-        run: |
-          unset NODE_AUTH_TOKEN
-          if [ -n "${NPM_CONFIG_USERCONFIG:-}" ] && [ -f "${NPM_CONFIG_USERCONFIG}" ]; then
-            rm -f "${NPM_CONFIG_USERCONFIG}"
-          fi
-          npm publish --provenance --access public --registry=https://registry.npmjs.org
+        run: npm publish --provenance --access public
 
       - name: Upload npm debug logs (on failure)
         if: failure() && steps.npm_publish.outcome == 'failure'
