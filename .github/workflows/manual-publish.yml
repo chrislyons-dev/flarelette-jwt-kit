@@ -45,15 +45,13 @@ jobs:
       - name: Build TypeScript package
         run: npm run build
 
-      - name: Preflight OIDC and npm registry
-        working-directory: packages/flarelette-jwt-ts
+      - name: Preflight OIDC availability
         run: |
           if [ -z "${ACTIONS_ID_TOKEN_REQUEST_URL:-}" ]; then
             echo "OIDC token request URL is missing (check id-token: write permissions)."
             exit 1
           fi
           echo "OIDC environment is available."
-          npm config get registry
 
       - name: OIDC token check
         run: |
